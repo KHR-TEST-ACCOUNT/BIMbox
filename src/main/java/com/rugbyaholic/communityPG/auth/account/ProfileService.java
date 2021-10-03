@@ -54,12 +54,17 @@ public class ProfileService {
 
 		// ユーザーの個人情報を取得
 		Optional<ProfileEditForm> optionalForm = repository.createProfileEditForm(id);
-		
 		return optionalForm.orElse(new ProfileEditForm());
 	}
 	
 	public AuthenticatedUser provideUserInfo(long id) {
-		
 		return repository.findUserById(id).orElse(new AuthenticatedUser());
+	}
+	
+	public boolean whenSameUser(long id,long currentUserId) {
+		if(id == currentUserId ) {
+			return true;
+		}
+		return false;
 	}
 }
