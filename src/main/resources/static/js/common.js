@@ -37,6 +37,16 @@ $(function() {
 		$('.cover').toggleClass('visible');
 	});
 
+	// ユーザー情報削除を押下した際にFromのAction属性を変更する
+	$('#userDelete').click(function() {
+	    if(!confirm('本当にこの投稿を削除しますか？')){
+	        return false;
+	    }else{
+			$(this).parents('form').attr('action', $(this).data('action'));
+			$(this).parents('form').submit();
+	    }
+	});
+
 	// HTMLを読み込んだ際の処理
 	$(document).ready(function() {
 		// UserProfileの読み込み時
@@ -45,7 +55,7 @@ $(function() {
 		}
 		// UserRegistrationの読み込み時
 		if(window.location.href.match("UserRegistration.html")){
-			isPermission();
+			isProfEdPermission();
 		}
 	});
 
@@ -60,17 +70,32 @@ $(function() {
 			$(".isShow-address").hide();
 		}
 		var PhoneNo = $(".PhoneNo");
-		if(PhoneNo.eq(0).text() === "未登録" && PhoneNo.eq(1).text() === "未登録" ){
-			$(".isShow-PhoneNo").hide();
+		var phone = PhoneNo.eq(0).text();
+		var mobile = PhoneNo.eq(1).text();
+		if(phone === "未登録" && mobile === "未登録" ){
+			$(".isShow-mobilePhoneNo").hide();
+		} else {
+			if(phone === "未登録"){
+				$(".isShow-PhoneNo").hide();
+				$(".isShow-mobile").hide();
+			}
+			if(mobile === "未登録"){
+				$(".isShow-mobile").hide();
+				$(".isShow-mobilePhoneNo").hide();
+			}
 		}
 		if($("input[name = 'roles']").val() == "01"){
-    		$('#editProfile').css('pointer-events', 'none');
-    		$('#editProfile').css('opacity', .65);
+			console.log($('#loginUserId').val());	
+			console.log($('#userId').val());	
+			if($('#loginUserId').val() != $('#userId').val()){
+	    		$('#editProfile').css('pointer-events', 'none');
+	    		$('#editProfile').css('opacity', .65);
+			}
 		}
 	}
 
 	// デフォルトの画面表示を設定する。
-	function isPermission() {
+	function isProfEdPermission() {
 		switch($("#loginUserRoles").val()){
 			case "01":
 	    		$('select[name="roles"] option[value="02"]').prop('disabled', true);

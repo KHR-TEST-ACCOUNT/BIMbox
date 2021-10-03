@@ -39,15 +39,11 @@ public class ProfileController {
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
 		
-		AuthenticatedUser currentUser = profileService.provideUserInfo(id);
-		if(profileService.whenSameUser(user.getId(),currentUser.getId())) {
-			return  "redirect:/profile/Profile.html";
-		} else {
-			ProfileEditForm form = profileService.providePersonalInfo(id);
-			model.addAttribute("user", currentUser);
-			model.addAttribute("profileEditForm", form);
-			return "profile/UserProfile.html";
-		}
+		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
+		ProfileEditForm form = profileService.providePersonalInfo(id);
+		model.addAttribute("targetUser", targetUser);
+		model.addAttribute("profileEditForm", form);
+		return "profile/UserProfile.html";
 	}
 
 	@PostMapping("/profile/ProfileEdit.do")

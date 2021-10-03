@@ -58,13 +58,9 @@ public class ProfileService {
 	}
 	
 	public AuthenticatedUser provideUserInfo(long id) {
-		return repository.findUserById(id).orElse(new AuthenticatedUser());
+		
+		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
+		return optionalUserForm.orElse(new AuthenticatedUser());
 	}
 	
-	public boolean whenSameUser(long id,long currentUserId) {
-		if(id == currentUserId ) {
-			return true;
-		}
-		return false;
-	}
 }
