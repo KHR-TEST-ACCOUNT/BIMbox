@@ -32,12 +32,10 @@ public class ProfileController {
 		
 		ProfileEditForm form = profileService.providePersonalInfo(user.getId());
 		model.addAttribute("profileEditForm", form);
-		
 		return "profile/Profile.html";
 	}
 	
 	@GetMapping("/profile/UserProfile.html")
-//	public String onProfileRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
 		

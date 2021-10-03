@@ -43,7 +43,7 @@ $(function() {
 		if(window.location.href.match("UserProfile.html")){
 			setProfileDefault();
 		}
-		// UserProfileの読み込み時
+		// UserRegistrationの読み込み時
 		if(window.location.href.match("UserRegistration.html")){
 			isPermission();
 		}
@@ -56,7 +56,6 @@ $(function() {
 				 $(element).text("未登録")
 			 }
 		 });
-		var PhoneNo = $(".pref");
 		if($(".pref").text() === "未登録"){
 			$(".isShow-address").hide();
 		}
@@ -64,14 +63,24 @@ $(function() {
 		if(PhoneNo.eq(0).text() === "未登録" && PhoneNo.eq(1).text() === "未登録" ){
 			$(".isShow-PhoneNo").hide();
 		}
+		if($("input[name = 'roles']").val() == "01"){
+    		$('#editProfile').css('pointer-events', 'none');
+    		$('#editProfile').css('opacity', .65);
+		}
 	}
 
 	// デフォルトの画面表示を設定する。
 	function isPermission() {
-    	if($("#loginUserRoles").val() != "03"){
-    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
-    		$('#userDelete').prop('disabled', true);
-    	}
+		switch($("#loginUserRoles").val()){
+			case "01":
+	    		$('select[name="roles"] option[value="02"]').prop('disabled', true);
+	    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
+	    		$('#userDelete').prop('disabled', true);
+				break;
+			case "02":
+	    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
+				break;
+		}
 	}
 
 
