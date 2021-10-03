@@ -37,6 +37,43 @@ $(function() {
 		$('.cover').toggleClass('visible');
 	});
 
+	// HTMLを読み込んだ際の処理
+	$(document).ready(function() {
+		// UserProfileの読み込み時
+		if(window.location.href.match("UserProfile.html")){
+			setProfileDefault();
+		}
+		// UserProfileの読み込み時
+		if(window.location.href.match("UserRegistration.html")){
+			isPermission();
+		}
+	});
+
+	// デフォルトの画面表示を設定する。
+	function setProfileDefault() {
+		$(".personal-info").each( function(index, element) {
+			 if(!$(element).text()){
+				 $(element).text("未登録")
+			 }
+		 });
+		var PhoneNo = $(".pref");
+		if($(".pref").text() === "未登録"){
+			$(".isShow-address").hide();
+		}
+		var PhoneNo = $(".PhoneNo");
+		if(PhoneNo.eq(0).text() === "未登録" && PhoneNo.eq(1).text() === "未登録" ){
+			$(".isShow-PhoneNo").hide();
+		}
+	}
+
+	// デフォルトの画面表示を設定する。
+	function isPermission() {
+    	if($("#loginUserRoles").val() != "03"){
+    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
+    		$('#userDelete').prop('disabled', true);
+    	}
+	}
+
 
 /** 
 	$(document).ready(function() {

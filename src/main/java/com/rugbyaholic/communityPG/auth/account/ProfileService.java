@@ -50,10 +50,16 @@ public class ProfileService {
 			throw new Exception();
 	}
 
-	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
+	public ProfileEditForm providePersonalInfo(long id) {
 
 		// ユーザーの個人情報を取得
-		Optional<ProfileEditForm> optionalForm = repository.createProfileEditForm(user.getId());
+		Optional<ProfileEditForm> optionalForm = repository.createProfileEditForm(id);
+		
 		return optionalForm.orElse(new ProfileEditForm());
+	}
+	
+	public AuthenticatedUser provideUserInfo(long id) {
+		
+		return repository.findUserById(id).orElse(new AuthenticatedUser());
 	}
 }
