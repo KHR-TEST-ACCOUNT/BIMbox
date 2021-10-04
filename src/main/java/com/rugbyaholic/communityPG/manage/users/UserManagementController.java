@@ -71,10 +71,11 @@ public class UserManagementController {
 			model.addAttribute("notificationMessage",
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 							.messageCode("communityPG.web.message.proc.success").build());
+			model.addAttribute("userSearchForm", service.initializeSearchForm());
 		} catch (Exception e) {
 			// TODO エラー画面開発後に実装
 		}
-		return "redirect:/manage/users/UserList.html";
+		return "redirect:/manage/users/UserSearch.do";
 	}
 	
 	@GetMapping("/manage/users/UserRegistration.html")
@@ -109,6 +110,7 @@ public class UserManagementController {
 	@GetMapping("/manage/users/UserSearch.do")
 	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
 
+		// ここから下をメソッドにして使い回す。
 		this.form = form;
 
 		form.setPageFrom(0);
