@@ -91,13 +91,13 @@
 					</div>
 					<div th:each="file : ${currentDirectory.listFiles}" class="py-1">
 						<div th:if="${file.directory}">
-							<a th:href="@{/manage/sys/fs/ChangeDirectory.do(to=${file.absolutePath})}">
+							<a th:href="@{/manage/sys/fs/ChangeDirectory.do(to=${file.absolutePath})}" class="text-decoration-none">
 								<i class="bi bi-folder-fill"></i>
 								<span th:text="${file.name}"></span>
 							</a>
 						</div>
 						<div th:if="${file.file}">
-							<a th:href="@{/manage/sys/fs/Download.do(target=${file.absolutePath})}" class="link-success">
+							<a th:href="@{/manage/sys/fs/Download.do(target=${file.absolutePath})}" class="link-success text-decoration-none">
 								<i class="bi bi-file-earmark-text"></i>
 								<span th:text="${file.name}"></span>
 							</a>
