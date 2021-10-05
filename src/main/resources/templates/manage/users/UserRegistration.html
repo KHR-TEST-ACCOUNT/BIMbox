@@ -144,7 +144,7 @@
 					<span class="text-danger" th:if="${#fields.hasErrors('roles')}"
 							th:errors="*{roles}"></span>
 				</div>
-				<input type="hidden" th:field="*{user.id}" />
+				<input type="hidden" th:field="*{user.id}"/>
 				<input type="hidden" th:field="*{user.email}" />
 				<input type="hidden" th:field="*{user.password}" />
 				<input type="hidden" th:field="*{user.profileImage.fileName}">
@@ -154,6 +154,9 @@
 				<button class="btn btn-success btn-sm shadow-sm">ユーザ―情報登録</button>
 				<button id="userDelete" class="btn btn-link p-0 text-dark fs-5" title="ユーザ―情報削除"
 						data-action="/manage/users/UserDelete.do">
+						<!-- 
+						th:disabled="*{user.id == #authentication.principal.id}"
+						 -->
 					<i class="bi bi-trash"></i>
 				</button>
 			</div>
