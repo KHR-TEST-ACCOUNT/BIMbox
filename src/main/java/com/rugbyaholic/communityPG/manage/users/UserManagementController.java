@@ -32,8 +32,6 @@ public class UserManagementController {
 
 	private UserSearchForm form;
 
-	public static final int PAGE_LIMIT = 10;
-
 	@GetMapping("/manage/users/UserList.html")
 	public String onUserListRequested(Model model) {
 
@@ -63,21 +61,25 @@ public class UserManagementController {
 		}
 	}
 
+	// ユーザー情報を削除
 	@PostMapping("/manage/users/UserDelete.do")
 	public String onUserDeleteRequested(@ModelAttribute UserRegistrationForm userRegistrationForm, Model model) {
 		
 		try {
 			service.userDeleteForm(userRegistrationForm.getUser().getId());
+			this.form = service.initializeSearchForm();
+			service.convertSerchForm(form,model);
+			// 処理完了メッセージの追加
 			model.addAttribute("notificationMessage",
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 							.messageCode("communityPG.web.message.proc.success").build());
-			model.addAttribute("userSearchForm", service.initializeSearchForm());
 		} catch (Exception e) {
 			// TODO エラー画面開発後に実装
 		}
-		return "redirect:/manage/users/UserSearch.do";
+		return "manage/users/UserList.html";
 	}
 	
+	// ユーザー登録画面に遷移
 	@GetMapping("/manage/users/UserRegistration.html")
 	public String onUserRegistrationRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
@@ -95,12 +97,12 @@ public class UserManagementController {
 
 		model.addAttribute("userSearchForm", form);
 
-		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(service.countUser(form), PAGE_LIMIT);
+		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(service.countUser(form), UserManagementService.PAGE_LIMIT);
 		if (pageNo < 1 || pageNo > searchResult.getTotalPageCount()) {
 			return "manage/users/UserList.html";
 		}
 		searchResult.moveTo(pageNo);
-		form.setPageFrom((pageNo - 1) * PAGE_LIMIT);
+		form.setPageFrom((pageNo - 1) * UserManagementService.PAGE_LIMIT);
 		searchResult.setEntities(service.loadUserList(form));
 
 		model.addAttribute("searchResult", searchResult);
@@ -110,21 +112,11 @@ public class UserManagementController {
 	@GetMapping("/manage/users/UserSearch.do")
 	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
 
-		// ここから下をメソッドにして使い回す。
 		this.form = form;
-
-		form.setPageFrom(0);
-		form.setCount(PAGE_LIMIT);
-
-		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(service.countUser(form), PAGE_LIMIT);
-		searchResult.moveTo(1);
-		searchResult.setEntities(service.loadUserList(form));
-
-		model.addAttribute("searchResult", searchResult);
-		model.addAttribute("userSearchForm", form);
+		service.convertSerchForm(form,model);
 		return "manage/users/UserList.html";
 	}
-
+	
 	/**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 
