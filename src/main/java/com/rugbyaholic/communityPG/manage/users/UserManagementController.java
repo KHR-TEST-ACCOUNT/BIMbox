@@ -39,6 +39,7 @@ public class UserManagementController {
 		return "redirect:/manage/users/UserSearch.do";
 	}
 
+	// ユーザー登録・変更処理
 	@PostMapping("/manage/users/UserRegistration.do")
 	public String onUserUpdateRequested(@Valid @ModelAttribute UserRegistrationForm userRegistrationForm,
 			BindingResult bindingResult, @AuthenticationPrincipal AuthenticatedUser user, Model model) {
@@ -63,10 +64,22 @@ public class UserManagementController {
 
 	// ユーザー情報を削除
 	@PostMapping("/manage/users/UserDelete.do")
-	public String onUserDeleteRequested(@ModelAttribute UserRegistrationForm userRegistrationForm, Model model) {
+	public String onUserDeleteRequested(@ModelAttribute UserRegistrationForm userRegistrationForm, Model model,
+				@AuthenticationPrincipal AuthenticatedUser user) {
+		
+		Long userID = userRegistrationForm.getUser().getId();
 		
 		try {
-			service.userDeleteForm(userRegistrationForm.getUser().getId());
+			if(userID == user.getId()) {
+				model.addAttribute("userRegistrationForm",
+						service.initializeRegistrationForm(userID, user));
+				model.addAttribute("notificationMessage",
+						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_WARNING)
+								.messageCode("communityPG.web.message.proc.notDeletable").build());
+				return "/manage/users/UserRegistration.html";
+			}
+
+			service.userDeleteForm(userID);
 			this.form = service.initializeSearchForm();
 			service.convertSerchForm(form,model);
 			// 処理完了メッセージの追加
