@@ -59,7 +59,7 @@ $(function() {
 		}
 	});
 
-	// デフォルトの画面表示を設定する。
+	// UserProfileのデフォルトの画面表示を設定する。
 	function setProfileDefault() {
 		$(".personal-info").each( function(index, element) {
 			 if(!$(element).text()){
@@ -94,7 +94,7 @@ $(function() {
 		}
 	}
 
-	// デフォルトの画面表示を設定する。
+	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
 		switch($("#loginUserRoles").val()){
 			case "01":

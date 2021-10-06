@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
@@ -16,6 +17,7 @@ import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.common.repositories.CodeRepository;
 import com.rugbyaholic.communityPG.common.repositories.NumberingRepository;
 import com.rugbyaholic.communityPG.common.repositories.UserRepository;
+import com.rugbyaholic.communityPG.common.ui.SearchResult;
 
 @Service
 public class UserManagementService {
@@ -31,6 +33,8 @@ public class UserManagementService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	public static final int PAGE_LIMIT = 10;
 
 	@Transactional(rollbackFor = Throwable.class)
 	public void registerUser(UserRegistrationForm form, AuthenticatedUser user) throws Exception {
@@ -148,4 +152,18 @@ public class UserManagementService {
 	public void userDeleteForm(Long id) {
 		userRepository.deleterUser(id);
 	}
+	
+	public void convertSerchForm(UserSearchForm form, Model model) {
+		
+		// ページネーションの設定
+		form.setPageFrom(0);
+		form.setCount(PAGE_LIMIT);
+		// 検索結果を取得
+		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(countUser(form), PAGE_LIMIT);
+		searchResult.moveTo(1);
+		searchResult.setEntities(loadUserList(form));
+		model.addAttribute("searchResult", searchResult);
+		model.addAttribute("userSearchForm", form);
+	}
+
 }

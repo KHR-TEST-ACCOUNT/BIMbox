@@ -67,18 +67,18 @@ public class UserManagementController {
 	public String onUserDeleteRequested(@ModelAttribute UserRegistrationForm userRegistrationForm, Model model,
 				@AuthenticationPrincipal AuthenticatedUser user) {
 		
-		Long userID = userRegistrationForm.getUser().getId();
-		
 		try {
+			Long userID = userRegistrationForm.getUser().getId();
+			// ユーザーIDがログイン中のユーザーと同一の場合はエラーを表示。
 			if(userID == user.getId()) {
 				model.addAttribute("userRegistrationForm",
 						service.initializeRegistrationForm(userID, user));
 				model.addAttribute("notificationMessage",
-						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_WARNING)
+						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
 								.messageCode("communityPG.web.message.proc.notDeletable").build());
 				return "/manage/users/UserRegistration.html";
 			}
-
+			// ユーザーを削除し検索画面へ遷移
 			service.userDeleteForm(userID);
 			this.form = service.initializeSearchForm();
 			service.convertSerchForm(form,model);
@@ -96,6 +96,7 @@ public class UserManagementController {
 	@GetMapping("/manage/users/UserRegistration.html")
 	public String onUserRegistrationRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
+		
 		try {
 			UserRegistrationForm form = service.initializeRegistrationForm(id, user);
 			model.addAttribute("userRegistrationForm", form);
