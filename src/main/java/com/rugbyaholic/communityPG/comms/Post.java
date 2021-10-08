@@ -23,6 +23,7 @@ public class Post {
 		return postNo == 1;
 	}
 
+	// ラムダ式でPostRatingの中に格納されている中から、ユーザー情報でRantigを検索して返す。
 	public PostRating getRateByUser(AuthenticatedUser user) {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getEmpNo(), user.getEmpNo()))
 				.findFirst().orElse(new PostRating());
