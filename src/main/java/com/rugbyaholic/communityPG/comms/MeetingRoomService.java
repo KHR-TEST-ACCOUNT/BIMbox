@@ -108,17 +108,17 @@ public class MeetingRoomService {
 		// 最終的なアップデート値の格納用変数
 		int ratingForUpdate;
 		
-//		if(rating == 1) {
-//			currentRating = meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0);
-//		} else {
-//			currentRating = meetingRoomRepository.currentLowRating(topicNo, postNo, user).orElse(0);
-//		}
-//		// Rating = 画面表示されているクリックしたRating
-//		if (rating == currentRating) {
-//			ratingForUpdate = 0;
-//		} else {
-//			ratingForUpdate = rating;
-//		}
+		if(rating == 1) {
+			currentRating = meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0);
+		} else {
+			currentRating = meetingRoomRepository.currentLowRating(topicNo, postNo, user).orElse(0);
+		}
+		// Rating = 画面表示されているクリックしたRating
+		if (rating == currentRating) {
+			ratingForUpdate = 0;
+		} else {
+			ratingForUpdate = rating;
+		}
 		ratingForUpdate = rating;
 		meetingRoomRepository.updateRating(topicNo, postNo, user, ratingForUpdate);
 	}
