@@ -54,9 +54,6 @@
 					<input type="hidden" name="postNo" th:value="${post.postNo}" />
 					<div class="d-flex justify-content-end py-2">
 						<div class="d-flex align-items-baseline me-3">
-						
-							<input type="hidden" th:value="${rateByUser.rating}" />
-							
 							<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 									th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
 								<span th:switch="${rateByUser.rating}">
