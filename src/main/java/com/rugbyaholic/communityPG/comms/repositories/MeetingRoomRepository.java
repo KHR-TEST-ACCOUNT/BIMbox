@@ -61,10 +61,6 @@ public interface MeetingRoomRepository {
 											@Param("postNo") int postNo, 
 											@Param("user") AuthenticatedUser user);
 	
-	public Optional<String> findRateBy(@Param("topicNo") String topicNo, 
-											@Param("postNo") int postNo, 
-											@Param("user") AuthenticatedUser user);
-	
 	public void updateRating(@Param("topicNo") String topicNo, 
 								@Param("postNo") int postNo, 
 								@Param("user") AuthenticatedUser user,

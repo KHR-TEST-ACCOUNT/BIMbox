@@ -15,16 +15,6 @@
 	]]>
 	</select>
 	
-	<select id="findRateBy" resultType="String">
-	<![CDATA[
-		SELECT  RATEDBY
-		FROM    POST_RATINGS
-		WHERE   TOPICNO      =  #{topicNo}
-		AND     POSTNO       =  #{postNo}
-		AND     RATEDBY      =  #{user.empNo}
-	]]>
-	</select>
-	
 	<insert id="updateRating">
 	<![CDATA[
 		INSERT INTO POST_RATINGS
@@ -143,7 +133,6 @@
 			</association>
 			<collection property="ratings" ofType="com.rugbyaholic.communityPG.comms.PostRating">
 				<result property="rating" column="postRating" />
-				<result property="ratingLow" column="postRatingLow" />
 				<result property="ratedAt" column="postRatedAt" />
 				<association property="rater" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 					<result property="empNo" column="postRatedBy" />

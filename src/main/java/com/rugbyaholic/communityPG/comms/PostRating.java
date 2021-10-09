@@ -10,8 +10,6 @@ public class PostRating {
 
 	private int rating;
 
-	private int ratingLow;
-	
 	private Date ratedAt;
 
 	public AuthenticatedUser getRater() {
@@ -30,14 +28,6 @@ public class PostRating {
 		this.rating = rating;
 	}
 	
-	public int getRatingLow() {
-		return ratingLow;
-	}
-	
-	public void setRatingLow(int ratingLow) {
-		this.ratingLow = ratingLow;
-	}
-
 	public Date getRatedAt() {
 		return ratedAt;
 	}
