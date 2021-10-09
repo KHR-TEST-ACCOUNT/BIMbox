@@ -15,6 +15,26 @@
 	]]>
 	</select>
 	
+	<select id="getAllRating" resultType="int">
+	<![CDATA[
+		SELECT  count(RATING_FLG)
+		FROM    POST_RATINGS
+		WHERE   TOPICNO      =  #{topicNo}
+		AND     POSTNO       =  #{postNo}
+		AND     RATING_FLG   >  0
+	]]>
+	</select>
+	
+	<select id="findRateBy" resultType="String">
+	<![CDATA[
+		SELECT  RATEDBY
+		FROM    POST_RATINGS
+		WHERE   TOPICNO      =  #{topicNo}
+		AND     POSTNO       =  #{postNo}
+		AND     RATEDBY      =  #{user.empNo}
+	]]>
+	</select>
+	
 	<insert id="updateRating">
 	<![CDATA[
 		INSERT INTO POST_RATINGS
@@ -49,7 +69,12 @@
 		        U.PROFILE_IMG               AS postCreatedUserImage,
 		        POSTS.CREATEDAT             AS postCreatedAt,
 		        POST_RATINGS.RATEDBY        AS postRatedBy,
-		        POST_RATINGS.RATING_FLG     AS postRating,
+		        (
+		            SELECT		COUNT(RATING_FLG)
+		            FROM		POST_RATINGS
+		            WHERE		TOPICNO 	=	 #{topicNo}
+	        	    AND 		POSTNO 		=	 POSTS.POSTNO
+		        )							AS postRating,
 		        POST_RATINGS.RATEDAT        AS postRatedAt
 		FROM    TOPICS
 		INNER JOIN POSTS

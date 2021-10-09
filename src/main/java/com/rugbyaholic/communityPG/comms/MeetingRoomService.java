@@ -102,20 +102,24 @@ public class MeetingRoomService {
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void postRating(String topicNo, int postNo, int rating, AuthenticatedUser user) {
-		// テーブルから現在のRatingを取得
-		int currentRating = meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0);
+		
+		// 現在のRating値の格納用変数
+		int currentRating;
+		// 最終的なアップデート値の格納用変数
 		int ratingForUpdate;
-		// Rating = 画面表示されているクリックしたRating
-		if (rating == currentRating) {
-			ratingForUpdate = 0;
-		} else {
-			// ログイン中のEMPNOとRateByが不一致な場合は、Ratingをアップデート
-//			if() {
-//				
-//			} else {
-				ratingForUpdate = rating;
-//			}
-		}
+		
+//		if(rating == 1) {
+//			currentRating = meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0);
+//		} else {
+//			currentRating = meetingRoomRepository.currentLowRating(topicNo, postNo, user).orElse(0);
+//		}
+//		// Rating = 画面表示されているクリックしたRating
+//		if (rating == currentRating) {
+//			ratingForUpdate = 0;
+//		} else {
+//			ratingForUpdate = rating;
+//		}
+		ratingForUpdate = rating;
 		meetingRoomRepository.updateRating(topicNo, postNo, user, ratingForUpdate);
 	}
 }

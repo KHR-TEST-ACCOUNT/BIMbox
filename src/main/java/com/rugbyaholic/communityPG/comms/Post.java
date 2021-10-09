@@ -31,11 +31,11 @@ public class Post {
 	}
 
 	public List<PostRating> goodRatings() {
-		return ratings.stream().filter(p -> p.getRating() == 1).collect(Collectors.toList());
+		return ratings.stream().filter(p -> p.getRating() > 0).collect(Collectors.toList());
 	}
 
 	public List<PostRating> badRatings() {
-		return ratings.stream().filter(p -> p.getRating() == -1).collect(Collectors.toList());
+		return ratings.stream().filter(p -> p.getRating() < 0).collect(Collectors.toList());
 	}
 
 	public boolean isPostedBy(AuthenticatedUser user) {
