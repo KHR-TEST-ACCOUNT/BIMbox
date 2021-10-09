@@ -7,7 +7,11 @@ import java.util.stream.Collectors;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 
+//@Service
 public class Post {
+
+//	@Autowired
+//	private MeetingRoomService service;
 
 	private int postNo;
 
@@ -23,6 +27,24 @@ public class Post {
 		return postNo == 1;
 	}
 
+//	public boolean isRated(PostRating rateByUser, AuthenticatedUser user, String topicNo, int postNo) {
+//		if(service.isRated(topicNo, postNo, user)) return false;
+	public boolean isRated(PostRating rateByUser, AuthenticatedUser user) {
+		AuthenticatedUser rater = rateByUser.getRater();
+		if(rater != null) {
+			if(rateByUser.getRating() > 0 && Objects.equals(user.getEmpNo(),rater.getEmpNo())) return false;
+		}
+		return true;
+	}
+	
+	public boolean isRated_down(PostRating rateByUser, AuthenticatedUser user) {
+		AuthenticatedUser rater = rateByUser.getRater();
+		if(rater != null) {
+			if(rateByUser.getRating() < 0 && Objects.equals(user.getEmpNo(),rater.getEmpNo())) return false;
+		}
+		return true;
+	}
+	
 	// ラムダ式でPostRatingの中に格納されている中から、ユーザー情報でRantigを検索して返す。
 	public PostRating getRateByUser(AuthenticatedUser user) {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getEmpNo(), user.getEmpNo()))
@@ -31,11 +53,13 @@ public class Post {
 	}
 
 	public List<PostRating> goodRatings() {
-		return ratings.stream().filter(p -> p.getRating() > 0).collect(Collectors.toList());
+		List<PostRating> goodRatings = ratings.stream().filter(p -> p.getRating() == 1).collect(Collectors.toList());
+		 return goodRatings;
 	}
 
 	public List<PostRating> badRatings() {
-		return ratings.stream().filter(p -> p.getRating() < 0).collect(Collectors.toList());
+		List<PostRating> badRatings = ratings.stream().filter(p -> p.getRating() == -1).collect(Collectors.toList());
+		return badRatings;
 	}
 
 	public boolean isPostedBy(AuthenticatedUser user) {
