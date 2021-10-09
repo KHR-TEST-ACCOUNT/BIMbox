@@ -104,9 +104,7 @@ public class MeetingRoomController {
 	@PostMapping("/comms/PostRating.do")
 	public String onPostRatingRequested(@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo,
 			@RequestParam("rating") int rating, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
-		// Ratingをインサート（アップデートに変更する。）
 		service.postRating(topicNo, postNo, rating, user);
-		// 上記のサービスクラスでインサートした情報を含めたトピック情報をModelに格納する。
 		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
