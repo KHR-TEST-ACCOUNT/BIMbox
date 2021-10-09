@@ -15,9 +15,11 @@ public interface MeetingRoomRepository {
 	
 	public List<Topic> searchAllTopics();
 	
-	public void registerTopic(@Param("form") TopicCreationForm form, @Param("user") AuthenticatedUser user);
+	public void registerTopic(@Param("form") TopicCreationForm form,
+								@Param("user") AuthenticatedUser user);
 	
-	public void registerPost(@Param("form") TopicCreationForm form, @Param("user") AuthenticatedUser user);
+	public void registerPost(@Param("form") TopicCreationForm form, 
+								@Param("user") AuthenticatedUser user);
 	
 	/**
 	 * @メソッド説明：		取得したトピック番号の投稿内容を変更します。
@@ -27,8 +29,8 @@ public interface MeetingRoomRepository {
 	 * @param postNo	ポスト番号
 	 */
 	public void editerPost(@Param("postText") String postText,
-						@Param("topicNo") String topicNo, 
-						@Param("postNo") int postNo);
+							@Param("topicNo") String topicNo, 
+							@Param("postNo") int postNo);
 
 	/**
 	 * @メソッド説明：		取得したトピック番号の投稿内容を削除します。
@@ -38,7 +40,7 @@ public interface MeetingRoomRepository {
 	 * @param postNo	ポスト番号
 	 */
 	public void deleterPost(@Param("topicNo") String topicNo, 
-			@Param("postNo") int postNo);
+							@Param("postNo") int postNo);
 	
 	/**
 	 * @メソッド説明：		取得したトピックを削除します。
@@ -59,16 +61,12 @@ public interface MeetingRoomRepository {
 											@Param("postNo") int postNo, 
 											@Param("user") AuthenticatedUser user);
 	
-	public Optional<Integer> currentLowRating(@Param("topicNo") String topicNo, 
+	public Optional<String> findRateBy(@Param("topicNo") String topicNo, 
 											@Param("postNo") int postNo, 
 											@Param("user") AuthenticatedUser user);
-
-	public String findRateBy(@Param("topicNo") String topicNo, 
-							@Param("postNo") int postNo, 
-							@Param("user") AuthenticatedUser user);
 	
 	public void updateRating(@Param("topicNo") String topicNo, 
-							@Param("postNo") int postNo, 
-							@Param("user") AuthenticatedUser user,
-							@Param("rating") int rating);
+								@Param("postNo") int postNo, 
+								@Param("user") AuthenticatedUser user,
+								@Param("rating") int rating);
 }

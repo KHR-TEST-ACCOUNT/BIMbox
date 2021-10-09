@@ -56,20 +56,25 @@
 						<div class="d-flex align-items-baseline me-3">
 							<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 									th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
-								<span th:switch="${rateByUser.rating}">
-									<i class="bi bi-hand-thumbs-up" th:case="0"></i>
-									<i class="bi bi-hand-thumbs-up-fill" th:case="*"></i>
-								</span>
+								<th:block th:if="${rateByUser.rating le 0 && user.empNo == rateByUser.rater.empNo}">
+								<!-- && rateByUser.rater.empNo -->
+									<i class="bi bi-hand-thumbs-up"></i>
+								</th:block>
+								<th:block th:unless="${rateByUser.rating le 0 && user.empNo == rateByUser.rater.empNo}">
+									<i class="bi bi-hand-thumbs-up-fill"></i>
+								</th:block>
 							</button>
 							<span th:text="${post.goodRatings.size()}">13</span>
 						</div>
 						<div class="d-flex align-items-baseline me-3">
 							<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 								th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
-								<span th:switch="${rateByUser.rating}">
-									<i class="bi bi-hand-thumbs-down" th:case="0"></i>
-									<i class="bi bi-hand-thumbs-down-fill" th:case="*"></i>
-								</span>
+								<th:block th:if="${rateByUser.rating ge 0 && user.empNo == rateByUser.rater.empNo}">
+									<i class="bi bi-hand-thumbs-down"></i>
+								</th:block>
+								<th:block th:unless="${rateByUser.rating ge 0 && user.empNo == rateByUser.rater.empNo}">
+									<i class="bi bi-hand-thumbs-down-fill"></i>
+								</th:block>
 							</button>
 							<span th:text="${post.badRatings.size()}">2</span>
 						</div>

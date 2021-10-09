@@ -15,16 +15,6 @@
 	]]>
 	</select>
 	
-	<select id="getAllRating" resultType="int">
-	<![CDATA[
-		SELECT  count(RATING_FLG)
-		FROM    POST_RATINGS
-		WHERE   TOPICNO      =  #{topicNo}
-		AND     POSTNO       =  #{postNo}
-		AND     RATING_FLG   >  0
-	]]>
-	</select>
-	
 	<select id="findRateBy" resultType="String">
 	<![CDATA[
 		SELECT  RATEDBY
@@ -69,12 +59,7 @@
 		        U.PROFILE_IMG               AS postCreatedUserImage,
 		        POSTS.CREATEDAT             AS postCreatedAt,
 		        POST_RATINGS.RATEDBY        AS postRatedBy,
-		        (
-		            SELECT		COUNT(RATING_FLG)
-		            FROM		POST_RATINGS
-		            WHERE		TOPICNO 	=	 #{topicNo}
-	        	    AND 		POSTNO 		=	 POSTS.POSTNO
-		        )							AS postRating,
+		        POST_RATINGS.RATING_FLG     AS postRating,
 		        POST_RATINGS.RATEDAT        AS postRatedAt
 		FROM    TOPICS
 		INNER JOIN POSTS
@@ -158,6 +143,7 @@
 			</association>
 			<collection property="ratings" ofType="com.rugbyaholic.communityPG.comms.PostRating">
 				<result property="rating" column="postRating" />
+				<result property="ratingLow" column="postRatingLow" />
 				<result property="ratedAt" column="postRatedAt" />
 				<association property="rater" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 					<result property="empNo" column="postRatedBy" />

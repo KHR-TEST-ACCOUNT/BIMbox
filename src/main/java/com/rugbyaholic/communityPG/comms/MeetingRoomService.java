@@ -103,23 +103,10 @@ public class MeetingRoomService {
 	@LogRequired
 	public void postRating(String topicNo, int postNo, int rating, AuthenticatedUser user) {
 		
-		// 現在のRating値の格納用変数
-		int currentRating;
-		// 最終的なアップデート値の格納用変数
-		int ratingForUpdate;
-		
-		if(rating == 1) {
-			currentRating = meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0);
-		} else {
-			currentRating = meetingRoomRepository.currentLowRating(topicNo, postNo, user).orElse(0);
-		}
-		// Rating = 画面表示されているクリックしたRating
-		if (rating == currentRating) {
-			ratingForUpdate = 0;
-		} else {
-			ratingForUpdate = rating;
-		}
-		ratingForUpdate = rating;
-		meetingRoomRepository.updateRating(topicNo, postNo, user, ratingForUpdate);
+//		if(!user.getEmpNo().equals(meetingRoomRepository.findRateBy(topicNo, postNo, user).orElse(""))) {
+			// Rating = 画面表示されているクリックしたRating
+			if (rating == meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0)) rating = 0;
+			meetingRoomRepository.updateRating(topicNo, postNo, user, rating);
+//		}
 	}
 }
