@@ -99,16 +99,9 @@ public class MeetingRoomService {
 		return meetingRoomRepository.findTopic(topicNo).orElse(new Topic());
 	}
 
-//	@Transactional(rollbackFor = Throwable.class)
-//	@LogRequired
-//	public boolean isRated(String topicNo, int postNo, AuthenticatedUser user) {
-//		return meetingRoomRepository.findRateBy(topicNo, postNo, user).orElse("").isEmpty();
-//	}
-	
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void postRating(String topicNo, int postNo, int rating, AuthenticatedUser user) {
-		// Rating = 画面表示されているクリックしたRating
 		if (rating == meetingRoomRepository.currentRating(topicNo, postNo, user).orElse(0)) rating = 0;
 		meetingRoomRepository.updateRating(topicNo, postNo, user, rating);
 	}

@@ -7,11 +7,7 @@ import java.util.stream.Collectors;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 
-//@Service
 public class Post {
-
-//	@Autowired
-//	private MeetingRoomService service;
 
 	private int postNo;
 
@@ -27,8 +23,6 @@ public class Post {
 		return postNo == 1;
 	}
 
-//	public boolean isRated(PostRating rateByUser, AuthenticatedUser user, String topicNo, int postNo) {
-//		if(service.isRated(topicNo, postNo, user)) return false;
 	public boolean isRated(PostRating rateByUser, AuthenticatedUser user) {
 		AuthenticatedUser rater = rateByUser.getRater();
 		if(rater != null) {
