@@ -143,8 +143,7 @@ public class UserManagementService {
 		updCount += userRepository.registerInitialUser(user);
 		updCount += userRepository.grantAuthority(user, "01");
 		updCount += userRepository.grantAuthority(user, "02");
-		updCount += userRepository.grantAuthority(user, "03");
-		if (updCount < 4)
+		if (updCount < 3)
 			throw new Exception();
 	}
 
