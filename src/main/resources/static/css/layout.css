@@ -44,9 +44,17 @@ html, body {
 	position: relative;
 	transition: all linear .3s;
 }
-/* .main .content { */
-/* 	height: calc(100vh - 56px); */
-/* } */
+
+.fadein {
+    height: 150px;
+    background: #999;
+    opacity: 0;
+    transition: opacity .4s;
+}
+.fadein.scrollin {
+    opacity: 0.99;
+}
+   
 .visible-lt-md {
 	visibility: visible;
 }
