@@ -37,6 +37,7 @@ http://aws-and-community-pg.ap-northeast-1.elasticbeanstalk.com/Login.html/
         | **User**	| 自身の情報のみ〇 	| ✕      	|
         | **Manager**	| 自身の情報のみ〇	| 自分の情報以外〇 	|
         | **Admin**	| 全て〇		| 自分の情報以外〇	| 
+        
        ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br>
 <br>
         
@@ -47,12 +48,13 @@ http://aws-and-community-pg.ap-northeast-1.elasticbeanstalk.com/Login.html/
       - 評価は、1ユーザー、1つの投稿に対し、**Like・Bad** のいずれか1件まで）
    4. トピックや投稿を編集・削除することができます。
       - ログイン中のユーザー権限によって処理を制御しています。
-        | 権限         | 編集              　    | 削除                    | 
-        |:-----------:|:-----------------:   　|:--------------:        |
+        | 権限         | 編集                  | 削除                    | 
+        |:-----------:|:-----------------:    :--------------:        |
         | **User**    | 自身の投稿・トピックのみ〇   | 自身の投稿・トピックのみ〇   |
-        | **Manager** | 自身の投稿・トピックのみ〇   | 全て〇       　      　  |
-        | **Admin**   | 全て〇    　　           | 全て〇 　          　    | 
-       ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br>
+        | **Manager** | 自身の投稿・トピックのみ〇   | 全て〇           |
+        | **Admin**   | 全て〇                    | 全て〇             | 
+ <br>         
+      ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br>
 <br>      
        
 
@@ -60,11 +62,11 @@ http://aws-and-community-pg.ap-northeast-1.elasticbeanstalk.com/Login.html/
    1. フォルダの作成や削除、ファイル共有などが行えます。
    2. フォルダ内に入ったり、前のフォルダに戻ったり、ファイルを保存したりできます。<br><br>
       - ログイン中のユーザー権限によって処理を制御しています。
-        | 権限         | フォルダの削除　  | ファイルの削除 　  | 
-        |:-----------:|:-------------:|:--------------:|
-        | **User**    | ✕             | ✕              |
-        | **Manager** | 〇          　 | 〇       　     |
-        | **Admin**   | 〇    　　 　   | 〇 　           | 
+        | 権限         | フォルダの削除   | ファイルの削除    | 
+        |:-----------:|:-------------:  |:--------------:|
+        | **User**    | ✕               | ✕              |
+        | **Manager** | 〇              | 〇              | 
+        | **Admin**   | 〇              | 〇              |
        ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br>
 <br><br><br>
 
