@@ -83,6 +83,13 @@ public class DirectoryController {
 		return currentDirectory.getParentFile().exists() && currentDirectory.getParentFile().getAbsolutePath().contains(directoryService.homeDirectory());
 	}
 
+	/**
+	 * model格納用メソッド
+	 * 
+	 * @param currentDir
+	 * @param uploadForm
+	 * @param model
+	 */
 	private void setupForm(File currentDir, UploadForm uploadForm, Model model) {
 		uploadForm.setPath(currentDir.getAbsolutePath());
 		model.addAttribute("currentDirectory", currentDir);
