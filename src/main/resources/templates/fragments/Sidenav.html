@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div th:fragment="sidenav" th:remove="tag">
-		<div class="sidenav" style="background:rgba(248, 249, 250, 0.9)">
-			<nav class="navbar navbar-dark text-light" style="background: darkred;">
+		<div class="sidenav bg-gradient" style="background:#EEEEEE">
+			<nav class="navbar navbar-dark text-light" style="background: linear-gradient(to top, #000044, #6699FF);">
 				<div class="container-fluid">
 					<a class="navbar-brand sidenav-toggler">
 						<i class="bi bi-chevron-left"></i>
@@ -18,7 +18,7 @@
 				</div>
 			</nav>
 			<!-- ユーザ情報 -->
-			<div class="container-fluid bg-secondary text-light py-3" th:with="user=${#authentication.principal}">
+			<div class="container-fluid bg-secondary bg-gradient text-light py-3" th:with="user=${#authentication.principal}">
 				<span th:text="${#authentication.principal.username}">Username</span>
 				<!-- 画像 -->
 				<img class="profile-photo my-2" alt="Profile"
