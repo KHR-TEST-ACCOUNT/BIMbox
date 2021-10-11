@@ -15,6 +15,7 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
+
 $(function() {
 	
 	// レイアウト調整	
@@ -49,6 +50,7 @@ $(function() {
 
 	// HTMLを読み込んだ際の処理
 	$(document).ready(function() {
+
 		// UserProfileの読み込み時
 		if(window.location.href.match("UserProfile.html")){
 			setProfileDefault();
@@ -57,6 +59,8 @@ $(function() {
 		if(window.location.href.match("UserRegistration.html")){
 			isProfEdPermission();
 		}
+		// UserRegistrationの読み込み時
+			fadeinAnimation();
 	});
 
 	// UserProfileのデフォルトの画面表示を設定する。
@@ -108,6 +112,66 @@ $(function() {
 		}
 	}
 
+/**
+	// UserRegistrationのデフォルトの画面表示を設定する。
+	function fadeinAnimation() {
+	    var topBtn = $('.fadein');    
+	    topBtn.hide();
+	    //スクロールが100に達したらボタン表示
+	    $(window).scroll(function () {
+	        if ($(this).scrollTop() > 100) {
+	            topBtn.fadeIn();
+	        } else {
+	            topBtn.fadeOut();
+	        }
+	    });
+	    //スクロールしてトップ
+	    topBtn.click(function () {
+	        $('body,html').animate({
+	            scrollTop: 0
+	        }, 500);
+	        return false;
+		});
+	}
+ */
+
+	//フェードイン
+	$("#topic div").on("click", function() {
+		$(this).next().slideToggle();
+		$(this).toggleClass("active");//追加部分
+	});
+
+	$(".topic").click(function () {
+	  $(".post").next().slideToggle();
+	  $(".post").toggleClass("active");//追加部分
+	});
+	/**
+	 */
+
+	// 郵便番号検索
+	$(document).on('click', '#search-address', function() {
+		var baseURL = 'https://zipcloud.ibsnet.co.jp/api/search';
+		var zip = $('#zipcode').val();
+
+		// 郵便番号未入力チェック
+		if (zip == null || zip.length != 7) {
+			alert('郵便番号は7桁で入力してください。');
+		}
+
+		// Ajaxでzipcloudへアクセス
+		$.ajax({
+			type: 'GET',
+			url: baseURL,
+			dataType: 'jsonp',
+			jsonp: callbackFunction,
+			data: {
+				zipcode: zip,
+				callback: 'callbackFunction'
+			}
+		});
+	});
+	
+	
 
 /** 
 	$(document).ready(function() {
@@ -115,6 +179,9 @@ $(function() {
 		readerOnLoad(file);
 	});
 */
+
+
+/*
 	// 画像ファイルのサムネイル取得
 	$(document).on('change', '#photo-file', function() {
 		var file = $(this).prop('files')[0];
@@ -126,7 +193,6 @@ $(function() {
 			return;
 		}
 		readerOnLoad(file);
-		/*
 		var file = $(this).prop('files')[0];
 		// 画像以外は処理を停止
 		if (!file.type.match('image.*')) {
@@ -141,9 +207,12 @@ $(function() {
 			$('#thumbnail').attr('src', reader.result);
 		}
 		reader.readAsDataURL(file);
-		*/
 	});
+		*/
 
+
+
+/**
 	// 画像表示
 	function readerOnLoad(file) {
 		var reader = new FileReader();
@@ -152,8 +221,6 @@ $(function() {
 		}
 		reader.readAsDataURL(file);
 	}
-
-
 
 	// ドラッグ＆ドロップイベントをハンドル 
 	$("#thumbnail").on('dragenter', function(e) {
@@ -181,6 +248,8 @@ $(function() {
 		e.stopPropagation();
 		e.preventDefault();
 	});
+
+
 	// ファイルがドロップされた時にファイルの中身を読み込む。 
 	function handleFiles(files) {
 
@@ -200,7 +269,6 @@ $(function() {
 		}
 		reader.readAsDataURL(file);
 
-	/*
 		var file = files[0];
 
 		// ファイルが画像が確認する
@@ -218,53 +286,7 @@ $(function() {
 		}
 
 		reader.readAsDataURL(file); // ファイル読み込みを非同期でバックグラウンドで開始
-	*/
 	}
-
-	// 郵便番号検索
-	$(document).on('click', '#search-address', function() {
-		var baseURL = 'https://zipcloud.ibsnet.co.jp/api/search';
-		var zip = $('#zipcode').val();
-
-		// 郵便番号未入力チェック
-		if (zip == null || zip.length != 7) {
-			alert('郵便番号は7桁で入力してください。');
-		}
-
-		// Ajaxでzipcloudへアクセス
-		$.ajax({
-			type: 'GET',
-			url: baseURL,
-			dataType: 'jsonp',
-			jsonp: callbackFunction,
-			data: {
-				zipcode: zip,
-				callback: 'callbackFunction'
-			}
-		});
-	});
-	
-	//フェードイン
-	
-	
-	$(function() {
-	    var topBtn = $('.fadein');    
-	    topBtn.hide();
-	    //スクロールが100に達したらボタン表示
-	    $(window).scroll(function () {
-	        if ($(this).scrollTop() > 100) {
-	            topBtn.fadeIn();
-	        } else {
-	            topBtn.fadeOut();
-	        }
-	    });
-	    //スクロールしてトップ
-	    topBtn.click(function () {
-	        $('body,html').animate({
-	            scrollTop: 0
-	        }, 500);
-	        return false;
-	    });
-	});
+	*/
 
 });

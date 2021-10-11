@@ -14,7 +14,7 @@
 <body>
 	<div th:fragment="topic(topic)" th:remove="tag">
 	<!-- トピック -->
-		<div class="d-flex justify-content-between">
+		<div class="d-flex justify-content-between topic">
 			<h5 th:text="${topic.subject}">トピックのタイトル</h5>
 			<form  id="deleteForm" th:action="@{/comms/deleteTopic.do}" method="post">
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
@@ -26,7 +26,7 @@
 			</form>
 		</div>
 		<!-- 投稿一覧 -->
-		<div class="d-flex border-bottom mt-3" th:each="post : ${topic.posts}">
+		<div class="d-flex border-bottom mt-3 post" th:each="post : ${topic.posts}">
 			<div class="me-3">
 				<img src="../static/img/anonymous.png" style="width: 64px;"
 					th:src="${post.author.profileImage.encodedString}"/>
