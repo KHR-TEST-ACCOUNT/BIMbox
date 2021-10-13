@@ -32,6 +32,8 @@ public interface UserRepository {
 
 	public int countUser(UserSearchForm form);
 
+	public int findUserEmail(String mail);
+	
 	public int registerInitialUser(AuthenticatedUser user);
 
 	public int grantAuthority(@Param("user") AuthenticatedUser user, @Param("role") String userRole);
