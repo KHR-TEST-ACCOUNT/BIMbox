@@ -15,6 +15,38 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
+// ページ内スクロール
+$(function(){
+  $('a[href^="#"]').click(function(){
+    let speed = 500;
+    let href= $(this).attr("href");
+    let target = $(href == "#" || href == "" ? 'html' : href);
+    let position = target.offset().top;
+    $("html, body").animate({scrollTop:position}, speed, "swing");
+    return false;
+  });
+});
+/**
+$(function(){
+	$('a[href^="#"]').click(function () {
+		let speed = 600;
+		let headerHight = $('header').html().height();
+		let href = $(this).attr("href");
+		let target = $(href == "#" || href == "" ? "html" : href);
+		let position = target.offset().top - headerHight;
+		$("body,html").animate({ scrollTop: position }, speed, "swing");
+		return false;
+	});
+});
+
+ */
+// アコーディオンメニュー
+$(function(){
+	$("#acMenu dt").on("click", function() {
+		$(this).next().slideToggle();
+		$(this).toggleClass("active");
+	});
+});
 
 $(function() {
 	
@@ -60,7 +92,7 @@ $(function() {
 			isProfEdPermission();
 		}
 		// UserRegistrationの読み込み時
-			fadeinAnimation();
+			// fadeinAnimation();
 	});
 
 	// UserProfileのデフォルトの画面表示を設定する。
