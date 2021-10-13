@@ -1,4 +1,4 @@
-package com.rugbyaholic.communityPG;
+﻿package com.rugbyaholic.communityPG;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -41,13 +41,12 @@ public class RootController {
 										,@RequestParam("password") String password
 										,Model model) {
 		try {
+			if(service.isMail(email) == 0) throw new Exception();
 			service.registerInitialUser(email, password);
-			
 		} catch(Exception ex) {
 			System.out.println(ex.getLocalizedMessage());
 			return "Login.html";
 		}
-		
 		return "Login.html";
 	}
 }

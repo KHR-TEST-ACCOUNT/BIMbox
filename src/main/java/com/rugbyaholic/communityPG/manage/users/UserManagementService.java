@@ -124,6 +124,10 @@ public class UserManagementService {
 		return userRepository.countUser(form);
 	}
 
+	public int isMail(String mail) {
+		return userRepository.findUserEmail(mail);
+	}
+	
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd());
@@ -142,8 +146,7 @@ public class UserManagementService {
 		int updCount = 0;
 		updCount += userRepository.registerInitialUser(user);
 		updCount += userRepository.grantAuthority(user, "01");
-		updCount += userRepository.grantAuthority(user, "02");
-		if (updCount < 3)
+		if (updCount < 2)
 			throw new Exception();
 	}
 
