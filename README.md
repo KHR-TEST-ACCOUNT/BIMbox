@@ -63,14 +63,13 @@ http://aws-and-communities.ap-northeast-1.elasticbeanstalk.com/Login.html
    1. フォルダの作成や削除、ファイル共有などが行えます。
    2. フォルダ内に入ったり、前のフォルダに戻ったり、ファイルを保存したりできます。<br><br>
       - ログイン中のユーザー権限によって処理を制御しています。
-        | 権限         | フォルダの削除   | ファイルの削除    | 
-        |:-----------:|:-------------:  |:--------------:|
-        | **User**    | ✕               | ✕              |
-        | **Manager** | 〇              | 〇              | 
-        | **Admin**   | 〇              | 〇              |
-       ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br>
-<br><br><br>
-
+         |権限         | フォルダ   | ファイル    |  
+         |:-----------:|:--------:  |:-----------:| 
+         | **User**    | ✕         | ✕          | 
+         | **Manager** | 〇         | 〇          |  
+         | **Admin**   | 〇         | 〇          | 
+        ![](https://cpp-learning.com/wp-content/uploads/2019/05/pyxel-190505-161951.gif)<br><br> 
+ <br><br><br> 
 
 
 # Features
@@ -83,8 +82,12 @@ import pyxel
 <br><br><br>
 
 
-# Requirement
-* Java 11
+ # Requirement 
+ * Java 11 
+ * Sprig Boot - 2.5.4
+ * springsecurity5
+ * Gradle - 7.1.1
+ * mybatis - 2.1.4'
 <br><br><br>
 
 
@@ -105,6 +108,7 @@ import pyxel
 # Author
 * Kouya Ajima
 <br><br><br>
+
 
 # License
 [MIT license](https://en.wikipedia.org/wiki/MIT_License).
