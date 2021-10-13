@@ -1,6 +1,8 @@
-# [CommunityPG](http://aws-and-community-pg.ap-northeast-1.elasticbeanstalk.com/Login.html)
+# [Klein.Netwerk](http://http://aws-and-communities.ap-northeast-1.elasticbeanstalk.com/Login.html)
 
-### "CommunityPG" はポートフォリオとして作成した社内コミュニケーションサイトです。
+ "Klein.Netwerk" は、社内コミュニティの活性化を目的とした小規模コミュニティシステムです。
+ 会社内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。
+
 <br>
 
 
