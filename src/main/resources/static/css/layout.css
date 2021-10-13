@@ -2,12 +2,10 @@
 html, body {
 	height: 100%;
 	width: 100%;
-/*
- 	background-image: url("https://rfs.jp/wp-content/themes/smart-two/common/img/single/bg.jpg");
+	background-image: url("https://rfs.jp/wp-content/themes/smart-two/common/img/single/bg.jpg");
 	background-repeat: no-repeat;
 	background-color:rgba(255,255,255,0.5);
- */
- }
+}
 .cover {
 	height: 100%;
 	width: 100%;
@@ -21,18 +19,14 @@ html, body {
 .cover.visible {
 	display: block;
 }
-
 .sidenav {
 	height: 100vh;
 	width: 240px;
 	position: fixed;
 	margin-left: -240px;
-	z-index: 1040;
-	/* 
 	transition: all linear .3s;
-	 */
+	z-index: 1040;
 }
-
 .sidenav-toggler:hover {
 	cursor: pointer;
 }
@@ -96,17 +90,4 @@ html, body {
 	.footer {
 		margin-left: 240px;
 	}
-}
-
-#acMenu dt{
-  width:100px;
-  display:block;
-  cursor:pointer;
-  background:url(http://liginc.co.jp/demo/toggle/images/i_swich.png) 177px -69px no-repeat;
-}
-#acMenu dd{
-  display:none;
-}
-#acMenu dt.active{
-  background:url(http://liginc.co.jp/demo/toggle/images/i_swich.png) 177px 18px no-repeat;
 }

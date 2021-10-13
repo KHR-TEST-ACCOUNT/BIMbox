@@ -142,6 +142,15 @@
 	</where>
 	</select>
 	
+	<select id="findUserEmail" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT  COUNT(*) 
+		FROM    USERS
+		WHERE   EMAIL      =  #{mail}
+		
+	]]>
+	</select>
+	
 	<select id="createProfileEditForm" parameterType="java.lang.Long" 
 			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
