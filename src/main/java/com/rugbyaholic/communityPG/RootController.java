@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.rugbyaholic.communityPG.common.util.NotificationMessage;
 import com.rugbyaholic.communityPG.manage.users.UserManagementService;
 
 @Controller
@@ -18,6 +19,9 @@ public class RootController {
 	@Autowired
 	private UserManagementService service;
 	
+	@Autowired
+	private NotificationMessage notificationMessage;
+
 	@GetMapping("/")
 	public String onActivated(Model model) {
 		return "Top.html";
@@ -44,9 +48,10 @@ public class RootController {
 			if(service.isMail(email) == 0) throw new Exception();
 			service.registerInitialUser(email, password);
 		} catch(Exception ex) {
-			System.out.println(ex.getLocalizedMessage());
-			return "Login.html";
+			model.addAttribute("notificationMessage",
+					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
+							.messageCode("communityPG.web.message.proc.notDeletable").build());
 		}
 		return "Login.html";
-	}
+		}
 }
