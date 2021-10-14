@@ -28,11 +28,10 @@ html, body {
 	position: fixed;
 	margin-left: -240px;
 	z-index: 1040;
-	/* 
 	transition: all linear .3s;
+	/* 
 	 */
 }
-
 .sidenav-toggler:hover {
 	cursor: pointer;
 }
@@ -58,6 +57,35 @@ html, body {
 }
 .nav-link:hover {
 	background: #cfcfcf;
+}
+.topic{
+	border:1px solid #ccc;
+	border-bottom: 0;
+	border-top-left-radius :5px;
+	border-top-right-radius :5px;
+	padding:1em 1em 0 1em;
+	display: none;
+	/*
+	opacity: 0;
+	*/
+}
+.posts{
+	border:1px solid #ccc;
+	border-top: 0;
+	border-bottom: 0;
+}
+.newPost{
+	border:1px solid #ccc;
+	border-top: 0;
+	border-bottom-left-radius :5px;
+	border-bottom-right-radius :5px;
+	display: none;
+	/*
+	opacity: 0;
+	*/
+}
+.post{
+	display: none;
 }
 .footer {
 	height: 3rem;
