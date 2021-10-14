@@ -28,11 +28,10 @@ html, body {
 	position: fixed;
 	margin-left: -240px;
 	z-index: 1040;
-	/* 
 	transition: all linear .3s;
+	/* 
 	 */
 }
-
 .sidenav-toggler:hover {
 	cursor: pointer;
 }
