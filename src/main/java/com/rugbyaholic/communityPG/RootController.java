@@ -45,12 +45,12 @@ public class RootController {
 										,@RequestParam("password") String password
 										,Model model) {
 		try {
-			if(service.isMail(email) == 0) throw new Exception();
+			if(service.isMail(email) != 0) throw new Exception();
 			service.registerInitialUser(email, password);
 		} catch(Exception ex) {
-//			model.addAttribute("notificationMessage",
-//					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
-//							.messageCode("communityPG.web.message.proc.notDeletable").build());
+				model.addAttribute("notificationMessage",
+						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
+								.messageCode("AbstractUserDetailsAuthenticationProvider.badCreations").build());
 		}
 		return "Login.html";
 		}
