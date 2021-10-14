@@ -40,6 +40,7 @@ public class RootController {
 		return "Login.html";
 	}
 	
+	// 初期登録時の処理
 	@PostMapping("/UserRegistration.do")
 	public String onInitialUserRequested(@RequestParam("email") String email
 										,@RequestParam("password") String password

@@ -27,25 +27,28 @@ public class ProfileController {
 	@Autowired
 	private NotificationMessage notificationMessage;
 
+	// ログインユーザーのプロフィールの更新
 	@GetMapping("/profile/Profile.html")
 	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
+		ProfileEditForm form = profileService.providePersonalInfo(user);
 		
-		ProfileEditForm form = profileService.providePersonalInfo(user.getId());
 		model.addAttribute("profileEditForm", form);
 		return "profile/Profile.html";
 	}
 	
+	// 検索画面からのプロフィール表示処理
 	@GetMapping("/profile/UserProfile.html")
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
 		
 		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
-		ProfileEditForm form = profileService.providePersonalInfo(id);
+		ProfileEditForm form = profileService.providePersonalInfo(user);
 		model.addAttribute("targetUser", targetUser);
 		model.addAttribute("profileEditForm", form);
 		return "profile/UserProfile.html";
 	}
 
+	// プロフィールの更新処理
 	@PostMapping("/profile/ProfileEdit.do")
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {

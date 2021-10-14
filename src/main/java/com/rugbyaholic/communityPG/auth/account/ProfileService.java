@@ -32,7 +32,8 @@ public class ProfileService {
 			imageFile.encode(uploadFile);
 			user.setProfileImage(imageFile);
 		}
-
+		
+		if(!user.getUsername().equals(form.getName()))user.setUsername(form.getName());;
 		// DB更新件数
 		int updateCount = 0;
 
@@ -50,11 +51,8 @@ public class ProfileService {
 			throw new Exception();
 	}
 
-	public ProfileEditForm providePersonalInfo(long id) {
-
-		// ユーザーの個人情報を取得
-		Optional<ProfileEditForm> optionalForm = repository.createProfileEditForm(id);
-		return optionalForm.orElse(new ProfileEditForm());
+	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
+		return repository.createProfileEditForm(user.getId()).orElse(new ProfileEditForm(user.getUsername()));
 	}
 	
 	public AuthenticatedUser provideUserInfo(long id) {

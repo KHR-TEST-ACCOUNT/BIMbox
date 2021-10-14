@@ -147,22 +147,24 @@
 		SELECT  COUNT(*) 
 		FROM    USERS
 		WHERE   EMAIL      =  #{mail}
-		
 	]]>
 	</select>
 	
 	<select id="createProfileEditForm" parameterType="java.lang.Long" 
 			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
-		SELECT  ZIPCODE         AS zipcode,
-		        PREF            AS pref,
-		        CITY            AS city,
-		        BLDG            AS bldg,
-		        TELNO           AS phoneNo,
-		        MOBILE_NO       AS mobilePhoneNo,
-				USER_ID         AS userId
-		FROM    PERSONAL_INFO
-		WHERE   USER_ID      =  #{userId}
+		SELECT	USERS.NAME					  AS name,
+				PERSONAL_INFO.ZIPCODE         AS zipcode,
+		        PERSONAL_INFO.PREF            AS pref,
+		        PERSONAL_INFO.CITY            AS city,
+		        PERSONAL_INFO.BLDG            AS bldg,
+		        PERSONAL_INFO.TELNO           AS phoneNo,
+		        PERSONAL_INFO.MOBILE_NO       AS mobilePhoneNo,
+				PERSONAL_INFO.USER_ID         AS userId
+		FROM    PERSONAL_INFO 
+		INNER JOIN USERS
+		ON      PERSONAL_INFO.USER_ID   =  USERS.ID
+		WHERE   USER_ID      = #{userId}
 	]]>
 	</select>
 	
@@ -251,7 +253,8 @@
 	<update id="changeProfile" parameterType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 	<![CDATA[
 		UPDATE  USERS
-		SET     PASSWORD     =  #{password},
+		SET     NAME		 =	#{username},
+				PASSWORD     =  #{password},
 		        PROFILE_IMG  =  #{profileImage.encodedString}
 		WHERE   ID           =  #{id}
 	]]>
@@ -260,10 +263,11 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, USER_NAME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
-		ON DUPLICATE KEY UPDATE  
+		(#{userId}, #{name}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		ON DUPLICATE KEY UPDATE 
+				USER_NAME	 =	#{name},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
 		        CITY         =  #{city},
