@@ -16,6 +16,9 @@ public class ProfileEditForm implements Serializable {
 
 	private MultipartFile uploadFile;
 
+	@Size(max = 64)
+	private String name;
+	
 	@Size(min = 8, max = 20)
 	private String password;
 
@@ -46,6 +49,14 @@ public class ProfileEditForm implements Serializable {
 		return ObjectUtils.nullSafeEquals(password, passwordConfirm);
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
