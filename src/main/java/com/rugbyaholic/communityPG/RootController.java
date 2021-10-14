@@ -48,9 +48,9 @@ public class RootController {
 			if(service.isMail(email) == 0) throw new Exception();
 			service.registerInitialUser(email, password);
 		} catch(Exception ex) {
-			model.addAttribute("notificationMessage",
-					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
-							.messageCode("communityPG.web.message.proc.notDeletable").build());
+//			model.addAttribute("notificationMessage",
+//					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
+//							.messageCode("communityPG.web.message.proc.notDeletable").build());
 		}
 		return "Login.html";
 		}
