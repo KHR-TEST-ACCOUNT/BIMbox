@@ -39,8 +39,13 @@
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">氏名</span>
 					</div>
-					<div class="col col-12 col-md-9">
-						<span th:text="${#authentication.principal.username}"></span>
+					<div class="col col-12 col-md-4">
+						<input type="text" class="form-control form-control-sm"
+								th:field="*{name}" placeholder="氏名">
+					</div>
+					<div class="col col-12 col-md-4">
+						<span th:if="${#fields.hasErrors('name')}" class="text-danger"
+							th:errors="*{name}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">所属部署</span>

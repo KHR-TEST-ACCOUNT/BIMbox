@@ -54,7 +54,7 @@
 			</div>
 			<!-- トピック情報 -->
 			<div th:each="topic : ${topics}">
-				<div th:id="${topic.topicNo}" class="mt-3 p-3 bg-light border">
+				<div th:id="${topic.topicNo}" class="m-2">
 					<div th:replace="fragments/Topic :: topic(${topic})"></div>
 				</div>
 			</div>

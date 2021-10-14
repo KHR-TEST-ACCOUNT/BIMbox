@@ -15,6 +15,18 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
+	$(function() {
+		/* 変数 lists に #list li を格納 */
+		var lists = $(".post");
+		$(".topic").fadeIn('slow');
+		lists[0].fadeIn('slow');
+		/* lists を一つずつ処理 */
+		lists.delay(200).each(function(i){
+			/* delay() で animate（）の実行を 200ミリ秒ずつ遅延 */
+			$(this).delay(200*i).fadeIn('slow');
+		});
+	});
+	
 // ページ内スクロール
 $(function(){
 // 全てのアンカータグを対象にする
