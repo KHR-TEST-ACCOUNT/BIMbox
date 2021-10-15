@@ -49,6 +49,9 @@
 				<div class="col col-12 col-md-5">
 					<input type="text" class="form-control form-control-sm" style="width: 12rem;" th:field="*{username}"
 						th:classappend="${#fields.hasErrors('username') ? 'is-invalid bg-light' : ''}"/>
+<!-- 							<input type="text" class="form-control form-control-sm bg-transparent border-0" 
+						style="width: 8rem;" tabindex="-1" readonly th:field="*{empNo}" />
+ -->						
 				</div>
 				<div class="col col-12 col-md-4">
 					<span class="text-danger" th:if="${#fields.hasErrors('username')}"

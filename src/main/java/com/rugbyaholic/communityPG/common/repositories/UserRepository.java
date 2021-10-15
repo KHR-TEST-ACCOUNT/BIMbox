@@ -25,7 +25,9 @@ public interface UserRepository {
 	public Optional<ProfileEditForm> createProfileEditForm(long userId);
 	
 	public int changeProfile(AuthenticatedUser user);
-
+	
+	public int updateUserName(ProfileEditForm profileEditForm);
+	
 	public int updatePersonalInfo(ProfileEditForm profileEditForm);
 	
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form);

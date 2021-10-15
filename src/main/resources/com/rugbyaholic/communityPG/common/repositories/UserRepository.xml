@@ -253,25 +253,21 @@
 	<update id="changeProfile" parameterType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 	<![CDATA[
 		UPDATE  USERS
-		SET     PASSWORD     =  #{password},
+		SET     NAME		 =	#{username},
+				PASSWORD     =  #{password},
 		        PROFILE_IMG  =  #{profileImage.encodedString}
 		WHERE   ID           =  #{id}
-	]]>
-	</update>
-	
-	<update id="updateUserName" parameterType="String">
-	<![CDATA[
-		UPDATE USERS SET NAME = #{username} WHERE ID = #{userID}
 	]]>
 	</update>
 	
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, LAST_NAME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, USER_NAME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{name}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
+				USER_NAME	 =	#{name},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
 		        CITY         =  #{city},
