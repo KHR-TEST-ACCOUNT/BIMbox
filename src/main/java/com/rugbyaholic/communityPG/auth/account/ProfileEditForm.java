@@ -43,6 +43,10 @@ public class ProfileEditForm implements Serializable {
 	@Size(max = 32)
 	private String mobilePhoneNo;
 
+	public ProfileEditForm(String name) {
+		this.name = name;
+	}
+	
 	@AssertTrue
 	public boolean isPasswordConfirmed() {
 

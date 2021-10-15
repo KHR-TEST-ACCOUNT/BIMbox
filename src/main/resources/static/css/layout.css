@@ -1,4 +1,6 @@
+/* 
 @charset "UTF-8";
+ */
 html, body {
 	height: 100%;
 	width: 100%;
@@ -8,6 +10,25 @@ html, body {
 	background-color:rgba(255,255,255,0.5);
  */
  }
+.siteImage{
+	position: relative;
+}
+ 
+.siteImage div{
+  position: absolute;
+  color: #919191;
+  font-weight: bold; 
+  font-size: 2em; 
+  font-family :Quicksand, sans-serif; 
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+}
+ 
 .cover {
 	height: 100%;
 	width: 100%;
