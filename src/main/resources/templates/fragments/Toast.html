@@ -12,7 +12,7 @@
 <body>
 	<div th:fragment="toast" th:remove="tag">
 		<!-- Toast -->
-		<div id="toast" class="position-absolute bg-white shadow-lg top-50 start-50 border px-2 translate-middle" 
+		<div id="toast" class="bg-white shadow-lg top-50 start-50 border px-2 translate-middle" 
 			style="width: 360px;" th:if="${notificationMessage}" th:object="${notificationMessage}">
 			<div class="py-2 d-flex border-bottom align-items-center">
 				<div class="me-2" th:classappend="*{(success ? 'bg-primary' : '') + (info ? 'bg-info' : '') +

@@ -32,9 +32,9 @@ public class UserManagementController {
 
 	private UserSearchForm form;
 
+	// 初期表示
 	@GetMapping("/manage/users/UserList.html")
 	public String onUserListRequested(Model model) {
-
 		model.addAttribute("userSearchForm", service.initializeSearchForm());
 		return "redirect:/manage/users/UserSearch.do";
 	}
@@ -107,10 +107,9 @@ public class UserManagementController {
 	}
 
 	@GetMapping("/manage/users/UserPageView.do")
-	public String onPageViewRequested(@RequestParam("p") int pageNo, Model model) {
-
+	public String onPageViewRequested(@RequestParam("p") int pageNo, Model model,
+			@AuthenticationPrincipal AuthenticatedUser user) {
 		model.addAttribute("userSearchForm", form);
-
 		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(service.countUser(form), UserManagementService.PAGE_LIMIT);
 		if (pageNo < 1 || pageNo > searchResult.getTotalPageCount()) {
 			return "manage/users/UserList.html";
@@ -118,14 +117,13 @@ public class UserManagementController {
 		searchResult.moveTo(pageNo);
 		form.setPageFrom((pageNo - 1) * UserManagementService.PAGE_LIMIT);
 		searchResult.setEntities(service.loadUserList(form));
-
+		searchResult.setLoginUserId(user.getId());
 		model.addAttribute("searchResult", searchResult);
 		return "manage/users/UserList.html";
 	}
 
 	@GetMapping("/manage/users/UserSearch.do")
 	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
-
 		this.form = form;
 		service.convertSerchForm(form,model);
 		return "manage/users/UserList.html";

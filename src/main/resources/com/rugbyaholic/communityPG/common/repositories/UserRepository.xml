@@ -285,7 +285,8 @@
 		        U.EMP_NO                AS empNo,
 		        U.NAME                  AS username,
 		        DP.DEPT_NM              AS deptName,
-		        POS.POS_NM              AS posName
+		        POS.POS_NM              AS posName,
+		        ROLES.ROLE              AS roles
 		FROM    USERS U
 		INNER JOIN DEPTS DP
 		ON      DP.DEPT_CD       =  U.DEPT_CD
@@ -309,6 +310,8 @@
 		            AND     AVF         <=  CURDATE()
 		            AND     AVF          >  POS.AVF
 		        )
+		LEFT JOIN USER_ROLES ROLES
+		ON      ROLES.USER_ID       =  U.ID
 	]]>
 	<where>
 		<if test="empNo != null">

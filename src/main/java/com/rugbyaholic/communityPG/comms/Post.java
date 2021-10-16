@@ -6,12 +6,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
+import com.rugbyaholic.communityPG.common.ImageFile;
 
 public class Post {
 
 	private int postNo;
 
 	private String postText;
+	
+	private ImageFile postImg;
 
 	private Date postedAt;
 
@@ -23,23 +26,7 @@ public class Post {
 		return postNo == 1;
 	}
 
-	public boolean isRated(PostRating rateByUser, AuthenticatedUser user) {
-		AuthenticatedUser rater = rateByUser.getRater();
-		if(rater != null) {
-			if(rateByUser.getRating() > 0 && Objects.equals(user.getEmpNo(),rater.getEmpNo())) return false;
-		}
-		return true;
-	}
-	
-	public boolean isRated_down(PostRating rateByUser, AuthenticatedUser user) {
-		AuthenticatedUser rater = rateByUser.getRater();
-		if(rater != null) {
-			if(rateByUser.getRating() < 0 && Objects.equals(user.getEmpNo(),rater.getEmpNo())) return false;
-		}
-		return true;
-	}
-	
-	// ラムダ式でPostRatingの中に格納されている中から、ユーザー情報でRantigを検索して返す。
+	// ラムダでPostRatingの中に格納されているBeanの中から、Rantigを検索して返す。
 	public PostRating getRateByUser(AuthenticatedUser user) {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getEmpNo(), user.getEmpNo()))
 				.findFirst().orElse(new PostRating());
@@ -76,6 +63,14 @@ public class Post {
 		this.postText = postText;
 	}
 
+	public ImageFile getPostImg() {
+		return postImg;
+	}
+
+	public void setPostImg(ImageFile postImg) {
+		this.postImg = postImg;
+	}
+	
 	public Date getPostedAt() {
 		return postedAt;
 	}
@@ -99,4 +94,5 @@ public class Post {
 	public void setRatings(List<PostRating> ratings) {
 		this.ratings = ratings;
 	}
+
 }

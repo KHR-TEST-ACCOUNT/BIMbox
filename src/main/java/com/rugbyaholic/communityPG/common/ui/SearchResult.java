@@ -18,6 +18,8 @@ public class SearchResult<E> {
 
 	private List<E> entities;
 
+	private long loginUserId;
+	
 	public SearchResult(int totalRecordCount, int recordPerPage) {
 
 		this.totalRecordCount = totalRecordCount;
@@ -89,5 +91,13 @@ public class SearchResult<E> {
 
 	public void setEntities(List<E> entities) {
 		this.entities = entities;
+	}
+
+	public long getLoginUserId() {
+		return loginUserId;
+	}
+
+	public void setLoginUserId(long loginUserId) {
+		this.loginUserId = loginUserId;
 	}
 }

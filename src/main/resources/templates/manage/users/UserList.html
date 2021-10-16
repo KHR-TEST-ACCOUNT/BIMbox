@@ -88,15 +88,31 @@
 						<th class="sticky-top bg-white text-truncate">役職</th>
 					</tr>
 				</thead>
+			<!-- ${#authentication.principal.roles.get(0).getCode} でもOK -->
 				<tbody th:if="${searchResult}">
 					<tr th:each="user : ${searchResult.entities}">
 						<td class="text-center">
-							<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|">
-								<i class="bi bi-pen"></i>
-							</a>
+							
+							<!-- 
+								<a th:href="|@{/manage/users/UserRegistration.html}?id=${targetUser.id}|">
+									 <i class="bi bi-pen"></i>
+								</a>
+							<th:block th:if="${#authentication.principal.roles.get(0).getCode == 03 || user.id == (searchResult.loginUserId)}" >
+							</th:block>
+							<th:block th:unless="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
+							</th:block>
+								<i class="bi bi-pen" id="bi_disabled"></i>
+								<div th:text="${#authentication.principal.roles.get(0).getCode"></div>
+							<th:block th:if="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
+							<th:block th:unless="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
+							 -->
 						</td>
 						<td th:text="${user.empNo}"></td>
-						<td th:text="${user.username}"></td>
+						<td>
+							<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|" 
+								th:text="${user.username}" class="text-decoration-none">
+							</a>
+						</td>
 						<td th:text="${user.deptName}"></td>
 						<td th:text="${user.posName}"></td>
 					</tr>

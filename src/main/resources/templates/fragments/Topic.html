@@ -59,28 +59,38 @@
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
-											<div th:if="${post.isRated(rateByUser,user)}">
+											<th:block th:if="${rateByUser.rater == null}">
 												<i class="bi bi-hand-thumbs-up"></i>
-											</div>								 
-											<div th:unless="${post.isRated(rateByUser,user)}">
-												<i class="bi bi-hand-thumbs-up-fill"></i>
-											</div>								 
+											</th:block>
+											<th:block th:if="${rateByUser.rater != null}">
+												<div th:unless="${rateByUser.rater.empNo == user.empNo && rateByUser.rating gt 0 }">
+													<i class="bi bi-hand-thumbs-up"></i>
+												</div>								 
+												<div th:if="${rateByUser.rater.empNo == user.empNo && rateByUser.rating gt 0 }">
+													<i class="bi bi-hand-thumbs-up-fill"></i>
+												</div>	
+											</th:block>							 
 										</button>
 										<span th:text="${post.goodRatings.size()}">13</span>
 									</div>
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
-											<div th:if="${post.isRated_down(rateByUser,user)}">
+											<th:block th:if="${rateByUser.rater == null}">
 												<i class="bi bi-hand-thumbs-down"></i>
-											</div>								 
-											<div th:unless="${post.isRated_down(rateByUser,user)}">
-												<i class="bi bi-hand-thumbs-down-fill"></i>
-											</div>								 
+											</th:block>
+											<th:block th:if="${rateByUser.rater != null}">
+												<div th:unless="${rateByUser.rater.empNo == user.empNo && rateByUser.rating lt 0 }">
+													<i class="bi bi-hand-thumbs-down"></i>
+												</div>								 
+												<div th:if="${rateByUser.rater.empNo == user.empNo && rateByUser.rating lt 0 }">
+													<i class="bi bi-hand-thumbs-down-fill"></i>
+												</div>				
+											</th:block>				 
 										</button>
 										<span th:text="${post.badRatings.size()}">2</span>
 									</div>
-									<!-- 最初の投稿のみ、コメントの数を表示 -->
+									<!-- 最初のtopicのみ、post数を表示 -->
 									<div class="d-flex align-items-baseline"
 										th:classappend="${post.isFirstPost() ? '' : 'd-none'}">
 										<span class="me-2 text-dark fs-5">
@@ -99,11 +109,20 @@
 						<img src="../static/img/anonymous.png" style="width: 64px;"
 							th:src="${user.profileImage.encodedString}"/>
 					</div>
-					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}" method="post">
+					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}"
+						  enctype="multipart/form-data" method="post">
 						<p class="fw-bold mb-2" th:text="${user.username}">ログインユーザーの名前</p>
 						<input type="hidden" th:value="${topic.topicNo}" id="topicNo" />
 						<input type="hidden" th:value="${topic.subject}" id="subject" />
 						<textarea rows="2" class="form-control" id="postText"></textarea>
+						<!-- 画像のアップロード -->
+						<div class="view_box">
+						  <input type="file" id="postImg" class="file">
+						</div>						
+           				<!-- 
+						<input type="file" id="postImg" class="file">
+						<input type="file" id="postImg" />
+						 -->
 						<div th:if="${validationMessage}">
 							<span class="text-danger" th:text="${validationMessage}"></span>
 						</div>

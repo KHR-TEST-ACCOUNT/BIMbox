@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
+import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.common.aspects.LogRequired;
 import com.rugbyaholic.communityPG.common.repositories.NumberingRepository;
 import com.rugbyaholic.communityPG.comms.forms.TopicCreationForm;
@@ -28,6 +29,12 @@ public class MeetingRoomService {
 		return meetingRoomRepository.searchAllTopics();
 	}
 
+	/**
+	 * @メソッド説明：		新規トピックトしてをDBに登録します。
+	 * 
+	 * @param form
+	 * @param user
+	 */
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void registerNewTopic(TopicCreationForm form, AuthenticatedUser user) {
@@ -43,6 +50,13 @@ public class MeetingRoomService {
 		meetingRoomRepository.registerPost(form, user);
 	}
 
+	/**
+	 * @メソッド説明：		新規の投稿を登録します。
+	 * 
+	 * @param form
+	 * @param user
+	 * @return
+	 */
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public Topic appendPost(TopicCreationForm form, AuthenticatedUser user) {
@@ -60,8 +74,8 @@ public class MeetingRoomService {
 	 */
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
-	public Topic editPost(String postText, String topicNo, int postNo) {
-		meetingRoomRepository.editerPost(postText, topicNo, postNo);
+	public Topic editPost(String postText, ImageFile postImg, String topicNo, int postNo) {
+		meetingRoomRepository.editerPost(postText, postImg, topicNo, postNo);
 		return meetingRoomRepository.findTopic(topicNo).orElse(new Topic());
 	}
 
