@@ -44,6 +44,7 @@
 		        TOPICS.CREATEDAT            AS topicCreatedAt,
 		        POSTS.POSTNO                AS postNo,
 		        POSTS.POST                  AS postText,
+		        POSTS.POST_IMG      	    AS postImg,
 		        POSTS.CREATEDBY             AS postCreatedBy,
 		        U.NAME                      AS postCreatedUsername,
 		        U.PROFILE_IMG               AS postCreatedUserImage,
@@ -83,6 +84,7 @@
 		        TOPICS.CREATEDAT            AS topicCreatedAt,
 		        POSTS.POSTNO                AS postNo,
 		        POSTS.POST                  AS postText,
+		        POSTS.POST_IMG        	    AS postImg,
 		        POSTS.CREATEDBY             AS postCreatedBy,
 		        U.NAME                      AS postCreatedUsername,
 		        U.PROFILE_IMG               AS postCreatedUserImage,
@@ -124,6 +126,9 @@
 			<result property="postNo" column="postNo" />
 			<result property="postText" column="postText" />
 			<result property="postedAt" column="postCreatedAt" />
+			<association property="postImg" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+				<result property="encodedString" column="postImg" />
+			</association>
 			<association property="author" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 				<result property="empNo" column="postCreatedBy" />
 				<result property="username" column="postCreatedUsername" />
@@ -163,6 +168,7 @@
 		    TOPICNO,
 		    POSTNO,
 		    POST,
+		    POST_IMG,
 		    CREATEDBY,
 		    CREATEDAT
 		) VALUES (
@@ -177,6 +183,7 @@
 		        ) TMP
 		    ),
 		    #{form.primaryPost},
+		    #{form.primaryPostImg.encodedString},
 		    #{user.empNo},
 		    CURDATE()
 		)
@@ -187,6 +194,7 @@
 	<![CDATA[
 		UPDATE POSTS
 		SET		POST		=	#{postText}
+				POST_IMG	=	#{postImg.encodedString}
 		WHERE 	TOPICNO		=	#{topicNo}
 		AND 	POSTNO 		=	#{postNo}
 	]]>
@@ -205,9 +213,9 @@
 	<![CDATA[
 		DELETE		POSTS, TOPICS
 		FROM		POSTS 
-						LEFT JOIN TOPICS 
-							ON POSTS.TOPICNO = TOPICS.TOPICNO
-	    WHERE		TOPICS.TOPICNO = #{topicNo}
+					LEFT JOIN TOPICS 
+						 ON POSTS.TOPICNO 	= 	TOPICS.TOPICNO
+	    WHERE		TOPICS.TOPICNO 	= 	#{topicNo}
    	]]>
 	</insert>
 

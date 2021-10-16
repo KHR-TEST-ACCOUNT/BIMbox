@@ -1,23 +1,45 @@
 @charset "UTF-8";
-html, body {
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+html {
 	height: 100%;
 	width: 100%;
-/*
- 	background-image: url("https://rfs.jp/wp-content/themes/smart-two/common/img/single/bg.jpg");
-	background-repeat: no-repeat;
-	background-color:rgba(255,255,255,0.5);
- */
  }
+
+body{
+	height: 100%;
+	width: 100%;
+	/*
+	font-family: 'Exo', sans-serif;
+	color: #feffff;
+	*/
+}
+
+#toast {
+	position: absolute;
+	z-index: 1030;
+}
+/*
+h4 span{
+	color: #eaeaea;
+}
+*/
+
 .cover {
 	height: 100%;
 	width: 100%;
-	background: rgba(0,0,0,.5);
+	background: rgba(0, 0, 0, .5);
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 1030;
 	display: none;
 }
+
+.about{
+	font-size: 18px;
+}
+
 .cover.visible {
 	display: block;
 }
@@ -32,61 +54,96 @@ html, body {
 	/* 
 	 */
 }
+
 .sidenav-toggler:hover {
 	cursor: pointer;
 }
+
 .sidenav.visible {
 	margin-left: 0;
 }
+
 .profile-photo {
 	height: 128px;
 	width: 128px;
 	display: block;
 }
+
 .main {
 	height: 100%;
 	overflow: auto;
 	position: relative;
 }
 
+.container-fluid{
+	position: relative;
+	z-index:10;
+}
+
 .visible-lt-md {
 	visibility: visible;
 }
+
 .visible-gt-lg {
 	visibility: hidden;
 }
+
 .nav-link:hover {
 	background: #cfcfcf;
 }
-.topic{
-	border:1px solid #ccc;
+
+.homepageInfo{
+	background-image: url(/img/LoginView.jpg);
+}
+
+.topic {
+	border: 1px solid #ccc;
 	border-bottom: 0;
-	border-top-left-radius :5px;
-	border-top-right-radius :5px;
-	padding:1em 1em 0 1em;
-	display: none;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 1em 1em 0 1em;
 	/*
 	opacity: 0;
+	display: none;
 	*/
 }
-.posts{
-	border:1px solid #ccc;
+
+.posts {
+	border: 1px solid #ccc;
 	border-top: 0;
 	border-bottom: 0;
 }
-.newPost{
-	border:1px solid #ccc;
+
+.newPost {
+	border: 1px solid #ccc;
 	border-top: 0;
-	border-bottom-left-radius :5px;
-	border-bottom-right-radius :5px;
-	display: none;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 	/*
 	opacity: 0;
+	display: none;
 	*/
 }
-.post{
-	display: none;
+
+#bi_disabled{
+	opacity: 0.65;
 }
+
+.post {
+	/* 
+	opacity: 0;
+	display: none;
+	 */
+}
+
+.bd-placeholder-img {
+	font-size: 0.2rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
 .footer {
 	height: 3rem;
 	position: fixed;
@@ -98,7 +155,161 @@ html, body {
 	justify-content: space-between;
 	background: #fff;
 }
-@media(min-width: 1200px) {
+
+#acMenu dt {
+	width: 100px;
+	display: block;
+	cursor: pointer;
+	background: url(http://liginc.co.jp/demo/toggle/images/i_swich.png)
+		177px -69px no-repeat;
+}
+
+#acMenu dd {
+	/*
+	display: none;
+	*/
+}
+
+#acMenu dt.active {
+	background: url(http://liginc.co.jp/demo/toggle/images/i_swich.png)
+		177px 18px no-repeat;
+}
+
+#area{
+	/*
+    background: #4e54c8;  
+	background: #8f94fb;
+	*/
+	background: #9abcf9;
+	/*
+	background: #8fbae7;
+    background: -webkit-linear-gradient(to left, #8fbae7, #010204);  
+	*/
+    opacity:0.9;
+    width: 100%;
+    height:100vh;
+    position: fixed;
+	z-index: 0;
+}
+
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+@keyframes animate {
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
+/* mediaquery */
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		margin-top: 2rem;
+		font-size: 1.5rem;
+	}
+}
+
+@media ( min-width: 1200px) {
 	.cover {
 		z-index: 1020;
 	}
@@ -124,17 +335,4 @@ html, body {
 	.footer {
 		margin-left: 240px;
 	}
-}
-
-#acMenu dt{
-  width:100px;
-  display:block;
-  cursor:pointer;
-  background:url(http://liginc.co.jp/demo/toggle/images/i_swich.png) 177px -69px no-repeat;
-}
-#acMenu dd{
-  display:none;
-}
-#acMenu dt.active{
-  background:url(http://liginc.co.jp/demo/toggle/images/i_swich.png) 177px 18px no-repeat;
 }

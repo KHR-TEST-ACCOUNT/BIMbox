@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
+import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.comms.Topic;
 import com.rugbyaholic.communityPG.comms.forms.TopicCreationForm;
 
@@ -29,6 +30,7 @@ public interface MeetingRoomRepository {
 	 * @param postNo	ポスト番号
 	 */
 	public void editerPost(@Param("postText") String postText,
+							@Param("postImg") ImageFile postImg, 
 							@Param("topicNo") String topicNo, 
 							@Param("postNo") int postNo);
 

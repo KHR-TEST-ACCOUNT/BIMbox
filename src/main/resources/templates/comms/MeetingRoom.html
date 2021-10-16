@@ -70,10 +70,18 @@
 				});
 				
 				$(document).on('click', '#ajaxForm button', function() {
+					
 					let ajaxForm = $(this).parents("#ajaxForm");
 					let paramTopicNo = ajaxForm.find('#topicNo').val();
 					let paramSubject = ajaxForm.find('#subject').val();
 					let paramPostText = ajaxForm.find('#postText').val();
+					
+					console.log($('#paramPostImg').val());
+					//console.log(typeof($('#paramPostImg').prop('files')[0]));
+
+					let paramPostImg = ajaxForm.find('#paramPostImg').files[0];
+					/*
+					*/
 					$.ajax({
 						type: ajaxForm.attr('method'),
 						url: ajaxForm.attr('action'),
@@ -81,7 +89,10 @@
 						data: {
 							topicNo: paramTopicNo,
 							subject: paramSubject,
-							primaryPost: paramPostText
+							primaryPost: paramPostText,
+							primaryPostImg: paramPostImg
+							/*
+							*/
 						}
 					}).done((data) => {
 						let targetId = '#' + paramTopicNo;
@@ -186,6 +197,47 @@
 				
 			});
 			
+			
+			// 画像のアップロード
+$(document).ready(function () {
+  var view_box = $('.view_box');
+   
+  $(".file").on('change', function(){
+     var fileprop = $(this).prop('files')[0],
+         find_img = $(this).next('img'),
+         fileRdr = new FileReader();
+     
+     if(find_img.length){
+        find_img.nextAll().remove();
+        find_img.remove();
+     }
+     
+    var img = '<img width="200" alt="" id="paramPostImg"><a href="#" class="img_del">画像を削除する</a>';
+ 
+    view_box.append(img);
+     
+    fileRdr.onload = function() {    
+      view_box.find('img').attr('src', fileRdr.result);
+      img_del(view_box); 
+    }
+    fileRdr.readAsDataURL(fileprop);  
+  });
+   
+  function img_del(target)
+  {
+     target.find("a.img_del").on('click',function(){
+ 
+      if(window.confirm('サーバーから画像を削除します。\nよろしいですか？'))
+      {
+         $(this).parent().find('input[type=file]').val('');
+         $(this).parent().find('.img_view, br').remove();
+         $(this).remove();
+      }
+ 
+      return false;
+    });
+  }  
+});
 			</script>
 		</div>		
 	</div>

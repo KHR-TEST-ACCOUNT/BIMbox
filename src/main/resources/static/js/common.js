@@ -15,17 +15,28 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
-	$(function() {
-		/* 変数 lists に #list li を格納 */
-		var lists = $(".post");
-		$(".topic").fadeIn('slow');
-		lists[0].fadeIn('slow');
-		/* lists を一つずつ処理 */
-		lists.delay(200).each(function(i){
-			/* delay() で animate（）の実行を 200ミリ秒ずつ遅延 */
-			$(this).delay(200*i).fadeIn('slow');
-		});
+/**
+$("#login-button").click(function(event){
+     event.preventDefault();
+   
+   $('form').fadeOut(500);
+   $('.wrapper').addClass('form-success');
+});
+ */
+
+$(function() {
+	/* 変数 lists に #list li を格納 */
+	var lists = $(".post");
+	/**
+	$(".topic").animation({opacity:1}, 200);
+	lists[0].animation({opacity:1}, 200);
+	 */
+	/* lists を一つずつ処理 */
+	lists.each(function(i){
+		/* delay() で animate（）の実行を 200ミリ秒ずつ遅延 */
+		$(this).delay(200*i).animation({opacity: 1});
 	});
+});
 	
 // ページ内スクロール
 $(function(){
@@ -232,15 +243,7 @@ $(function() {
 		});
 	});
 	
-	
-
-/** 
-	$(document).ready(function() {
-		var file = $('#thumbnail').attr('src');
-		readerOnLoad(file);
-	});
-*/
-
+});
 
 /*
 	// 画像ファイルのサムネイル取得
@@ -349,5 +352,3 @@ $(function() {
 		reader.readAsDataURL(file); // ファイル読み込みを非同期でバックグラウンドで開始
 	}
 	*/
-
-});

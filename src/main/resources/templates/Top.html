@@ -19,27 +19,8 @@
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.79.0">
 <title>トップ</title>
-
 <link rel="canonical"
 	href="https://getbootstrap.jp/docs/5.0/examples/carousel/">
-
-<style>
-.bd-placeholder-img {
-	font-size: 0.2rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 1.5rem;
-	}
-}
-</style>
-
-
 </head>
 <body>
 
@@ -49,7 +30,7 @@
 	<div class="main d-flex flex-column" id="top">
 		<div th:replace="fragments/Header :: header"></div>
 		<!-- 表示内容 -->
-		<div class="container-fluid py-3 position-relative">
+		<div class="container-fluid py-3">
 			<main>
 				<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 					<ol class="carousel-indicators">
@@ -115,12 +96,13 @@
 							</div>
 						</div>
 					</div>
-					<a class="carousel-control-prev" href="#myCarousel" role="button"
-						data-bs-slide="prev"> <span class="carousel-control-prev-icon"
-						aria-hidden="true"></span> <span class="visually-hidden">前へ</span>
-					</a> <a class="carousel-control-next" href="#myCarousel" role="button"
-						data-bs-slide="next"> <span class="carousel-control-next-icon"
-						aria-hidden="true"></span> <span class="visually-hidden">次へ</span>
+					<a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev"> 
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+						<span class="visually-hidden">前へ</span>
+					</a>
+					 <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next"> 
+						 <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+						 <span class="visually-hidden">次へ</span>
 					</a>
 				</div>
 
@@ -131,16 +113,17 @@
 					<!-- Three columns of text below the carousel -->
 					<div class="row">
 					
-					<h2 class="mt-4">About  Klein.Netwerk</h2>
-					<div>"Klein.Netwerk" は、社内コミュニティの活性化を目的とした小規模コミュニティシステムです。</div>
-					<div>会社内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。</div> 
-					<div>「ユーザー情報一覧機能、コミュニティ機能、ファイル共有機能」があり、各機能はログイン中のユーザーのユーザー権限によって機能が制限されています。</div> 
-					<div>※ユーザー権限には「USER・MANAGER・ADMIN」の3つがあります。</div> 
-					<br>
+					<h2 class="mt-5 pb-1 border-bottom">About  Klein.Netwerk</h2>
+					<div class="mb-4 about">
+						"Klein.Netwerk" は社内コミュニティの活性化を目的とした小規模コミュニティシステムです。<br>
+						会社内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。<br>
+						「ユーザー情報一覧機能、コミュニティ機能、ファイル共有機能」があり、各機能はログイン中のユーザーのユーザー権限によって機能が制限されています。<br>
+						※ユーザー権限には「USER・MANAGER・ADMIN」の3つがあります。
+					</div> 
 					<!-- 題名 -->
-					<h2 class="col-12 text-start mt-5 mb-3" id="detail">機能一覧</h2>
+					<h2 class="col-12 text-start mt-5 mb-3 pb-1 border-bottom" id="detail">機能一覧</h2>
 						<!-- 1 -->
-						<div class="col-lg-4">
+						<div class="col-lg-4 mb-3">
 							<svg class="bd-placeholder-img rounded-circle" width="140"
 								height="140" xmlns="http://www.w3.org/2000/svg" role="img"
 								aria-label="Placeholder: 140x140"
@@ -150,13 +133,13 @@
 								<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 							<h4 class="mt-2">ユーザー管理機能</h4>
 							<p>「ユーザ情報の検索機能、ユーザー情報の詳細閲覧機能、新規登録機能、ユーザー情報の変更機能、ユーザー削除機能」があり、ユーザーの権限によって処理が制限されます。</p>
-							<p>
+							<p class="detail">
 								<a class="btn btn-secondary" href="#users" role="button">権限・機能の詳細へ &raquo;</a>
 							</p>
 						</div>
 						<!-- 2 -->
 						<!-- /.col-lg-4 -->
-						<div class="col-lg-4">
+						<div class="col-lg-4 mb-3">
 							<svg class="bd-placeholder-img rounded-circle" width="140"
 								height="140" xmlns="http://www.w3.org/2000/svg" role="img"
 								aria-label="Placeholder: 140x140"
@@ -168,13 +151,13 @@
 
 							<h4 class="mt-2">掲示板機能</h4>
 							<p>「トピック作成機能、コメント投稿機能、投稿評価機能、投稿編集機能、トピック削除機能、投稿削除機能」があり、ユーザーの権限によって処理が制限されます。</p>
-							<p>
+							<p class="detail">
 								<a class="btn btn-secondary" href="#community" role="button">権限・機能の詳細へ &raquo;</a>
 							</p>
 						</div>
 						<!-- 3 -->
 						<!-- /.col-lg-4 -->
-						<div class="col-lg-4">
+						<div class="col-lg-4 mb-3">
 							<svg class="bd-placeholder-img rounded-circle" width="140"
 								height="140" xmlns="http://www.w3.org/2000/svg" role="img"
 								aria-label="Placeholder: 140x140"
@@ -186,7 +169,7 @@
 
 							<h4 class="mt-2">ファイル共有機能</h4>
 							<p>「フォルダ作成機能、ファイル投稿機能、（ファイル削除、フォルダ削除、フォルダ名変更）」があり、ユーザーの権限によって処理が制限されます。</p>
-							<p>
+							<p class="detail">
 								<a class="btn btn-secondary" href="#fileSharing" role="button">権限・機能の詳細へ &raquo;</a>
 							</p>
 						</div>
@@ -197,7 +180,7 @@
 
 					<!-- START THE FEATURETTES -->
 					<!-- 機能詳細 -->
-					<hr class="featurette-divider">
+					<hr class="featurette-divider mt-4">
 
 					<!-- Users -->
 					<div class="row featurette" id="users">
@@ -535,7 +518,6 @@
 
 				</div>
 				<!-- /.container -->
-
 				<!-- FOOTER -->
 				<footer class="container">
 					<p class="float-end">
@@ -547,8 +529,23 @@
 					</p>
 				</footer>
 			</main>
-
+		<!-- content end -->
 		</div>
+		<!-- バックグラウンド -->
+		<div id="area" >
+			<ul class="circles">
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			        <li></li>
+			</ul>
+	    </div >
 	</div>
 </body>
 </html>

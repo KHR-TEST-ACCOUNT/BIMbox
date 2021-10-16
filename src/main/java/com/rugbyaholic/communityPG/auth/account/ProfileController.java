@@ -30,9 +30,7 @@ public class ProfileController {
 	// ログインユーザーのプロフィールの更新
 	@GetMapping("/profile/Profile.html")
 	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
-		ProfileEditForm form = profileService.providePersonalInfo(user);
-		
-		model.addAttribute("profileEditForm", form);
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		return "profile/Profile.html";
 	}
 	
