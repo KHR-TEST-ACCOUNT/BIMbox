@@ -29,6 +29,11 @@ body {
 	z-index: 0;
 }
 
+#toast {
+	position: absolute;
+	z-index: 1030;
+}
+
 .grad {
 	position: absolute;
 	top: -20px;
