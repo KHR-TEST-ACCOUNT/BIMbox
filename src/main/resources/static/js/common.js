@@ -24,6 +24,10 @@ $("#login-button").click(function(event){
 });
  */
 
+$(function(){
+	$("#wkSelect").multiselect();
+});
+	
 $(function() {
 	/* 変数 lists に #list li を格納 */
 	var lists = $(".post");

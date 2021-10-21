@@ -29,6 +29,7 @@ public class RootController {
 	@GetMapping("/")
 	public String onActivated(Model model) {
 		return "Top.html";
+		// return "errorPage.html";
 	}
 	
 	@GetMapping("/Login.html")
