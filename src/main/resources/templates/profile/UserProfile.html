@@ -75,13 +75,20 @@
 					</div>
 				</div>
 				<div class="row gy-2 mb-4">
+				
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">自己紹介</span>
+					</div>
+					<div class="col col-12 col-md-8">
+						<span th:text="*{aboutMe}" class="personal-info">自分自身についての簡単な紹介（256文字以内）</span>
+					</div>
+
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">郵便番号</span>
 					</div>
 					<div class="col col-12 col-md-8 d-flex">
 						<span th:text="*{zipcode}" class="personal-info">ハイフンなし</span>
-					</div>
-					<div class="col col-12 col-md-3">
+					</div>					<div class="col col-12 col-md-3">
 						<span class="fw-bold">住所</span>
 					</div>
 					<div class="col col-12 col-md-8">
@@ -110,12 +117,9 @@
 					<input type="hidden" name="roles" th:value="${#authentication.principal.roles.get(0).getCode}" />
 					<input type="hidden" id="loginUserId" th:value="${#authentication.principal.id}" />
 					<input type="hidden" id="userId" th:value="${targetUser.id}" />
-					<a th:href="|@{/manage/users/UserRegistration.html}?id=${targetUser.id}|"
-						 class="btn btn-success btn-sm shadow-sm" id="editProfile">
-						 アカウント情報編集
-					</a>
-				</div>
-			</div>
+					<a th:href="|@{/profile/Profile.html}?id=${targetUser.id}|" id="editProfile"
+						 class="btn btn-success btn-sm shadow-sm" >プロフィール編集</a>
+				</div>			</div>
 		</form>
 	</div>
 	

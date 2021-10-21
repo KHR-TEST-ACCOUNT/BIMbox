@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rugbyaholic.communityPG.common.ImageFile;
+
 public class ProfileEditForm implements Serializable {
 
 	private static final long serialVersionUID = -7763715831163230164L;
@@ -15,15 +17,29 @@ public class ProfileEditForm implements Serializable {
 	private long userId;
 
 	private MultipartFile uploadFile;
-
+	
+	private ImageFile profileImage = new ImageFile();
+	
 	@Size(max = 64)
 	private String name;
 	
+	private String email;
+	
+	private String empNo;
+	
+	private String deptName;
+	
+	private String posName;
+	
 	@Size(min = 8, max = 20)
 	private String password;
-
+	
 	@Size(min = 8, max = 20)
 	private String passwordConfirm;
+	
+	// 個人情報
+	@Size(max = 256)
+	private String aboutMe;
 
 	@Size(min = 7, max = 7)
 	private String zipcode;
@@ -43,6 +59,69 @@ public class ProfileEditForm implements Serializable {
 	@Size(max = 32)
 	private String mobilePhoneNo;
 
+	public ImageFile getProfileImage() {
+		return profileImage;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	
+	public void setProfileImage(ImageFile profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+	public String getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getPosName() {
+		return posName;
+	}
+
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
+
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public ProfileEditForm(String name) {
 		this.name = name;
 	}
@@ -125,19 +204,4 @@ public class ProfileEditForm implements Serializable {
 		this.mobilePhoneNo = mobilePhoneNo;
 	}
 
-	public MultipartFile getUploadFile() {
-		return uploadFile;
-	}
-
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
 }

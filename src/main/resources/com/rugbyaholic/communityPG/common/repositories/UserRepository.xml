@@ -150,10 +150,15 @@
 	]]>
 	</select>
 	
-	<select id="createProfileEditForm" parameterType="java.lang.Long" 
-			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
+	<select id="createProfileEditForm" parameterType="java.lang.Long" resultMap="ProfileEdit">
 	<![CDATA[
 		SELECT	USERS.NAME					  AS name,
+				USERS.EMAIL					  AS email,
+				USERS.EMP_NO				  AS empNo,
+				USERS.DEPT_CD				  AS deptName,
+				USERS.POS_CD				  AS posName,
+				USERS.PROFILE_IMG			  AS profileImage,
+				PERSONAL_INFO.ABOUT_ME        AS aboutMe,
 				PERSONAL_INFO.ZIPCODE         AS zipcode,
 		        PERSONAL_INFO.PREF            AS pref,
 		        PERSONAL_INFO.CITY            AS city,
@@ -168,6 +173,25 @@
 	]]>
 	</select>
 	
+	<resultMap type="com.rugbyaholic.communityPG.auth.account.ProfileEditForm" id="ProfileEdit">
+		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="deptName" column="DEPT_CD" />
+		<result property="posName" column="POS_CD" />
+		<result property="aboutMe" column="ABOUT_ME"/>
+		<result property="zipcode" column="ZIPCODE"/>
+		<result property="pref" column="PREF"/>
+		<result property="city" column="CITY" />
+		<result property="bldg" column="BLDG" />
+		<result property="phoneNo" column="TELNO" />
+		<result property="mobilePhoneNo" column="MOBILE_NO" />
+		<result property="userId" column="USER_ID" />
+		<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="PROFILE_IMG" />
+		</association>
+	</resultMap>
+
 	<select id="identifyUser" parameterType="java.lang.String" resultMap="userDetails">
 	<![CDATA[
 		SELECT 	USERS.ID,
@@ -263,11 +287,12 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, USER_NAME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, USER_NAME, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{name}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{name}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
 				USER_NAME	 =	#{name},
+				ABOUT_ME	 =	#{aboutMe},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
 		        CITY         =  #{city},
@@ -276,7 +301,7 @@
 		        MOBILE_NO    =  #{mobilePhoneNo}
 	]]>
 	</update>
-	
+		
 	<select id="loadUserList" parameterType="com.rugbyaholic.communityPG.manage.users.UserSearchForm"
 			resultType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
 	<![CDATA[

@@ -15,6 +15,11 @@ body{
 	*/
 }
 
+#toast {
+	position: absolute;
+	z-index: 1030;
+}
+
 /*
 h4 span{
 	color: #eaeaea;

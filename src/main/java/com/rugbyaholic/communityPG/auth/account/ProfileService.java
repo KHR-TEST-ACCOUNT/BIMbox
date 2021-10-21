@@ -51,6 +51,7 @@ public class ProfileService {
 			throw new Exception();
 	}
 
+	// 初期表示用SQL
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
 		return repository.createProfileEditForm(user.getId()).orElse(new ProfileEditForm(user.getUsername()));
 	}

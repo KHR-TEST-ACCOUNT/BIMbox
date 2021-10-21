@@ -39,7 +39,7 @@
 						<span class="fw-bold">社員番号</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${#authentication.principal.empNo}"></span>
+						<span th:text="${empNo}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">氏名</span>
@@ -56,14 +56,30 @@
 						<span class="fw-bold">所属部署</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${#authentication.principal.deptName}"></span>
+						<span th:text="${deptName}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">役職</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${#authentication.principal.posName}"></span>
+						<span th:text="${posName}"></span>
 					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">プロフィール画像</span>
+					</div>
+					<div class="col col-12 col-md-9">
+						<div class="p-1 d-inline-block" id="dragandrophandler">
+							<img
+								th:src="${profileImage}"
+								alt="" class="profile-photo" id="thumbnail" />
+								<!-- 
+							<img
+								th:src="${profileImage.encodedString}"
+								alt="" class="profile-photo" id="thumbnail" />
+								 -->
+						</div>
+					</div>
+					<!-- 
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">プロフィール画像</span>
 					</div>
@@ -79,12 +95,19 @@
 						<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
 						<input type="file" id="photo-file" class="d-none" accept="image/*"
 							th:field="*{uploadFile}" />
+					</div>					
+					 -->
+					<div class="col col-12 col-md-3"></div>
+					<div class="col col-12 col-md-9">
+						<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+						<input type="file" id="photo-file" class="d-none" accept="image/*"
+							th:field="*{uploadFile}" />
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">E-Mail</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${#authentication.principal.email}">user@sample.co.jp</span>
+						<span th:text="${email}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">パスワード</span>
@@ -115,28 +138,26 @@
 						</div>
 					</div>
 				</div>
-				<!-- 個人情報 -->
 				<div class="row g-3">
 					<div class="col col-12">
 						<h5 class="m-0 pb-2 mb-3 border-bottom">個人情報</h5>
 					</div>
 				</div>
 				<div class="row gy-2 mb-4">
-					<div class="col col-12 col-md-3">
-						<span class="fw-bold">趣味</span>
-					</div>
-					<!-- 複数選択できるドロップダウン -->
+				
+				<!-- 自己紹介欄 -->
+					<div class="col col-12 col-md-3">自己紹介</div>
 					<div class="col col-12 col-md-4">
-					  <select id="wkSelect" multiple="multiple">
-					    <option value="op1">アニメ・漫画</option>
-					    <option value="op2">アウトドア</option>
-					    <option value="op3">プログラミング</option>
-					    <option value="op4">グルメ</option>
-					    <option value="op5">ゲーム</option>
-					    <option value="op6">ファッション</option>
-					  </select>
+						<input type="text" class="form-control form-control-sm"
+							th:field="*{aboutMe}" placeholder="自分自身についての簡単な紹介（256文字以内）"
+							th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" />
 					</div>
-					<div class="col col-12 col-md-4"></div>
+					<div class="col col-12 col-md-4">
+						<span th:if="${#fields.hasErrors('aboutMe')}" class="text-danger"
+							th:errors="*{aboutMe}"></span>
+					</div>
+				<!-- 自己紹介欄 END -->
+				
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">郵便番号</span>
 					</div>
