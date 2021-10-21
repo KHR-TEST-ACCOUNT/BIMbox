@@ -1,5 +1,7 @@
 package com.rugbyaholic.communityPG.auth.account;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,23 +29,27 @@ public class ProfileController {
 	@Autowired
 	private NotificationMessage notificationMessage;
 
-	// ログインユーザーのプロフィールの更新
-	@GetMapping("/profile/Profile.html")
-	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		return "profile/Profile.html";
-	}
-	
-	// 検索画面からのプロフィール表示処理
+	// プロフィール表示（ここにサジェスト機能を追加する。）
 	@GetMapping("/profile/UserProfile.html")
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
-		
-		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
-		ProfileEditForm form = profileService.providePersonalInfo(user);
-		model.addAttribute("targetUser", targetUser);
-		model.addAttribute("profileEditForm", form);
+		if(Objects.isNull(id)){
+			model.addAttribute("targetUser", user);
+		}else{
+			// AuthenticatedUser targetUser = profileService.provideUserInfo(id);
+			model.addAttribute("targetUser",  profileService.provideUserInfo(id));
+		}
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		return "profile/UserProfile.html";
+	}
+
+	// 検索画面からのプロフィール更新画面遷移
+	@GetMapping("/profile/Profile.html")
+	public String onProfileRequested(@RequestParam(value = "id", required = true) Long id,
+			 Model model) {
+		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
+		return "profile/Profile.html";
 	}
 
 	// プロフィールの更新処理
@@ -67,7 +73,7 @@ public class ProfileController {
 						.messageCode("communityPG.web.message.proc.success").build());
 		return "profile/Profile.html";
 	}
-
+	
 	/**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 
@@ -77,4 +83,45 @@ public class ProfileController {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
+
+	/*
+	// ログインユーザーのプロフィールの表示
+	@GetMapping("/profile/Profile.html")
+	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
+		model.addAttribute("targetUser", user);
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		return "profile/UserProfile.html";
+	}
+*/
+
+/*
+	// ログインユーザーのプロフィールの更新
+	@GetMapping("/profile/Profile.html")
+	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		return "profile/Profile.html";
+	}
+*/
+
+/*
+	// ログインユーザーのプロフィールの更新
+	@GetMapping("/profile/Profile.html")
+	public String onPageRequested(@AuthenticationPrincipal AuthenticatedUser user, Model model) {
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		return "profile/Profile.html";
+	}
+	
+	// 検索画面からのプロフィール表示処理
+	@GetMapping("/profile/UserProfile.html")
+	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
+			@AuthenticationPrincipal AuthenticatedUser user) {
+		
+		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
+		ProfileEditForm form = profileService.providePersonalInfo(user);
+		model.addAttribute("targetUser", targetUser);
+		model.addAttribute("profileEditForm", form);
+		return "profile/UserProfile.html";
+	}
+
+*/
 }
