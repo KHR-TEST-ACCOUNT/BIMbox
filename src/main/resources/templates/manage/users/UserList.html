@@ -22,9 +22,16 @@
 			</div>
 			<div class="p-3">
 				<div class="text-end">
-					<a th:href="@{/manage/users/UserRegistration.html}" class="btn btn-primary btn-sm shadow-sm">
-						<span>ユーザー新規登録</span>
-					</a>
+					<div th:if="${#authentication.principal.roles.get(0).code == '01'}">
+						<a  id="disabled_do" class="btn btn-primary btn-sm shadow-sm">
+							<span>ユーザー新規登録</span>
+						</a>
+					</div>
+					<div th:unless="${#authentication.principal.roles.get(0).code == '01'}">
+						<a th:href="@{/manage/users/UserRegistration.html}" class="btn btn-primary btn-sm shadow-sm">
+							<span>ユーザー新規登録</span>
+						</a>
+					</div>
 				</div>
 				<!-- 検索条件 -->
 				<div class="d-flex align-items-between">
@@ -81,31 +88,25 @@
 				<col width="25%"/>
 				<thead>
 					<tr>
-						<th class="sticky-top bg-white text-truncate"></th>
+						<th class="sticky-top bg-white text-truncate">管理/編集</th>
 						<th class="sticky-top bg-white text-truncate">社員番号</th>
 						<th class="sticky-top bg-white text-truncate">氏名</th>
 						<th class="sticky-top bg-white text-truncate">所属部署</th>
 						<th class="sticky-top bg-white text-truncate">役職</th>
 					</tr>
 				</thead>
-			<!-- ${#authentication.principal.roles.get(0).getCode} でもOK -->
+			<!-- ${#authentication.principal.roles.get(0).code} でもOK -->
 				<tbody th:if="${searchResult}">
 					<tr th:each="user : ${searchResult.entities}">
 						<td class="text-center">
-							
-							<!-- 
-								<a th:href="|@{/manage/users/UserRegistration.html}?id=${targetUser.id}|">
-									 <i class="bi bi-pen"></i>
-								</a>
-							<th:block th:if="${#authentication.principal.roles.get(0).getCode == 03 || user.id == (searchResult.loginUserId)}" >
-							</th:block>
-							<th:block th:unless="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
-							</th:block>
-								<i class="bi bi-pen" id="bi_disabled"></i>
-								<div th:text="${#authentication.principal.roles.get(0).getCode"></div>
-							<th:block th:if="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
-							<th:block th:unless="${user.roles.get(0) == 3 || user.id == (searchResult.loginUserId)}" >
-							 -->
+						<div th:if="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+							<a th:href="|@{/manage/users/UserRegistration.html}?id=${user.id}|">
+								 <i class="bi bi-pen"></i>
+							</a>
+						</div>
+						<div th:unless="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+							<a id="disabled_do" ><i class="bi bi-pen"></i></a>
+						</div>
 						</td>
 						<td th:text="${user.empNo}"></td>
 						<td>
