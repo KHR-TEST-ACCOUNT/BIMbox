@@ -71,7 +71,6 @@ public class ProfileController {
 		model.addAttribute("targetUser", targetUser);
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
 		return "profile/UserProfile.html";
-//		return "profile/Profile.html";
 	}
 	
 	/**

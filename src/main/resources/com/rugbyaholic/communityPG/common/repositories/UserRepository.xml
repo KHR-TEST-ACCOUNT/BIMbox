@@ -178,9 +178,36 @@
 	]]>
 	</select>
 	
-	<select id="createProfileEditForm" parameterType="java.lang.Long" resultMap="ProfileEdit">
+	<select id="newProfileEditForm" parameterType="java.lang.Long" resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
-		SELECT	USERS.NAME					  AS name,
+		SELECT	USERS.ID			          AS userId,
+				USERS.NAME					  AS name,
+				USERS.EMAIL					  AS email,
+				USERS.EMP_NO				  AS empNo,
+				USERS.DEPT_CD				  AS deptName,
+				USERS.POS_CD				  AS posName,
+				USERS.PROFILE_IMG			  AS profileImage
+		FROM    USERS 
+		WHERE   ID      = #{userId}
+	]]>
+	</select>
+
+	<resultMap type="com.rugbyaholic.communityPG.auth.account.ProfileEditForm" id="newEditForm">
+		<result property="userId" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="empNo" column="EMP_NO" />
+		<result property="deptName" column="DEPT_CD" />
+		<result property="posName" column="POS_CD" />
+		<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="PROFILE_IMG" />
+		</association>
+	</resultMap>
+
+	<select id="createProfileEditForm" parameterType="java.lang.Long" resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
+	<![CDATA[
+		SELECT	USERS.ID					  AS userId,
+				USERS.NAME					  AS name,
 				USERS.EMAIL					  AS email,
 				USERS.EMP_NO				  AS empNo,
 				USERS.DEPT_CD				  AS deptName,
@@ -192,8 +219,7 @@
 		        PERSONAL_INFO.CITY            AS city,
 		        PERSONAL_INFO.BLDG            AS bldg,
 		        PERSONAL_INFO.TELNO           AS phoneNo,
-		        PERSONAL_INFO.MOBILE_NO       AS mobilePhoneNo,
-				PERSONAL_INFO.USER_ID         AS userId
+		        PERSONAL_INFO.MOBILE_NO       AS mobilePhoneNo
 		FROM    PERSONAL_INFO 
 		INNER JOIN USERS
 		ON      PERSONAL_INFO.USER_ID   =  USERS.ID
@@ -201,25 +227,6 @@
 	]]>
 	</select>
 	
-	<resultMap type="com.rugbyaholic.communityPG.auth.account.ProfileEditForm" id="ProfileEdit">
-		<result property="name" column="NAME" />
-		<result property="email" column="EMAIL" />
-		<result property="empNo" column="EMP_NO" />
-		<result property="deptName" column="DEPT_CD" />
-		<result property="posName" column="POS_CD" />
-		<result property="aboutMe" column="ABOUT_ME"/>
-		<result property="zipcode" column="ZIPCODE"/>
-		<result property="pref" column="PREF"/>
-		<result property="city" column="CITY" />
-		<result property="bldg" column="BLDG" />
-		<result property="phoneNo" column="TELNO" />
-		<result property="mobilePhoneNo" column="MOBILE_NO" />
-		<result property="userId" column="USER_ID" />
-		<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
-			<result property="encodedString" column="PROFILE_IMG" />
-		</association>
-	</resultMap>
-
 	<select id="identifyUser" parameterType="java.lang.String" resultMap="userDetails">
 	<![CDATA[
 		SELECT 	USERS.ID,

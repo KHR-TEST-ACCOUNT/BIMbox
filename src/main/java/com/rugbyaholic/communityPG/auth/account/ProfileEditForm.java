@@ -122,9 +122,6 @@ public class ProfileEditForm implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public ProfileEditForm(String name) {
-		this.name = name;
-	}
 	
 	@AssertTrue
 	public boolean isPasswordConfirmed() {

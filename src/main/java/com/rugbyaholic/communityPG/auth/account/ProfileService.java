@@ -53,11 +53,10 @@ public class ProfileService {
 
 	// 初期表示用SQL
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
-		return repository.createProfileEditForm(user.getId()).orElse(new ProfileEditForm(user.getUsername()));
+		return repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
 	}
 	
 	public AuthenticatedUser provideUserInfo(long id) {
-		
 		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
 		return optionalUserForm.orElse(new AuthenticatedUser());
 	}
