@@ -37,6 +37,11 @@ h4 span{
 	display: none;
 }
 
+#disabled_do{
+	opacity: 0.65;
+	pointer-events: none;
+}
+
 .about{
 	font-size: 18px;
 }
@@ -125,11 +130,6 @@ h4 span{
 	display: none;
 	*/
 }
-
-#bi_disabled{
-	opacity: 0.65;
-}
-
 .post {
 	/* 
 	opacity: 0;
