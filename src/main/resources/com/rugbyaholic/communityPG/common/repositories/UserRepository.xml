@@ -43,6 +43,34 @@
 	]]>
 	</insert>
 
+	<insert id="registerUserHobbys">
+	<![CDATA[
+		INSERT INTO HOBBYS (
+		    USER_ID,
+		    EMP_NO,
+		    NAME,
+		    HOBBY
+		) VALUES (
+		    #{id},
+		    #{name},
+		    #{empNo},
+		    #{hobby}
+		) ON DUPLICATE KEY UPDATE 
+		    USER_ID       =  #{id},
+		    EMP_NO        =  #{empNo},
+		    NAME       	  =  #{name},
+		    HOBBY         =  #{hobby}
+	]]>
+	</insert>
+
+	<select id="suggestUsers" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT  NAME 
+		FROM    USER_HOBBYS
+		WHERE   HOBBY      =  #{hobby}
+	]]>
+	</select>
+	
 	<select id="findUserById" parameterType="java.lang.Long" resultMap="userDetails">
 	<![CDATA[
 		SELECT 	USERS.ID,
