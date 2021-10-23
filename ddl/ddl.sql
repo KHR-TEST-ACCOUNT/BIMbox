@@ -35,7 +35,6 @@ CREATE TABLE `PERSONAL_INFO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `USER_HOBBYS` (
-(
   `USER_ID` bigint(9) unsigned zerofill NOT NULL COMMENT 'ユーザーマスタのユーザーIDを参照',
   `NAME` varchar(128) DEFAULT NULL COMMENT 'ユーザー情報に表示されるユーザー名を保持する。',
   `EMP_NO` char(8) DEFAULT NULL,

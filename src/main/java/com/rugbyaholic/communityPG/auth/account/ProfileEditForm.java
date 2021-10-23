@@ -59,6 +59,16 @@ public class ProfileEditForm implements Serializable {
 	@Size(max = 32)
 	private String mobilePhoneNo;
 
+//	public ProfileEditForm(AuthenticatedUser user) {
+//		this.userId = user.getId();
+//		this.empNo = user.getEmpNo();
+//		this.name = user.getUsername();
+//		this.deptName = user.getDeptName();
+//		this.posName = user.getPosName();
+//		this.profileImage = user.getProfileImage();
+//		this.email = user.getEmail();
+//	}
+
 	public ImageFile getProfileImage() {
 		return profileImage;
 	}
@@ -121,9 +131,6 @@ public class ProfileEditForm implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public ProfileEditForm(String name) {
-		this.name = name;
 	}
 	
 	@AssertTrue

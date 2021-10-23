@@ -26,12 +26,12 @@
 	<div class="main">
 		<div th:replace="fragments/Header :: header"></div>
 		<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off"
-			method="post" enctype="multipart/form-data"
-			th:object="${profileEditForm}">
+			enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
 			<div class="container-fluid p-4 position-relative">
 				<div class="row g-4">
 					<div class="col col-12">
 						<h5 class="m-0 pb-2 mb-3 border-bottom">アカウント情報</h5>
+						<input type="hidden" th:field="*{userId}">
 					</div>
 				</div>
 				<div class="row gy-2">
@@ -39,7 +39,7 @@
 						<span class="fw-bold">社員番号</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${empNo}"></span>
+						<span th:text="${profileEditForm.empNo}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">氏名</span>
@@ -56,13 +56,13 @@
 						<span class="fw-bold">所属部署</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${deptName}"></span>
+						<span th:text="${profileEditForm.deptName}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">役職</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${posName}"></span>
+						<span th:text="${profileEditForm.posName}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">プロフィール画像</span>
@@ -70,10 +70,9 @@
 					<div class="col col-12 col-md-9">
 						<div class="p-1 d-inline-block" id="dragandrophandler">
 							<img
-								th:src="${profileImage}"
+								th:src="${profileEditForm.profileImage.encodedString}"
 								alt="" class="profile-photo" id="thumbnail" />
 								<!-- 
-								th:src="${profileImage.encodedString}"
 								 -->
 						</div>
 					</div>
@@ -105,7 +104,7 @@
 						<span class="fw-bold">E-Mail</span>
 					</div>
 					<div class="col col-12 col-md-9">
-						<span th:text="${email}"></span>
+						<span th:text="${profileEditForm.email}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">パスワード</span>
@@ -229,7 +228,7 @@
 				<div class="footer px-3">
 					<button class="btn btn-success btn-sm shadow-sm">プロフィールを変更</button>
 				</div>
-			</div>
+ 			</div>
 		</form>
 	</div>
 	<div th:replace="fragments/Toast :: toast"></div>
