@@ -43,6 +43,34 @@
 	]]>
 	</insert>
 
+	<insert id="registerUserHobbys">
+	<![CDATA[
+		INSERT INTO HOBBYS (
+		    USER_ID,
+		    EMP_NO,
+		    NAME,
+		    HOBBY
+		) VALUES (
+		    #{id},
+		    #{name},
+		    #{empNo},
+		    #{hobby}
+		) ON DUPLICATE KEY UPDATE 
+		    USER_ID       =  #{id},
+		    EMP_NO        =  #{empNo},
+		    NAME       	  =  #{name},
+		    HOBBY         =  #{hobby}
+	]]>
+	</insert>
+
+	<select id="suggestUsers" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT  NAME 
+		FROM    USER_HOBBYS
+		WHERE   HOBBY      =  #{hobby}
+	]]>
+	</select>
+	
 	<select id="findUserById" parameterType="java.lang.Long" resultMap="userDetails">
 	<![CDATA[
 		SELECT 	USERS.ID,
@@ -147,6 +175,20 @@
 		SELECT  COUNT(*) 
 		FROM    USERS
 		WHERE   EMAIL      =  #{mail}
+	]]>
+	</select>
+	
+	<select id="newProfileEditForm" parameterType="java.lang.Long" resultMap="ProfileEdit">
+	<![CDATA[
+		SELECT	USERS.ID			          AS userId,
+				USERS.NAME					  AS name,
+				USERS.EMAIL					  AS email,
+				USERS.EMP_NO				  AS empNo,
+				USERS.DEPT_CD				  AS deptName,
+				USERS.POS_CD				  AS posName,
+				USERS.PROFILE_IMG			  AS profileImage
+		FROM    USERS 
+		WHERE   ID      = #{userId}
 	]]>
 	</select>
 	

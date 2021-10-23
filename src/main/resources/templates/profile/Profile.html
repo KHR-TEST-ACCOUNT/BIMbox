@@ -25,8 +25,8 @@
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
 	<div class="main">
 		<div th:replace="fragments/Header :: header"></div>
-		<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off"
-			method="post" enctype="multipart/form-data"
+		<form th:action="@{/profile/ProfileEdit.do}"
+			method="post" 
 			th:object="${profileEditForm}">
 			<div class="container-fluid p-4 position-relative">
 				<div class="row g-4">
@@ -69,10 +69,10 @@
 					</div>
 					<div class="col col-12 col-md-9">
 						<div class="p-1 d-inline-block" id="dragandrophandler">
+								<!-- 
 							<img
 								th:src="${profileImage}"
 								alt="" class="profile-photo" id="thumbnail" />
-								<!-- 
 								th:src="${profileImage.encodedString}"
 								 -->
 						</div>

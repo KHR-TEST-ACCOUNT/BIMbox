@@ -34,6 +34,15 @@ CREATE TABLE `PERSONAL_INFO` (
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `USER_HOBBYS` (
+(
+  `USER_ID` bigint(9) unsigned zerofill NOT NULL COMMENT 'ユーザーマスタのユーザーIDを参照',
+  `NAME` varchar(128) DEFAULT NULL COMMENT 'ユーザー情報に表示されるユーザー名を保持する。',
+  `EMP_NO` char(8) DEFAULT NULL,
+  `HOBBY` varchar(30) DEFAULT NULL COMMENT 'ユーザーの趣味情報を保持する。',
+   PRIMARY KEY(`USER_ID`, `HOBBY`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `CODEMST` (
   `CODE_ID` bigint(8) unsigned zerofill NOT NULL COMMENT 'コード体系を一意にしきべつするためのID',
   `CODE` varchar(8) NOT NULL,
