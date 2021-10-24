@@ -139,40 +139,6 @@ $(function() {
 			// fadeinAnimation();
 	});
 
-	// UserProfileのデフォルトの画面表示を設定する。
-	function setProfileDefault() {
-		$(".personal-info").each( function(index, element) {
-			 if(!$(element).text()){
-				 $(element).text("未登録")
-			 }
-		 });
-		if($(".pref").text() === "未登録"){
-			$(".isShow-address").hide();
-		}
-		var PhoneNo = $(".PhoneNo");
-		var phone = PhoneNo.eq(0).text();
-		var mobile = PhoneNo.eq(1).text();
-		if(phone === "未登録" && mobile === "未登録" ){
-			$(".isShow-mobilePhoneNo").hide();
-		} else {
-			if(phone === "未登録"){
-				$(".isShow-PhoneNo").hide();
-				$(".isShow-mobile").hide();
-			}
-			if(mobile === "未登録"){
-				$(".isShow-mobile").hide();
-				$(".isShow-mobilePhoneNo").hide();
-			}
-		}
-		if($("input[name = 'roles']").val() == "01"){
-			console.log($('#loginUserId').val());	
-			console.log($('#userId').val());	
-			if($('#loginUserId').val() != $('#userId').val()){
-	    		$('#editProfile').css('pointer-events', 'none');
-	    		$('#editProfile').css('opacity', .65);
-			}
-		}
-	}
 
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
