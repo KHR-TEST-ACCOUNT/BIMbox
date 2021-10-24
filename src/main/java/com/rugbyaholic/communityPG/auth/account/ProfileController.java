@@ -1,6 +1,7 @@
 package com.rugbyaholic.communityPG.auth.account;
 
 import java.util.Objects;
+import java.util.TreeMap;
 
 import javax.validation.Valid;
 
@@ -34,12 +35,14 @@ public class ProfileController {
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
 		if(Objects.isNull(id)){
+			ProfileEditForm profileEditForm = profileService.providePersonalInfo(user);
+			profileService.convertSuggestUsers(0, new TreeMap<String,String>(), profileEditForm);
+			model.addAttribute("profileEditForm", profileEditForm);
 			model.addAttribute("targetUser", user);
 		}else{
+			model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 			model.addAttribute("targetUser",  profileService.provideUserInfo(id));
 		}
-		ProfileEditForm profileEditForm = profileService.providePersonalInfo(user);
-		model.addAttribute("profileEditForm", profileEditForm);
 		return "profile/UserProfile.html";
 	}
 
@@ -48,6 +51,7 @@ public class ProfileController {
 	public String onProfileRequested(@RequestParam(value = "id", required = true) Long id,
 			 Model model) {
 		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
+		model.addAttribute("targetUser", targetUser);
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
 		return "profile/Profile.html";
 	}
@@ -62,6 +66,7 @@ public class ProfileController {
 		try {
 			profileService.editProfile(profileEditForm, user);
 		} catch (Exception e) {
+			System.out.print(e);
 			return "errorPage.html";
 		}
 		model.addAttribute("notificationMessage",

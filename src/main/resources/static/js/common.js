@@ -135,10 +135,7 @@ $(function() {
 		if(window.location.href.match("UserRegistration.html")){
 			isProfEdPermission();
 		}
-		// UserRegistrationの読み込み時
-			// fadeinAnimation();
 	});
-
 
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {

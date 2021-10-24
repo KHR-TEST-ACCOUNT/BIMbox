@@ -1,6 +1,9 @@
 package com.rugbyaholic.communityPG.auth.account;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
@@ -16,10 +19,6 @@ public class ProfileEditForm implements Serializable {
 
 	private long userId;
 
-	private MultipartFile uploadFile;
-	
-	private ImageFile profileImage = new ImageFile();
-	
 	@Size(max = 64)
 	private String name;
 	
@@ -31,11 +30,11 @@ public class ProfileEditForm implements Serializable {
 	
 	private String posName;
 	
-	@Size(min = 8, max = 20)
-	private String password;
+	private String hobby;
 	
-	@Size(min = 8, max = 20)
-	private String passwordConfirm;
+	private List<String> hobbys = new ArrayList<String>();
+	
+	private TreeMap<String,String> sujestUsers;
 	
 	// 個人情報
 	@Size(max = 256)
@@ -58,24 +57,48 @@ public class ProfileEditForm implements Serializable {
 
 	@Size(max = 32)
 	private String mobilePhoneNo;
+	
+	private ImageFile profileImage = new ImageFile();
+	
+	private MultipartFile uploadFile;
 
-	public ImageFile getProfileImage() {
-		return profileImage;
+	@Size(min = 8, max = 20)
+	private String password;
+	
+	@Size(min = 8, max = 20)
+	private String passwordConfirm;
+	
+	// テストメソッド
+	@AssertTrue
+	public boolean isPasswordConfirmed() {
+		return ObjectUtils.nullSafeEquals(password, passwordConfirm);
 	}
 
 	//Setter,Getter
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	
-	public void setProfileImage(ImageFile profileImage) {
-		this.profileImage = profileImage;
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
+	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -100,58 +123,36 @@ public class ProfileEditForm implements Serializable {
 		this.posName = posName;
 	}
 
+	public String getHobby() {
+		return hobby;
+	}
+
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	
+	public List<String> getHobbys() {
+		return hobbys;
+	}
+
+	public void setHobbys(List<String> hobbys) {
+		this.hobbys = hobbys;
+	}
+	
+	public TreeMap<String, String> getSujestUsers() {
+		return sujestUsers;
+	}
+
+	public void setSujestUsers(TreeMap<String, String> sujestUsers) {
+		this.sujestUsers = sujestUsers;
+	}
+
 	public String getAboutMe() {
 		return aboutMe;
 	}
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	@AssertTrue
-	public boolean isPasswordConfirmed() {
-
-		return ObjectUtils.nullSafeEquals(password, passwordConfirm);
-	}
-
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
 	}
 
 	public String getZipcode() {
@@ -201,5 +202,36 @@ public class ProfileEditForm implements Serializable {
 	public void setMobilePhoneNo(String mobilePhoneNo) {
 		this.mobilePhoneNo = mobilePhoneNo;
 	}
+	
+	public ImageFile getProfileImage() {
+		return profileImage;
+	}
+	
+	public void setProfileImage(ImageFile profileImage) {
+		this.profileImage = profileImage;
+	}
+	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 }

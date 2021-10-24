@@ -1,6 +1,7 @@
 package com.rugbyaholic.communityPG.auth.account;
 
 import java.util.Optional;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,6 +47,12 @@ public class ProfileService {
 		// 個人情報更新
 		form.setUserId(user.getId());
 		updateCount += repository.updatePersonalInfo(form);
+		
+		// HobbyのUpdate
+		for(String hobby : form.getHobbys()) {
+			form.setHobby(hobby);
+			repository.registerUserHobbys(form);
+		}
 
 		if (updateCount < 2)
 			throw new Exception();
@@ -54,6 +61,21 @@ public class ProfileService {
 	// 初期表示用SQL
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
 		return repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
+	}
+	
+	
+	// 趣味の数分、リストが作られることになる。 ->　リストを足していく挙動にする。 
+	public void convertSuggestUsers(int i, TreeMap<String,String> sujestUsers, ProfileEditForm profileEditForm) {
+		if(profileEditForm.getHobbys().size() > i) {
+			for(String user : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
+				sujestUsers.put(user, user);
+			}
+			// 再帰処理
+			convertSuggestUsers(i++, sujestUsers, profileEditForm);
+		} else {
+			profileEditForm.setSujestUsers(sujestUsers);
+			int k = 0 ;
+		}
 	}
 	
 	public AuthenticatedUser provideUserInfo(long id) {
