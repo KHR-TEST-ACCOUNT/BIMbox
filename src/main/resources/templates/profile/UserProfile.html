@@ -77,13 +77,21 @@
 				<div class="row gy-2 mb-4">
 				
 					<div class="col col-12 col-md-3">
+						<span class="fw-bold">同じ趣味のユーザー</span>
+					</div>
+					<div class="col col-12 col-md-8">
+						<a  th:each="user : ${profileEditForm.sujestUsers}" 
+							th:href="|@{/profile/UserProfile.html}?id=${user.key}|" class="text-decoration-none">
+		                	<span th:text="${user.value}"></span>
+						</a>
+					</div>
+					<div class="col col-12 col-md-3">
 						<span class="fw-bold">自己紹介</span>
 					</div>
 					<div class="col col-12 col-md-8">
 						<span th:if="!${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="*{aboutMe}" class="personal-info">自分自身についての簡単な紹介（256文字以内）</span>
 						<span th:if="${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="'未登録'" class="personal-info">登録されていません</span>
 					</div>
-
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">郵便番号</span>
 					</div>

@@ -58,26 +58,33 @@ public class ProfileService {
 			throw new Exception();
 	}
 
-	// 初期表示用SQL
+	// 初期情報格納用SQL
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
-		return repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
+		ProfileEditForm  profileEditForm = repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
+		profileEditForm.setHobbys(repository.findUserHobbys(profileEditForm.getUserId()));
+		convertSuggestUsers(0, new TreeMap<Long, String>(), profileEditForm);
+		return profileEditForm;
 	}
 	
-	
-	// 趣味の数分、リストが作られることになる。 ->　リストを足していく挙動にする。 
-	public void convertSuggestUsers(int i, TreeMap<String,String> sujestUsers, ProfileEditForm profileEditForm) {
+	/**
+	 * 再帰処理で趣味をリストに追加する
+	 * i番目の趣味に合致するユーザーのIDとNameをマップに追加する。
+	 * 
+	 * @param i
+	 * @param sujestUsers
+	 * @param profileEditForm
+	 */
+	public void convertSuggestUsers(int i, TreeMap<Long, String> sujestUsers, ProfileEditForm profileEditForm) {
 		if(profileEditForm.getHobbys().size() > i) {
-			for(String user : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
-				sujestUsers.put(user, user);
+			for(ProfileEditForm userHobby : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
+				sujestUsers.put(userHobby.getUserId(), userHobby.getName());
 			}
-			// 再帰処理
-			convertSuggestUsers(i++, sujestUsers, profileEditForm);
-		} else {
-			profileEditForm.setSujestUsers(sujestUsers);
-			int k = 0 ;
+			convertSuggestUsers(i+1, sujestUsers, profileEditForm);
 		}
+		sujestUsers.remove(profileEditForm.getUserId());
+		profileEditForm.setSujestUsers(sujestUsers);
 	}
-	
+
 	public AuthenticatedUser provideUserInfo(long id) {
 		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
 		return optionalUserForm.orElse(new AuthenticatedUser());

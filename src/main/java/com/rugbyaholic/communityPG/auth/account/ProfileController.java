@@ -1,7 +1,6 @@
 package com.rugbyaholic.communityPG.auth.account;
 
 import java.util.Objects;
-import java.util.TreeMap;
 
 import javax.validation.Valid;
 
@@ -34,25 +33,16 @@ public class ProfileController {
 	@GetMapping("/profile/UserProfile.html")
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
-		if(Objects.isNull(id)){
-			ProfileEditForm profileEditForm = profileService.providePersonalInfo(user);
-			profileService.convertSuggestUsers(0, new TreeMap<String,String>(), profileEditForm);
-			model.addAttribute("profileEditForm", profileEditForm);
-			model.addAttribute("targetUser", user);
-		}else{
-			model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-			model.addAttribute("targetUser",  profileService.provideUserInfo(id));
-		}
+		if(!Objects.isNull(id)) user = profileService.provideUserInfo(id);
+		model.addAttribute("targetUser", user);
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		return "profile/UserProfile.html";
 	}
 
 	// プロフィール更新画面
 	@GetMapping("/profile/Profile.html")
-	public String onProfileRequested(@RequestParam(value = "id", required = true) Long id,
-			 Model model) {
-		AuthenticatedUser targetUser = profileService.provideUserInfo(id);
-		model.addAttribute("targetUser", targetUser);
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
+	public String onProfileRequested(@RequestParam(value = "id", required = true) Long id, Model model) {
+		converProfilesModel(model, profileService.provideUserInfo(id));
 		return "profile/Profile.html";
 	}
 
@@ -72,14 +62,22 @@ public class ProfileController {
 		model.addAttribute("notificationMessage",
 				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 						.messageCode("communityPG.web.message.proc.success").build());
-		// 初期表示
-		AuthenticatedUser targetUser = profileService.provideUserInfo(profileEditForm.getUserId());
-		model.addAttribute("targetUser", targetUser);
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
+		converProfilesModel(model, profileService.provideUserInfo(profileEditForm.getUserId()));
 		return "profile/UserProfile.html";
 	}
 	
 	/**
+	 * Model格納用メソッド
+	 * 
+	 * @param model
+	 * @param targetUser
+	 */
+	public void converProfilesModel(Model model ,AuthenticatedUser targetUser) {
+		model.addAttribute("targetUser", targetUser);
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
+	}
+		
+   /**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 
 	 * @param binder
