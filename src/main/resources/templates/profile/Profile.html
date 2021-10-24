@@ -50,7 +50,6 @@ $(function(){
 				<div class="row g-4">
 					<div class="col col-12">
 						<h5 class="m-0 pb-2 mb-3 border-bottom">アカウント情報</h5>
-						<input type="hidden" th:field="*{userId}">
 					</div>
 				</div>
 				<div class="row gy-2">
@@ -161,7 +160,7 @@ $(function(){
 						    <option value='1' >企業</option>
 						    <option value='2' >個人</option>
 						    <option value='3' >学校</option>
-						    <option value='4' >施設</option>
+						    <option value='4' >施設</option>xxxxx
 						    <option value='5' >商社</option>
 						    <option value='6' >倉庫</option>
 						    <option value='7' >その他</option>
@@ -254,6 +253,8 @@ $(function(){
 							class="text-danger" th:errors="*{mobilePhoneNo}"></span>
 					</div>
 				</div>
+				<input type="hidden" th:field="*{userId}">
+				<input type="hidden" th:field="*{empNo}">
 				<div class="footer px-3">
 					<button class="btn btn-success btn-sm shadow-sm">プロフィールを変更</button>
 				</div>

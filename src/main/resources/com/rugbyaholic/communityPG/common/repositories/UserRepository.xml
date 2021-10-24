@@ -50,7 +50,7 @@
 		    EMP_NO,
 		    NAME,
 		    HOBBY
-		) VALUES
+		) VALUES (
 		    #{userId},
 		    #{empNo},
 		    #{name},
@@ -63,14 +63,23 @@
 	]]>
 	</insert>
 
-	<select id="getSuggestUsers" parameterType="String" resultType="String">
+	<select id="getSuggestUsers" parameterType="String" resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
-		SELECT  NAME 
+		SELECT  USER_ID 	as userId,
+			    NAME		as name
 		FROM    USER_HOBBYS
 		WHERE   HOBBY      =  #{hobby}
 	]]>
 	</select>
-	
+		
+	<select id="findUserHobbys" parameterType="java.lang.Long" resultType="String">
+	<![CDATA[
+		SELECT  HOBBY
+		FROM    USER_HOBBYS
+		WHERE   USER_ID      =  #{userId}
+	]]>
+	</select>
+		
 	<select id="findUserById" parameterType="java.lang.Long" resultMap="userDetails">
 	<![CDATA[
 		SELECT 	USERS.ID,
@@ -224,7 +233,8 @@
 		</association>
 	</resultMap>
 
-	<select id="createProfileEditForm" parameterType="java.lang.Long" resultMap="userPersonalInfo">
+	<select id="createProfileEditForm" parameterType="java.lang.Long"
+			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		SELECT	USERS.ID					  AS userId,
 				USERS.NAME					  AS name,
@@ -240,6 +250,7 @@
 		        PI.BLDG      			      AS bldg,
 		        PI.TELNO        			  AS phoneNo,
 		        PI.MOBILE_NO  			      AS mobilePhoneNo
+		        
 		FROM    USERS 
 		INNER JOIN DEPTS DP
 		ON      DP.DEPT_CD        = USERS.DEPT_CD

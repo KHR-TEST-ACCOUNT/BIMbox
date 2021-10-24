@@ -34,7 +34,9 @@ public interface UserRepository {
 	
 	public int registerUserHobbys(ProfileEditForm form);
 	
-	public List<String> getSuggestUsers(String hobby);
+	public List<String> findUserHobbys(Long userId);
+	
+	public List<ProfileEditForm> getSuggestUsers(String hobby);
 	
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form);
 
