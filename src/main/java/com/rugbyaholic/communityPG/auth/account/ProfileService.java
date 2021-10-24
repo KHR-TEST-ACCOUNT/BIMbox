@@ -60,5 +60,4 @@ public class ProfileService {
 		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
 		return optionalUserForm.orElse(new AuthenticatedUser());
 	}
-	
 }

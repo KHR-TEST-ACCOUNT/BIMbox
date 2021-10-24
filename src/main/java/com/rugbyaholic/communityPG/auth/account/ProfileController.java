@@ -38,7 +38,8 @@ public class ProfileController {
 		}else{
 			model.addAttribute("targetUser",  profileService.provideUserInfo(id));
 		}
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		ProfileEditForm profileEditForm = profileService.providePersonalInfo(user);
+		model.addAttribute("profileEditForm", profileEditForm);
 		return "profile/UserProfile.html";
 	}
 

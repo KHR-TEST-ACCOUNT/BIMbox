@@ -80,45 +80,79 @@
 						<span class="fw-bold">自己紹介</span>
 					</div>
 					<div class="col col-12 col-md-8">
-						<span th:text="*{aboutMe}" class="personal-info">自分自身についての簡単な紹介（256文字以内）</span>
+						<span th:if="!${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="*{aboutMe}" class="personal-info">自分自身についての簡単な紹介（256文字以内）</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="'未登録'" class="personal-info">登録されていません</span>
 					</div>
 
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">郵便番号</span>
 					</div>
 					<div class="col col-12 col-md-8 d-flex">
-						<span th:text="*{zipcode}" class="personal-info">ハイフンなし</span>
-					</div>					<div class="col col-12 col-md-3">
+						<span th:if="!${#strings.isEmpty(profileEditForm.zipcode)}" th:text="*{zipcode}" class="personal-info">ハイフンなし</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.zipcode)}" th:text="'未登録'" class="personal-info">登録されていません</span>
+					</div>
+					<!-- 住所 -->
+					<div class="col col-12 col-md-3">
 						<span class="fw-bold">住所</span>
 					</div>
 					<div class="col col-12 col-md-8">
-						<span th:text="*{pref}" class="personal-info pref">都道府県</span>
+						<span th:if="${!#strings.isEmpty(profileEditForm.pref)}" th:text="*{pref}" class="personal-info">都道府県</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.pref)}" th:text="'未登録'" class="personal-info">登録されていません</span>
 					</div>
-					<div class="col col-12 col-md-3 isShow-address"></div>
-					<div class="col col-12 col-md-8 isShow-address">
-						<span th:text="*{city}" class="personal-info">市区町村</span>
-					</div>
-					<div class="col col-12 col-md-3 isShow-address"></div>
-					<div class="col col-12 col-md-8 isShow-address">
-						<span th:text="*{bldg}" class="personal-info">番地・建物</span>
-					</div>
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.pref) && !#strings.isEmpty(profileEditForm.city)}" >
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{city}" class="personal-info">市区町村</span>
+						</div>
+					</th:block>
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.city) && !#strings.isEmpty(profileEditForm.bldg) }" >
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{bldg}" class="personal-info">番地・建物</span>
+						</div>
+					</th:block>
+					<!-- 電話番号 -->
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">電話番号</span>
 					</div>
-					<div class="col col-12 col-md-8 isShow-PhoneNo">
-						<span th:text="*{phoneNo}" class="personal-info PhoneNo">自宅</span>
+					<!-- 自宅のみ登録 -->
+					<th:block th:if="${#strings.isEmpty(profileEditForm.mobilePhoneNo) && !#strings.isEmpty(profileEditForm.phoneNo) }" >
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{phoneNo}" class="personal-info">自宅</span>
+						</div>
+						<div class="col col-12 col-md-3 "></div>
+					</th:block>
+					<!-- 携帯のみ登録 -->
+					<div th:if="${!#strings.isEmpty(profileEditForm.mobilePhoneNo) && #strings.isEmpty(profileEditForm.phoneNo) }" 
+						 class="col col-12 col-md-8">
+							<span th:text="*{mobilePhoneNo}" class="personal-info">携帯</span>
 					</div>
-					<div class="col col-12 col-md-3 isShow-mobile"></div>
-					<div class="col col-12 col-md-8 isShow-mobilePhoneNo">
-						<span th:text="*{mobilePhoneNo}" class="personal-info PhoneNo">携帯</span>
+					<!-- 両方未登録 -->
+					<div th:if="${#strings.isEmpty(profileEditForm.mobilePhoneNo) && #strings.isEmpty(profileEditForm.phoneNo) }"
+						 class="col col-12 col-md-8 existsBoth">
+						<span th:text="'未登録'" class="personal-info">自宅</span>
 					</div>
+					<!-- 両方登録 -->
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.mobilePhoneNo) && !#strings.isEmpty(profileEditForm.phoneNo) }">
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{phoneNo}" class="personal-info">自宅</span>
+						</div>
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8">
+							<span th:text="*{mobilePhoneNo}" class="personal-info">携帯</span>
+						</div>
+					</th:block>
 				</div>
 				<div class="footer px-3">
-					<input type="hidden" name="roles" th:value="${#authentication.principal.roles.get(0).code}" />
-					<input type="hidden" id="loginUserId" th:value="${#authentication.principal.id}" />
-					<input type="hidden" id="userId" th:value="${targetUser.id}" />
-					<a th:href="|@{/profile/Profile.html}?id=${targetUser.id}|" id="editProfile"
-						 class="btn btn-success btn-sm shadow-sm" >プロフィール編集</a>
+					<th:block th:with="userRole = ${#authentication.principal.roles.get(0).code}">
+						<!-- 変更不可 -->
+						<a  th:if="${userRole.equals('01') && targetUser.id != #authentication.principal.id}"
+							class="btn btn-success btn-sm shadow-sm" id="disabled_do" >プロフィール編集</a>
+						<!-- 変更可能 -->
+						<a  th:unless="${userRole.equals('01') && targetUser.id != #authentication.principal.id}"
+							th:href="|@{/profile/Profile.html}?id=${targetUser.id}|" id="editProfile"
+							class="btn btn-success btn-sm shadow-sm" >プロフィール編集</a>
+					</th:block>
 				</div>
 			</div>
 		</form>
