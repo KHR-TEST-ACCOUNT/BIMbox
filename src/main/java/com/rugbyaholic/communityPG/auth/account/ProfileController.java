@@ -65,7 +65,7 @@ public class ProfileController {
 		converProfilesModel(model, profileService.provideUserInfo(profileEditForm.getUserId()));
 		return "profile/UserProfile.html";
 	}
-	
+
 	/**
 	 * Model格納用メソッド
 	 * 
