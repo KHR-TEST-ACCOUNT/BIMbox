@@ -31,6 +31,15 @@ h4 span{
 }
 */
 
+#disabled_do{
+	opacity: 0.65;
+	pointer-events: none;
+}
+
+.about{
+	font-size: 18px;
+}
+
 .cover {
 	height: 100%;
 	width: 100%;
@@ -40,15 +49,6 @@ h4 span{
 	left: 0;
 	z-index: 1030;
 	display: none;
-}
-
-#disabled_do{
-	opacity: 0.65;
-	pointer-events: none;
-}
-
-.about{
-	font-size: 18px;
 }
 
 .cover.visible {
