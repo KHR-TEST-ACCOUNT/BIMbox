@@ -8,7 +8,7 @@
   ***「人間の幸福度は、友人関係の多さで決まります。」*** <br>
   ハーバード大学が1938年より行った「成人発達研究」の調査（This 75-Year Harvard Study Found the 1 Secret to Leading a Fulfilling Life）では、ボストンで育った成人とハーバード大学の卒業生の合計700人に対し75年の間追跡調査を実施し「人間の幸福度とその要因」を明らかにしました。<br>
   この研究では、血液サンプルや脳スキャンなどもを用いて調査を実施し、結果、研究チームは次のように結論づけました。<br>
-	***"The clearest message that we get from this 75-year study is this: Good relationships keep us happier and healthier. Period."***
+	***"The clearest message that we get from this 75-year study is this: Good relationships keep us happier and healthier. Period."***<br>
 	（訳）｢75年間におよぶこの研究が明確に示しているポイントは、良い人間関係が私たちの幸福と健康を高めてくれるということです。これが結論です。｣<br>
 	<br>
 　具体的に言うと、この研究では頼れる人が傍にいるという環境には以下の3つの効果が期待されると結論づけています。<br>
