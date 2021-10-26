@@ -136,9 +136,23 @@ $(function() {
 			isProfEdPermission();
 		}
 	});
+	
+	
+	// UserProfileのデフォルトの画面表示を設定する。
+	function setProfileDefault() {
+		$('#wkSelect').multiselect({
+		    checkAllText: '全て選択',
+		    uncheckAllText: '全て選択解除',
+		    noneSelectedText: '選択してください',
+		    selectedText: '# 個選択',
+		});
+		// $("#wkSelect").multiselect();
+		// $("#id").dropdownchecklist( {width: 200 } );
+	}
 
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
+		fadeinAnimation();
 		switch($("#loginUserRoles").val()){
 			case "01":
 	    		$('select[name="roles"] option[value="02"]').prop('disabled', true);
@@ -151,7 +165,6 @@ $(function() {
 		}
 	}
 
-/**
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function fadeinAnimation() {
 	    var topBtn = $('.fadein');    
@@ -172,7 +185,6 @@ $(function() {
 	        return false;
 		});
 	}
- */
 
 	//フェードイン
 	$("#topic div").on("click", function() {

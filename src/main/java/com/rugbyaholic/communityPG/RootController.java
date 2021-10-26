@@ -29,7 +29,11 @@ public class RootController {
 	@GetMapping("/")
 	public String onActivated(Model model) {
 		return "Top.html";
-		// return "errorPage.html";
+	}
+	
+	@GetMapping("/chatRoom.html")
+	public String onLoadChatRoom(Model model) {
+		return "chatRoom.html";
 	}
 	
 	@GetMapping("/Login.html")
