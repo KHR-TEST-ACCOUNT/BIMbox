@@ -9,6 +9,7 @@ var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
+var userId = null;
 var username = null;
 var content = null;
 
@@ -18,14 +19,16 @@ var colors = [
 ];
 
 function send(event) {
+    userId = document.querySelector('#userId').value.trim();
     username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
 
     if(username && content) {
 		if (stompClient) {
 	        var chatMessage = {
-	            sender: username,
-	            content: messageInput.value,
+	            fromUserId: userId,
+	            fromUser: username,
+	            content: content,
 	            type: 'CHAT'
 	        };
 	        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
@@ -46,7 +49,12 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
     stompClient.send("/app/chat.send",
         {},
-        JSON.stringify({sender: username,content: content, type: 'JOIN'})
+        JSON.stringify({
+			fromUserId: userId, 
+			fromUser: username, 
+			content: content, 
+			type: 'JOIN'
+		})
     )
 	// 接続中の文字をHiddenにする。
     connectingElement.classList.add('hidden');
@@ -61,20 +69,20 @@ function onMessageReceived(payload) {
 	// TypeがLEAVEのときの処理
     if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
+        message.content = message.fromUser + ' left!';
 	// TypeがChatのときの処理
     } else {
         messageElement.classList.add('chat-message');
 		//チャットメッセージを追加する
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
+        var avatarText = document.createTextNode(message.fromUser[0]);
         avatarElement.appendChild(avatarText);
 		//バックグラウンドのスタイルを変更
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        avatarElement.style['background-color'] = getAvatarColor(message.fromUser);
 		//チャットメッセージを追加する
         messageElement.appendChild(avatarElement);
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
+        var usernameText = document.createTextNode(message.fromUser);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }

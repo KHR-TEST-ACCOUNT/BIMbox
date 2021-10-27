@@ -30,12 +30,7 @@ public class RootController {
 	public String onActivated(Model model) {
 		return "Top.html";
 	}
-	
-	@GetMapping("/chatRoom.html")
-	public String onLoadChatRoom(Model model) {
-		return "chatRoom.html";
-	}
-	
+
 	@GetMapping("/Login.html")
 	public String onLoginRequested() {
 		return "Login.html";

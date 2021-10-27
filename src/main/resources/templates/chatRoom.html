@@ -31,13 +31,13 @@
 			        <form id="messageForm" name="messageForm" nameForm="messageForm">
 			            <div class="form-group">
 			                <div class="input-group clearfix mt-2">
-				                <input type="hidden" id="name" 
-				                       th:value="${#authentication.principal.username}"/>
 			                    <input type="text" id="message" placeholder="Digite uma mensagem..."
 			                           autocomplete="off" class="form-control" />
 			                    <button type="submit" class="primary">Enviar</button>
 			                </div>
 			            </div>
+		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
+		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
 			        </form>
 			    </div>
 			</div>

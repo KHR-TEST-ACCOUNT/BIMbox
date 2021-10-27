@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository">
+	
+	<select id="findConversationalUser" resultType="com.rugbyaholic.communityPG.websocket.MessageForm">
+	<![CDATA[
+		SELECT  MSG.FROM_USER_ID       AS fromUserId,
+		        MSG.FROM_USER          AS fromUser,
+		        MSG.MESSAGE            AS content,
+		        MSG.MESSAGE_IMG        AS messageImg,
+		        MSG.SENT_AVF	       AS sentAvf,
+		        MSG.TO_USER_ID         AS toUserId,
+		        MSG.TO_USER            AS toUser
+		FROM    MESSAGE_HIST MSG
+		INNER JOIN USERS U
+		ON      U.ID         =  MSG.FROM_USER_ID
+		AND     EXISTS 
+		        ( 
+ 		            SELECT  AVF 
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		            AND     AVF      >  U.AVF 
+ 		        ) 
+		WHERE   MSG.FROM_USER_ID	 =	#{userId}
+		AND	    MSG.SENT_AVF		>=	U.AVF
+		AND		MSG.SENT_AVF 		IN  (
+										SELECT 	MAX(SENT_AVF) 
+										FROM 	MESSAGE_HIST 
+										GROUP BY TO_USER_ID
+									)
+	]]>
+	</select>
+
+	<select id="findMessages" resultType="com.rugbyaholic.communityPG.websocket.MessageForm">
+	<![CDATA[
+		SELECT  MSG.FROM_USER_ID       AS fromUserId,
+		        MSG.FROM_USER          AS fromUser,
+		        MSG.MESSAGE            AS content,
+		        MSG.MESSAGE_IMG        AS messageImg,
+		        MSG.SENT_AVF           AS sentAvf,
+		        MSG.TO_USER_ID         AS toUserId,
+		        MSG.TO_USER            AS toUser
+		FROM    MESSAGE_HIST MSG
+		INNER JOIN USERS U
+		ON      U.ID         =  MSG.FROM_USER_ID
+		AND     EXISTS 
+		        ( 
+ 		            SELECT  AVF 
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		            AND     AVF      >  U.AVF 
+ 		        ) 
+		WHERE   SENT_AVF      >=  U.AVF
+		AND     FROM_USER_ID   =  #{fromUserId}
+		AND     TO_USER_ID     =  #{toUserId}
+		ORDER BY
+		        SENT_AVF
+	]]>
+	</select>
+
+	<insert id="registerMessage">
+	<![CDATA[
+		INSERT INTO MESSAGE_HIST(
+		    FROM_USER_ID,
+		    FROM_USER,
+		    MESSAGE,
+		    MESSAGE_IMG,
+		    SENT_AVF,
+		    TO_USER_ID,
+		    TO_USER
+		) VALUES (
+		    #{msgInfo.fromUserId},
+		    #{msgInfo.fromUser},
+		    #{msgInfo.content},
+		    #{msgInfo.messageImg},
+		    NOW(),
+		    #{msgInfo.toUserId},
+		    #{msgInfo.toUser}
+		)
+	]]>
+	</insert>
+	
+</mapper>

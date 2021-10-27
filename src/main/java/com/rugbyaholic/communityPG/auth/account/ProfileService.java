@@ -66,25 +66,27 @@ public class ProfileService {
 		return profileEditForm;
 	}
 	
-	/**
-	 * 再帰処理で趣味をリストに追加する
-	 * i番目の趣味に合致するユーザーのIDとNameをマップに追加する。
-	 * 
-	 * @param i
-	 * @param sujestUsers
-	 * @param profileEditForm
-	 */
-	public void convertSuggestUsers(int i, TreeMap<Long, String> sujestUsers, ProfileEditForm profileEditForm) {
-		if(profileEditForm.getHobbys().size() > i) {
-			for(ProfileEditForm userHobby : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
-				sujestUsers.put(userHobby.getUserId(), userHobby.getName());
+	   /**
+		 * 再帰処理で趣味をリストに追加する
+		 * i番目の趣味に合致するユーザーのIDとNameをマップに追加する。
+		 * 
+		 * @param i
+		 * @param sujestUsers
+		 * @param profileEditForm
+		 */
+		public void convertSuggestUsers(int i, TreeMap<Long, String> sujestUsers, ProfileEditForm profileEditForm) {
+			if(profileEditForm.getHobbys().size() > i) {
+				for(ProfileEditForm userHobby : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
+					if(profileEditForm.getUserId() != userHobby.getUserId()){
+						sujestUsers.put(userHobby.getUserId(), userHobby.getName());
+					}
+				}
+				convertSuggestUsers(i+1, sujestUsers, profileEditForm);
 			}
-			convertSuggestUsers(i+1, sujestUsers, profileEditForm);
+			// sujestUsers.remove(profileEditForm.getUserId());
+			profileEditForm.setSujestUsers(sujestUsers);
 		}
-		sujestUsers.remove(profileEditForm.getUserId());
-		profileEditForm.setSujestUsers(sujestUsers);
-	}
-
+		
 	public AuthenticatedUser provideUserInfo(long id) {
 		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
 		return optionalUserForm.orElse(new AuthenticatedUser());
