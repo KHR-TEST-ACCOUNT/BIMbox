@@ -1,4 +1,4 @@
-package com.rugbyaholic.communityPG.websocket.config;
+package com.rugbyaholic.communityPG.conf;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
