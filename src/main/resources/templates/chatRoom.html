@@ -1,57 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+	<meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Chat Tupi | Spring Boot + WebSocket</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta th:name="_csrf" th:content="${_csrf.token}" />
+	<meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/chatRoom.css" />
+	<meta th:replace="fragments/Scripts :: scripts">
+    <title>チャットルーム</title>
 </head>
-<body background="maxresdefault.jpg"
-      style="background-position: center; background-repeat: no-repeat; background-size: cover;">
-<noscript>
-    <h2>Opa! Parece que este browser não suporta JavaScript</h2>
-</noscript>
-
-<div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">Digite seu nome</h1>
-        <form id="usernameForm" name="usernameForm">
-            <div class="form-group">
-                <input type="text" id="name" placeholder="Nome"
-                       autocomplete="off" class="form-control" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="accent username-submit">Comece a conversar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div id="chat-page" class="hidden">
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>ChatBox Tupi</h2>
-        </div>
-        <div class="connecting">Conectando ao chat...</div>
-        <ul id="messageArea">
-
-        </ul>
-        <form id="messageForm" name="messageForm" nameForm="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Digite uma mensagem..."
-                           autocomplete="off" class="form-control" />
-                    <button type="submit" class="primary">Enviar</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<body>
+	<div class="cover"></div>
+	<div th:replace="fragments/Sidenav :: sidenav"></div>
+	<div class="main">
+		<div th:replace="fragments/Header :: header"></div>
+		<div class="container">
+			<div id="chat-page">
+			    <div class="chat-container">
+			        <div class="chat-header">
+			            <h2>ChatBox Tupi</h2>
+			        </div>
+			        <div class="connecting mt-1">Let's start...</div>
+			        <ul id="messageArea" class="mt-2">
+			
+			        </ul>
+			        <form id="messageForm" name="messageForm" nameForm="messageForm">
+			            <div class="form-group">
+			                <div class="input-group clearfix mt-2">
+				                <input type="hidden" id="name" 
+				                       th:value="${#authentication.principal.username}"/>
+			                    <input type="text" id="message" placeholder="Digite uma mensagem..."
+			                           autocomplete="off" class="form-control" />
+			                    <button type="submit" class="primary">Enviar</button>
+			                </div>
+			            </div>
+			        </form>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/Toast :: toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/chatRoom.js"></script>
 </body>
 </html>
