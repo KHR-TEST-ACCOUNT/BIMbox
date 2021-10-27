@@ -95,7 +95,6 @@
 						<th class="sticky-top bg-white text-truncate">役職</th>
 					</tr>
 				</thead>
-			<!-- ${#authentication.principal.roles.get(0).code} でもOK -->
 				<tbody th:if="${searchResult}">
 					<tr th:each="user : ${searchResult.entities}">
 						<td class="text-center">
