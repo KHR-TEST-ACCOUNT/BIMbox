@@ -100,9 +100,6 @@ html,body {
     line-height: 1.58;
 }
 
-.main:before {
-}
-
 .clearfix:after {
     display: block;
     content: "";

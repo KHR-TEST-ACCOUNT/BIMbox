@@ -1,4 +1,4 @@
-package com.rugbyaholic.communityPG.websocket.model;
+package com.rugbyaholic.communityPG.websocket;
 
 
 public class ChatMessage {
