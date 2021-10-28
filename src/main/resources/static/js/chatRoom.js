@@ -72,6 +72,7 @@ function onMessageReceived(payload) {
         message.content = message.fromUser + ' left!';
 	// TypeがChatのときの処理
     } else {
+		// 送信ユーザーのアイコンを設定
         messageElement.classList.add('chat-message');
 		//チャットメッセージを追加する
         var avatarElement = document.createElement('i');

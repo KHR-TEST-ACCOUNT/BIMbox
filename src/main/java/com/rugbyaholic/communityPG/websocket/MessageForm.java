@@ -12,6 +12,7 @@ public class MessageForm {
     private String content;
 //	private ImageFile messageImg = new ImageFile();
 	private MultipartFile uploadFile;
+	private String AVF;
 	private Timestamp sentAvf;
     private long toUserId;
     private String toUser;
@@ -20,13 +21,17 @@ public class MessageForm {
 		// ブレークポイント
 //		this.sentAvf = new SimpleDateFormat("yyyy年MM月dd日 hh:mm a").format(sentAvf);
 		this.sentAvf = sentAvf;
-		System.out.print(new SimpleDateFormat("yyyy年MM月dd日 hh:mm a").format(sentAvf));
+		this.AVF = new SimpleDateFormat("yyyy年MM月dd日 h:mm a").format(sentAvf);
 	}
 	
 	public Timestamp getSentAvf() {
 		return sentAvf;
 	}
 
+	public String getAVF() {
+		return AVF;
+	}
+	
 	public long getFromUserId() {
 		return fromUserId;
 	}
@@ -43,11 +48,11 @@ public class MessageForm {
 		this.fromUser = fromUser;
 	}
 
-	public String getMessage() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setMessage(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 

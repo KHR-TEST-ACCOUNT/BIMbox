@@ -24,10 +24,10 @@ public class ChatController {
 	
 	@GetMapping("/conversationTo/chatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
 		// サジェストされたユーザーを追加。
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		return "chatRoom.html";
+		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
+		return "UserSugest.html";
 	}
 
 
