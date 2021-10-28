@@ -1,6 +1,6 @@
 # [Klein.Netwerk](http://http://aws-and-communities.ap-northeast-1.elasticbeanstalk.com/Login.html)
 
-   Klein.Netwerkは、会社・シェアハウス・共有施設などで使える小規模なコミュニティSNSです。<br>
+   Klein.Netwerkは、オフィス・シェアハウス・共有施設などで使える小規模なコミュニティSNSです。<br>
    掲示板機能、ダイレクトメッセージ機能、ユーザー検索機能、ファイル共有機能などがあります。<br>
    また、自分のプロフィールに趣味を登録しておくと趣味に合致するユーザーをサジェストします。ユーザー間のリアルタイムなダイレクトメッセージなども可能です。
 
