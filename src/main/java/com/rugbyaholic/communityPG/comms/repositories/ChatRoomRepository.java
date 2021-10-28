@@ -11,7 +11,7 @@ import com.rugbyaholic.communityPG.websocket.MessageForm;
 @Mapper
 public interface ChatRoomRepository {
 	
-	public void registerMessage(@Param("form") ChatMessage msgInfo);
+	public void registerMessage(@Param("msgInfo") ChatMessage msgInfo);
 	
 	public List<MessageForm> findMessages(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	

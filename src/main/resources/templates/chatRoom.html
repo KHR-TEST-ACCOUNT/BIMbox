@@ -24,9 +24,38 @@
 			        <div class="chat-header">
 			            <h2>ChatBox Tupi</h2>
 			        </div>
-			        <div class="connecting mt-1">Let's start...</div>
+			        <div th:if="${messageHist.isEmpty()}">
+				        <div class="connecting mt-1">Let's start...</div>
+			        </div>
 			        <ul id="messageArea" class="mt-2">
-			
+			        <!-- 
+						
+							
+						<th:block th:each="chatMsg : ${messageHist}">
+			         -->
+						<th:block th:unless="${messageHist.isEmpty()}" th:each="chatMsg : ${messageHist}">
+							<!-- fromUser -->
+							<th:block th:if="${chatMsg.fromUserId == #authentication.principal.id}">
+								<li class="chat-message">
+									<i style="background-color: rgb(255, 152, 0);">初</i>
+				                	<span th:text="${chatMsg.fromUser}"></span>
+				                	<p th:text="${chatMsg.content}"></p>
+				                	<small th:text="${chatMsg.AVF}"></small> -- 
+				                	<small th:text="${chatMsg.fromUser}"></small> -- 
+				                	<small th:text="${chatMsg.toUser}"></small>
+								</li>
+							</th:block>
+							<!-- toUser -->
+							<th:block th:if="${chatMsg.fromUserId != #authentication.principal.id}">
+								<li class="chat-message">
+									<i style="background-color: rgb(33, 150, 243);">f</i>									<i style="background-color: rgb(255, 152, 0);">初</i>
+				                	<span th:text="${chatMsg.toUser}"></span>
+				                	<p th:text="${chatMsg.content}"></p>
+				                	<small th:text="${chatMsg.AVF}"></small> -- 
+				                	<small th:text="${chatMsg.toUser}"></small>
+								</li>
+							</th:block>
+						</th:block>
 			        </ul>
 			        <form id="messageForm" name="messageForm" nameForm="messageForm">
 			            <div class="form-group">
@@ -38,7 +67,8 @@
 			            </div>
 		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
 		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
-			        </form>
+	              		<input type="hidden" id="toUserId" th:value="${messageHist.get(0).toUserId}"/> 
+	       	        </form>
 			    </div>
 			</div>
 		</div>
