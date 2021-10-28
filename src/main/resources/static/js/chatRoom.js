@@ -74,13 +74,11 @@ function onMessageReceived(payload) {
     } else {
 		// 送信ユーザーのアイコンを設定
         messageElement.classList.add('chat-message');
-		//チャットメッセージを追加する
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message.fromUser[0]);
         avatarElement.appendChild(avatarText);
 		//バックグラウンドのスタイルを変更
         avatarElement.style['background-color'] = getAvatarColor(message.fromUser);
-		//チャットメッセージを追加する
         messageElement.appendChild(avatarElement);
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.fromUser);
