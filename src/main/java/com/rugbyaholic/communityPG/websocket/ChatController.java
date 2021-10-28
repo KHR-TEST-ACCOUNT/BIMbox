@@ -39,13 +39,12 @@ public class ChatController {
 		return "chatRoom.html";
 	}
 
-
 	// modelを入れてみる。OR 画面上ではセッションで格納して、更新時に表示できるようにModelに格納する。無理ならパス
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessage( @Payload ChatMessage chatMessage) throws Exception {
     	// メッセージをDBに格納（JSでIDを送信する。）
-//    	service.registMessageInfo(chatMessage);
+    	service.registMessageInfo(chatMessage);
         return chatMessage;
     }
 

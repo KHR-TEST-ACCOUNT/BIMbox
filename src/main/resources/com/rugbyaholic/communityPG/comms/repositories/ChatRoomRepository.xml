@@ -54,8 +54,14 @@
  		            AND     AVF      >  U.AVF 
  		        ) 
 		WHERE   SENT_AVF      >=  U.AVF
-		AND     FROM_USER_ID   =  #{fromUserId}
-		AND     TO_USER_ID     =  #{toUserId}
+		AND     (
+				 FROM_USER_ID   =  #{fromUserId}	AND 
+				 TO_USER_ID     =  #{toUserId}
+				)
+		OR      (
+				 FROM_USER_ID   =  #{toUserId} 		AND
+				 TO_USER_ID     =  #{fromUserId}
+				)
 		ORDER BY
 		        SENT_AVF
 	]]>

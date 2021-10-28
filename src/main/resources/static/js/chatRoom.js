@@ -12,6 +12,7 @@ var stompClient = null;
 var userId = null;
 var username = null;
 var content = null;
+var toUserId = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -22,6 +23,7 @@ function send(event) {
     userId = document.querySelector('#userId').value.trim();
     username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
+    toUserId = document.querySelector('#toUserId').value.trim();
 
     if(username && content) {
 		if (stompClient) {
@@ -29,6 +31,7 @@ function send(event) {
 	            fromUserId: userId,
 	            fromUser: username,
 	            content: content,
+	            toUserId: toUserId,
 	            type: 'CHAT'
 	        };
 	        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
@@ -53,6 +56,7 @@ function onConnected() {
 			fromUserId: userId, 
 			fromUser: username, 
 			content: content, 
+			toUserId: toUserId, 
 			type: 'JOIN'
 		})
     )

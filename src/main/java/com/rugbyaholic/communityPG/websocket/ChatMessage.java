@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rugbyaholic.communityPG.common.ImageFile;
+
 public class ChatMessage {
 	//ここに格納された情報をDBに登録する。
     private String content;
@@ -12,7 +14,7 @@ public class ChatMessage {
     
 	private long fromUserId;
     private String fromUser;
-//	private ImageFile messageImg = new ImageFile();
+	private ImageFile messageImg;
 	private MultipartFile uploadFile;
 	private Timestamp sentAvf;
     private long toUserId;
@@ -67,12 +69,12 @@ public class ChatMessage {
 	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
 	}
-//	public ImageFile getMessageImg() {
-//		return messageImg;
-//	}
-//	public void setMessageImg(ImageFile messageImg) {
-//		this.messageImg = messageImg;
-//	}
+	public ImageFile getMessageImg() {
+		return messageImg;
+	}
+	public void setMessageImg(ImageFile messageImg) {
+		this.messageImg = messageImg;
+	}
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
