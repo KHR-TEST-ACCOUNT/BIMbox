@@ -1,62 +1,52 @@
 package com.rugbyaholic.communityPG.websocket;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rugbyaholic.communityPG.common.ImageFile;
 
 public class ChatMessage {
-	//ここに格納された情報をDBに登録する。
-    private String content;
-    private String sender;
     private MessageType type;
-    
 	private long fromUserId;
     private String fromUser;
+    private String content;
 	private ImageFile messageImg;
 	private MultipartFile uploadFile;
 	private Timestamp sentAvf;
+	private String AVF;
     private long toUserId;
     private String toUser;
-
-//    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh:mm a");
-
+    
+    // JSONの情報を格納する際に使用するコンストラクター
+    public ChatMessage() {
+    }
+    // メッセージの記録がない場合に送信先のIDを格納しインスタンスを生成するための処理
+    public ChatMessage(Long toUserId) {
+		this.toUserId = toUserId;
+    }
+    // 格納したメッセージタイプ
     public enum MessageType {
     	CHAT, LEAVE, JOIN
     }
-    
+	public MessageType getType() {
+    	return type;
+    }
+    public void setType(MessageType type) {
+    	this.type = type;
+    }
+    // 日付をString型に変換
 	public void setSentAvf(Timestamp sentAvf) {
-		// ブレークポイント
 		this.sentAvf = sentAvf;
+		this.AVF = new SimpleDateFormat("yyyy年MM月dd日 h:mm a").format(sentAvf);
 	}
 	public Timestamp getSentAvf() {
 		return sentAvf;
 	}
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public MessageType getType() {
-        return type;
-    }
-
-    public void setType(MessageType type) {
-        this.type = type;
-    }
+	public String getAVF() {
+		return AVF;
+	}
 	public long getFromUserId() {
 		return fromUserId;
 	}
@@ -68,6 +58,12 @@ public class ChatMessage {
 	}
 	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public ImageFile getMessageImg() {
 		return messageImg;
@@ -93,15 +89,4 @@ public class ChatMessage {
 	public void setToUser(String toUser) {
 		this.toUser = toUser;
 	}
-
-//	public String getMessage() {
-//		return content;
-//	}
-//
-//	public void setMessage(String content) {
-//		this.content = content;
-//	}
-	
-    
-    
 }

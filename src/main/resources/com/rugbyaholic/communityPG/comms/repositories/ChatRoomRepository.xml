@@ -5,65 +5,82 @@
 
 <mapper namespace="com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository">
 	
-	<select id="findConversationalUser" resultType="com.rugbyaholic.communityPG.websocket.MessageForm">
+	<select id="findConversationalUser" resultType="com.rugbyaholic.communityPG.websocket.ChatMessage">
 	<![CDATA[
 		SELECT  MSG.FROM_USER_ID       AS fromUserId,
-		        MSG.FROM_USER          AS fromUser,
-		        MSG.MESSAGE            AS content,
+		        FROM_USER.NAME		   AS fromUser,
+		        LEFT(MSG.MESSAGE, 20)  AS content,
 		        MSG.MESSAGE_IMG        AS messageImg,
 		        MSG.SENT_AVF	       AS sentAvf,
 		        MSG.TO_USER_ID         AS toUserId,
-		        MSG.TO_USER            AS toUser
+		        TO_USER.NAME		   AS toUser
 		FROM    MESSAGE_HIST MSG
-		INNER JOIN USERS U
-		ON      U.ID         =  MSG.FROM_USER_ID
+		LEFT JOIN USERS FROM_USER
+		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
 		AND     EXISTS 
 		        ( 
- 		            SELECT  AVF 
+ 		            SELECT  NAME, AVF 
  		            FROM    USERS 
  		            WHERE   AVF     <=  CURDATE() 
- 		            AND     AVF      >  U.AVF 
+ 		            AND     AVF      >  FROM_USER.AVF 
+ 		        ) 
+		LEFT JOIN USERS TO_USER
+		ON      TO_USER.ID         =  MSG.TO_USER_ID
+		AND     EXISTS 
+		        ( 
+ 		            SELECT  NAME 
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
  		        ) 
 		WHERE   MSG.FROM_USER_ID	 =	#{userId}
-		AND	    MSG.SENT_AVF		>=	U.AVF
+		AND	    MSG.SENT_AVF		>=	FROM_USER.AVF
 		AND		MSG.SENT_AVF 		IN  (
 										SELECT 	MAX(SENT_AVF) 
 										FROM 	MESSAGE_HIST 
 										GROUP BY TO_USER_ID
 									)
+		ORDER BY 	MSG.SENT_AVF 	DESC
 	]]>
 	</select>
 
-	<select id="findMessages" resultType="com.rugbyaholic.communityPG.websocket.MessageForm">
+	<select id="findMessages" resultType="com.rugbyaholic.communityPG.websocket.ChatMessage">
 	<![CDATA[
 		SELECT  MSG.FROM_USER_ID       AS fromUserId,
-		        MSG.FROM_USER          AS fromUser,
+		        FROM_USER.NAME		   AS fromUser,
 		        MSG.MESSAGE            AS content,
 		        MSG.MESSAGE_IMG        AS messageImg,
 		        MSG.SENT_AVF           AS sentAvf,
 		        MSG.TO_USER_ID         AS toUserId,
-		        MSG.TO_USER            AS toUser
+		        TO_USER.NAME           AS toUser
 		FROM    MESSAGE_HIST MSG
-		INNER JOIN USERS U
-		ON      U.ID         =  MSG.FROM_USER_ID
+		LEFT JOIN USERS FROM_USER
+		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
 		AND     EXISTS 
 		        ( 
- 		            SELECT  AVF 
+ 		            SELECT  NAME, AVF 
  		            FROM    USERS 
  		            WHERE   AVF     <=  CURDATE() 
- 		            AND     AVF      >  U.AVF 
+ 		            AND     AVF      >  FROM_USER.AVF 
  		        ) 
-		WHERE   SENT_AVF      >=  U.AVF
+		LEFT JOIN USERS TO_USER
+		ON      TO_USER.ID         =  MSG.TO_USER_ID
+		AND     EXISTS 
+		        ( 
+ 		            SELECT  NAME 
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		        ) 
+		WHERE   MSG.SENT_AVF		>=	FROM_USER.AVF
 		AND     (
-				 FROM_USER_ID   =  #{fromUserId}	AND 
-				 TO_USER_ID     =  #{toUserId}
+				 MSG.FROM_USER_ID   =  #{fromUserId}	AND 
+				 MSG.TO_USER_ID     =  #{toUserId}
 				)
 		OR      (
-				 FROM_USER_ID   =  #{toUserId} 		AND
-				 TO_USER_ID     =  #{fromUserId}
+				 MSG.FROM_USER_ID   =  #{toUserId} 		AND
+				 MSG.TO_USER_ID     =  #{fromUserId}
 				)
 		ORDER BY
-		        SENT_AVF
+		        MSG.SENT_AVF
 	]]>
 	</select>
 
@@ -71,21 +88,56 @@
 	<![CDATA[
 		INSERT INTO MESSAGE_HIST(
 		    FROM_USER_ID,
-		    FROM_USER,
 		    MESSAGE,
 		    MESSAGE_IMG,
 		    SENT_AVF,
-		    TO_USER_ID,
-		    TO_USER
+		    TO_USER_ID
 		) VALUES (
 		    #{msgInfo.fromUserId},
-		    #{msgInfo.fromUser},
 		    #{msgInfo.content},
 		    #{msgInfo.messageImg},
 		    NOW(),
-		    #{msgInfo.toUserId},
-		    #{msgInfo.toUser}
+		    #{msgInfo.toUserId}
 		)
+	]]>
+	</insert>
+	
+	<insert id="deleterMessageHist">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE   FROM_USER_ID	 = 		#{msgInfo.fromUserId},
+		AND	    SENT_AVF		 = 		#{msgInfo.sentAvf},
+		AND	    TO_USER_ID 		 = 		#{msgInfo.toUserId},
+		AND		MSG.SENT_AVF   >= (
+		 		    SELECT  AVF 
+ 		            FROM    USERS U
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		            AND     AVF      >  U.AVF 
+ 		            AND 	U.ID     =  MSG.FROM_USER_ID
+				)
+	]]>
+	</insert>
+	
+	<insert id="closerChatRoom">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE   (
+				 FROM_USER_ID   =  #{fromUserId}	AND 
+				 TO_USER_ID     =  #{toUserId}
+				)
+		OR      (
+				 FROM_USER_ID   =  #{toUserId} 		AND
+				 TO_USER_ID     =  #{fromUserId}
+				)
+		AND		MSG.SENT_AVF   >= (
+		 		    SELECT  AVF 
+ 		            FROM    USERS U
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		            AND     AVF      >  U.AVF 
+ 		            AND 	U.ID     =  MSG.FROM_USER_ID
+				)
 	]]>
 	</insert>
 	

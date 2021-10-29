@@ -12,6 +12,8 @@ var stompClient = null;
 var userId = null;
 var username = null;
 var content = null;
+var sentAvf = null;
+var avf = null;
 var toUserId = null;
 
 var colors = [
@@ -23,6 +25,8 @@ function send(event) {
     userId = document.querySelector('#userId').value.trim();
     username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
+    sentAvf = new Date();
+    avf = getNowDateWithString(sentAvf);
     toUserId = document.querySelector('#toUserId').value.trim();
 
     if(username && content) {
@@ -31,6 +35,7 @@ function send(event) {
 	            fromUserId: userId,
 	            fromUser: username,
 	            content: content,
+	            sentAvf: sentAvf,
 	            toUserId: toUserId,
 	            type: 'CHAT'
 	        };
@@ -56,12 +61,11 @@ function onConnected() {
 			fromUserId: userId, 
 			fromUser: username, 
 			content: content, 
+	        sentAvf: sentAvf,
 			toUserId: toUserId, 
 			type: 'JOIN'
 		})
     )
-	// 接続中の文字をHiddenにする。
-    connectingElement.classList.add('hidden');
 }
 
 // チャットメッセージの表示処理
@@ -96,6 +100,13 @@ function onMessageReceived(payload) {
     messageElement.appendChild(textElement);
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+	// 上記の条件分岐に応じたメッセージを追加する
+    var dateElement = document.createElement('small');
+    var dateText = document.createTextNode(avf);
+    dateElement.appendChild(dateText);
+    messageElement.appendChild(dateElement);
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 // バックグラウンドのスタイル変更処理
@@ -106,6 +117,19 @@ function getAvatarColor(messageSender) {
     }
     var index = Math.abs(hash % colors.length);
     return colors[index];
+}
+
+// 日付の変換処理
+function getNowDateWithString(date){
+	var yyMMddHmm = new Intl.DateTimeFormat('ja-JP', {
+						year: 'numeric',
+						month: 'narrow',
+						day: 'numeric',
+						hour: 'numeric',
+						minute: 'numeric'					
+					}).format(date);
+	var a = date.getHours() < 12 ? ' 午前' : ' 午後';
+	return yyMMddHmm + a;
 }
 
 //エラー時処理

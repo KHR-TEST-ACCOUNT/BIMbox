@@ -48,26 +48,31 @@
 		INSERT INTO USER_HOBBYS (
 		    USER_ID,
 		    EMP_NO,
-		    NAME,
 		    HOBBY
 		) VALUES (
 		    #{userId},
 		    #{empNo},
-		    #{name},
 		    #{hobby}
 		) ON DUPLICATE KEY UPDATE 
 		    USER_ID       =  #{userId},
 		    EMP_NO        =  #{empNo},
-		    NAME       	  =  #{name},
 		    HOBBY         =  #{hobby}
 	]]>
 	</insert>
 
 	<select id="getSuggestUsers" parameterType="String" resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
-		SELECT  USER_ID 	as userId,
-			    NAME		as name
-		FROM    USER_HOBBYS
+		SELECT  HOBBY.USER_ID 	as userId,
+			    U.NAME		as name
+		FROM    USER_HOBBYS HOBBY
+		LEFT JOIN USERS U
+		ON      U.ID         =  HOBBY.USER_ID
+		AND     EXISTS 
+		        ( 
+ 		            SELECT  NAME 
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		        ) 
 		WHERE   HOBBY      =  #{hobby}
 	]]>
 	</select>
@@ -236,11 +241,11 @@
 	<select id="createProfileEditForm" parameterType="java.lang.Long"
 			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
-		SELECT	USERS.ID					  AS userId,
-				USERS.NAME					  AS name,
-				USERS.EMAIL					  AS email,
-				USERS.EMP_NO				  AS empNo,
-				USERS.PROFILE_IMG			  AS profileImage,
+		SELECT	U.ID						  AS userId,
+				U.NAME						  AS name,
+				U.EMAIL						  AS email,
+				U.EMP_NO					  AS empNo,
+				U.PROFILE_IMG				  AS profileImage,
 				DP.DEPT_NM					  AS deptName,
 				POS.POS_NM					  AS posName,
 				PI.ABOUT_ME      			  AS aboutMe,
@@ -250,10 +255,9 @@
 		        PI.BLDG      			      AS bldg,
 		        PI.TELNO        			  AS phoneNo,
 		        PI.MOBILE_NO  			      AS mobilePhoneNo
-		        
-		FROM    USERS 
+		FROM    USERS U
 		INNER JOIN DEPTS DP
-		ON      DP.DEPT_CD        = USERS.DEPT_CD
+		ON      DP.DEPT_CD        = U.DEPT_CD
 		AND     NOT EXISTS
 		        (
 		            SELECT  1
@@ -263,7 +267,7 @@
 		            AND     DEPTS.AVF        >  DP.AVF
 		        )
 		INNER JOIN POSITIONS POS
-		ON      POS.POS_CD        = USERS.POS_CD
+		ON      POS.POS_CD        = U.POS_CD
 		AND     NOT EXISTS
 		        (
 		            SELECT  1
@@ -273,7 +277,7 @@
 		            AND     POSITIONS.AVF        >  POS.AVF
 		        )
 		INNER JOIN PERSONAL_INFO PI
-		ON      PI.USER_ID   =  USERS.ID
+		ON      PI.USER_ID   =  U.ID
 		WHERE   USER_ID      = #{userId}
 	]]>
 	</select>
@@ -395,11 +399,10 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, USER_NAME, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{name}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
-				USER_NAME	 =	#{name},
 				ABOUT_ME	 =	#{aboutMe},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
@@ -491,7 +494,7 @@
 	<insert id="deleterUser">
 	<![CDATA[
 		DELETE
-		        USERS
+		         USERS
 		        ,POSTS
 		        ,TOPICS
 		        ,POST_RATINGS
