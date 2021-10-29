@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.about{
+	font-size: 18px;
+}
+
+.bd-placeholder-img {
+	font-size: 0.2rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+#acMenu dt {
+	width: 100px;
+	display: block;
+	cursor: pointer;
+	background: url(http://liginc.co.jp/demo/toggle/images/i_swich.png)
+		177px -69px no-repeat;
+}
+
+#acMenu dd {
+	/*
+	display: none;
+	*/
+}
+
+#acMenu dt.active {
+	background: url(http://liginc.co.jp/demo/toggle/images/i_swich.png)
+		177px 18px no-repeat;
+}
+
+/* mediaquery */
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		margin-top: 2rem;
+		font-size: 1.5rem;
+	}
+}
+

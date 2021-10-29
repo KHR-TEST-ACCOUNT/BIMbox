@@ -1,80 +1,11 @@
 @charset "UTF-8";
 
-html,body {
-    height: 100%;
-	width: 100%;
-}
-
-
-.cover {
-	height: 100%;
-	width: 100%;
-	background: rgba(0, 0, 0, .5);
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1030;
-	display: none;
-}
-
-.cover.visible {
-	display: block;
-}
-
-.sidenav {
-	height: 100vh;
-	width: 240px;
-	position: fixed;
-	margin-left: -240px;
-	z-index: 1040;
-	transition: all linear .3s;
-	/* 
-	 */
-}
-
-.sidenav-toggler:hover {
-	cursor: pointer;
-}
-
-.sidenav.visible {
-	margin-left: 0;
-}
-
-.profile-photo {
-	height: 128px;
-	width: 128px;
-	display: block;
-}
 
 .main {
-	height: 100%;
-	overflow: auto;
-	position: relative;
-}
-
-.container-fluid{
-	position: relative;
-	z-index:10;
-}
-
-.visible-lt-md {
-	visibility: visible;
-}
-
-.visible-gt-lg {
-	visibility: hidden;
-}
-
-.nav-link:hover {
-	background: #cfcfcf;
-}
-
-.homepageInfo{
-	background-image: url(/img/LoginView.jpg);
-}
-
-.hidden {
-    display: none;
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.58;
 }
 
 .form-control {
@@ -88,24 +19,11 @@ html,body {
     margin-bottom: 15px;
 }
 
-
-.main {
-    position: relative;
-    background: url(/maxresdefault.jpg)center / cover;;
-	width: 100%;
-	min-height: 100vh;
-    font-weight: 400;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
-    line-height: 1.58;
-}
-
 .clearfix:after {
     display: block;
     content: "";
     clear: both;
 }
-
 
 input {
     padding-left: 10px;
@@ -162,6 +80,7 @@ button.accent {
     text-align: center;
 }
 
+/* 
 .username-page-container {
     background: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
@@ -186,6 +105,8 @@ button.accent {
     margin-top: 10px;
 }
 
+ */
+
 
 #chat-page {
     position: relative;
@@ -193,7 +114,8 @@ button.accent {
 }
 
 .chat-container {
-    max-width: 700px;
+/*     max-width: 700px;
+ */
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
@@ -202,16 +124,22 @@ button.accent {
     height: calc(100% - 60px);
     max-height: 600px;
     position: relative;
-}
+    overflow-y: scroll;
+/*
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+ */
+ }
 
+/*
+.chat-container::-webkit-scrollbar {
+    display:none;
+}
+ */
+ 
 #chat-page ul {
     list-style-type: none;
-    background-color: #FFF;
-    margin: 0;
-    overflow: auto;
-    overflow-y: scroll;
     padding: 0 20px 0px 20px;
-    height: calc(100% - 150px);
 }
 
 #chat-page #messageForm {
