@@ -1,6 +1,5 @@
 package com.rugbyaholic.communityPG.auth.account;
 
-import java.util.Optional;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,12 +82,10 @@ public class ProfileService {
 				}
 				convertSuggestUsers(i+1, sujestUsers, profileEditForm);
 			}
-			// sujestUsers.remove(profileEditForm.getUserId());
 			profileEditForm.setSujestUsers(sujestUsers);
 		}
 		
 	public AuthenticatedUser provideUserInfo(long id) {
-		Optional<AuthenticatedUser> optionalUserForm = repository.findUserById(id);
-		return optionalUserForm.orElse(new AuthenticatedUser());
+		return repository.findUserById(id).orElse(new AuthenticatedUser());
 	}
 }

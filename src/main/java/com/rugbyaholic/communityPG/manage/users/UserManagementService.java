@@ -112,7 +112,7 @@ public class UserManagementService {
 
 	public UserRegistrationForm initializeRegistrationForm(Long id, AuthenticatedUser user) throws Exception {
 		UserRegistrationForm form = new UserRegistrationForm(
-		userRepository.findUserById(id).orElse(new AuthenticatedUser()));
+				userRepository.findUserById(id).orElse(new AuthenticatedUser()));
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd());
 		form.setRoleOptions(codeRepository.getCode(1));

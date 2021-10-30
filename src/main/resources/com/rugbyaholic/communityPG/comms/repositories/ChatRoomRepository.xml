@@ -7,13 +7,20 @@
 	
 	<select id="findConversationalUser" resultType="com.rugbyaholic.communityPG.websocket.ChatMessage">
 	<![CDATA[
-		SELECT  MSG.FROM_USER_ID       AS fromUserId,
-		        FROM_USER.NAME		   AS fromUser,
-		        LEFT(MSG.MESSAGE, 20)  AS content,
-		        MSG.MESSAGE_IMG        AS messageImg,
-		        MSG.SENT_AVF	       AS sentAvf,
-		        MSG.TO_USER_ID         AS toUserId,
-		        TO_USER.NAME		   AS toUser
+		SELECT  MSG.FROM_USER_ID        AS fromUserId,
+		        FROM_USER.NAME		    AS fromUser,
+				IF( 
+					LENGTH(MSG.MESSAGE) <= 20,
+					MSG.MESSAGE,
+			        CONCAT(
+			        	LEFT(MSG.MESSAGE, 20)
+			        	,'...'
+			        )
+		        ) 						AS content,
+		        MSG.MESSAGE_IMG         AS messageImg,
+		        MSG.SENT_AVF	        AS sentAvf,
+		        MSG.TO_USER_ID          AS toUserId,
+		        TO_USER.NAME		    AS toUser
 		FROM    MESSAGE_HIST MSG
 		LEFT JOIN USERS FROM_USER
 		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
@@ -42,48 +49,70 @@
 		ORDER BY 	MSG.SENT_AVF 	DESC
 	]]>
 	</select>
-
-	<select id="findMessages" resultType="com.rugbyaholic.communityPG.websocket.ChatMessage">
+	
+	<select id="findMessages" resultMap="msg_detail">
 	<![CDATA[
-		SELECT  MSG.FROM_USER_ID       AS fromUserId,
-		        FROM_USER.NAME		   AS fromUser,
-		        MSG.MESSAGE            AS content,
-		        MSG.MESSAGE_IMG        AS messageImg,
-		        MSG.SENT_AVF           AS sentAvf,
-		        MSG.TO_USER_ID         AS toUserId,
-		        TO_USER.NAME           AS toUser
+		SELECT  MSG.FROM_USER_ID			 AS fromUserId,
+		        FROM_USER.FROM_USER_NAME	 AS fromUser,
+		        FROM_USER.FROM_USER_ICON	 AS fromUserIcon,
+		        MSG.MESSAGE           		 AS message,
+		        MSG.MESSAGE_IMG        		 AS messageImg,
+		        MSG.SENT_AVF           	     AS sentAvf,
+		        MSG.TO_USER_ID         		 AS toUserId,
+		        TO_USER.TO_USER_NAME         AS toUser,
+		        TO_USER.TO_USER_ICON    	 AS toUserIcon
 		FROM    MESSAGE_HIST MSG
-		LEFT JOIN USERS FROM_USER
+		INNER JOIN (
+ 		            SELECT  ID,
+ 		            		NAME		 AS FROM_USER_NAME,
+ 		            		AVF, 
+ 		            		PROFILE_IMG	 AS FROM_USER_ICON
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE()
+ 		           ) 
+ 		        AS FROM_USER
 		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
-		AND     EXISTS 
-		        ( 
- 		            SELECT  NAME, AVF 
+		INNER JOIN (
+ 		            SELECT  ID, 
+ 		            		NAME		 AS TO_USER_NAME, 
+ 		            		PROFILE_IMG	 AS TO_USER_ICON
  		            FROM    USERS 
  		            WHERE   AVF     <=  CURDATE() 
- 		            AND     AVF      >  FROM_USER.AVF 
- 		        ) 
-		LEFT JOIN USERS TO_USER
-		ON      TO_USER.ID         =  MSG.TO_USER_ID
-		AND     EXISTS 
-		        ( 
- 		            SELECT  NAME 
- 		            FROM    USERS 
- 		            WHERE   AVF     <=  CURDATE() 
- 		        ) 
+ 		           ) 
+ 		        AS TO_USER
+		ON      TO_USER.ID        	 =  MSG.TO_USER_ID
 		WHERE   MSG.SENT_AVF		>=	FROM_USER.AVF
 		AND     (
-				 MSG.FROM_USER_ID   =  #{fromUserId}	AND 
-				 MSG.TO_USER_ID     =  #{toUserId}
+				 MSG.FROM_USER_ID    =  #{fromUserId}	AND 
+				 MSG.TO_USER_ID      =  #{toUserId}
 				)
 		OR      (
-				 MSG.FROM_USER_ID   =  #{toUserId} 		AND
-				 MSG.TO_USER_ID     =  #{fromUserId}
+				 MSG.FROM_USER_ID    =  #{toUserId} 	AND
+				 MSG.TO_USER_ID      =  #{fromUserId}
 				)
 		ORDER BY
 		        MSG.SENT_AVF
-	]]>
+ 	]]>
 	</select>
-
+	
+	<resultMap type="com.rugbyaholic.communityPG.websocket.ChatMessage" id="msg_detail">
+		<result property="fromUserId" column="fromUserId" />
+		<result property="fromUser" column="fromUser" />
+		<result property="content" column="message" />
+		<result property="sentAvf" column="sentAvf" />
+		<result property="toUserId" column="toUserId" />
+		<result property="toUser" column="toUser" />
+		<association property="fromUserIcon" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="fromUserIcon" />
+		</association>
+		<association property="messageImg" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="messageImg" />
+		</association>
+		<association property="toUserIcon" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="toUserIcon" />
+		</association>
+	</resultMap>
+	
 	<insert id="registerMessage">
 	<![CDATA[
 		INSERT INTO MESSAGE_HIST(
@@ -95,8 +124,8 @@
 		) VALUES (
 		    #{msgInfo.fromUserId},
 		    #{msgInfo.content},
-		    #{msgInfo.messageImg},
-		    NOW(),
+		    #{msgInfo.messageImg.encodedString},
+		    #{msgInfo.sentAvf},
 		    #{msgInfo.toUserId}
 		)
 	]]>

@@ -1,5 +1,6 @@
 package com.rugbyaholic.communityPG.websocket;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ChatRoomService {
 	@Transactional(rollbackFor = Throwable.class)
 	public List<ChatMessage> getMessageHist(AuthenticatedUser user, Long toUserId) throws Exception {
 		List<ChatMessage> messageHist = repository.findMessages(user.getId(), toUserId);
-		if(messageHist.isEmpty()) messageHist.add(new ChatMessage(toUserId));
+		if(messageHist.isEmpty()) messageHist = Arrays.asList(new ChatMessage());
 		return messageHist;
 	}
 

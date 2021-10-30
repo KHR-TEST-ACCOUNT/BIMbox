@@ -10,6 +10,7 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var userId = null;
+var fromUserId = null;
 var username = null;
 var content = null;
 var sentAvf = null;
@@ -23,6 +24,7 @@ var colors = [
 
 function send(event) {
     userId = document.querySelector('#userId').value.trim();
+    fromUserId = document.querySelector('#fromUserId').value.trim();
     username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
     sentAvf = new Date();
@@ -32,7 +34,7 @@ function send(event) {
     if(username && content) {
 		if (stompClient) {
 	        var chatMessage = {
-	            fromUserId: userId,
+	            fromUserId: fromUserId,
 	            fromUser: username,
 	            content: content,
 	            sentAvf: sentAvf,
@@ -58,7 +60,7 @@ function onConnected() {
     stompClient.send("/app/chat.send",
         {},
         JSON.stringify({
-			fromUserId: userId, 
+			fromUserId: fromUserId, 
 			fromUser: username, 
 			content: content, 
 	        sentAvf: sentAvf,
@@ -66,6 +68,7 @@ function onConnected() {
 			type: 'JOIN'
 		})
     )
+	if(connectingElement) connectingElement.classList.add('hidden');
 }
 
 // チャットメッセージの表示処理
@@ -73,7 +76,6 @@ function onMessageReceived(payload) {
 	//送信された情報をMessageに格納する。
     var message = JSON.parse(payload.body);
     var messageElement = document.createElement('li');
-
 	// TypeがLEAVEのときの処理
     if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
@@ -82,12 +84,12 @@ function onMessageReceived(payload) {
     } else {
 		// 送信ユーザーのアイコンを設定
         messageElement.classList.add('chat-message');
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.fromUser[0]);
-        avatarElement.appendChild(avatarText);
-		//バックグラウンドのスタイルを変更
-        avatarElement.style['background-color'] = getAvatarColor(message.fromUser);
+		if(userId == message.fromUserId) messageElement.classList.add('text-end');
+        var avatarElement = document.createElement('img');
+		var fromUserIcon = document.querySelector('.profile-photo').getAttribute('src');
+		avatarElement.src = fromUserIcon;
         messageElement.appendChild(avatarElement);
+		// ユーザーの名前を追加する。
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.fromUser);
         usernameElement.appendChild(usernameText);
@@ -128,8 +130,7 @@ function getNowDateWithString(date){
 						hour: 'numeric',
 						minute: 'numeric'					
 					}).format(date);
-	var a = date.getHours() < 12 ? ' 午前' : ' 午後';
-	return yyMMddHmm + a;
+	return yyMMddHmm;
 }
 
 //エラー時処理

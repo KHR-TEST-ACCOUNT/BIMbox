@@ -11,19 +11,23 @@ public class ChatMessage {
     private MessageType type;
 	private long fromUserId;
     private String fromUser;
+    private ImageFile fromUserIcon = new ImageFile();
     private String content;
+//    private ImageFile messageImg = new ImageFile();
 	private ImageFile messageImg;
 	private MultipartFile uploadFile;
 	private Timestamp sentAvf;
 	private String AVF;
     private long toUserId;
     private String toUser;
+    private ImageFile toUserIcon = new ImageFile();
     
-    // JSONの情報を格納する際に使用するコンストラクター
+	// JSONの情報を格納する際に使用するコンストラクター
     public ChatMessage() {
     }
     // メッセージの記録がない場合に送信先のIDを格納しインスタンスを生成するための処理
-    public ChatMessage(Long toUserId) {
+    public ChatMessage(Long fromUserId, Long toUserId) {
+    	this.fromUserId = fromUserId;
 		this.toUserId = toUserId;
     }
     // 格納したメッセージタイプ
@@ -39,7 +43,7 @@ public class ChatMessage {
     // 日付をString型に変換
 	public void setSentAvf(Timestamp sentAvf) {
 		this.sentAvf = sentAvf;
-		this.AVF = new SimpleDateFormat("yyyy年MM月dd日 h:mm a").format(sentAvf);
+		this.AVF = new SimpleDateFormat("yyyy年M月d日 H:mm").format(sentAvf);
 	}
 	public Timestamp getSentAvf() {
 		return sentAvf;
@@ -58,6 +62,12 @@ public class ChatMessage {
 	}
 	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
+	}
+	public ImageFile getFromUserIcon() {
+		return fromUserIcon;
+	}
+	public void setFromUserIcon(ImageFile fromUserIcon) {
+		this.fromUserIcon = fromUserIcon;
 	}
 	public String getContent() {
 		return content;
@@ -88,5 +98,11 @@ public class ChatMessage {
 	}
 	public void setToUser(String toUser) {
 		this.toUser = toUser;
+	}
+	public ImageFile getToUserIcon() {
+		return toUserIcon;
+	}
+	public void setToUserIcon(ImageFile toUserIcon) {
+		this.toUserIcon = toUserIcon;
 	}
 }

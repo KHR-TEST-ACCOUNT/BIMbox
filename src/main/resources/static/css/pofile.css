@@ -5,14 +5,23 @@
     z-index: 2500;
 }
 
-.footer {
-	height: 3rem;
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: #fff;
+.toEnterToChatRoom{
+  position: relative;
+  padding: 20px;
+  background-color: #fff3ad;
+  display: inline-block;     /* 横幅を自動で変更 */
+}
+
+/* beforeで三角を表現 */
+.toEnterToChatRoom::before{
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: -15px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #fff3ad;
+  border-left: 15px solid transparent;
 }

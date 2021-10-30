@@ -80,42 +80,12 @@ button.accent {
     text-align: center;
 }
 
-/* 
-.username-page-container {
-    background: #fff;
-    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-    border-radius: 2px;
-    width: 100%;
-    max-width: 500px;
-    display: inline-block;
-    margin-top: 42px;
-    vertical-align: middle;
-    position: relative;
-    padding: 35px 55px 35px;
-    min-height: 250px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    margin-top: -160px;
-}
-
-.username-page-container .username-submit {
-    margin-top: 10px;
-}
-
- */
-
-
 #chat-page {
     position: relative;
     height: 100%;
 }
 
 .chat-container {
-/*     max-width: 700px;
- */
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
@@ -125,17 +95,7 @@ button.accent {
     max-height: 600px;
     position: relative;
     overflow-y: scroll;
-/*
-    -ms-overflow-style: none;
-    scrollbar-width: none;
- */
- }
-
-/*
-.chat-container::-webkit-scrollbar {
-    display:none;
 }
- */
  
 #chat-page ul {
     list-style-type: none;
@@ -171,24 +131,36 @@ button.accent {
 
 #chat-page .chat-message {
     padding-left: 68px;
+    padding-right: 68px;
     position: relative;
 }
 
-#chat-page .chat-message i {
+#chat-page .chat-message .fromUserImg {
     position: absolute;
-    width: 42px;
-    height: 42px;
-    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    right: 10px;
+    color: #fff;
+    border-radius: 50%;
+}
+
+#chat-page .chat-message .toUserImg {
+    position: absolute;
+    width: 50px;
+    height: 50px;
     left: 10px;
+    color: #fff;
+    border-radius: 50%;
+    /*
+    overflow: hidden;
     display: inline-block;
     vertical-align: middle;
     font-size: 18px;
     line-height: 42px;
-    color: #fff;
     text-align: center;
-    border-radius: 50%;
     font-style: normal;
     text-transform: uppercase;
+    */
 }
 
 #chat-page .chat-message span {
