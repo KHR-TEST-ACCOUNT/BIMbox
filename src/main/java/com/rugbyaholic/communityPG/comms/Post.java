@@ -3,7 +3,6 @@ package com.rugbyaholic.communityPG.comms;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.common.ImageFile;
@@ -30,17 +29,9 @@ public class Post {
 	public PostRating getRateByUser(AuthenticatedUser user) {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getEmpNo(), user.getEmpNo()))
 				.findFirst().orElse(new PostRating());
+		postRating.setGoodRatings(ratings);
+		postRating.setBadRatings(ratings);
 		return postRating;
-	}
-
-	public List<PostRating> goodRatings() {
-		List<PostRating> goodRatings = ratings.stream().filter(p -> p.getRating() == 1).collect(Collectors.toList());
-		 return goodRatings;
-	}
-
-	public List<PostRating> badRatings() {
-		List<PostRating> badRatings = ratings.stream().filter(p -> p.getRating() == -1).collect(Collectors.toList());
-		return badRatings;
 	}
 
 	public boolean isPostedBy(AuthenticatedUser user) {
