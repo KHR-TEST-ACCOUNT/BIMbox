@@ -84,10 +84,15 @@ function onMessageReceived(payload) {
     } else {
 		// 送信ユーザーのアイコンを設定
         messageElement.classList.add('chat-message');
-		if(userId == message.fromUserId) messageElement.classList.add('text-end');
         var avatarElement = document.createElement('img');
-		var fromUserIcon = document.querySelector('.profile-photo').getAttribute('src');
-		avatarElement.src = fromUserIcon;
+		if(userId == message.fromUserId){
+			avatarElement.src = document.querySelector('.profile-photo').getAttribute('src');
+			avatarElement.classList.add('fromUserImg');
+			messageElement.classList.add('text-end');
+		}else{
+			avatarElement.src = document.querySelector('.profile-photo').getAttribute('src');
+			avatarElement.classList.add('toUserImg');
+		}
         messageElement.appendChild(avatarElement);
 		// ユーザーの名前を追加する。
         var usernameElement = document.createElement('span');
