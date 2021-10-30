@@ -96,7 +96,7 @@
 		    #{msgInfo.fromUserId},
 		    #{msgInfo.content},
 		    #{msgInfo.messageImg},
-		    NOW(),
+		    #{msgInfo.sentAvf},
 		    #{msgInfo.toUserId}
 		)
 	]]>

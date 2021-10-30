@@ -7,6 +7,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" th:href="@{/css/layout.css}">
+	<link rel="stylesheet" th:href="@{/css/post.css}">
 	<link rel="stylesheet" th:href="@{/css/component.css}">
 	<meta th:replace="fragments/Scripts :: scripts">
 	<title>insert title here</title>
@@ -35,10 +36,12 @@
 								th:src="${post.author.profileImage.encodedString}"/>
 						</div>
 						<div class="flex-grow-1">
+							<!-- rateByUser に各 Ratings を格納 -->
 							<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
 								th:with="rateByUser=${post.getRateByUser(user)}">
 								<div class="d-flex justify-content-between">
 									<p class="fw-bold" th:text="${post.author.username}">投稿者の名前</p>
+									<!-- 投稿編集 -->
 									<div th:if="${post.isPostedBy(user)}">
 										<button id="postEdit" type="button" class="btn btn-link p-0 text-dark fs-5" title="投稿編集"
 												th:data-ts-target="|#${topic.topicNo + post.postNo}|">
@@ -49,6 +52,7 @@
 								<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
 								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
 									<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
+									<!-- 投稿削除 -->
 									<div th:if="${topic.posts.size() > 1}">
 										<button id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
 									</div>
@@ -56,6 +60,7 @@
 								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 								<input type="hidden" name="postNo" th:value="${post.postNo}" />
 								<div class="d-flex justify-content-end py-2">
+									<!-- 投稿評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
@@ -71,8 +76,9 @@
 												</div>	
 											</th:block>							 
 										</button>
-										<span th:text="${post.goodRatings.size()}">13</span>
+										<span th:text="${rateByUser.goodRatings.size()}">13</span>
 									</div>
+									<!-- 投稿評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
@@ -88,7 +94,7 @@
 												</div>				
 											</th:block>				 
 										</button>
-										<span th:text="${post.badRatings.size()}">2</span>
+										<span th:text="${rateByUser.badRatings.size()}">2</span>
 									</div>
 									<!-- 最初のtopicのみ、post数を表示 -->
 									<div class="d-flex align-items-baseline"

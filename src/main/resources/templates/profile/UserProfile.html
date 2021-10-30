@@ -36,6 +36,11 @@
 					</div>
 					<div class="col col-12 col-md-9">
 						<span th:text="${targetUser.username}"></span>
+						<span class='toEnterToChatRoom' th:if="!${#strings.equals(#authentication.principal.id, targetUser.id)}">
+							<a th:href="|@{/chatRoom.html}?id=${targetUser.id}|" class="text-decoration-none">
+								チャットルームへ
+							</a>
+						</span>
 					</div>
 					<div class="col col-12 col-md-3">
 						<span class="fw-bold">E-Mail</span>

@@ -66,6 +66,7 @@ function onConnected() {
 			type: 'JOIN'
 		})
     )
+    connectingElement.classList.add('hidden');
 }
 
 // チャットメッセージの表示処理
@@ -128,8 +129,7 @@ function getNowDateWithString(date){
 						hour: 'numeric',
 						minute: 'numeric'					
 					}).format(date);
-	var a = date.getHours() < 12 ? ' 午前' : ' 午後';
-	return yyMMddHmm + a;
+	return yyMMddHmm;
 }
 
 //エラー時処理

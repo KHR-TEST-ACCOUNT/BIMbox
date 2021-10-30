@@ -30,7 +30,6 @@ public class ChatController {
 		return "UserSugest.html";
 	}
 
-
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
 	@GetMapping("/chatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
