@@ -12,6 +12,7 @@ import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.common.repositories.UserRepository;
 
+
 @Service
 public class ProfileService {
 
@@ -21,49 +22,64 @@ public class ProfileService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
+	/**
+	 * プロフィールの更新処理
+	 * 
+	 * @param form
+	 * @param user
+	 * @throws Exception
+	 */
 	@Transactional(rollbackFor = Throwable.class)
 	public void editProfile(ProfileEditForm form, AuthenticatedUser user) throws Exception {
-
+		// DB更新件数
+		int updateCount = 0;
 		// DB登録用の画像ファイル名を生成
 		MultipartFile uploadFile = form.getUploadFile();
-
+		
+		// 自分以外のユーザー情報を更新する場合、Userに更新対象の情報を格納する。
+		if(form.getUserId() != user.getId()) user = provideUserInfo(form.getUserId());
+		// 名前変更時の処理
+		if(!user.getUsername().equals(form.getName())) user.setUsername(form.getName());
+		// パスワード更新時の処理
+		if (form.getPassword() != null) {
+			user.setPassword(passwordEncoder.encode(form.getPassword()));
+		}
+		// ファイルアップロード時の処理
 		if (!uploadFile.isEmpty()) {
 			ImageFile imageFile = new ImageFile();
 			imageFile.encode(uploadFile);
 			user.setProfileImage(imageFile);
 		}
 		
-		if(!user.getUsername().equals(form.getName()))user.setUsername(form.getName());;
-		// DB更新件数
-		int updateCount = 0;
-
-		// ユーザ―情報更新
-		if (form.getPassword() != null) {
-			user.setPassword(passwordEncoder.encode(form.getPassword()));
-		}
+		// USERSテーブル更新
 		updateCount += repository.changeProfile(user);
-
-		// 個人情報更新
+		// PERSONAL_INFOテーブル更新
 		form.setUserId(user.getId());
 		updateCount += repository.updatePersonalInfo(form);
-		
-		// HobbyのUpdate
+		// USER_HOBBYSテーブルの更新
 		for(String hobby : form.getHobbys()) {
 			form.setHobby(hobby);
 			repository.registerUserHobbys(form);
 		}
-
-		if (updateCount < 2)
-			throw new Exception();
+		// USERS、PERSONAL_INFOの一方が更新されなかった場合の例外処理
+		if (updateCount < 2) throw new Exception();
 	}
 
-	// 初期情報格納用SQL
+	
+	/**
+	 * 初期情報格納用SQL
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
 		ProfileEditForm  profileEditForm = repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
 		profileEditForm.setHobbys(repository.findUserHobbys(profileEditForm.getUserId()));
 		convertSuggestUsers(0, new TreeMap<Long, String>(), profileEditForm);
 		return profileEditForm;
 	}
+	
 	
 	   /**
 		 * 再帰処理で趣味をリストに追加する
@@ -84,7 +100,14 @@ public class ProfileService {
 			}
 			profileEditForm.setSujestUsers(sujestUsers);
 		}
+	
 		
+	/**
+	 * DBからユーザー情報を検索しUserを返す。
+	 *
+	 * @param id
+	 * @return
+	 */
 	public AuthenticatedUser provideUserInfo(long id) {
 		return repository.findUserById(id).orElse(new AuthenticatedUser());
 	}
