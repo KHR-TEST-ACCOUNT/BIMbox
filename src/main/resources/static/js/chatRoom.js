@@ -10,6 +10,7 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var userId = null;
+var fromUserIcon = null;
 var fromUserId = null;
 var username = null;
 var content = null;
@@ -25,6 +26,7 @@ var colors = [
 function send(event) {
     userId = document.querySelector('#userId').value.trim();
     fromUserId = document.querySelector('#fromUserId').value.trim();
+    fromUserIcon = document.querySelector('.profile-photo');
     username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
     sentAvf = new Date();
@@ -36,6 +38,7 @@ function send(event) {
 	        var chatMessage = {
 	            fromUserId: fromUserId,
 	            fromUser: username,
+	            fromUserIcon: fromUserIcon,
 	            content: content,
 	            sentAvf: sentAvf,
 	            toUserId: toUserId,
@@ -62,6 +65,7 @@ function onConnected() {
         JSON.stringify({
 			fromUserId: fromUserId, 
 			fromUser: username, 
+			fromUserIcon: fromUserIcon, 
 			content: content, 
 	        sentAvf: sentAvf,
 			toUserId: toUserId, 
@@ -80,17 +84,16 @@ function onMessageReceived(payload) {
     if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.fromUser + ' left!';
-	// TypeがChatのときの処理
+	// TypeがChatのときの処理 
     } else {
 		// 送信ユーザーのアイコンを設定
         messageElement.classList.add('chat-message');
         var avatarElement = document.createElement('img');
+		avatarElement.src = message.fromUserIcon.encodedString;
 		if(userId == message.fromUserId){
-			avatarElement.src = document.querySelector('.profile-photo').getAttribute('src');
 			avatarElement.classList.add('fromUserImg');
 			messageElement.classList.add('text-end');
 		}else{
-			avatarElement.src = document.querySelector('.profile-photo').getAttribute('src');
 			avatarElement.classList.add('toUserImg');
 		}
         messageElement.appendChild(avatarElement);

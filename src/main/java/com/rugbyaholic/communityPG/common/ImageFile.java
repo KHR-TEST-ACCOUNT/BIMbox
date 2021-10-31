@@ -9,28 +9,33 @@ import java.util.Base64;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+
 public class ImageFile {
-
+	
 	private String fileName;
-
 	private String encodedString;
 
+	
 	public void setEncodedString(String encodedString) {
 		this.encodedString = encodedString;
 	}
+	
 
 	public String getFileName() {
 		return fileName;
 	}
 
+	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
+	
 	public void encode(MultipartFile multipartFile) throws IllegalStateException, IOException {
 		fileName = multipartFile.getOriginalFilename();
 		multipartFile.transferTo(Paths.get(multipartFile.getOriginalFilename()));
 	}
+	
 
 	/**
 	 * BASE64でエンコードしたファイルデータを文字列で返す。

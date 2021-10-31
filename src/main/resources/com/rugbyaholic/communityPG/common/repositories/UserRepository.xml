@@ -238,8 +238,7 @@
 		</association>
 	</resultMap>
 
-	<select id="createProfileEditForm" parameterType="java.lang.Long"
-			resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
+	<select id="createProfileEditForm" parameterType="java.lang.Long" resultMap="userPersonalInfo">
 	<![CDATA[
 		SELECT	U.ID						  AS userId,
 				U.NAME						  AS name,
@@ -256,7 +255,7 @@
 		        PI.TELNO        			  AS phoneNo,
 		        PI.MOBILE_NO  			      AS mobilePhoneNo
 		FROM    USERS U
-		INNER JOIN DEPTS DP
+		LEFT JOIN DEPTS DP
 		ON      DP.DEPT_CD        = U.DEPT_CD
 		AND     NOT EXISTS
 		        (
@@ -266,7 +265,7 @@
 		            AND     DEPTS.AVF       <=  CURDATE()
 		            AND     DEPTS.AVF        >  DP.AVF
 		        )
-		INNER JOIN POSITIONS POS
+		LEFT JOIN POSITIONS POS
 		ON      POS.POS_CD        = U.POS_CD
 		AND     NOT EXISTS
 		        (
@@ -276,32 +275,30 @@
 		            AND     POSITIONS.AVF       <=  CURDATE()
 		            AND     POSITIONS.AVF        >  POS.AVF
 		        )
-		INNER JOIN PERSONAL_INFO PI
-		ON      PI.USER_ID   =  U.ID
-		WHERE   USER_ID      = #{userId}
+		LEFT JOIN PERSONAL_INFO PI
+		ON      PI.USER_ID   =	 U.ID
+		WHERE   ID      	 =	 #{userId}
 	]]>
 	</select>
 	
 	<resultMap type="com.rugbyaholic.communityPG.auth.account.ProfileEditForm" id="userPersonalInfo">
-		<result property="userId" column="ID" />
-		<result property="name" column="NAME" />
-		<result property="email" column="EMAIL" />
-		<result property="empNo" column="EMP_NO" />
-		<result property="deptName" column="DEPT_NM" />
-		<result property="posName" column="POS_NM" />
-		<result property="aboutMe" column="ABOUT_ME" />
-		<result property="zipcode" column="ZIPCODE" />
-		<result property="pref" column="PREF" />
-		<result property="city" column="CITY" />
-		<result property="bldg" column="BLDG" />
-		<result property="phoneNo" column="TELNO" />
-		<result property="mobilePhoneNo" column="MOBILE_NO" />
+		<result property="userId" column="userId" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="empNo" column="empNo" />
+		<result property="deptName" column="deptName" />
+		<result property="posName" column="posName" />
+		<result property="aboutMe" column="aboutMe" />
+		<result property="zipcode" column="zipcode" />
+		<result property="pref" column="pref" />
+		<result property="city" column="city" />
+		<result property="bldg" column="bldg" />
+		<result property="phoneNo" column="phoneNo" />
+		<result property="mobilePhoneNo" column="mobilePhoneNo" />
 		<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
-			<result property="encodedString" column="PROFILE_IMG" />
+			<result property="encodedString" column="profileImage" />
 		</association>
 	</resultMap>
-	
-	
 	
 	<select id="identifyUser" parameterType="java.lang.String" resultMap="userDetails">
 	<![CDATA[
@@ -500,6 +497,8 @@
 		        ,POST_RATINGS
 		        ,PERSONAL_INFO
 		        ,USER_ROLES
+		        ,USER_HOBBYS
+		        ,MSG_HIST
 		    FROM
 		        USERS
 		            LEFT JOIN POSTS
@@ -512,6 +511,10 @@
 		                ON USERS.ID 		= 	PERSONAL_INFO.USER_ID
 		            LEFT JOIN USER_ROLES
 		                ON USERS.ID 		= 	USER_ROLES.USER_ID
+		            LEFT JOIN USER_HOBBYS
+		                ON USERS.ID 		= 	USER_HOBBYS.USER_ID
+		            LEFT JOIN MESSAGE_HIST MSG_HIST
+		                ON USERS.ID			in 	(MSG_HIST.FROM_USER_ID, MSG_HIST.TO_USER_ID)
 		    WHERE
 		        USERS.ID 	= 	#{id}
   	]]>
