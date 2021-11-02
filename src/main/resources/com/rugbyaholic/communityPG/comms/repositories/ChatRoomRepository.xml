@@ -11,7 +11,7 @@
 		        MSG.FROM_USER_ID       		 AS fromUserId,
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
     			CASE
-	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。'
+	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。'
 	    			WHEN	 LENGTH(MSG.MESSAGE) >= 50	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 50),'...')
 					ELSE	 MSG.MESSAGE	        
 		        END							 AS message,
