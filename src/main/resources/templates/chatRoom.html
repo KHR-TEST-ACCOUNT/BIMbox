@@ -30,15 +30,22 @@
 				        <div class="connecting mt-1">Let's start...</div>
 			        </div>
 			        <ul id="messageArea" class="mt-2">
-						<th:block 	th:unless="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}" 
-									th:each="chatMsg : ${messageHist}">
+						<th:block th:unless="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}" 
+								  th:each="chatMsg : ${messageHist}">
 							<!-- fromUser -->
 								<li class="chat-message text-end" 
 									th:if="${chatMsg.fromUserId == #authentication.principal.id}">
-									<img class="fromUserImg" th:src="${chatMsg.fromUserIcon.encodedString}"  />
+									<img class="fromUserImg" th:src="${chatMsg. fromUserIcon.encodedString}"  />
 				                	<span th:text="${chatMsg.fromUser}"></span>
 				                	<p th:text="${chatMsg.content}"></p>
 				                	<small th:text="${chatMsg.AVF}"></small>
+				                	<br>
+									<a  th:href="|@{/websocket/DeleteMessage.do}?avf=${chatMsg.sentAvf}"
+									    class="text-decoration-none text-end deleterMessage">
+										<small>メッセージを削除する</small>
+					              		<input type="hidden" id="fromUserId" th:value="${chatMsg.fromUser}"/> 
+					              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
+									</a>
 								</li>
 								<li class="chat-message"
 									th:if="${chatMsg.toUserId == #authentication.principal.id}">
@@ -49,7 +56,7 @@
 								</li>
 						</th:block>
 			        </ul>
-			        <form id="messageForm" name="messageForm" nameForm="messageForm">
+			        <form id="messageForm" name="messageForm" nameForm="messageForm" method="post">
 			            <div class="form-group">
 			                <div class="input-group clearfix mt-2">
 			                    <input type="text" id="message" placeholder="Digite uma mensagem..."
