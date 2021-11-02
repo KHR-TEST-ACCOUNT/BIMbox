@@ -7,6 +7,7 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
+var deleterMessage = document.querySelector('.deleterMessage');
 
 var stompClient = null;
 var userId = null;
@@ -146,5 +147,34 @@ function onError(error) {
     connectingElement.textContent = '予期せぬエラーが発生しました。';
     connectingElement.style.color = 'red';
 }
+
+
+$(function() {
+	
+	$(document).on('click', '.deleteMessage', function() {
+	    if(!confirm('本当にこのメッセージを削除しますか？')){
+	        return false;
+	    }else{
+		/**
+			let parent = $(this).parents('#messageForm');
+			let fromUserId = parent.find('input[id="fromUserId"]').val();
+			let toUserId = parent.find('input[id="toUserId"]').val();
+			$.ajax({
+				type: parent.attr('method'),
+				url: '/websocket/DeleteMessage.do',
+				dataType: 'html',
+				data: {
+					fromUserId: fromUserId,
+					toUserId: toUserId
+				}
+			}).done((data) => {
+				let targetId = '#' + paramTopicNo;
+				$(targetId).html(data);
+			});
+		 */
+	    }
+	});
+	
+});
 
 messageForm.addEventListener('submit', send, true);

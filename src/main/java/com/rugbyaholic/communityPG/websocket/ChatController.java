@@ -1,5 +1,7 @@
 package com.rugbyaholic.communityPG.websocket;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -39,13 +41,26 @@ public class ChatController {
 		return "chatRoom.html";
 	}
 
-	// modelを入れてみる。OR 画面上ではセッションで格納して、更新時に表示できるようにModelに格納する。無理ならパス
+	// 
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessage( @Payload ChatMessage chatMessage) throws Exception {
-    	// メッセージをDBに格納（JSでIDを送信する。）
     	service.registMessageInfo(chatMessage);
         return chatMessage;
+        
     }
+    
+    @GetMapping("/websocket/DeleteMessage.do")
+    public String toDeleterMessage(
+    			@RequestParam(value = "avf", required = true) Timestamp sentAvf,
+    			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+    	/**
+    	 * 	public String onEditPostRequested(@RequestParam("postText") String postText, @RequestParam("postImg") ImageFile postImg,
+				@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo, Model model) {
 
+    	 */
+    	service.deleteMessageHist(user.getId(),sentAvf);
+    	return "redirect:/chatRoom.html";
+    }
+    
 }
