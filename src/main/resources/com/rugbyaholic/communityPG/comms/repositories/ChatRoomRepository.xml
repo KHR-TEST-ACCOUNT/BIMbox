@@ -10,17 +10,11 @@
 		SELECT  MSG.MESSAGE_ID       		 AS msgId,
 		        MSG.FROM_USER_ID       		 AS fromUserId,
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
-				IF( 
-					LENGTH(MSG.MESSAGE) <= 20,
-					IF( 
-						MSG.DELETE_FLG	 = 	1,
-				        '削除されたメッセージです。',
-						MSG.MESSAGE
-					),
-			        CONCAT(
-			        	LEFT(MSG.MESSAGE, 20), '...'
-			        )
-		        ) 							 AS message,
+    			CASE
+	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。'
+	    			WHEN	 LENGTH(MSG.MESSAGE) >= 50	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 50),'...')
+					ELSE	 MSG.MESSAGE	        
+		        END							 AS message,
 		        MSG.MESSAGE_IMG        		 AS messageImg,
 		        MSG.SENT_AVF	       		 AS sentAvf,
 		        MSG.TO_USER_ID         		 AS toUserId,
@@ -46,13 +40,13 @@
  		           ) 
  		        AS TO_USER
 		ON      TO_USER.ID        	 =  MSG.TO_USER_ID
-		WHERE   MSG.FROM_USER_ID	 =	#{userId}
-		AND	    MSG.SENT_AVF		>=	FROM_USER.AVF
+		WHERE   MSG.SENT_AVF		>=	FROM_USER.AVF
 		AND		MSG.SENT_AVF 		IN  (
 										SELECT 	MAX(SENT_AVF) 
 										FROM 	MESSAGE_HIST 
 										GROUP BY TO_USER_ID
 									)
+		AND	    MSG.FROM_USER_ID	 =	#{userId}
 		ORDER BY
 				MSG.SENT_AVF
 				DESC
