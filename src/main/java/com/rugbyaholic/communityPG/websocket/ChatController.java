@@ -1,7 +1,5 @@
 package com.rugbyaholic.communityPG.websocket;
 
-import java.sql.Timestamp;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -47,19 +45,12 @@ public class ChatController {
     public ChatMessage sendMessage( @Payload ChatMessage chatMessage) throws Exception {
     	service.registMessageInfo(chatMessage);
         return chatMessage;
-        
     }
     
     @GetMapping("/websocket/DeleteMessage.do")
-    public String toDeleterMessage(
-    			@RequestParam(value = "avf", required = true) Timestamp sentAvf,
+    public String toDeleterMessage(@RequestParam(value = "id", required = true) Long msgId,
     			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-    	/**
-    	 * 	public String onEditPostRequested(@RequestParam("postText") String postText, @RequestParam("postImg") ImageFile postImg,
-				@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo, Model model) {
-
-    	 */
-    	service.deleteMessageHist(user.getId(),sentAvf);
+    	service.deleteMessageHist(msgId, user);
     	return "redirect:/chatRoom.html";
     }
     

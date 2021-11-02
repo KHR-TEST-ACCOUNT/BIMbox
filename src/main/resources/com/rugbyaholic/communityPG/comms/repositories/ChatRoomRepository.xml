@@ -7,21 +7,26 @@
 	
 	<select id="findConversationalUser" resultMap="msg_detail">
 	<![CDATA[
-		SELECT  MSG.FROM_USER_ID       		 AS fromUserId,
+		SELECT  MSG.MESSAGE_ID       		 AS msgId,
+		        MSG.FROM_USER_ID       		 AS fromUserId,
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
 				IF( 
 					LENGTH(MSG.MESSAGE) <= 20,
-					MSG.MESSAGE,
+					IF( 
+						MSG.DELETE_FLG	 = 	1,
+				        '削除されたメッセージです。',
+						MSG.MESSAGE
+					),
 			        CONCAT(
-			        	LEFT(MSG.MESSAGE, 20)
-			        	,'...'
+			        	LEFT(MSG.MESSAGE, 20), '...'
 			        )
 		        ) 							 AS message,
 		        MSG.MESSAGE_IMG        		 AS messageImg,
 		        MSG.SENT_AVF	       		 AS sentAvf,
 		        MSG.TO_USER_ID         		 AS toUserId,
 		        TO_USER.TO_USER_NAME		 AS toUser,
-		        TO_USER.TO_USER_ICON    	 AS toUserIcon
+		        TO_USER.TO_USER_ICON    	 AS toUserIcon,
+		        MSG.DELETE_FLG				 AS deleteFlg
 		FROM    MESSAGE_HIST MSG
 		INNER JOIN (
  		            SELECT  ID,
@@ -48,7 +53,6 @@
 										FROM 	MESSAGE_HIST 
 										GROUP BY TO_USER_ID
 									)
-		AND		DELETE_FLG			 = 	0
 		ORDER BY
 				MSG.SENT_AVF
 				DESC
@@ -57,15 +61,21 @@
 	
 	<select id="findMessages" resultMap="msg_detail">
 	<![CDATA[
-		SELECT  MSG.FROM_USER_ID			 AS fromUserId,
+		SELECT  MSG.MESSAGE_ID       		 AS msgId,
+				MSG.FROM_USER_ID			 AS fromUserId,
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
 		        FROM_USER.FROM_USER_ICON	 AS fromUserIcon,
-		        MSG.MESSAGE           		 AS message,
+				IF( 
+					MSG.DELETE_FLG	 = 	1,
+			        '削除されたメッセージです。',
+					MSG.MESSAGE
+		        ) 							 AS message,
 		        MSG.MESSAGE_IMG        		 AS messageImg,
 		        MSG.SENT_AVF           	     AS sentAvf,
 		        MSG.TO_USER_ID         		 AS toUserId,
 		        TO_USER.TO_USER_NAME         AS toUser,
-		        TO_USER.TO_USER_ICON    	 AS toUserIcon
+		        TO_USER.TO_USER_ICON    	 AS toUserIcon,
+		        MSG.DELETE_FLG				 AS deleteFlg
 		FROM    MESSAGE_HIST MSG
 		INNER JOIN (
  		            SELECT  ID,
@@ -94,19 +104,20 @@
 					 MSG.FROM_USER_ID    =  #{toUserId} 	AND
 					 MSG.TO_USER_ID      =  #{fromUserId}
 				)
-		AND		DELETE_FLG			 = 	0
 		ORDER BY
 		        MSG.SENT_AVF
  	]]>
 	</select>
 	
 	<resultMap type="com.rugbyaholic.communityPG.websocket.ChatMessage" id="msg_detail">
+		<result property="msgId" column="msgId" />
 		<result property="fromUserId" column="fromUserId" />
 		<result property="fromUser" column="fromUser" />
 		<result property="content" column="message" />
 		<result property="sentAvf" column="sentAvf" />
 		<result property="toUserId" column="toUserId" />
 		<result property="toUser" column="toUser" />
+		<result property="deleteFlg" column="deleteFlg" />
 		<association property="fromUserIcon" javaType="com.rugbyaholic.communityPG.common.ImageFile">
 			<result property="encodedString" column="fromUserIcon" />
 		</association>
@@ -144,8 +155,8 @@
 			SET	
 				DELETE_FLG	 =	 1
 		WHERE
-			    FROM_USER_ID	 = 		#{id}
-		AND	    SENT_AVF		 = 		#{avf}
+			    MESSAGE_ID		 = 		#{msgId}
+		AND	    FROM_USER_ID	 = 		#{fromUserId}
 	]]>
 	</update>
 	

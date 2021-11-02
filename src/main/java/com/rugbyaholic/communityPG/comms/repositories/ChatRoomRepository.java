@@ -1,6 +1,5 @@
 package com.rugbyaholic.communityPG.comms.repositories;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,8 +16,8 @@ public interface ChatRoomRepository {
 		
 	public void registerMessage(@Param("msgInfo") ChatMessage msgInfo);
 	
-	public void deleterMessageHist(@Param("id") Long id, @Param("avf") Timestamp avf);
-	
+	public void deleterMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
+
 	public void closerChatRoom(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	
 }

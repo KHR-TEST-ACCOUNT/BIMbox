@@ -1,6 +1,5 @@
 package com.rugbyaholic.communityPG.websocket;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,12 +59,12 @@ public class ChatRoomService {
 	 * チャットメッセージをDBに格納する
 	 * 
 	 * @param id
-	 * @param avf
+	 * @param user
 	 * @throws Exception
 	 */
 	@Transactional(rollbackFor = Throwable.class)
-	public void deleteMessageHist(Long id, Timestamp avf) throws Exception {
-		repository.deleterMessageHist(id, avf);
+	public void deleteMessageHist(Long msgId, AuthenticatedUser user) throws Exception {
+		repository.deleterMessageHist(msgId, user.getId());
 	}
 	
 }

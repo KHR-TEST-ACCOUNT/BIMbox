@@ -9,11 +9,11 @@ import com.rugbyaholic.communityPG.common.ImageFile;
 
 public class ChatMessage {
     private MessageType type;
+    private long msgId;
 	private long fromUserId;
     private String fromUser;
     private ImageFile fromUserIcon = new ImageFile();
     private String content;
-//    private ImageFile messageImg = new ImageFile();
 	private ImageFile messageImg;
 	private MultipartFile uploadFile;
 	private Timestamp sentAvf;
@@ -21,6 +21,7 @@ public class ChatMessage {
     private long toUserId;
     private String toUser;
     private ImageFile toUserIcon = new ImageFile();
+    private int deleteFlg;
     
 	// JSONの情報を格納する際に使用するコンストラクター
     public ChatMessage() {
@@ -50,6 +51,13 @@ public class ChatMessage {
 	}
 	public String getAVF() {
 		return AVF;
+	}
+	//Getter,Setter
+	public long getMsgId() {
+		return msgId;
+	}
+	public void setMsgId(long msgId) {
+		this.msgId = msgId;
 	}
 	public long getFromUserId() {
 		return fromUserId;
@@ -104,5 +112,11 @@ public class ChatMessage {
 	}
 	public void setToUserIcon(ImageFile toUserIcon) {
 		this.toUserIcon = toUserIcon;
+	}
+	public int getDeleteFlg() {
+		return deleteFlg;
+	}
+	public void setDeleteFlg(int deleteFlg) {
+		this.deleteFlg = deleteFlg;
 	}
 }
