@@ -18,6 +18,8 @@ public interface ChatRoomRepository {
 	
 	public void deleterMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
 
+	public void restoreMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
+	
 	public void closerChatRoom(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	
 }

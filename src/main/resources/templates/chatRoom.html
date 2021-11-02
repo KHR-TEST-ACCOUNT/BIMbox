@@ -40,9 +40,15 @@
 				                	<p th:text="${chatMsg.content}"></p>
 				                	<small th:text="${chatMsg.AVF}"></small>
 				                	<br>
-									<a  th:href="|@{/websocket/DeleteMessage.do}?id=${chatMsg.msgId}"
+									<a  th:if="${chatMsg.deleteFlg == 0}"
+										th:href="|@{/websocket/DeleteMessage.do}?id=${chatMsg.msgId}"
 									    class="text-decoration-none text-end">
-										<small>メッセージを削除する</small>
+										<small>メッセージ削除</small>
+									</a>
+									<a  th:if="${chatMsg.deleteFlg == 1}"
+										th:href="|@{/websocket/restoreMessage.do}?id=${chatMsg.msgId}"
+									    class="text-decoration-none text-end">
+										<small>復元</small>
 									</a>
 								</li>
 								<li class="chat-message"

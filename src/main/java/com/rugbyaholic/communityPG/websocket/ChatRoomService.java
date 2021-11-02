@@ -66,5 +66,10 @@ public class ChatRoomService {
 	public void deleteMessageHist(Long msgId, AuthenticatedUser user) throws Exception {
 		repository.deleterMessageHist(msgId, user.getId());
 	}
+
+	@Transactional(rollbackFor = Throwable.class)
+	public void restoreMessageHist(Long msgId, AuthenticatedUser user) throws Exception {
+		repository.restoreMessageHist(msgId, user.getId());
+	}
 	
 }

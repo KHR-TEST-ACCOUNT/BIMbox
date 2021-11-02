@@ -23,7 +23,6 @@ CREATE TABLE `USER_ROLES` (
 
 CREATE TABLE `PERSONAL_INFO` (
   `USER_ID` bigint(9) unsigned zerofill NOT NULL,
-  `USER_NAME` varchar(32) DEFAULT NULL,
   `ABOUT_ME` varchar(256) DEFAULT NULL,
   `ZIPCODE` char(7) DEFAULT NULL,
   `PREF` varchar(16) DEFAULT NULL,
@@ -36,7 +35,6 @@ CREATE TABLE `PERSONAL_INFO` (
 
 CREATE TABLE `USER_HOBBYS` (
   `USER_ID` bigint(9) unsigned zerofill NOT NULL COMMENT 'ユーザーマスタのユーザーIDを参照',
-  `NAME` varchar(128) DEFAULT NULL COMMENT 'ユーザー情報に表示されるユーザー名を保持する。',
   `EMP_NO` char(8) DEFAULT NULL,
   `HOBBY` varchar(30) DEFAULT NULL COMMENT 'ユーザーの趣味情報を保持する。',
    PRIMARY KEY(`USER_ID`, `HOBBY`)
@@ -110,5 +108,6 @@ CREATE TABLE `MESSAGE_HIST` (
   `SENT_AVF` TIMESTAMP NOT NULL COMMENT 'メッセージ送信日',
   `TO_USER_ID` bigint(9) unsigned zerofill,
   `DELETE_FLG` INT DEFAULT 0 COMMENT '０ー＞表示、１ー＞削除、２ー＞非表示',
+  `DELETE_AVF` TIMESTAMP,
   PRIMARY KEY (`MESSAGE_ID`,`FROM_USER_ID`,`SENT_AVF`,`TO_USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

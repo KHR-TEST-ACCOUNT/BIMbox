@@ -54,4 +54,19 @@ public class ChatController {
     	return "redirect:/chatRoom.html";
     }
     
+    /**
+     * 
+     * @param msgId
+     * @param model
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("/websocket/restoreMessage.do")
+    public String toRestoreMessage(@RequestParam(value = "id", required = true) Long msgId,
+    		Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+    	service.restoreMessageHist(msgId, user);
+    	return "redirect:/chatRoom.html";
+    }
+    
 }

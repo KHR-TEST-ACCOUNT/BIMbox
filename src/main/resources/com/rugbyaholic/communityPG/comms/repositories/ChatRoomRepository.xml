@@ -11,7 +11,7 @@
 		        MSG.FROM_USER_ID       		 AS fromUserId,
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
     			CASE
-	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。'
+	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。'
 	    			WHEN	 LENGTH(MSG.MESSAGE) >= 50	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 50),'...')
 					ELSE	 MSG.MESSAGE	        
 		        END							 AS message,
@@ -61,7 +61,7 @@
 		        FROM_USER.FROM_USER_ICON	 AS fromUserIcon,
 				IF( 
 					MSG.DELETE_FLG	 = 	1,
-			        '削除されたメッセージです。',
+			        '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。',
 					MSG.MESSAGE
 		        ) 							 AS message,
 		        MSG.MESSAGE_IMG        		 AS messageImg,
@@ -144,10 +144,22 @@
 	
 	<update id="deleterMessageHist">
 	<![CDATA[
-	
 		UPDATE	MESSAGE_HIST MSG
 			SET	
-				DELETE_FLG	 =	 1
+				DELETE_FLG	 =	 1,
+				DELETE_AVF	 =	 NOW()
+		WHERE
+			    MESSAGE_ID		 = 		#{msgId}
+		AND	    FROM_USER_ID	 = 		#{fromUserId}
+	]]>
+	</update>
+	
+	<update id="restoreMessageHist">
+	<![CDATA[
+		UPDATE	MESSAGE_HIST MSG
+			SET	
+				DELETE_FLG	 =	 0,
+				DELETE_AVF	 =	 null
 		WHERE
 			    MESSAGE_ID		 = 		#{msgId}
 		AND	    FROM_USER_ID	 = 		#{fromUserId}
