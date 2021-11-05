@@ -31,6 +31,7 @@
 						</a>
 					</div>
 					<div id="searchCondition" class="collapse show">
+						<p th:if="${profileEditForm.sujestUsers != null}">あなたと気の合いそうなユーザーです。</p>
 						<div class="border p-3 rounded">
 							<div class="d-flex align-items-top mb-2">
 								<a  th:each="user : ${profileEditForm.sujestUsers}" 
@@ -63,6 +64,10 @@
 								<small>非表示にする</small>
 							</a>
 							 -->
+						</div>
+						<div class="text-center mt-5">
+							<p>他にメッセージを送りたい人がいたら検索画面からメッセージを送りましょう。</p>
+							<a th:href="@{/manage/users/UserList.html}">　→　検索画面へ</a>
 						</div>
 					</div>
 				</form>

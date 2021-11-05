@@ -42,8 +42,11 @@ public class ChatController {
 	// 
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
-    public ChatMessage sendMessage( @Payload ChatMessage chatMessage) throws Exception {
-    	service.registMessageInfo(chatMessage);
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage,
+    		 @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		service.registMessageInfo(chatMessage);
+		user = profileService.provideUserInfo(chatMessage.getFromUserId());
+		chatMessage.setFromUserIcon(user.getProfileImage());
         return chatMessage;
     }
     

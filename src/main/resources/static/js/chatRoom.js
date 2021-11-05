@@ -25,9 +25,9 @@ var colors = [
 
 function send(event) {
     userId = document.querySelector('#userId').value.trim();
+    username = document.querySelector('#name').value.trim();
     fromUserId = document.querySelector('#fromUserId').value.trim();
     fromUserIcon = document.querySelector('.profile-photo');
-    username = document.querySelector('#name').value.trim();
     content = messageInput.value.trim();
     sentAvf = new Date();
     avf = getNowDateWithString(sentAvf);
