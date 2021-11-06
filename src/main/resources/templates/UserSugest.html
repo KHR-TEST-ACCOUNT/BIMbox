@@ -52,8 +52,12 @@
 							<h5 class="me-2">会話中のユーザー</h5>
 						</div>
 						<div class="d-flex align-items-top my-2 border p-3 rounded" th:each="chatUser : ${conversationalUsers}">
-							<a  th:href="|@{/chatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
+						
+							<a th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
 								<img class="toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
+							</a>
+							
+							<a  th:href="|@{/chatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
 			                	<span th:text="${chatUser.toUser}"></span><br>
 			                	<span th:text="${chatUser.content}"></span><br>
 			                	<span th:text="${chatUser.AVF}"></span>

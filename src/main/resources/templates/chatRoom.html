@@ -53,7 +53,9 @@
 								</li>
 								<li class="chat-message"
 									th:if="${chatMsg.toUserId == #authentication.principal.id}">
-									<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
+									<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
+										<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
+									</a>
 				                	<span th:text="${chatMsg.fromUser}"></span>
 				                	<p th:text="${chatMsg.content}"></p>
 				                	<small th:text="${chatMsg.AVF}"></small>

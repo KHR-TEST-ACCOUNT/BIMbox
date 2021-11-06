@@ -11,7 +11,7 @@
 		FROM    POST_RATINGS
 		WHERE   TOPICNO      =  #{topicNo}
 		AND     POSTNO       =  #{postNo}
-		AND     RATEDBY      =  #{user.empNo}
+		AND     RATEDBY      =  #{user.id}
 	]]>
 	</select>
 	
@@ -27,7 +27,7 @@
 		) VALUES (
 		    #{topicNo},
 		    #{postNo},
-		    #{user.empNo},
+		    #{user.id},
 		    #{rating},
 		    CURDATE()
 		) ON DUPLICATE KEY UPDATE
@@ -56,12 +56,12 @@
 		INNER JOIN POSTS
 		ON      TOPICS.TOPICNO   =  POSTS.TOPICNO
 		INNER JOIN USERS U
-		ON      U.EMP_NO         =  POSTS.CREATEDBY
+		ON      U.ID         =  POSTS.CREATEDBY
 		AND     NOT EXISTS
 		        (
 		            SELECT  1
 		            FROM    USERS
-		            WHERE   EMP_NO   =  POSTS.CREATEDBY
+		            WHERE   ID   =  POSTS.CREATEDBY
 		            AND     AVF     <=  CURDATE()
 		            AND     AVF      >  U.AVF
 		        )
@@ -96,12 +96,12 @@
 		INNER JOIN POSTS
 		ON      TOPICS.TOPICNO   =  POSTS.TOPICNO
 		INNER JOIN USERS U
-		ON      U.EMP_NO         =  POSTS.CREATEDBY
+		ON      U.ID         =  POSTS.CREATEDBY
 		AND     NOT EXISTS
 		        (
 		            SELECT  1
 		            FROM    USERS
-		            WHERE   EMP_NO   =  POSTS.CREATEDBY
+		            WHERE   ID   =  POSTS.CREATEDBY
 		            AND     AVF     <=  CURDATE()
 		            AND     AVF      >  U.AVF
 		        )
@@ -120,7 +120,7 @@
 		<result property="subject" column="subject" />
 		<result property="createdAt" column="topicCreatedAt" />
 		<association property="owner" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
-			<result property="empNo" column="topicCreatedBy" />
+			<result property="id" column="topicCreatedBy" />
 		</association>
 		<collection property="posts" ofType="com.rugbyaholic.communityPG.comms.Post">
 			<result property="postNo" column="postNo" />
@@ -130,7 +130,7 @@
 				<result property="encodedString" column="postImg" />
 			</association>
 			<association property="author" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
-				<result property="empNo" column="postCreatedBy" />
+				<result property="id" column="postCreatedBy" />
 				<result property="username" column="postCreatedUsername" />
 				<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
 					<result property="encodedString" column="postCreatedUserImage" />
@@ -140,7 +140,7 @@
 				<result property="rating" column="postRating" />
 				<result property="ratedAt" column="postRatedAt" />
 				<association property="rater" javaType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
-					<result property="empNo" column="postRatedBy" />
+					<result property="id" column="postRatedBy" />
 				</association>
 			</collection>
 		</collection>
@@ -156,7 +156,7 @@
 		) VALUES (
 		    #{form.topicNo},
 		    #{form.subject},
-		    #{user.empNo},
+		    #{user.id},
 		    CURDATE()
 		)
 	]]>
@@ -184,7 +184,7 @@
 		    ),
 		    #{form.primaryPost},
 		    #{form.primaryPostImg.encodedString},
-		    #{user.empNo},
+		    #{user.id},
 		    CURDATE()
 		)
 	]]>

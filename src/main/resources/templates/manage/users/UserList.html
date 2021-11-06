@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" th:href="@{/css/layout.css}">
 <link rel="stylesheet" th:href="@{/css/component.css}">
+<link rel="stylesheet" th:href="@{/css/usersList.css}">
 <meta th:replace="fragments/Scripts :: scripts">
 <title>ユーザー情報一覧</title>
 </head>
@@ -88,7 +89,8 @@
 				<col width="25%"/>
 				<thead>
 					<tr>
-						<th class="sticky-top bg-white text-truncate">管理/編集</th>
+						<th class="sticky-top bg-white text-truncate text-center">管理</th>
+						<th class="sticky-top bg-white text-truncate"></th>
 						<th class="sticky-top bg-white text-truncate">社員番号</th>
 						<th class="sticky-top bg-white text-truncate">氏名</th>
 						<th class="sticky-top bg-white text-truncate">所属部署</th>
@@ -98,14 +100,19 @@
 				<tbody th:if="${searchResult}">
 					<tr th:each="user : ${searchResult.entities}">
 						<td class="text-center">
-						<div th:if="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
-							<a th:href="|@{/manage/users/UserRegistration.html}?id=${user.id}|">
-								 <i class="bi bi-pen"></i>
+							<div th:if="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+								<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
+									 <i class="bi bi-pen"></i>
+								</a>
+							</div>
+							<div th:unless="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+								<a id="disabled_do" ><i class="bi bi-pen"></i></a>
+							</div>
+						</td>
+						<td>
+							<a th:href="|@{/profile/UserProfile.html}?id=${ user.id }|">
+								<img class="userProfileImg text-center" th:src="${ user.profileImage.encodedString}" />
 							</a>
-						</div>
-						<div th:unless="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
-							<a id="disabled_do" ><i class="bi bi-pen"></i></a>
-						</div>
 						</td>
 						<td th:text="${user.empNo}"></td>
 						<td>
