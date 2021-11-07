@@ -76,7 +76,7 @@ public class ProfileService {
 	public ProfileEditForm providePersonalInfo(AuthenticatedUser user) {
 		ProfileEditForm  profileEditForm = repository.createProfileEditForm(user.getId()).orElse(repository.newProfileEditForm(user.getId()));
 		profileEditForm.setHobbys(repository.findUserHobbys(profileEditForm.getUserId()));
-		convertSuggestUsers(0, new TreeMap<Long, String>(), profileEditForm);
+		convertSuggestUsers(0, user.getId(), new TreeMap<Long, ProfileEditForm>(), profileEditForm);
 		return profileEditForm;
 	}
 	
@@ -89,14 +89,14 @@ public class ProfileService {
 		 * @param sujestUsers
 		 * @param profileEditForm
 		 */
-		public void convertSuggestUsers(int i, TreeMap<Long, String> sujestUsers, ProfileEditForm profileEditForm) {
+		public void convertSuggestUsers(int i, Long userId, TreeMap<Long, ProfileEditForm> sujestUsers, ProfileEditForm profileEditForm) {
 			if(profileEditForm.getHobbys().size() > i) {
-				for(ProfileEditForm userHobby : repository.getSuggestUsers(profileEditForm.getHobbys().get(i))) {
-					if(profileEditForm.getUserId() != userHobby.getUserId()){
-						sujestUsers.put(userHobby.getUserId(), userHobby.getName());
+				for(ProfileEditForm userHobby : repository.getSuggestUsers(profileEditForm.getHobbys().get(i), userId)) {
+					if(userId != userHobby.getUserId()){
+						sujestUsers.put(userHobby.getUserId(), userHobby);
 					}
 				}
-				convertSuggestUsers(i+1, sujestUsers, profileEditForm);
+				convertSuggestUsers(i+1, userId, sujestUsers, profileEditForm);
 			}
 			profileEditForm.setSujestUsers(sujestUsers);
 		}

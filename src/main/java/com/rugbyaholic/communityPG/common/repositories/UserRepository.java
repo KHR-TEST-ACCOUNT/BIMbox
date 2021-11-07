@@ -36,7 +36,7 @@ public interface UserRepository {
 	
 	public List<String> findUserHobbys(Long userId);
 	
-	public List<ProfileEditForm> getSuggestUsers(String hobby);
+	public List<ProfileEditForm> getSuggestUsers(@Param("hobby") String hobby, @Param("id") Long id);
 	
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form);
 
