@@ -16,20 +16,23 @@ import com.rugbyaholic.communityPG.auth.account.ProfileService;
 @Controller
 public class ChatController {
 
+	
 	@Autowired
 	private ChatRoomService service;
 	
 	@Autowired
 	private ProfileService profileService;
 	
+	
+	// サジェストされたユーザーを追加。
 	@GetMapping("/conversationTo/chatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		// サジェストされたユーザーを追加。
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
 		return "UserSugest.html";
 	}
 
+	
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
 	@GetMapping("/chatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
@@ -39,7 +42,8 @@ public class ChatController {
 		return "chatRoom.html";
 	}
 
-	// 
+	
+    // メッセージをDBに登録する
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage,
@@ -50,6 +54,8 @@ public class ChatController {
         return chatMessage;
     }
     
+    
+    // メッセージを削除する（週次のバッチで完全に削除する。）
     @GetMapping("/websocket/DeleteMessage.do")
     public String toDeleterMessage(@RequestParam(value = "id", required = true) Long msgId,
     			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
@@ -57,14 +63,8 @@ public class ChatController {
     	return "redirect:/chatRoom.html";
     }
     
-    /**
-     * 
-     * @param msgId
-     * @param model
-     * @param user
-     * @return
-     * @throws Exception
-     */
+    
+    // メッセージを復元する
     @GetMapping("/websocket/restoreMessage.do")
     public String toRestoreMessage(@RequestParam(value = "id", required = true) Long msgId,
     		Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {

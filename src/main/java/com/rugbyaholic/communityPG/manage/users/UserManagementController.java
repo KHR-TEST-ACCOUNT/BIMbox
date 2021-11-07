@@ -56,7 +56,8 @@ public class UserManagementController {
 						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 								.messageCode("communityPG.web.message.proc.success").build());
 			} catch (Exception e) {
-				// TODO エラー画面開発後に実装
+				System.out.print(e);
+				return "/errorPage.html";
 			}
 			return "/manage/users/UserRegistration.html";
 		}
@@ -87,7 +88,8 @@ public class UserManagementController {
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 							.messageCode("communityPG.web.message.proc.success").build());
 		} catch (Exception e) {
-			// TODO エラー画面開発後に実装
+			System.out.print(e);
+			return "/errorPage.html";
 		}
 		return "manage/users/UserList.html";
 	}
@@ -101,7 +103,8 @@ public class UserManagementController {
 			UserRegistrationForm form = service.initializeRegistrationForm(id, user);
 			model.addAttribute("userRegistrationForm", form);
 		} catch (Exception e) {
-			// TODO エラー画面開発後に実装
+			System.out.print(e);
+			return "/errorPage.html";
 		}
 		return "manage/users/UserRegistration.html";
 	}

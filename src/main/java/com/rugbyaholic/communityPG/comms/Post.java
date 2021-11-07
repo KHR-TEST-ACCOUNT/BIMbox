@@ -27,7 +27,7 @@ public class Post {
 
 	// ラムダでPostRatingの中に格納されているBeanの中から、Rantigを検索して返す。
 	public PostRating getRateByUser(AuthenticatedUser user) {
-		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getEmpNo(), user.getEmpNo()))
+		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getId(), user.getId()))
 				.findFirst().orElse(new PostRating());
 		postRating.setGoodRatings(ratings);
 		postRating.setBadRatings(ratings);
@@ -35,7 +35,7 @@ public class Post {
 	}
 
 	public boolean isPostedBy(AuthenticatedUser user) {
-		return Objects.equals(user.getEmpNo(), author.getEmpNo()) || user.getRoles().get(0).getCode().equals("03");
+		return Objects.equals(user.getId(), author.getId()) || !user.getRoles().get(0).getCode().equals("03");
 	}
 
 	public int getPostNo() {

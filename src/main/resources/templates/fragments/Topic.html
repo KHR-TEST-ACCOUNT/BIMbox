@@ -18,7 +18,7 @@
 		<div class="mt-3 ">
 			<div class="d-flex justify-content-between bg-light bg-light topic">
 				<h5 th:text="${topic.subject}">トピックのタイトル</h5>
-				<form  id="deleteForm" th:action="@{/comms/deleteTopic.do}" method="post">
+				<form id="deleteForm" th:action="@{/comms/deleteTopic.do}" method="post">
 					<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 					<div th:if="${topic.isOwnedBy(user)}">
 						<button id="topoicDelete" class="btn btn-link p-0 text-dark fs-5" title="トピック削除">
@@ -32,8 +32,9 @@
 				<div class="bg-light p-3 posts post" th:each="post : ${topic.posts}">
 					<div class="d-flex border-bottom">
 						<div class="me-3">
-							<img src="../static/img/anonymous.png" style="width: 64px;"
-								th:src="${post.author.profileImage.encodedString}"/>
+							<a th:href="|@{/profile/UserProfile.html}?id=${post.author.id}|">
+								<img class="userImg" th:src="${post.author.profileImage.encodedString}"/>
+							</a>
 						</div>
 						<div class="flex-grow-1">
 							<!-- rateByUser に各 Ratings を格納 -->
@@ -60,36 +61,36 @@
 								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 								<input type="hidden" name="postNo" th:value="${post.postNo}" />
 								<div class="d-flex justify-content-end py-2">
-									<!-- 投稿評価 -->
+									<!-- 高評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
-											<th:block th:if="${rateByUser.rater == null}">
+											<th:block th:if="!${rateByUser.rater}">
 												<i class="bi bi-hand-thumbs-up"></i>
 											</th:block>
-											<th:block th:if="${rateByUser.rater != null}">
-												<div th:unless="${rateByUser.rater.empNo == user.empNo && rateByUser.rating gt 0 }">
+											<th:block th:if="${rateByUser.rater}">
+												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
 													<i class="bi bi-hand-thumbs-up"></i>
 												</div>								 
-												<div th:if="${rateByUser.rater.empNo == user.empNo && rateByUser.rating gt 0 }">
+												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
 													<i class="bi bi-hand-thumbs-up-fill"></i>
 												</div>	
 											</th:block>							 
 										</button>
 										<span th:text="${rateByUser.goodRatings.size()}">13</span>
 									</div>
-									<!-- 投稿評価 -->
+									<!-- 低評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
-											<th:block th:if="${rateByUser.rater == null}">
+											<th:block th:if="!${rateByUser.rater}">
 												<i class="bi bi-hand-thumbs-down"></i>
 											</th:block>
-											<th:block th:if="${rateByUser.rater != null}">
-												<div th:unless="${rateByUser.rater.empNo == user.empNo && rateByUser.rating lt 0 }">
+											<th:block th:if="${rateByUser.rater}">
+												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating lt 0 }">
 													<i class="bi bi-hand-thumbs-down"></i>
 												</div>								 
-												<div th:if="${rateByUser.rater.empNo == user.empNo && rateByUser.rating lt 0 }">
+												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating lt 0 }">
 													<i class="bi bi-hand-thumbs-down-fill"></i>
 												</div>				
 											</th:block>				 
@@ -112,8 +113,9 @@
 				<!-- 新規投稿 -->
 				<div class="d-flex bg-light p-3 post newPost">
 					<div class="me-3">
-						<img src="../static/img/anonymous.png" style="width: 64px;"
-							th:src="${user.profileImage.encodedString}"/>
+						<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|">
+							<img class="userImg" th:src="${user.profileImage.encodedString}"/>
+						</a>
 					</div>
 					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}"
 						  enctype="multipart/form-data" method="post">

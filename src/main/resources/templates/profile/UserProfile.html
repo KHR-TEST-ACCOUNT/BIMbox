@@ -84,7 +84,7 @@
 					<div class="col col-12 col-md-8">
 						<a  th:each="user : ${profileEditForm.sujestUsers}" 
 							th:href="|@{/profile/UserProfile.html}?id=${user.key}|" class="text-decoration-none">
-		                	<span th:text="${user.value}"></span>
+		                	<span th:text="${user.value.name}"></span>
 						</a>
 					</div>
 					<div class="col col-12 col-md-3">

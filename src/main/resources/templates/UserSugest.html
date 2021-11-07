@@ -33,10 +33,13 @@
 					<div id="searchCondition" class="collapse show">
 						<p th:if="${profileEditForm.sujestUsers != null}">あなたと気の合いそうなユーザーです。</p>
 						<div class="border p-3 rounded">
-							<div class="d-flex align-items-top mb-2">
-								<a  th:each="user : ${profileEditForm.sujestUsers}" 
-									th:href="|@{/chatRoom.html}?id=${user.key}|" class="text-decoration-none">
-				                	<span th:text="${user.value}"></span>
+							<div class="d-flex align-items-top mb-2" th:each="user : ${profileEditForm.sujestUsers}" >
+							
+								<a th:href="|@{/profile/UserProfile.html}?id=${ user.key }|">
+									<img class="toUserImg" th:src="${ user.value.profileImage.encodedString }" />
+								</a>
+								<a th:href="|@{/chatRoom.html}?id=${ user.key }|" class="text-decoration-none">
+				                	<span th:text="${ user.value.name }"></span>
 								</a>
 							</div>
 						</div>
@@ -52,8 +55,12 @@
 							<h5 class="me-2">会話中のユーザー</h5>
 						</div>
 						<div class="d-flex align-items-top my-2 border p-3 rounded" th:each="chatUser : ${conversationalUsers}">
-							<a  th:href="|@{/chatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
+						
+							<a th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
 								<img class="toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
+							</a>
+							
+							<a  th:href="|@{/chatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
 			                	<span th:text="${chatUser.toUser}"></span><br>
 			                	<span th:text="${chatUser.content}"></span><br>
 			                	<span th:text="${chatUser.AVF}"></span>

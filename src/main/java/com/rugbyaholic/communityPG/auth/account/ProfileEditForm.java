@@ -34,7 +34,7 @@ public class ProfileEditForm implements Serializable {
 	
 	private List<String> hobbys = new ArrayList<String>();
 	
-	private TreeMap<Long, String> sujestUsers;
+	private TreeMap<Long, ProfileEditForm> sujestUsers;
 	
 	// 個人情報
 	@Size(max = 256)
@@ -139,11 +139,11 @@ public class ProfileEditForm implements Serializable {
 		this.hobbys = hobbys;
 	}
 	
-	public TreeMap<Long, String> getSujestUsers() {
+	public TreeMap<Long, ProfileEditForm> getSujestUsers() {
 		return sujestUsers;
 	}
 
-	public void setSujestUsers(TreeMap<Long, String> sujestUsers) {
+	public void setSujestUsers(TreeMap<Long, ProfileEditForm> sujestUsers) {
 		this.sujestUsers = sujestUsers;
 	}
 

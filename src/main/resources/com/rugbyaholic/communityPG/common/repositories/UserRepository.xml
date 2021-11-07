@@ -60,10 +60,11 @@
 	]]>
 	</insert>
 
-	<select id="getSuggestUsers" parameterType="String" resultType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
+	<select id="getSuggestUsers" resultMap="userPersonalInfo">
 	<![CDATA[
 		SELECT  HOBBY.USER_ID 	as userId,
-			    U.NAME		as name
+			    U.NAME			as name,
+			    U.PROFILE_IMG	as profileImage
 		FROM    USER_HOBBYS HOBBY
 		LEFT JOIN USERS U
 		ON      U.ID         =  HOBBY.USER_ID
@@ -74,6 +75,7 @@
  		            WHERE   AVF     <=  CURDATE() 
  		        ) 
 		WHERE   HOBBY      =  #{hobby}
+		AND		U.ID	  !=  #{id}
 	]]>
 	</select>
 		
@@ -192,7 +194,7 @@
 	]]>
 	</select>
 	
-	<select id="newProfileEditForm" parameterType="java.lang.Long" resultMap="newEditForm">
+	<select id="newProfileEditForm" parameterType="java.lang.Long" resultMap="userPersonalInfo">
 	<![CDATA[
 		SELECT	USERS.ID			          AS userId,
 				USERS.NAME					  AS name,
@@ -226,17 +228,6 @@
 	]]>
 	</select>
 
-	<resultMap type="com.rugbyaholic.communityPG.auth.account.ProfileEditForm" id="newEditForm">
-		<result property="userId" column="ID" />
-		<result property="name" column="NAME" />
-		<result property="email" column="EMAIL" />
-		<result property="empNo" column="EMP_NO" />
-		<result property="deptName" column="DEPT_NM" />
-		<result property="posName" column="POS_NM" />
-		<association property="profileImage" javaType="com.rugbyaholic.communityPG.common.ImageFile">
-			<result property="encodedString" column="PROFILE_IMG" />
-		</association>
-	</resultMap>
 
 	<select id="createProfileEditForm" parameterType="java.lang.Long" resultMap="userPersonalInfo">
 	<![CDATA[
@@ -411,15 +402,16 @@
 	</update>
 		
 	<select id="loadUserList" parameterType="com.rugbyaholic.communityPG.manage.users.UserSearchForm"
-			resultType="com.rugbyaholic.communityPG.auth.AuthenticatedUser">
+			resultMap="userDetails">
 	<![CDATA[
-		SELECT  U.ID                    AS id,
-				U.EMAIL                 AS email,
-		        U.EMP_NO                AS empNo,
-		        U.NAME                  AS username,
-		        DP.DEPT_NM              AS deptName,
-		        POS.POS_NM              AS posName,
-		        ROLES.ROLE              AS roles
+		SELECT  U.ID,
+				U.EMAIL,
+		        U.EMP_NO,
+		        U.NAME,
+		        U.PROFILE_IMG,
+		        DP.DEPT_NM,
+		        POS.POS_NM,
+		        ROLES.ROLE
 		FROM    USERS U
 		INNER JOIN DEPTS DP
 		ON      DP.DEPT_CD       =  U.DEPT_CD
@@ -473,6 +465,10 @@
 		LIMIT  #{pageFrom}, #{count}
 	]]>
 	</select>
+	
+	
+	
+	
 	
 	<insert id="registerInitialUser" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
