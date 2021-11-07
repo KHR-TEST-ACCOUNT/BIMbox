@@ -145,7 +145,7 @@ public class UserManagementService {
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_EMPNO, availYear, user);
 		int updCount = 0;
 		updCount += userRepository.registerInitialUser(user);
-		updCount += userRepository.grantAuthority(user, "01");
+		updCount += userRepository.grantAuthority(user, "03");
 		if (updCount < 2)
 			throw new Exception();
 	}
@@ -156,7 +156,6 @@ public class UserManagementService {
 	}
 	
 	public void convertSerchForm(UserSearchForm form, Model model) {
-		
 		// ページネーションの設定
 		form.setPageFrom(0);
 		form.setCount(PAGE_LIMIT);
