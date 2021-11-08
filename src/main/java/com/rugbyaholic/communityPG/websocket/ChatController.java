@@ -27,6 +27,7 @@ public class ChatController {
 	// サジェストされたユーザーを追加。
 	@GetMapping("/conversationTo/chatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		service.deleteMessageHistDemo();
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
 		return "UserSugest.html";
@@ -37,11 +38,24 @@ public class ChatController {
 	@GetMapping("/chatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
 				 Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		service.deleteMessageHistDemo();
 		model.addAttribute("messageHist", service.getMessageHist(user, id)); 
 		model.addAttribute("idSet", new ChatMessage(user.getId(), id)); 
 		return "chatRoom.html";
 	}
 
+	/*
+	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
+	@GetMapping("close/chatRoom.html")
+	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
+				 Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		model.addAttribute("messageHist", service.getMessageHist(user, id)); 
+		model.addAttribute("notificationMessage",
+				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
+						.messageCode("communityPG.web.message.proc.success").build());
+		return "chatRoom.html";
+	}
+	 */
 	
     // メッセージをDBに登録する
     @MessageMapping("/chat.send")

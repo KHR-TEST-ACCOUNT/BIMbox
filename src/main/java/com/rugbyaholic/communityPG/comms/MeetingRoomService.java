@@ -25,8 +25,8 @@ public class MeetingRoomService {
 	private MeetingRoomRepository meetingRoomRepository;
 
 	@LogRequired
-	public List<Topic> loadTopics() {
-		return meetingRoomRepository.searchAllTopics();
+	public List<Topic> loadTopics(TopicSearchForm form) {
+		return meetingRoomRepository.searchAllTopics(form);
 	}
 
 	/**
@@ -61,8 +61,6 @@ public class MeetingRoomService {
 	@LogRequired
 	public void appendPost(TopicCreationForm form, AuthenticatedUser user) {
 		meetingRoomRepository.registerPost(form, user);
-//		return meetingRoomRepository.findTopic(form.getTopicNo()).orElse(new Topic());
-	//	return meetingRoomRepository.searchAllTopics();
 	}
 
 	/**
@@ -77,7 +75,6 @@ public class MeetingRoomService {
 	@LogRequired
 	public void editPost(String postText, ImageFile postImg, String topicNo, int postNo) {
 		meetingRoomRepository.editerPost(postText, postImg, topicNo, postNo);
-//		return meetingRoomRepository.findTopic(topicNo).orElse(new Topic());
 	}
 
 	/**
@@ -92,7 +89,6 @@ public class MeetingRoomService {
 	@LogRequired
 	public void deletePost(String topicNo, int postNo) {
 		meetingRoomRepository.deleterPost(topicNo, postNo);
-//		return meetingRoomRepository.findTopic(topicNo).orElse(new Topic());
 	}
 	
 	/**
@@ -105,7 +101,7 @@ public class MeetingRoomService {
 	@LogRequired
 	public List<Topic> deleteTopic(String topicNo) {
 		meetingRoomRepository.deleterTopic(topicNo);
-		return meetingRoomRepository.searchAllTopics();
+		return meetingRoomRepository.searchAllTopics(new TopicSearchForm());
 	}
 	
 	@Transactional(rollbackFor = Throwable.class)

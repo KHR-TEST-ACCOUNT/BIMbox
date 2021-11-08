@@ -76,7 +76,7 @@
 	]]>
 	</select>
 	
-	<select id="searchAllTopics" resultMap="Topics">
+	<select id="searchAllTopics" parameterType="com.rugbyaholic.communityPG.comms.TopicSearchForm" resultMap="Topics">
 	<![CDATA[
 		SELECT  TOPICS.TOPICNO              AS topicNo,
 		        TOPICS.SUBJECT              AS subject,
@@ -108,34 +108,32 @@
 		LEFT OUTER JOIN POST_RATINGS
 		ON      POSTS.TOPICNO    =  POST_RATINGS.TOPICNO
 		AND     POSTS.POSTNO     =  POST_RATINGS.POSTNO
-		WHERE   U.AVF           <=  CURDATE()
+	]]>
+	<where>
+		<![CDATA[
+			U.AVF           <=  CURDATE()
+		]]>
+		<if test="subjectContent != null">
+		<![CDATA[
+			AND    TOPICS.SUBJECT		LIKE	CONCAT('%', #{subjectContent}, '%')
+		]]>
+		</if>
+		<if test="postContent != null">
+		<![CDATA[
+			AND    POSTS.POST			LIKE	CONCAT('%', #{postContent}, '%')
+		]]>
+		</if>
+		<if test="createByUser != null">
+		<![CDATA[
+			AND    U.NAME  				LIKE	CONCAT('%', #{createByUser}, '%')
+		]]>
+		</if>
+	</where>
+	<![CDATA[
 		ORDER BY
 		        TOPICS.TOPICNO,
 		        POSTS.POSTNO
 	]]>
-	<where>
-		<if test="empNo != null">
-		<![CDATA[
-			AND    U.EMP_NO		LIKE	CONCAT('%', #{empNo}, '%')
-		]]>
-		</if>
-		<if test="name != null">
-		<![CDATA[
-			AND    U.NAME		LIKE	CONCAT('%', #{name}, '%')
-		]]>
-		</if>
-		<if test="deptCd != null">
-		<![CDATA[
-			AND    U.DEPT_CD    =  #{deptCd}
-		]]>
-		</if>
-		<if test="posCd != null">
-		<![CDATA[
-			AND    U.POS_CD     =  #{posCd}
-		]]>
-		</if>
-	</where>
-	
 	</select>
 	
 	<resultMap type="com.rugbyaholic.communityPG.comms.Topic" id="Topics">
