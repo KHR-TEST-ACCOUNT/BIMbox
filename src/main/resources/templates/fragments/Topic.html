@@ -33,7 +33,7 @@
 					<div class="d-flex border-bottom">
 						<div class="me-3">
 							<a th:href="|@{/profile/UserProfile.html}?id=${post.author.id}|">
-								<img class="userImg" th:src="${post.author.profileImage.encodedString}"/>
+								<img class="userImg" th:src="${ post.author.profileImage.encodedString }"/>
 							</a>
 						</div>
 						<div class="flex-grow-1">
@@ -44,19 +44,19 @@
 									<p class="fw-bold" th:text="${post.author.username}">投稿者の名前</p>
 									<!-- 投稿編集 -->
 									<div th:if="${post.isPostedBy(user)}">
-										<button id="postEdit" type="button" class="btn btn-link p-0 text-dark fs-5" title="投稿編集"
+										<button id="postEdit" type="button" title="投稿編集" class="btn btn-link p-0 text-dark fs-5"
 												th:data-ts-target="|#${topic.topicNo + post.postNo}|">
 											<i class="bi bi-pencil-square"></i>
 										</button>
 									</div>
 								</div>
+								<!-- IMG -->
+								<div th:if="${ post.postImg }"><img class="postImg" th:src="${ post.postImg.encodedString }" /></div>
 								<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
 								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
 									<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
 									<!-- 投稿削除 -->
-									<div th:if="${topic.posts.size() > 1}">
-										<button id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
-									</div>
+									<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
 								</div>
 								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 								<input type="hidden" name="postNo" th:value="${post.postNo}" />

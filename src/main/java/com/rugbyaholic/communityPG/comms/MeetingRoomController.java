@@ -46,7 +46,8 @@ public class MeetingRoomController {
 
 	// 初期表示
 	@GetMapping("/comms/MeetingRoom.html")
-	public String onMeetingRoomRequested() {
+	public String onMeetingRoomRequested(Model model) {
+		model.addAttribute("topicSearchForm", new TopicSearchForm());
 		return "comms/MeetingRoom.html";
 	}
 
@@ -72,16 +73,14 @@ public class MeetingRoomController {
 		} else {
 			service.appendPost(form, user);
 		}
-		model.addAttribute("topic", service.reloadTopic(form.getTopicNo()));
 		return "fragments/Topic :: topic";
 	}
 
-	// 投稿編集
+	// 投稿編集  @RequestParam("postImg") ImageFile postImg,
 	@PostMapping("/comms/EditPost.do")
-	public String onEditPostRequested(@RequestParam("postText") String postText, @RequestParam("postImg") ImageFile postImg,
+	public String onEditPostRequested(@RequestParam("postText") String postText,
 				@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo, Model model) {
-		service.editPost(postText, postImg, topicNo, postNo);
-		model.addAttribute("topic", service.reloadTopic(topicNo));
+		service.editPost(postText, new ImageFile(), topicNo, postNo);
 		return "fragments/Topic :: topic";
 	}
 
@@ -90,7 +89,6 @@ public class MeetingRoomController {
 	public String onDeletePostRequested(@RequestParam("topicNo") String topicNo,
 				@RequestParam("postNo") int postNo, Model model) {
 		service.deletePost(topicNo, postNo);
-		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
 	
@@ -106,7 +104,6 @@ public class MeetingRoomController {
 	public String onPostRatingRequested(@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo,
 			@RequestParam("rating") int rating, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
 		service.postRating(topicNo, postNo, rating, user);
-		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
 

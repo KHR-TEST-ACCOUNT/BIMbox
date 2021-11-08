@@ -82,7 +82,7 @@ public class UserManagementController {
 			// ユーザーを削除し検索画面へ遷移
 			service.userDeleteForm(userID);
 			this.form = service.initializeSearchForm();
-			service.convertSerchForm(form,model);
+			service.convertSerchForm(form, model);
 			// 処理完了メッセージの追加
 			model.addAttribute("notificationMessage",
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)

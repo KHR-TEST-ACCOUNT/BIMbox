@@ -34,6 +34,7 @@ public class Post {
 		return postRating;
 	}
 
+	// ログインユーザー 又は 管理者権限でない場合、Trueを返す。
 	public boolean isPostedBy(AuthenticatedUser user) {
 		return Objects.equals(user.getId(), author.getId()) || !user.getRoles().get(0).getCode().equals("03");
 	}

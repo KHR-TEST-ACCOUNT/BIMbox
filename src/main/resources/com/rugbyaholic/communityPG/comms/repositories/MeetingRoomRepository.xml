@@ -113,6 +113,29 @@
 		        TOPICS.TOPICNO,
 		        POSTS.POSTNO
 	]]>
+	<where>
+		<if test="empNo != null">
+		<![CDATA[
+			AND    U.EMP_NO		LIKE	CONCAT('%', #{empNo}, '%')
+		]]>
+		</if>
+		<if test="name != null">
+		<![CDATA[
+			AND    U.NAME		LIKE	CONCAT('%', #{name}, '%')
+		]]>
+		</if>
+		<if test="deptCd != null">
+		<![CDATA[
+			AND    U.DEPT_CD    =  #{deptCd}
+		]]>
+		</if>
+		<if test="posCd != null">
+		<![CDATA[
+			AND    U.POS_CD     =  #{posCd}
+		]]>
+		</if>
+	</where>
+	
 	</select>
 	
 	<resultMap type="com.rugbyaholic.communityPG.comms.Topic" id="Topics">
@@ -192,8 +215,8 @@
 
 	<insert id="editerPost">
 	<![CDATA[
-		UPDATE POSTS
-		SET		POST		=	#{postText}
+		UPDATE  POSTS
+		SET		POST		=	#{postText},
 				POST_IMG	=	#{postImg.encodedString}
 		WHERE 	TOPICNO		=	#{topicNo}
 		AND 	POSTNO 		=	#{postNo}

@@ -31,6 +31,13 @@ a .userImg{
 	border-bottom: 0;
 }
 
+.postImg{
+    width: 50%;
+    margin : 20px auto;
+    text-align: center;
+    display: block;
+}
+
 .newPost {
 	border: 1px solid #ccc;
 	border-top: 0;

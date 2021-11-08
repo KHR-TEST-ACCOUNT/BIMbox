@@ -19,6 +19,51 @@
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
 	<div class="main d-flex flex-column">
 		<div th:replace="fragments/Header :: header"></div>
+		
+		
+		<form th:action="@{/manage/users/UserSearch.do}" th:object="${ topicSearchForm }">
+			<div class="p-3">
+				<h4>ユーザー情報一覧</h4>
+			</div>
+			<div class="p-3">
+				<!-- 検索条件 -->
+				<div class="d-flex align-items-between">
+					<h5 class="me-2">検索条件</h5>
+					<a href="#" id="condition-toggler" data-bs-toggle="collapse" data-bs-target="#searchCondition">
+						<span class="d-none">[表示]</span>
+						<span>[隠す]</span>
+					</a>
+				</div>
+				<div id="searchCondition" class="collapse show">
+					<div class="border p-3 rounded">
+						<div class="d-flex align-items-top mb-2">
+							<strong style="width: 10rem;">トピック</strong>
+							<input type="text" class="form-control form-control-sm" style="width: 10rem;"
+									th:field="*{ subject }" />
+						</div>
+						<div class="d-flex align-items-top mb-2">
+							<strong style="width: 10rem;">投稿内容</strong>
+							<input type="text" class="form-control form-control-sm" style="width: 16rem;"
+									th:field="*{ postContent }" />
+						</div>
+						<div class="d-flex align-items-top mb-2">
+							<strong style="width: 10rem;">投稿ユーザー</strong>
+							<input type="text" class="form-control form-control-sm" style="width: 16rem;"
+									th:field="*{ createByUser }" />
+						</div>
+					</div>
+				</div>
+				<div class="py-2">
+					<button class="btn btn-success btn-sm shadow-sm px-3">
+						<span>検索実行</span>
+					</button>
+				</div>
+			</div>
+		</form>
+		
+		
+		
+		
 		<div class="container-fluid py-3" th:with="user=${#authentication.principal}">
 			<!-- トピック新規登録 -->
 			<div class="d-flex justify-content-end">

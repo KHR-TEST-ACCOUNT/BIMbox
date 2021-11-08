@@ -69,6 +69,7 @@ $(function() {
 		}
 	});
 
+// Imageを追加する。
 	$(document).on('click', '#textEdit', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramPostText = parent.find('#postText').val();
