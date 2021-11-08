@@ -45,7 +45,7 @@
 				<div id="searchCondition" class="collapse show">
 					<div class="border p-3 rounded">
 						<div class="d-flex align-items-top mb-2">
-							<strong style="width: 10rem;">社員番号</strong>
+							<strong style="width: 10rem;">番号</strong>
 							<input type="text" class="form-control form-control-sm" style="width: 10rem;"
 									th:field="*{empNo}" />
 						</div>
@@ -54,6 +54,8 @@
 							<input type="text" class="form-control form-control-sm" style="width: 16rem;"
 									th:field="*{name}" />
 						</div>
+						
+						<!-- 
 						<div class="d-flex align-items-top mb-2">
 							<strong style="width: 10rem;">所属部署</strong>
 							<select class="form-select form-select-sm" style="width: 16rem;" th:field="*{deptCd}">
@@ -62,6 +64,7 @@
 										th:text="${option.name}"></option>
 							</select>
 						</div>
+						
 						<div class="d-flex align-items-top mb-2">
 							<strong style="width: 10rem;">役職</strong>
 							<select class="form-select form-select-sm" style="width: 16rem;" th:field="*{posCd}">
@@ -70,6 +73,7 @@
 										th:text="${option.name}"></option>
 							</select>
 						</div>
+						 -->
 					</div>
 				</div>
 				<div class="py-2">
@@ -91,10 +95,13 @@
 					<tr>
 						<th class="sticky-top bg-white text-truncate text-center">管理</th>
 						<th class="sticky-top bg-white text-truncate"></th>
-						<th class="sticky-top bg-white text-truncate">社員番号</th>
+						<th class="sticky-top bg-white text-truncate">番号</th>
 						<th class="sticky-top bg-white text-truncate">氏名</th>
+						<th class="sticky-top bg-white text-truncate">趣味</th>
+						<!-- 
 						<th class="sticky-top bg-white text-truncate">所属部署</th>
 						<th class="sticky-top bg-white text-truncate">役職</th>
+						 -->
 					</tr>
 				</thead>
 				<tbody th:if="${searchResult}">
@@ -120,8 +127,11 @@
 								th:text="${user.username}" class="text-decoration-none">
 							</a>
 						</td>
+						<td></td>
+						<!-- 
 						<td th:text="${user.deptName}"></td>
 						<td th:text="${user.posName}"></td>
+						 -->
 					</tr>
 				</tbody>
 			</table>

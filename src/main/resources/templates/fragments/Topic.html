@@ -61,7 +61,7 @@
 								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 								<input type="hidden" name="postNo" th:value="${post.postNo}" />
 								<div class="d-flex justify-content-end py-2">
-									<!-- 投稿評価 -->
+									<!-- 高評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
@@ -79,7 +79,7 @@
 										</button>
 										<span th:text="${rateByUser.goodRatings.size()}">13</span>
 									</div>
-									<!-- 投稿評価 -->
+									<!-- 低評価 -->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
