@@ -9,12 +9,13 @@ import org.apache.ibatis.annotations.Param;
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.comms.Topic;
+import com.rugbyaholic.communityPG.comms.TopicSearchForm;
 import com.rugbyaholic.communityPG.comms.forms.TopicCreationForm;
 
 @Mapper
 public interface MeetingRoomRepository {
 	
-	public List<Topic> searchAllTopics();
+	public List<Topic> searchAllTopics(TopicSearchForm form);
 	
 	public void registerTopic(@Param("form") TopicCreationForm form,
 								@Param("user") AuthenticatedUser user);

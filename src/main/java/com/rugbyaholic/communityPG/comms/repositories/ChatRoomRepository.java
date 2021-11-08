@@ -17,6 +17,8 @@ public interface ChatRoomRepository {
 	public void registerMessage(@Param("msgInfo") ChatMessage msgInfo);
 	
 	public void deleterMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
+	
+	public void deleterMessageHistFor3Minute();
 
 	public void restoreMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
 	

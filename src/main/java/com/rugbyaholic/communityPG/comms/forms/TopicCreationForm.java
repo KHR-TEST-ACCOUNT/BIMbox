@@ -60,4 +60,5 @@ public class TopicCreationForm {
 	public void setError(boolean error) {
 		this.error = error;
 	}
+
 }

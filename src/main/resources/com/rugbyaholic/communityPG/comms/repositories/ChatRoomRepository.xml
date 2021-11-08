@@ -171,7 +171,16 @@
 		DELETE 
 		FROM    MESSAGE_HIST MSG
 		WHERE 	MSG.DELETE_FLG	  =	1
-		AND		MSG.DELETE_AVF	 <= NOW() - INTERVAL 3 MINUTE
+		AND		MSG.DELETE_AVF	 <= NOW() - INTERVAL 3 DAY
+	]]>
+	</update>
+	
+	<update id="deleterMessageHistFor3Minute2">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE 	MSG.DELETE_FLG	  =	1
+		AND		MSG.DELETE_AVF	 <= NOW() - INTERVAL 3 DAY
 		AND 	(
 					(FROM_USER_ID	=	#{fromUserId}	AND	  TO_USER_ID	 =  #{toUserId})
 				 OR      

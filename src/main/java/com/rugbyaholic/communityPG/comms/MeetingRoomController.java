@@ -24,14 +24,19 @@ public class MeetingRoomController {
 	@Autowired
 	private MeetingRoomService service;
 
+//	@ModelAttribute
+//	public TopicSearchForm topicSearchForm() {
+//		return new TopicSearchForm();
+//	}
+
 	@ModelAttribute
 	public TopicCreationForm topicCreationForm() {
 		return new TopicCreationForm();
 	}
-
+	
 	@ModelAttribute("topics")
-	public List<Topic> initializeTopics() {
-		return service.loadTopics();
+	public List<Topic> initializeTopics(TopicSearchForm form) {
+		return service.loadTopics(form);
 	}
 
 	@ModelAttribute
@@ -51,6 +56,16 @@ public class MeetingRoomController {
 		return "comms/MeetingRoom.html";
 	}
 
+	// 初期表示
+	@PostMapping("/manage/users/UserSearch.do")
+	public String onSerchMeetingRoomRequested(@Valid TopicSearchForm form, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "comms/MeetingRoom.html";
+		} else {
+			return "comms/MeetingRoom.html";
+		}
+	}
+	
 	// トピック新規作成
 	@PostMapping("/comms/CreateTopic.do")
 	public String onTopicRegistrationRequested(@Valid TopicCreationForm form, BindingResult bindingResult, Model model,
@@ -94,7 +109,7 @@ public class MeetingRoomController {
 	
 	// TOPIC削除
 	@PostMapping("/comms/deleteTopic.do")
-	public String onDeleteTopicRequested(@RequestParam("topicNo") String topicNo, Model model) {
+	public String onDeleteTopicRequested(@RequestParam("topicNo") String topicNo, TopicSearchForm form, Model model) {
 		service.deleteTopic(topicNo);
 		return  "redirect:/comms/MeetingRoom.html";
 	}

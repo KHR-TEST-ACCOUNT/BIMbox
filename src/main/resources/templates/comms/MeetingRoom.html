@@ -21,7 +21,7 @@
 		<div th:replace="fragments/Header :: header"></div>
 		
 		
-		<form th:action="@{/manage/users/UserSearch.do}" th:object="${ topicSearchForm }">
+		<form th:action="@{/manage/users/UserSearch.do}" method="post">
 			<div class="p-3">
 				<h4>ユーザー情報一覧</h4>
 			</div>
@@ -39,18 +39,35 @@
 						<div class="d-flex align-items-top mb-2">
 							<strong style="width: 10rem;">トピック</strong>
 							<input type="text" class="form-control form-control-sm" style="width: 10rem;"
-									th:field="*{ subject }" />
+									th:field="*{topicSearchForm.subjectContent}" />
+							<div th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+								<span class="text-danger" th:errors="*{topicSearchForm.subjectContent}"></span>
+							</div>
 						</div>
 						<div class="d-flex align-items-top mb-2">
 							<strong style="width: 10rem;">投稿内容</strong>
 							<input type="text" class="form-control form-control-sm" style="width: 16rem;"
-									th:field="*{ postContent }" />
+									th:field="*{topicSearchForm.postContent}" />
 						</div>
 						<div class="d-flex align-items-top mb-2">
 							<strong style="width: 10rem;">投稿ユーザー</strong>
-							<input type="text" class="form-control form-control-sm" style="width: 16rem;"
-									th:field="*{ createByUser }" />
+							<input  type="text" class="form-control form-control-sm" style="width: 16rem;"
+									th:field="*{topicSearchForm.createByUser}" />
 						</div>
+						<!-- 
+						<div class="d-flex align-items-top mb-2">
+							<strong style="width: 10rem;">投稿日時</strong>
+							<input  type="date" class="form-control form-control-sm" style="width: 12rem;" 
+									th:field="*{topicSearchForm.postDate_from}"
+									th:classappend="${#fields.hasErrors('topicSearchForm.postDate_from') ? 'is-invalid bg-light' : ''}"
+							/>
+							<span class="mx-3"> ~ </span>
+							<input  type="date" class="form-control form-control-sm" style="width: 12rem;" 
+									th:field="*{topicSearchForm.postDate_until}"
+									th:classappend="${#fields.hasErrors('topicSearchForm.postDate_until') ? 'is-invalid bg-light' : ''}"
+							/>
+						</div>
+						 -->
 					</div>
 				</div>
 				<div class="py-2">
