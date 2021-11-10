@@ -47,14 +47,18 @@ public class RootController {
 	// 初期登録時の処理
 	@PostMapping("/UserRegistration.do")
 	public String onInitialUserRequested(@Valid @ModelAttribute UserRegistrationForm registrationForm,
-			BindingResult bindingResult, Model model) {
-		try {
-			if(service.isMail(registrationForm.getEmail()) != 0) throw new Exception();
-			service.registerInitialUser(registrationForm.getEmail(), registrationForm.getPassword());
-		} catch(Exception ex) {
+			BindingResult bindingResult, Model model) throws Exception {
+		
+		if(service.isMail(registrationForm.getEmail()) != 0) {
 			model.addAttribute("notificationMessage",
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
-							.messageCode("AbstractUserDetailsAuthenticationProvider.badCreations").build());
+					.messageCode("AbstractUserDetailsAuthenticationProvider.alreadyRegisteredIfEmail").build());
+		} else if(service.findAdminUser() != 0) {
+			model.addAttribute("notificationMessage",
+					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
+					.messageCode("AbstractUserDetailsAuthenticationProvider.alreadyRegisteredIfUsers").build());
+		} else {
+			service.registerInitialUser(registrationForm.getEmail(), registrationForm.getPassword());
 		}
 		return "Login.html";
 	}

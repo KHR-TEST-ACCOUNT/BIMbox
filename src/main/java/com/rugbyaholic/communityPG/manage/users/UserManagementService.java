@@ -128,6 +128,10 @@ public class UserManagementService {
 		return userRepository.findUserEmail(mail);
 	}
 	
+	public int findAdminUser() {
+		return userRepository.findAdminUser();
+	}
+	
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd());

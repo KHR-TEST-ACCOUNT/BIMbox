@@ -15,6 +15,15 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
+$(function() {
+	$(document).on('click', '#condition-toggler', function(e) {
+		e.preventDefault();
+		$(this).find('span').each(function(index, element) {
+			$(element).toggleClass('d-none');
+		});
+	});
+});
+
 /**
 $("#login-button").click(function(event){
      event.preventDefault();
