@@ -44,6 +44,8 @@ public interface UserRepository {
 
 	public int findUserEmail(String mail);
 	
+	public int findAdminUser();
+	
 	public int registerInitialUser(AuthenticatedUser user);
 
 	public int grantAuthority(@Param("user") AuthenticatedUser user, @Param("role") String userRole);
