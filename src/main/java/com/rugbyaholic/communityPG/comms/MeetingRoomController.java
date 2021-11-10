@@ -56,7 +56,7 @@ public class MeetingRoomController {
 		return "comms/MeetingRoom.html";
 	}
 
-	// 初期表示
+	// 検索結果を表示
 	@PostMapping("/manage/users/UserSearch.do")
 	public String onSerchMeetingRoomRequested(@Valid TopicSearchForm form, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
