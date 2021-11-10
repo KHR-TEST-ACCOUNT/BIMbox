@@ -194,6 +194,16 @@
 	]]>
 	</select>
 	
+	<select id="findAdminUser" resultType="int">
+	<![CDATA[
+		SELECT  COUNT(*)
+		FROM    USERS U
+		INNER JOIN USER_ROLES
+		ON      USER_ROLES.USER_ID       =  U.ID
+		WHERE	USER_ROLES.ROLE			 =	03
+	]]>
+	</select>
+	
 	<select id="newProfileEditForm" parameterType="java.lang.Long" resultMap="userPersonalInfo">
 	<![CDATA[
 		SELECT	USERS.ID			          AS userId,
