@@ -3,8 +3,6 @@ package com.rugbyaholic.communityPG.comms.forms;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.rugbyaholic.communityPG.common.ImageFile;
-
 public class TopicCreationForm {
 
 	@NotBlank
@@ -15,7 +13,8 @@ public class TopicCreationForm {
 	@Size(max = 640)
 	private String primaryPost;
 
-	private ImageFile primaryPostImg;
+	private String primaryPostImg;
+//	private ImageFile primaryPostImg;
 	
 	private String topicNo;
 
@@ -33,11 +32,11 @@ public class TopicCreationForm {
 		return primaryPost;
 	}
 
-	public void setPrimaryPostImg(ImageFile primaryPostImg) {
+	public void setPrimaryPostImg(String primaryPostImg) {
 		this.primaryPostImg = primaryPostImg;
 	}
 
-	public ImageFile getPrimaryPostImg() {
+	public String getPrimaryPostImg() {
 		return primaryPostImg;
 	}
 	
