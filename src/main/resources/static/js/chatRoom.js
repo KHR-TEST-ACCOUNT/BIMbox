@@ -99,7 +99,7 @@ function changeP(){
 		a.children[0].innerHTML = 'メッセージ削除';
 		li.children[2].innerHTML = '復元しました。反映するには更新してください。（※デモ）';
 	} else {
-	// if(a.children[0].innerHTML == 'メッセージ削除'){
+		// if(a.children[0].innerHTML == 'メッセージ削除'){
 		a.children[0].innerHTML = '復元';
 		li.children[2].innerHTML = '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。';
 	}
