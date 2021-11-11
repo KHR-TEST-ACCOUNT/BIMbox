@@ -44,19 +44,6 @@ public class ChatController {
 		return "chatRoom.html";
 	}
 
-	/*
-	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
-	@GetMapping("close/chatRoom.html")
-	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
-				 Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		model.addAttribute("messageHist", service.getMessageHist(user, id)); 
-		model.addAttribute("notificationMessage",
-				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
-						.messageCode("communityPG.web.message.proc.success").build());
-		return "chatRoom.html";
-	}
-	 */
-	
 	
     // メッセージをDBに登録する
     @MessageMapping("/chat.send")
@@ -68,7 +55,7 @@ public class ChatController {
 		chatMessage.setFromUserIcon(user.getProfileImage());
         return chatMessage;
     }
-    
+ 
     
     // メッセージを削除する
     @MessageMapping("/chat.delete")

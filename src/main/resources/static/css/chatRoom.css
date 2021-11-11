@@ -151,6 +151,14 @@ a img{
     border-radius: 50%;
 }
 
+.imgContent{
+    width: 150px;
+}
+
+.messageImg{
+    width: 150px;
+}
+
 #chat-page .chat-message .fromUserImg {
     position: absolute;
     width: 50px;

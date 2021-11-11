@@ -46,7 +46,6 @@ public class ImageFile {
 		if (StringUtils.hasText(encodedString)) {
 			return encodedString;
 		}
-
 		if (!StringUtils.hasText(fileName)) {
 			fileName = getClass().getResource("anonymous.png").getPath();
 		}
