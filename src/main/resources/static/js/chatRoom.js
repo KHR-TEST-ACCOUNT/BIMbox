@@ -3,7 +3,10 @@
 var usernamePage = document.querySelector('#username-page');
 var chatPage = document.querySelector('#chat-page');
 var usernameForm = document.querySelector('#usernameForm');
+
 var messageForm = document.querySelector('#messageForm');
+var deleteMsgForm = document.querySelector('#deleteMsgForm');
+
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
@@ -17,6 +20,8 @@ var content = null;
 var sentAvf = null;
 var avf = null;
 var toUserId = null;
+var msgId = null;
+var a = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -57,6 +62,72 @@ function send(event) {
     event.preventDefault();
 }
 
+
+
+function deleterMsg(event, atag) {
+	a = atag;
+	msgId = a.children[1].value.trim();
+	fromUserId = document.querySelector('#fromUserId').value.trim();
+	if(msgId){
+		if (stompClient) {
+	        var chatMessage = {
+	            msgId: msgId,
+	            fromUserId: fromUserId,
+	            type: 'CHAT'
+	        };
+			changeP();
+			
+			if(a.children[0].innerHTML != '復元'){
+	       		stompClient.send("/app/chat.restore", {}, JSON.stringify(chatMessage));
+			}
+			if(a.children[0].innerHTML != 'メッセージ削除'){
+	       		stompClient.send("/app/chat.delete", {}, JSON.stringify(chatMessage));
+			}
+		}else{
+	        var socket = new SockJS('/websocket');
+	        stompClient = Stomp.over(socket);
+		    stompClient.connect({}, onDeleterConnected, onError);
+		}
+	}
+	// キャンセル可能ならキャンセル
+    event.preventDefault();
+}
+
+function changeP(){
+	var li = a.parentNode;
+	if(a.children[0].innerHTML == '復元'){
+		a.children[0].innerHTML = 'メッセージ削除';
+		li.children[2].innerHTML = '復元しました。反映するには更新してください。（※デモ）';
+	} else {
+	// if(a.children[0].innerHTML == 'メッセージ削除'){
+		a.children[0].innerHTML = '復元';
+		li.children[2].innerHTML = '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。';
+	}
+}
+
+
+// サーバーに情報を送信する。
+function onDeleterConnected() {
+    stompClient.subscribe('/topic/public');
+
+	if(a.children[0].innerHTML == '復元'){
+		var url = "/app/chat.restore";
+	}
+	if(a.children[0].innerHTML == 'メッセージ削除'){
+		var url = "/app/chat.delete";
+	}
+    stompClient.send(url,
+        {},
+        JSON.stringify({
+	        msgId: msgId,
+	        fromUserId: fromUserId,
+			type: 'JOIN'
+		})
+    )
+	changeP();
+}
+
+
 // サーバーに情報を送信する。
 function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
@@ -74,6 +145,7 @@ function onConnected() {
     )
 	if(connectingElement) connectingElement.classList.add('hidden');
 }
+
 
 // チャットメッセージの表示処理
 function onMessageReceived(payload) {

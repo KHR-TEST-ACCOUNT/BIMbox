@@ -57,6 +57,7 @@ public class ChatController {
 	}
 	 */
 	
+	
     // メッセージをDBに登録する
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
@@ -69,21 +70,40 @@ public class ChatController {
     }
     
     
-    // メッセージを削除する（週次のバッチで完全に削除する。）
-    @GetMapping("/websocket/DeleteMessage.do")
-    public String toDeleterMessage(@RequestParam(value = "id", required = true) Long msgId,
-    			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-    	service.deleteMessageHist(msgId, user);
-    	return "redirect:/chatRoom.html";
+    // メッセージを削除する
+    @MessageMapping("/chat.delete")
+    @SendTo("/topic/public")
+    public ChatMessage deleteMessage(@Payload ChatMessage chatMessage) throws Exception {
+    	service.deleteMessageHist(chatMessage);
+    	return chatMessage;
     }
     
     
     // メッセージを復元する
-    @GetMapping("/websocket/restoreMessage.do")
-    public String toRestoreMessage(@RequestParam(value = "id", required = true) Long msgId,
-    		Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-    	service.restoreMessageHist(msgId, user);
-    	return "redirect:/chatRoom.html";
+    @MessageMapping("/chat.restore")
+    @SendTo("/topic/public")
+    public ChatMessage toRestoreMessage(@Payload ChatMessage chatMessage) throws Exception {
+    	service.restoreMessageHist(chatMessage);
+    	return chatMessage;
     }
+
+
+//    
+//    // メッセージを削除する（週次のバッチで完全に削除する。）
+//    @GetMapping("/websocket/DeleteMessage.do")
+//    public String toDeleterMessage(@RequestParam(value = "id", required = true) Long msgId,
+//    			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+//    	//service.deleteMessageHist(msgId, user);
+//    	return "redirect:/chatRoom.html";
+//    }
+    
+    
+//    // メッセージを復元する
+//    @GetMapping("/websocket/restoreMessage.do")
+//    public String toRestoreMessage(@RequestParam(value = "id", required = true) Long msgId,
+//    		Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+//    	service.restoreMessageHist(msgId, user);
+//    	return "redirect:/chatRoom.html";
+//    }
     
 }

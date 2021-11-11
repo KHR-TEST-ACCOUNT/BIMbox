@@ -40,16 +40,39 @@
 				                	<p th:text="${chatMsg.content}"></p>
 				                	<small th:text="${chatMsg.AVF}"></small>
 				                	<br>
+				                	<!-- 
 									<a  th:if="${chatMsg.deleteFlg == 0}"
 										th:href="|@{/websocket/DeleteMessage.do}?id=${chatMsg.msgId}"
-									    class="text-decoration-none text-end">
+									    class="text-decoration-none text-end" id="deleteMsg">
 										<small>メッセージ削除</small>
 									</a>
+									
+			       					<form id="deleteMsgForm" name="deleteMsgForm" nameForm="deleteMsgForm" method="post">
+			                  			<button type="submit" >メッセージ削除</button>
+		               					<input type="hidden" id="msgId" th:value="${chatMsg.msgId}" />
+			       					</form>
+			       					
 									<a  th:if="${chatMsg.deleteFlg == 1}"
 										th:href="|@{/websocket/restoreMessage.do}?id=${chatMsg.msgId}"
 									    class="text-decoration-none text-end">
 										<small>復元</small>
+		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
 									</a>
+				                	 -->
+				                	 
+			       					<!-- 削除 -->
+									<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
+									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
+										<small>メッセージ削除</small>
+		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
+									</a>
+									<!-- 復元 -->
+									<a  th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
+									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
+										<small>復元</small>
+		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
+									</a>
+									
 								</li>
 								<li class="chat-message"
 									th:if="${chatMsg.toUserId == #authentication.principal.id}">

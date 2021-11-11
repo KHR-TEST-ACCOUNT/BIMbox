@@ -74,7 +74,7 @@ public class MeetingRoomService {
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void editPost(String postText, ImageFile postImg, String topicNo, int postNo) {
-		meetingRoomRepository.editerPost(postText, postImg, topicNo, postNo);
+		meetingRoomRepository.editerPost(postText, null, topicNo, postNo);
 	}
 
 	/**

@@ -10,12 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository;
 
+
 @Service
 public class ChatRoomService {
 
+	
 	@Autowired
 	private ChatRoomRepository repository;
 
+	
 	/**
 	 * チャット中のユーザーを取得
 	 * 
@@ -29,6 +32,7 @@ public class ChatRoomService {
 		return conversationalUsers;
 	}
 
+	
 	/**
 	 * メッセージ履歴を取得
 	 * 
@@ -44,6 +48,7 @@ public class ChatRoomService {
 		return messageHist;
 	}
 
+	
 	/**
 	 * チャットメッセージをDBに格納する
 	 * 
@@ -55,25 +60,40 @@ public class ChatRoomService {
 		repository.registerMessage(chatMessage);
 	}
 
+	
 	/**
-	 * チャットメッセージをDBに格納する
+	 * チャットメッセージをのDelete_flgを１に変更する
 	 * 
 	 * @param id
 	 * @param user
 	 * @throws Exception
 	 */
 	@Transactional(rollbackFor = Throwable.class)
-	public void deleteMessageHist(Long msgId, AuthenticatedUser user) throws Exception {
-		repository.deleterMessageHist(msgId, user.getId());
+	public void deleteMessageHist(ChatMessage chatMessage) throws Exception {
+		repository.deleterMessageHist(chatMessage.getMsgId(), chatMessage.getFromUserId());
 	}
 
+	
+	/**
+	 * メッセージを復元する
+	 * 
+	 * @param msgId
+	 * @param user
+	 * @throws Exception
+	 */
+	@Transactional(rollbackFor = Throwable.class)
+	public void restoreMessageHist(ChatMessage chatMessage) throws Exception {
+		repository.restoreMessageHist(chatMessage.getMsgId(), chatMessage.getFromUserId());
+	}
+	
+	
+	/**
+	 * デモ用の削除メソッド
+	 * 
+	 * @throws Exception
+	 */
 	@Transactional(rollbackFor = Throwable.class)
 	public void deleteMessageHistDemo() throws Exception {
 		repository.deleterMessageHistFor3Minute();	}
-	
-	@Transactional(rollbackFor = Throwable.class)
-	public void restoreMessageHist(Long msgId, AuthenticatedUser user) throws Exception {
-		repository.restoreMessageHist(msgId, user.getId());
-	}
 	
 }

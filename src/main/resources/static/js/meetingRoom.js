@@ -14,12 +14,6 @@ $(function() {
 		let paramPostText = ajaxForm.find('#postText').val();
 		let paramPostImg = ajaxForm.find('#paramPostImg');
 
-		console.log(paramPostImg.attr('src'));
-		console.log(typeof($('#paramPostImg')));
-		console.log(typeof(paramPostImg.attr('src')));
-
-		// let paramPostImg = ajaxForm.find('#paramPostImg').files[0];
-		
 		$.ajax({
 			type: ajaxForm.attr('method'),
 			url: ajaxForm.attr('action'),
