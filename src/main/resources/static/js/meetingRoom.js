@@ -12,13 +12,14 @@ $(function() {
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
+		let paramPostImg = ajaxForm.find('#paramPostImg');
 
-		console.log($('#paramPostImg').val());
-		//console.log(typeof($('#paramPostImg').prop('files')[0]));
+		console.log(paramPostImg.attr('src'));
+		console.log(typeof($('#paramPostImg')));
+		console.log(typeof(paramPostImg.attr('src')));
 
-		let paramPostImg = ajaxForm.find('#paramPostImg').files[0];
-		/*
-		*/
+		// let paramPostImg = ajaxForm.find('#paramPostImg').files[0];
+		
 		$.ajax({
 			type: ajaxForm.attr('method'),
 			url: ajaxForm.attr('action'),
@@ -27,9 +28,7 @@ $(function() {
 				topicNo: paramTopicNo,
 				subject: paramSubject,
 				primaryPost: paramPostText,
-				primaryPostImg: paramPostImg
-				/*
-				*/
+				primaryPostImg: paramPostImg.attr('src')
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
