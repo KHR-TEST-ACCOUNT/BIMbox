@@ -15,6 +15,7 @@ var callbackFunction = function(data) {
 	setAddress(pref, city);
 }
 
+
 $(function() {
 	$(document).on('click', '#condition-toggler', function(e) {
 		e.preventDefault();
@@ -233,7 +234,6 @@ $(function() {
 	
 });
 
-/*
 	// 画像ファイルのサムネイル取得
 	$(document).on('change', '#photo-file', function() {
 		var file = $(this).prop('files')[0];
@@ -260,11 +260,7 @@ $(function() {
 		}
 		reader.readAsDataURL(file);
 	});
-		*/
 
-
-
-/**
 	// 画像表示
 	function readerOnLoad(file) {
 		var reader = new FileReader();
@@ -273,6 +269,8 @@ $(function() {
 		}
 		reader.readAsDataURL(file);
 	}
+
+/**
 
 	// ドラッグ＆ドロップイベントをハンドル 
 	$("#thumbnail").on('dragenter', function(e) {

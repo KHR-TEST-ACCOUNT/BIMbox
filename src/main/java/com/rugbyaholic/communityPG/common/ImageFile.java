@@ -16,26 +16,29 @@ public class ImageFile {
 	private String encodedString;
 
 	
+	//setter, getter
 	public void setEncodedString(String encodedString) {
 		this.encodedString = encodedString;
 	}
 	
-
 	public String getFileName() {
 		return fileName;
 	}
-
 	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
 	
+	/**
+	 * ファイル名に画像のパスを設定する。
+	 * @param multipartFile
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public void encode(MultipartFile multipartFile) throws IllegalStateException, IOException {
 		fileName = multipartFile.getOriginalFilename();
 		multipartFile.transferTo(Paths.get(multipartFile.getOriginalFilename()));
 	}
-	
 
 	/**
 	 * BASE64でエンコードしたファイルデータを文字列で返す。
@@ -46,7 +49,6 @@ public class ImageFile {
 		if (StringUtils.hasText(encodedString)) {
 			return encodedString;
 		}
-
 		if (!StringUtils.hasText(fileName)) {
 			fileName = getClass().getResource("anonymous.png").getPath();
 		}
@@ -74,4 +76,5 @@ public class ImageFile {
 		encodedString = base64String.toString();
 		return encodedString;
 	}
+	
 }
