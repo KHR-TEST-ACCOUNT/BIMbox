@@ -15,6 +15,8 @@ public class ChatMessage {
     private ImageFile fromUserIcon = new ImageFile();
     private String content;
 	private ImageFile messageImg;
+	// Demo
+	private String encodedString;
 	private MultipartFile uploadFile;
 	private Timestamp sentAvf;
 	private String AVF;
@@ -89,6 +91,19 @@ public class ChatMessage {
 	public void setMessageImg(ImageFile messageImg) {
 		this.messageImg = messageImg;
 	}
+	
+	
+	
+	public String getEncodedString() {
+		return encodedString;
+	}
+	public void setEncodedString(String encodedString) {
+		this.encodedString = encodedString;
+		messageImg.setEncodedString(encodedString);
+	}
+	
+	
+	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}

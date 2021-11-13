@@ -38,28 +38,11 @@
 									<img class="fromUserImg" th:src="${chatMsg. fromUserIcon.encodedString}"  />
 				                	<span th:text="${chatMsg.fromUser}"></span>
 				                	<p th:text="${chatMsg.content}"></p>
+				                	<div th:if="${ chatMsg. messageImg }">
+										<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+				                	</div>
 				                	<small th:text="${chatMsg.AVF}"></small>
 				                	<br>
-				                	<!-- 
-									<a  th:if="${chatMsg.deleteFlg == 0}"
-										th:href="|@{/websocket/DeleteMessage.do}?id=${chatMsg.msgId}"
-									    class="text-decoration-none text-end" id="deleteMsg">
-										<small>メッセージ削除</small>
-									</a>
-									
-			       					<form id="deleteMsgForm" name="deleteMsgForm" nameForm="deleteMsgForm" method="post">
-			                  			<button type="submit" >メッセージ削除</button>
-		               					<input type="hidden" id="msgId" th:value="${chatMsg.msgId}" />
-			       					</form>
-			       					
-									<a  th:if="${chatMsg.deleteFlg == 1}"
-										th:href="|@{/websocket/restoreMessage.do}?id=${chatMsg.msgId}"
-									    class="text-decoration-none text-end">
-										<small>復元</small>
-		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
-									</a>
-				                	 -->
-				                	 
 			       					<!-- 削除 -->
 									<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
 									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
@@ -74,6 +57,7 @@
 									</a>
 									
 								</li>
+								<!-- toUser -->
 								<li class="chat-message"
 									th:if="${chatMsg.toUserId == #authentication.principal.id}">
 									<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
@@ -81,11 +65,14 @@
 									</a>
 				                	<span th:text="${chatMsg.fromUser}"></span>
 				                	<p th:text="${chatMsg.content}"></p>
+				                	<div th:if="${ chatMsg. messageImg }">
+										<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+				                	</div>
 				                	<small th:text="${chatMsg.AVF}"></small>
 								</li>
 						</th:block>
 			        </ul>
-			        <form id="messageForm" name="messageForm" nameForm="messageForm" method="post">
+			        <form id="messageForm" name="messageForm" nameForm="messageForm" enctype="multipart/form-data" method="post">
 			            <div class="form-group">
 			                <div class="input-group clearfix mt-2">
 			                    <input type="text" id="message" placeholder="Digite uma mensagem..."
@@ -93,6 +80,18 @@
 			                    <button type="submit" class="primary">Enviar</button>
 			                </div>
 			            </div>
+			            <!-- img -->
+						<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+						<input type="file" id="photo-file" class="d-none" accept="image/*"
+							th:field="*{chatMessage.uploadFile}" />
+							
+						<div class="p-1 d-inline-block" id="dragandrophandler">
+							<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+						</div>
+						<!-- 
+			            <input type="file" class="userfile" accept="image/*">
+						 -->
+			            
 		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
 		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
 	              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
