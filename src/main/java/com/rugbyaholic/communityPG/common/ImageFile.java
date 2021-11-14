@@ -16,6 +16,7 @@ public class ImageFile {
 	private String encodedString;
 
 	
+	//setter, getter
 	public void setEncodedString(String encodedString) {
 		this.encodedString = encodedString;
 	}

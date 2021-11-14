@@ -419,10 +419,13 @@
 		        U.EMP_NO,
 		        U.NAME,
 		        U.PROFILE_IMG,
+		        UH.HOBBY,
 		        DP.DEPT_NM,
 		        POS.POS_NM,
 		        ROLES.ROLE
 		FROM    USERS U
+		LEFT JOIN USER_HOBBYS UH
+		ON      UH.USER_ID       =  U.ID
 		INNER JOIN DEPTS DP
 		ON      DP.DEPT_CD       =  U.DEPT_CD
 		AND     DP.AVF          <=  CURDATE()
@@ -459,19 +462,14 @@
 			AND    U.NAME		LIKE	CONCAT('%', #{name}, '%')
 		]]>
 		</if>
-		<if test="deptCd != null">
+		<if test="hobbys != null">
 		<![CDATA[
-			AND    U.DEPT_CD    =  #{deptCd}
-		]]>
-		</if>
-		<if test="posCd != null">
-		<![CDATA[
-			AND    U.POS_CD     =  #{posCd}
+			AND    UH.Hobby     =  #{hobbys}
 		]]>
 		</if>
 	</where>
 	<![CDATA[
-		ORDER BY U.DEPT_CD, U.EMP_NO
+		ORDER BY U.EMP_NO
 		LIMIT  #{pageFrom}, #{count}
 	]]>
 	</select>
