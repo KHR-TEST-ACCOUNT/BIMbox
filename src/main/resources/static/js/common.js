@@ -3,6 +3,19 @@ var setAddress = function(pref, city) {
 	$('#city').val(city);
 }
 
+
+$(function() {
+	var headerHight = 50; //ヘッダの高さ
+	$('a[href^=#]').click(function() {
+		var href = $(this).attr("href");
+		var target = $(href == "#" || href == "" ? 'html' : href);
+		var position = target.offset().top - headerHight;
+		$("html, body").animate({ scrollTop: position }, 550, "swing");
+		return false;
+	});
+});
+
+
 var callbackFunction = function(data) {
 	if (data.results == null) {
 		alert('該当の住所が見つかりませんでした。');
@@ -17,24 +30,27 @@ var callbackFunction = function(data) {
 
 
 $(function() {
-	$(document).on('click', '#condition-toggler', function(e) {
-		e.preventDefault();
+	$('#condition-toggler').click(function(e) {
 		$(this).find('span').each(function(index, element) {
 			$(element).toggleClass('d-none');
 		});
+		e.preventDefault();
 	});
 });
+/**
+// トグル
+ */
 
 /**
 $("#login-button").click(function(event){
-     event.preventDefault();
+	 event.preventDefault();
    
    $('form').fadeOut(500);
    $('.wrapper').addClass('form-success');
 });
  */
 
-$(function(){
+$(function() {
 	$("#wkSelect").multiselect();
 });
 	

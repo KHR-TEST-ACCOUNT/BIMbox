@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+.active {
+	background-image:   radial-gradient(circle at center center, #ffc107, #ffe9a7),
+						repeating-radial-gradient(circle at center center, #ffc107, #ffc107,
+						20px, transparent 40px, transparent 20px);
+	background-blend-mode: multiply;
+}
+
 .about{
 	font-size: 18px;
 }

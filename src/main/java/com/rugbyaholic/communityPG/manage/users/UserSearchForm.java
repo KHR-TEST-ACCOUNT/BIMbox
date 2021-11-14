@@ -13,6 +13,8 @@ public class UserSearchForm {
 	private String deptCd;
 
 	private String posCd;
+	
+	private String hobbys;
 
 	private List<Option> deptOptions;
 
@@ -52,6 +54,14 @@ public class UserSearchForm {
 
 	public void setPosCd(String posCd) {
 		this.posCd = posCd;
+	}
+
+	public String getHobbys() {
+		return hobbys;
+	}
+
+	public void setHobbys(String hobbys) {
+		this.hobbys = hobbys;
 	}
 
 	public List<Option> getDeptOptions() {

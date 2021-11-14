@@ -5,12 +5,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+	<!-- JS -->
+	<meta th:replace="fragments/Scripts :: scripts">
+	<!-- jQuery UI -->
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multiselect-widget/3.0.0/jquery.multiselect.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- BootStrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<!-- pure CSS -->
 	<link rel="stylesheet" th:href="@{/css/layout.css}">
 	<link rel="stylesheet" th:href="@{/css/top.css}">
-	<meta th:replace="fragments/Scripts :: scripts">
 	<meta name="description" content="">
 	<meta name="author"
 		content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -19,11 +25,10 @@
 	<link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/carousel/">
 </head>
 <body>
-
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
 
-	<div class="main d-flex flex-column" id="top">
+	<div class="main d-flex flex-column">
 		<div th:replace="fragments/Header :: header"></div>
 		<!-- 表示内容 -->
 		<div class="container-fluid py-3">
@@ -31,7 +36,7 @@
 				<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-bs-target="#myCarousel" data-bs-slide-to="0"
-							class="active"></li>
+							class="active" id="top"></li>
 						<li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
 						<li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
 					</ol>
@@ -42,15 +47,14 @@
 							<svg class="bd-placeholder-img" width="100%" height="330"
 								xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
 								preserveAspectRatio="xMidYMid slice" focusable="false">
-								<rect width="100%" height="100%" fill="#777" />
+								<rect width="100%" height="100%" fill="#8bc4db" />
 							</svg>
-
 							<div class="container">
 								<div class="carousel-caption text-start">
 									<h2>ホームページをリニューアルしました。</h2>
 									<p>2021/10/11、ホームページをリニューアルしました。従業員情報の検索の機能、コミュニティ機能、ファイルの共有機能が新たに加わりました。</p>
 									<p>
-										<a class="btn btn-primary" href="#detail" role="button">詳細を見る</a> 
+										<a class="btn btn-primary" href="#detail" role="button">詳細を見る</a>
 									</p>
 								</div>
 							</div>
@@ -60,14 +64,15 @@
 							<svg class="bd-placeholder-img" width="100%" height="330"
 								xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
 								preserveAspectRatio="xMidYMid slice" focusable="false">
-						<rect width="100%" height="100%" fill="#777" /></svg>
+							<rect width="100%" height="100%" fill="#6ad3c6" /></svg>
 
 							<div class="container">
 								<div class="carousel-caption text-start">
 									<h2>当サイトのソースコードの公開</h2>
 									<p>当サイトのソースコードは、Githubにて公開されています。また、ソースコードをローカル環境で動かす方法も書き加えております。詳しくは"Read.Me"を参照してください。</p>
 									<p>
-										<a class="btn btn-primary" href="https://github.com/Kouya-Ajima/Internal-Community-Web"
+										<a class="btn btn-primary"
+											href="https://github.com/Kouya-Ajima/Internal-Community-Web"
 											role="button">Githubへ移動</a>
 									</p>
 								</div>
@@ -78,7 +83,7 @@
 							<svg class="bd-placeholder-img" width="100%" height="330"
 								xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
 								preserveAspectRatio="xMidYMid slice" focusable="false">
-								<rect width="100%" height="100%" fill="#777" />
+								<rect width="100%" height="100%" fill="#d3af86" />
 							</svg>
 
 							<div class="container">
@@ -92,32 +97,33 @@
 							</div>
 						</div>
 					</div>
-					<a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev"> 
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-						<span class="visually-hidden">前へ</span>
-					</a>
-					 <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next"> 
-						 <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-						 <span class="visually-hidden">次へ</span>
+					<!-- カーソル -->
+					<a class="carousel-control-prev" href="#myCarousel" role="button"
+						data-bs-slide="prev"> <span class="carousel-control-prev-icon"
+						aria-hidden="true"></span> <span class="visually-hidden">前へ</span>
+					</a> <a class="carousel-control-next" href="#myCarousel" role="button"
+						data-bs-slide="next"> <span class="carousel-control-next-icon"
+						aria-hidden="true"></span> <span class="visually-hidden">次へ</span>
 					</a>
 				</div>
 
 				<br>
-				
+
 				<div class="container marketing">
 
 					<!-- Three columns of text below the carousel -->
 					<div class="row">
-					
-					<h2 class="mt-5 pb-1 border-bottom">About  Klein.Netwerk</h2>
-					<div class="mb-4 about">
-						"Klein.Netwerk" は社内コミュニティの活性化を目的とした小規模コミュニティシステムです。<br>
-						会社内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。<br>
-						「ユーザー情報一覧機能、コミュニティ機能、ファイル共有機能」があり、各機能はログイン中のユーザーのユーザー権限によって機能が制限されています。<br>
-						※ユーザー権限には「USER・MANAGER・ADMIN」の3つがあります。
-					</div> 
-					<!-- 題名 -->
-					<h2 class="col-12 text-start mt-5 mb-3 pb-1 border-bottom" id="detail">機能一覧</h2>
+
+						<h2 class="mt-5 pb-1 border-bottom">About Klein.Netwerk</h2>
+						<div class="mb-4 about">
+							"Klein.Netwerk" は社内コミュニティの活性化を目的とした小規模コミュニティシステムです。<br>
+							会社内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。<br>
+							「ユーザー情報一覧機能、コミュニティ機能、ファイル共有機能」があり、各機能はログイン中のユーザーのユーザー権限によって機能が制限されています。<br>
+							※ユーザー権限には「USER・MANAGER・ADMIN」の3つがあります。
+						</div>
+						<!-- 題名 -->
+						<h2 class="col-12 text-start mt-5 mb-3 pb-1 border-bottom"
+							id="detail">機能一覧</h2>
 						<!-- 1 -->
 						<div class="col-lg-4 mb-3">
 							<svg class="bd-placeholder-img rounded-circle" width="140"
@@ -128,9 +134,10 @@
 								<rect width="100%" height="100%" fill="#777" />
 								<text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 							<h4 class="mt-2">ユーザー管理機能</h4>
-							<p >「ユーザ情報の検索機能、ユーザー情報の詳細閲覧機能、新規登録機能、ユーザー情報の変更機能、ユーザー削除機能」があり、ユーザーの権限によって処理が制限されます。</p>
+							<p>「ユーザ情報の検索機能、ユーザー情報の詳細閲覧機能、新規登録機能、ユーザー情報の変更機能、ユーザー削除機能」があり、ユーザーの権限によって処理が制限されます。</p>
 							<p class="detail">
-								<a class="btn btn-secondary" href="#users" role="button">権限・機能の詳細へ &raquo;</a>
+								<a class="btn btn-secondary" href="#users" role="button">権限・機能の詳細へ
+									&raquo;</a>
 							</p>
 						</div>
 						<!-- 2 -->
@@ -148,7 +155,8 @@
 							<h4 class="mt-2">掲示板機能</h4>
 							<p>「トピック作成機能、コメント投稿機能、投稿評価機能、投稿編集機能、トピック削除機能、投稿削除機能」があり、ユーザーの権限によって処理が制限されます。</p>
 							<p class="detail">
-								<a class="btn btn-secondary" href="#community" role="button">権限・機能の詳細へ &raquo;</a>
+								<a class="btn btn-secondary" href="#community" role="button">権限・機能の詳細へ
+									&raquo;</a>
 							</p>
 						</div>
 						<!-- 3 -->
@@ -166,7 +174,8 @@
 							<h4 class="mt-2">ファイル共有機能</h4>
 							<p>「フォルダ作成機能、ファイル投稿機能、（ファイル削除、フォルダ削除、フォルダ名変更）」があり、ユーザーの権限によって処理が制限されます。</p>
 							<p class="detail">
-								<a class="btn btn-secondary" href="#fileSharing" role="button">権限・機能の詳細へ &raquo;</a>
+								<a class="btn btn-secondary" href="#fileSharing" role="button">権限・機能の詳細へ
+									&raquo;</a>
 							</p>
 						</div>
 						<!-- /.col-lg-4 -->
@@ -186,94 +195,97 @@
 									<span class="text-muted">ユーザー情報一覧機能詳細</span>
 								</h3>
 								<div>検索欄が全て空白の場合は全件検索を行い、入力値がある場合はその値であいまい検索を行います。</div>
-								<div>編集を押下するとユーザーのプロフィールが表示されます。 </div>
-								
+								<div>編集を押下するとユーザーのプロフィールが表示されます。</div>
+
 								<h4 class="featurette-heading mt-3">
 									<span class="text-muted">権限</span>
 								</h4>
 								<div>ユーザー情報一覧機能の編集画面では、ログイン中のユーザー権限によって変更・削除処理を制御しています。</div>
-							
+
 								<dl id="acMenu" class="mt-3">
-	
+
 									<dt>USER</dt>
 									<dd>
-										<table class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分の情報</th>
-										      <td>&#9675;</td>
-										      <td>&times;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&times;</td>
-										      <td>&times;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分の情報</th>
+													<td>&#9675;</td>
+													<td>&times;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&times;</td>
+													<td>&times;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>MANAGER</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分の情報</th>
-										      <td>&#9675;</td>
-										      <td>&times;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&times;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分の情報</th>
+													<td>&#9675;</td>
+													<td>&times;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&times;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>ADMIN</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分の情報</th>
-										      <td>&#9675;</td>
-										      <td>&times;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分の情報</th>
+													<td>&#9675;</td>
+													<td>&times;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 								</dl>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5">
 							<svg
 								class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
@@ -288,7 +300,7 @@
 					</div>
 
 					<hr class="featurette-divider">
-					
+
 					<!-- Community -->
 					<div class="row featurette" id="community">
 						<div class="col-md-7 order-md-2">
@@ -297,94 +309,98 @@
 									<span class="text-muted">コミュニティ機能詳細</span>
 								</h3>
 								<div>検トピックを作成し、作成されたトピックに対してコメントを投稿する事ができます。</div>
-								<div>投稿に対して、1ユーザー、1つの投稿に対し、Like・Bad のいずれか1件までの評価を付けることができます。</div>
-								
+								<div>投稿に対して、1ユーザー、1つの投稿に対し、Like・Bad
+									のいずれか1件までの評価を付けることができます。</div>
+
 								<h4 class="featurette-heading mt-3">
 									<span class="text-muted">権限</span>
 								</h4>
 								<div>コミュニティ機能では、ログイン中のユーザー権限によってトピックや投稿の編集・削除を処理を制御しています。</div>
-								
+
 								<dl id="acMenu" class="mt-3">
-	
+
 									<dt>USER</dt>
 									<dd>
-										<table class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分のトピック・投稿</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&times;</td>
-										      <td>&times;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分のトピック・投稿</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&times;</td>
+													<td>&times;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>MANAGER</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分のトピック・投稿</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&times;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分のトピック・投稿</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&times;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>ADMIN</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">変更</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">自分のトピック・投稿</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">全て</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">変更</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">自分のトピック・投稿</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">全て</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 								</dl>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5 order-md-1">
 							<svg
 								class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
@@ -399,7 +415,7 @@
 					</div>
 
 					<hr class="featurette-divider">
-					
+
 					<!-- Community -->
 					<div class="row featurette" id="fileSharing">
 						<div class="col-md-7">
@@ -408,93 +424,96 @@
 									<span class="text-muted">ファイル共有機能詳細</span>
 								</h3>
 								<div>フォルダの作成やファイル共有などが行え、共有されたファイルを保存したりできます。</div>
-								
+
 								<h4 class="featurette-heading mt-3">
 									<span class="text-muted">権限</span>
 								</h4>
 								<div>ファイル共有機能では、ログイン中のユーザー権限によってファイルの・フォルダのリネーム・削除処理を制御しています。</div>
-								
+
 								<dl id="acMenu" class="mt-3">
-	
+
 									<dt>USER</dt>
 									<dd>
-										<table class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">リネーム</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">ファイル</th>
-										      <td>&#9675;</td>
-										      <td>&times;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">フォルダ</th>
-										      <td>&#9675;</td>
-										      <td>&times;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">リネーム</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">ファイル</th>
+													<td>&#9675;</td>
+													<td>&times;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">フォルダ</th>
+													<td>&#9675;</td>
+													<td>&times;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>MANAGER</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">リネーム</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">ファイル</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">フォルダ</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">リネーム</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">ファイル</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">フォルダ</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 									<dt>ADMIN</dt>
 									<dd>
-										<table class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
-										  <thead>
-										    <tr>
-										      <th scope="col"></th>
-										      <th scope="col">リネーム</th>
-										      <th scope="col">削除</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row" class="text-start">ファイル</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										    <tr>
-										      <th scope="row" class="text-start">フォルダ</th>
-										      <td>&#9675;</td>
-										      <td>&#9675;</td>
-										    </tr>
-										  </tbody>
+										<table
+											class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">リネーム</th>
+													<th scope="col">削除</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row" class="text-start">ファイル</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+												<tr>
+													<th scope="row" class="text-start">フォルダ</th>
+													<td>&#9675;</td>
+													<td>&#9675;</td>
+												</tr>
+											</tbody>
 										</table>
 									</dd>
-									
+
 								</dl>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5">
 							<svg
 								class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
@@ -525,26 +544,27 @@
 					</p>
 				</footer>
 			</main>
-		<!-- content end -->
+			<!-- content end -->
 		</div>
 		<!-- バックグラウンド -->
 		<!-- 
 		<div th:replace="fragments/Background :: backgroundCircles"></div>
 		 -->
-		<div id="area" >
+		<div id="area">
 			<ul class="circles">
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
-			        <li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
 			</ul>
-	    </div >
+		</div>
 	</div>
+
 </body>
 </html>
