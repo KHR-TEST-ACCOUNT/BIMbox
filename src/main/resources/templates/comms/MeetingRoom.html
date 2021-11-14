@@ -110,6 +110,13 @@
 							<span class="text-danger" th:errors="*{primaryPost}"></span>
 						</div>
 					</div>
+					<!-- img -->
+					<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+					<input  type="file" id="photo-file" class="d-none" accept="image/*" />
+					<div class="p-1 d-inline-block" id="dragandrophandler">
+						<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+					</div>
+					<!-- 作成ボタン -->
 					<div class="my-3 text-end">
 						<button class="btn btn-success btn-sm shadow-sm">トピック作成</button>
 					</div>
