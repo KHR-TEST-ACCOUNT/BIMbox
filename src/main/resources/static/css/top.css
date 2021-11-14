@@ -34,10 +34,12 @@
 
 /* mediaquery */
 @media ( min-width : 768px) {
+	
 	.bd-placeholder-img-lg {
 		margin-top: 2rem;
 		font-size: 1.5rem;
 	}
+	
 }
 
 
