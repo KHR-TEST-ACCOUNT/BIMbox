@@ -42,6 +42,16 @@ a {
     color: #128ff2;
 }
 
+#isShow {
+	position: relative;
+	top: 20px;
+	right: 62px;
+}
+
+a span {
+	overflow-wrap: break-word;
+}
+
 button {
     box-shadow: none;
     border: 1px solid transparent;
