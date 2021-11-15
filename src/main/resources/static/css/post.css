@@ -48,9 +48,25 @@ a .userImg{
 	display: none;
 	*/
 }
+
 .post {
 	/* 
 	opacity: 0;
 	display: none;
 	 */
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 12px;
+}
+
+.postsBlock {
+	position: relative;
+	bottom: 17px;
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 12px;
 }
