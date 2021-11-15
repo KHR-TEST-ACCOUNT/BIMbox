@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<link rel="stylesheet" th:href="@{/css/layout.css}">
-<link rel="stylesheet" th:href="@{/css/component.css}">
-<link rel="stylesheet" th:href="@{/css/usersList.css}">
-<meta th:replace="fragments/Scripts :: scripts">
-<title>ユーザー情報一覧</title>
+<head th:replace="fragments/head :: head_fragment(title = 'ユーザー情報一覧', links = ~{::link})">
+	<link rel="stylesheet" th:href="@{/css/usersList.css}">
 </head>
 <body>
 	<div class="cover"></div>
@@ -88,11 +79,11 @@
 							</div>
 							 -->
 						</div>
-					</div>
-					<div class="py-2">
-						<button class="btn btn-success btn-sm shadow-sm px-3">
-							<span>検索実行</span>
-						</button>
+						<div class="py-2">
+							<button class="btn btn-success btn-sm shadow-sm px-3">
+								<span>検索実行</span>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -153,7 +144,5 @@
 		<div th:replace="fragments/Pagination :: pagination(@{/manage/users/UserPageView.do})"></div>
 	</div>
 	<div th:replace="fragments/Toast :: toast"></div>
-	<script type="text/javascript">
-	</script>
 </body>
 </html>
