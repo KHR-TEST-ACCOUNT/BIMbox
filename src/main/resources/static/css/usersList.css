@@ -6,3 +6,13 @@ td a .userProfileImg{
     color: #fff;
     border-radius: 50%;
 }
+
+.newRegist {
+	position: relative;
+	bottom: 37px;
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 7px;
+}

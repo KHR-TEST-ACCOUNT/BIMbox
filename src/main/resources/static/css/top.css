@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .slide {
+	position: relative;
 	/*
 	position: fixed;
 	top: 65px;
@@ -31,6 +32,24 @@
 #acMenu dd:nth-of-type(n+2){
 	display: none;
 }
+
+/*
+table{
+  width: 100%;
+  border-spacing: 0;
+}
+
+table th{
+  border-bottom: solid 2px #fb5144;
+  padding: 10px 0;
+}
+
+table td{
+  border-bottom: solid 2px #ddd;
+  text-align: center;
+  padding: 10px 0;
+}
+*/
 
 /* mediaquery */
 @media ( min-width : 768px) {

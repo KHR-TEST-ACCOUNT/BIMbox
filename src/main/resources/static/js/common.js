@@ -15,6 +15,18 @@ $(function() {
 	});
 });
 
+/**
+jQuery(document).ready(function(){
+    jQuery.goup();
+});
+
+$.goup({
+  location: "left",
+  locationOffset: 400,
+  bottomOffset: 400
+});
+ */
+
 
 var callbackFunction = function(data) {
 	if (data.results == null) {

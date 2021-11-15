@@ -8,8 +8,6 @@
 	<!-- JS -->
 	<meta th:replace="fragments/Scripts :: scripts">
 	<!-- jQuery UI -->
-	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multiselect-widget/3.0.0/jquery.multiselect.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- BootStrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,11 +38,11 @@
 						<span th:text="${targetUser.empNo}"></span>
 					</div>
 					<div class="col col-12 col-md-3">
-						<span class="fw-bold">氏名</span>
+						<span class="fw-bold">ユーザー名</span>
 					</div>
 					<div class="col col-12 col-md-4">
 						<input type="text" class="form-control form-control-sm"
-								th:field="*{name}" placeholder="氏名">
+								th:field="*{name}" placeholder="ユーザー名">
 					</div>
 					<div class="col col-12 col-md-4">
 						<span th:if="${#fields.hasErrors('name')}" class="text-danger"
