@@ -7,11 +7,30 @@ html {
  }
 
 body{
+	/*
 	height: 100%;
 	width: 100%;
     background: url(/img/maxresdefault.jpg)center / cover;;
+	background-color: #a9a9a9;
+	*/
 	width: 100%;
 	min-height: 100vh;
+}
+
+.sharedHeader{
+	position: fixed;
+	width: 100%;
+}
+
+.headerEnd{
+	margin-bottom: 55px;
+}
+
+#particles-js{
+	position: fixed;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
 }
 
 .main {
