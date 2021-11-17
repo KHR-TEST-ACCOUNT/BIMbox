@@ -47,25 +47,6 @@ body{
     display: none;
 }
 
-.cover {
-	height: 100%;
-	width: 100%;
-	/*
-	background: rgba(221,220,227,0.9);
-	background: rgba(245,245,245,0.8);
-	*/
-	background: rgba(0, 0, 0, 0.7);
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1030;
-	display: none;
-}
-
-.cover.visible {
-	display: block;
-}
-
 #particles-js{
 	position: fixed;
 	z-index: -100000;
@@ -87,9 +68,6 @@ body{
 
 
 @media ( min-width: 1200px) {
-	.cover {
-		z-index: 1020;
-	}
 	.main {
 		margin-left: 240px;
 	}

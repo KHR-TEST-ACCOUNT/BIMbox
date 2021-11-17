@@ -16,7 +16,7 @@
 			<!-- 
 				bg-secondary bg-gradient text-light
 			 -->
-			<div class="container-fluid py-3" th:with="user=${#authentication.principal}">
+			<div class="container-fluid py-3 loginUserField" th:with="user=${#authentication.principal}">
 				<span th:text="${#authentication.principal.username}">Username</span>
 				<!-- 画像 -->
 				<img class="profile-photo my-2" alt="Profile" th:src="${user.profileImage.encodedString}" />
@@ -30,7 +30,7 @@
 					</form>
 				</div>
 			</div>
-			<ul class="nav flex-column px-2 ">
+			<ul class="nav flex-column px-2 funcField">
 				<li class="nav-item border-top border-bottom">
 					<a th:href="@{/}" class="nav-link text-dark py-3">ホーム</a>
 				</li>
