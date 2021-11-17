@@ -58,32 +58,35 @@
 								</li>
 						</th:block>
 			        </ul>
-			        <form id="messageForm" name="messageForm" nameForm="messageForm" enctype="multipart/form-data" method="post">
-			            <div class="form-group">
-			                <div class="input-group clearfix mt-2">
-			                    <input type="text" id="message" placeholder="Digite uma mensagem..."
-			                           autocomplete="off" class="form-control" />
-			                    <button type="submit" class="primary">Enviar</button>
-			                </div>
-			            </div>
-			            <!-- img -->
-						<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
-						<input type="file" id="photo-file" class="d-none" accept="image/*"
-							th:field="*{chatMessage.uploadFile}" />
-							
-						<div class="p-1 d-inline-block" id="dragandrophandler">
-							<img alt="" class="profile-photo thumbnail" id="thumbnail" />
-						</div>
-						<!-- 
-			            <input type="file" class="userfile" accept="image/*">
-						 -->
-			            
-		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
-		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
-	              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
-	              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
-	       	        </form>
 			    </div>
+		        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
+		        	　enctype="multipart/form-data" method="post">
+		            <div class="form-group">
+		                <div class="input-group clearfix mt-2">
+		                    <input type="text" id="message" placeholder="Digite uma mensagem..."
+		                           autocomplete="off" class="form-control" />
+		                    <button type="submit" class="primary">Enviar</button>
+		                </div>
+		            </div>
+		            <!-- img -->
+					<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+					<input type="file" id="photo-file" class="d-none" accept="image/*"
+						th:field="*{chatMessage.uploadFile}" />
+						
+					<div class="p-1 d-inline-block" id="dragandrophandler">
+						<!-- 
+						<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+						 -->
+					</div>
+					<!-- 
+		            <input type="file" class="userfile" accept="image/*">
+					 -->
+		            
+	                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
+	                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
+              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
+              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
+       	        </form>
 			</div>
 		</div>
 	</div>
