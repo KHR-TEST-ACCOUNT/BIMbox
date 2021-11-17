@@ -6,7 +6,7 @@
 <body>
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main d-flex flex-column">
+	<div class="main d-flex flex-column animsition">
 		<div th:replace="fragments/Header :: header"></div>
 		<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
 			<div class="p-3">
