@@ -10,12 +10,16 @@
 .ccc{
 	position: fixed;
 	width: 100%;
+	top: 30px;
 }
 
-.ccc{
+/*
+.fff{
 	position: fixed;
 	width: 100%;
 }
+*/
+
 
 .form-control {
     width: 100%;
@@ -110,7 +114,10 @@ button.accent {
     background-color: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     margin-top: 30px;
+    /*
     height: calc(100% - 60px);
+    */
+    height: calc(100% - 100px);
     max-height: 600px;
     position: relative;
     overflow-y: scroll;
