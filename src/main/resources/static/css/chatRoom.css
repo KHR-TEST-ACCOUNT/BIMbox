@@ -7,6 +7,11 @@
     line-height: 1.58;
 }
 
+.ccc{
+	position: fixed;
+	width: 100%;
+}
+
 .form-control {
     width: 100%;
     min-height: 38px;

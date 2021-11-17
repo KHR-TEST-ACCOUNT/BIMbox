@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head_fragment(title = 'チャットルーム', links = ~{::link})">
 	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
-	<meta th:replace="fragments/Scripts :: scripts">
 </head>
 <body>
 	<div class="cover"></div>
@@ -10,16 +9,13 @@
 		<!-- 表示内容 -->
 	<div class="main ">
 		<div th:replace="fragments/Header :: header"></div>
-		<div class="container">
-			<div id="chat-page">
+		<div class="container ">
+			<div id="chat-page" class="ccc">
 			    <div class="chat-container mx-4">
-			        <div class="chat-header">
-			            <h2>ChatBox Tupi</h2>
-			        </div>
 			        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
-				        <div class="connecting mt-1">Let's start...</div>
+				        <div class="connecting mt-1 mb-2">Let's start...</div>
 			        </div>
-			        <ul id="messageArea" class="mt-2">
+			        <ul id="messageArea">
 						<th:block th:unless="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}" 
 								  th:each="chatMsg : ${messageHist}">
 							<!-- fromUser -->
@@ -34,14 +30,14 @@
 				                	<small th:text="${chatMsg.AVF}"></small>
 				                	<br>
 			       					<!-- 削除 -->
-									<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
+									<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}" 
 									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
 										<small>メッセージ削除</small>
 		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
 									</a>
 									<!-- 復元 -->
 									<a  th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
-									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
+									    class="text-decoration-none text-end" onclick="updateMsgData(event,this)">
 										<small>復元</small>
 		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
 									</a>
@@ -92,8 +88,7 @@
 		</div>
 	</div>
 	<div th:replace="fragments/Toast :: toast"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/chatRoom.js"></script>
+	<script th:replace="fragments/Scripts :: scripts"></script>
+	<script src="/js/chatRoom.js"></script>
 </body>
 </html>

@@ -3,16 +3,16 @@ particlesJS('particles-js',
   {
     "particles": {
       "number": {
-        "value": 80,
+        "value": 100,
         "density": {
           "enable": true,
-          "value_area": 800
+          "value_area": 900
         }
       },
 
       /*--------------------------粒子の色----------*/
       "color": {　　　　　　　　
-        "value": "#BBBBBB"　　　　
+        "value": "#aaaaff"　　　　
       },
 
       /*--------------------------粒子の形 ---------*/
@@ -21,12 +21,12 @@ particlesJS('particles-js',
         　　　　
         "stroke": {
           "width": 0,
-          "color": "#CCCCCC"
+          "color": "#aaaaff"
         },
 
         /*-----------------------------------*/
         "polygon": {
-          "nb_sides": 10
+          "nb_sides": 100
         },
 
         /*---------------粒子を任意の画像に変更------------*/
@@ -44,7 +44,7 @@ particlesJS('particles-js',
         "anim": {
           "enable": false,
           "speed": 1,
-          "opacity_min": 0.1,
+          "opacity_min": 0.3,
           "sync": false
         }
       },
@@ -56,7 +56,7 @@ particlesJS('particles-js',
         "anim": {
           "enable": false,
           "speed": 40,
-          "size_min": 0.1,
+          "size_min": 0.2,
           "sync": false
         }
       },
@@ -64,12 +64,13 @@ particlesJS('particles-js',
       /*------------------------粒子間の線 ---------*/
       "line_linked": {
         "enable": true,
-        "distance": 150,
+        "distance": 170,
         /*距離*/
-        "color": "#AAAAAA",
-        "opacity": 0.4,
+        "color": "#aaaaff",
         /*透過度*/
-        "width": 1 /*太さ*/
+        "opacity": 0.4,
+		/*太さ*/
+        "width": 0.8
       },
 
       /*------------------------動きについて ---------*/
@@ -77,13 +78,13 @@ particlesJS('particles-js',
         "enable": true,
         "speed": 6,
         "direction": "none",
-        "random": false,
+        "random": true,
         "straight": false,
         "out_mode": "out",
         "attract": {
           "enable": false,
-          "rotateX": 600,
-          "rotateY": 1200
+          "rotateX": 300,
+          "rotateY": 300
         }
       }
     },
@@ -113,7 +114,7 @@ particlesJS('particles-js',
         "grab": {
           "distance": 400,
           "line_linked": {
-            "opacity": 1
+            "opacity": 0.5
           }
         },
 

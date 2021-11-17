@@ -26,6 +26,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+/**----------- message Send -------------- */
 
 function send(event) {
     userId = document.querySelector('#userId').value.trim();
@@ -93,7 +94,8 @@ function onConnected() {
 }
 
 
-// チャットメッセージの表示処理
+/**----------- チャットメッセージの表示処理 -------------- */
+
 function onMessageReceived(payload) {
 	//送信された情報をMessageに格納する。
     var message = JSON.parse(payload.body);
@@ -146,7 +148,55 @@ function onMessageReceived(payload) {
 }
 
 
+
+
+/**----------- delete -------------- */
+
 function deleterMsg(event, atag) {
+	// 復元を押下したとき
+	if(atag.children[0].innerHTML == '復元') {
+		updateMsgData(event, atag);
+	} else {
+	// メッセージ削除を押下したとき
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+		swalWithBootstrapButtons.fire({
+			title: '本当にこのメッセージを削除しますか?',
+			text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '削除',
+			cancelButtonText: 'キャンセル',
+			reverseButtons: true
+		}).then((result) => {
+			// 削除実行
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire(
+					'削除しました',
+					'7日経過後に自動削除されます（現在は3分後に設定）',
+					'success'
+				)
+				updateMsgData(event, atag);
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				// キャンセル処理
+				swalWithBootstrapButtons.fire(
+					'キャンセルしました',
+					'',
+					'error'
+				)
+			}
+		})
+	}
+}
+
+
+
+function updateMsgData(event, atag) {
 	a = atag;
 	msgId = a.children[1].value.trim();
 	fromUserId = document.querySelector('#fromUserId').value.trim();
@@ -176,9 +226,9 @@ function deleterMsg(event, atag) {
 }
 
 
-function changeP(){
+function changeP() {
 	var li = a.parentNode;
-	if(a.children[0].innerHTML == '復元'){
+	if (a.children[0].innerHTML == '復元') {
 		a.children[0].innerHTML = 'メッセージ削除';
 		li.children[2].innerHTML = '復元しました。反映するには更新してください。（※デモ）';
 	} else {
@@ -191,29 +241,29 @@ function changeP(){
 
 // サーバーに情報を送信する。
 function onDeleterConnected() {
-    stompClient.subscribe('/topic/public');
-	if(a.children[0].innerHTML == '復元'){
+	stompClient.subscribe('/topic/public');
+	if (a.children[0].innerHTML == '復元') {
 		var url = "/app/chat.restore";
 	}
-	if(a.children[0].innerHTML == 'メッセージ削除'){
+	if (a.children[0].innerHTML == 'メッセージ削除') {
 		var url = "/app/chat.delete";
 	}
-    stompClient.send(url,
-        {},
-        JSON.stringify({
-	        msgId: msgId,
-	        fromUserId: fromUserId,
+	stompClient.send(url,
+		{},
+		JSON.stringify({
+			msgId: msgId,
+			fromUserId: fromUserId,
 			type: 'JOIN'
 		})
-    )
+	)
 	changeP();
 }
 
 
-// バックグラウンドのスタイル変更処理
+/**----------- バックグラウンドのスタイル変更処理 -------------- */
 function getAvatarColor(messageSender) {
-    var hash = 0;
-    for (var i = 0; i < messageSender.length; i++) {
+	var hash = 0;
+	for (var i = 0; i < messageSender.length; i++) {
         hash = 31 * hash + messageSender.charCodeAt(i);
     }
     var index = Math.abs(hash % colors.length);
@@ -221,15 +271,7 @@ function getAvatarColor(messageSender) {
 }
 
 
-// 削除ボタン押下処理
-$(function() {
-	$(document).on('click', '.deleteMessage', function() {
-	    if(!confirm('本当にこのメッセージを削除しますか？')) return false;
-	});
-});
-
-
-// 日付の変換処理
+/**----------- 日付の変換処理 -------------- */
 function getNowDateWithString(date){
 	var yyMMddHmm = new Intl.DateTimeFormat('ja-JP', {
 						year: 'numeric',
