@@ -17,9 +17,13 @@ body{
 	min-height: 100vh;
 }
 
-.sticky-top{
+.sharedHeader{
 	position: fixed;
 	width: 100%;
+}
+
+.headerEnd{
+	margin-bottom: 55px;
 }
 
 #particles-js{
