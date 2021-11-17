@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link})">
 	<link rel="stylesheet" th:href="@{/css/top.css}">
+	<!-- smooth-scroll -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.min.js"></script>
 </head>
 <body>
 	<div class="cover"></div>
@@ -16,7 +18,7 @@
 				<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-bs-target="#myCarousel" data-bs-slide-to="0"
-							class="active" id="top"></li>
+							class="active"></li>
 						<li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
 						<li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
 					</ol>
@@ -165,10 +167,10 @@
 
 					<!-- START THE FEATURETTES -->
 					<!-- 機能詳細 -->
-					<hr class="featurette-divider mt-4">
+					<hr class="featurette-divider mt-4" id="users">
 
 					<!-- Users -->
-					<div class="row featurette" id="users">
+					<div class="row featurette">
 						<div class="col-md-7">
 							<div class="fs-6">
 								<h3 class="featurette-heading mt-3">
@@ -279,10 +281,10 @@
 						</div>
 					</div>
 
-					<hr class="featurette-divider">
+					<hr class="featurette-divider" id="community">
 
 					<!-- Community -->
-					<div class="row featurette" id="community">
+					<div class="row featurette">
 						<div class="col-md-7 order-md-2">
 							<div class="fs-6">
 								<h3 class="featurette-heading mt-3">
@@ -394,10 +396,10 @@
 						</div>
 					</div>
 
-					<hr class="featurette-divider">
+					<hr class="featurette-divider" id="fileSharing">
 
 					<!-- Community -->
-					<div class="row featurette" id="fileSharing">
+					<div class="row featurette">
 						<div class="col-md-7">
 							<div class="fs-6">
 								<h3 class="featurette-heading mt-3">
