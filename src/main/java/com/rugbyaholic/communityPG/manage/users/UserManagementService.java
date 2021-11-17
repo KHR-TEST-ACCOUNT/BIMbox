@@ -132,6 +132,7 @@ public class UserManagementService {
 		return userRepository.findAdminUser();
 	}
 	
+	// ユーザーリストをロードする。（Hobbyの格納先がないので解決する。）
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd());
@@ -167,6 +168,7 @@ public class UserManagementService {
 		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(countUser(form), PAGE_LIMIT);
 		searchResult.moveTo(1);
 		searchResult.setEntities(loadUserList(form));
+		
 		model.addAttribute("searchResult", searchResult);
 		model.addAttribute("userSearchForm", form);
 	}
