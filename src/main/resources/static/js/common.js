@@ -3,19 +3,11 @@ var setAddress = function(pref, city) {
 	$('#city').val(city);
 }
 
-
-$(function() {
-	var headerHight = 50; //ヘッダの高さ
-	$('a[href^="#"]').click(function() {
-		var href = $(this).attr("href");
-		var target = $(href == "#" || href == "" ? 'html' : href);
-		var position = target.offset().top - headerHight;
-		$("html, body").animate({ scrollTop: position }, 550, "swing");
-		return false;
-	});
+//smooth-scroll
+var scroll = new SmoothScroll('a[href*="#"]', {
+  speed: 800,
+  header: '[data-scroll-header]'
 });
-
-
 
 
 /**
