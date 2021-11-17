@@ -1,0 +1,67 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+
+.navHeader{
+	background: linear-gradient(to top, #000044, #6699FF);
+}
+
+.sidenav {
+	height: 100vh;
+	width: 240px;
+	position: fixed;
+	margin-left: -240px;
+	z-index: 1040;
+	transition: all linear .3s;
+	background-color:rgba(245,245,245,0.8);
+	/* 
+	background-color:rgba(221,220,227,0.9);
+	 */
+}
+
+.sidenav-toggler:hover {
+	cursor: pointer;
+}
+
+.sidenav.visible {
+	margin-left: 0;
+}
+
+.profile-photo {
+	height: 128px;
+	width: 128px;
+	display: block;
+}
+
+.visible-lt-md {
+	visibility: visible;
+}
+
+.visible-gt-lg {
+	visibility: hidden;
+	height: 40px;
+}
+
+.nav-link:hover {
+	background: #cfcfcf;
+}
+
+
+@media ( min-width: 1200px) {
+	.sidenav {
+		margin-left: 0;
+		z-index: 1030;
+	}
+	.sidenav.slide-out {
+		margin-left: -240px;
+	}
+	.sidenav-toggler {
+		display: none;
+	}
+	.visible-lt-md {
+		visibility: hidden;
+	}
+	.visible-gt-lg {
+		visibility: visible;
+	}
+}

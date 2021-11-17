@@ -6,7 +6,7 @@ particlesJS('particles-js',
         "value": 100,
         "density": {
           "enable": true,
-          "value_area": 900
+          "value_area": 500
         }
       },
 
@@ -51,7 +51,7 @@ particlesJS('particles-js',
 
       /*-----------------------粒子の大きさ ---------*/
       "size": {
-        "value": 5,
+        "value": 3,
         "random": true,
         "anim": {
           "enable": false,
