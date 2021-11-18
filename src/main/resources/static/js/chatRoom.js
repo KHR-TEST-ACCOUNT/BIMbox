@@ -154,10 +154,10 @@ function onMessageReceived(payload) {
 
 function deleterMsg(event, atag) {
 	// 復元を押下したとき
-	if(atag.children[0].innerHTML == '復元') {
+	if (atag.children[0].innerHTML == '復元') {
 		updateMsgData(event, atag);
 	} else {
-	// メッセージ削除を押下したとき
+		// メッセージ削除を押下したとき
 		const swalWithBootstrapButtons = Swal.mixin({
 			customClass: {
 				confirmButton: 'btn btn-success',
@@ -170,7 +170,7 @@ function deleterMsg(event, atag) {
 			text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonText: '削除',
+			confirmButtonText: '削除します',
 			cancelButtonText: 'キャンセル',
 			reverseButtons: true
 		}).then((result) => {
@@ -181,7 +181,7 @@ function deleterMsg(event, atag) {
 					'7日経過後に自動削除されます（現在は3分後に設定）',
 					'success'
 				)
-				updateMsgData(event, atag);
+				if (event && atag) updateMsgData(event, atag);
 			} else if (result.dismiss === Swal.DismissReason.cancel) {
 				// キャンセル処理
 				swalWithBootstrapButtons.fire(

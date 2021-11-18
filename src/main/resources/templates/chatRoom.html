@@ -16,51 +16,48 @@
 				        <div class="connecting mt-1 mb-2">Let's start...</div>
 			        </div>
 			        <ul id="messageArea">
-						<th:block th:unless="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}" 
-								  th:each="chatMsg : ${messageHist}">
+						<th:block th:each="chatMsg : ${messageHist}"
+								  th:unless="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}" >
 							<!-- fromUser -->
-								<li class="chat-message text-end" 
-									th:if="${chatMsg.fromUserId == #authentication.principal.id}">
-									<img class="fromUserImg" th:src="${chatMsg. fromUserIcon.encodedString}"  />
-				                	<span th:text="${chatMsg.fromUser}"></span>
-				                	<p th:text="${chatMsg.content}"></p>
-				                	<div th:if="${ chatMsg. messageImg }">
-										<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
-				                	</div>
-				                	<small th:text="${chatMsg.AVF}"></small>
-				                	<br>
-			       					<!-- 削除 -->
-									<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}" 
-									    class="text-decoration-none text-end" onclick="deleterMsg(event,this)">
-										<small>メッセージ削除</small>
-		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
-									</a>
-									<!-- 復元 -->
-									<a  th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
-									    class="text-decoration-none text-end" onclick="updateMsgData(event,this)">
-										<small>復元</small>
-		              					<input type="hidden" th:value="${chatMsg.msgId}"/>
-									</a>
-									
-								</li>
-								<!-- toUser -->
-								<li class="chat-message"
-									th:if="${chatMsg.toUserId == #authentication.principal.id}">
-									<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
-										<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
-									</a>
-				                	<span th:text="${chatMsg.fromUser}"></span>
-				                	<p th:text="${chatMsg.content}"></p>
-				                	<div th:if="${ chatMsg. messageImg }">
-										<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
-				                	</div>
-				                	<small th:text="${chatMsg.AVF}"></small>
-								</li>
+							<li class="chat-message text-end" th:if="${chatMsg.fromUserId == #authentication.principal.id}">
+								<img class="fromUserImg" th:src="${chatMsg. fromUserIcon.encodedString}" /> 
+								<span th:text="${chatMsg.fromUser}"></span>
+								<p th:text="${chatMsg.content}"></p>
+								<div th:if="${ chatMsg. messageImg }">
+									<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+								</div> 
+								<small th:text="${chatMsg.AVF}"></small>
+								<br> 
+								<!-- 削除 -->
+								<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
+								class="text-decoration-none text-end" onclick="deleterMsg(event,this)"> 
+									<small>メッセージ削除</small> 
+									<input type="hidden" th:value="${chatMsg.msgId}" />
+								</a> 
+								<!-- 復元 --> 
+								<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
+								class="text-decoration-none text-end" onclick="updateMsgData(event,this)"> 
+									<small>復元</small> 
+									<input type="hidden" th:value="${chatMsg.msgId}" />
+								</a>
+							</li>
+							<!-- toUser -->
+							<li class="chat-message" th:if="${chatMsg.toUserId == #authentication.principal.id}">
+								<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
+									<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
+								</a> 
+								<span th:text="${chatMsg.fromUser}"></span>
+								<p th:text="${chatMsg.content}"></p>
+								<div th:if="${ chatMsg. messageImg }">
+									<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+								</div> 
+								<small th:text="${chatMsg.AVF}"></small>
+							</li>
 						</th:block>
 			        </ul>
 			    </div>
 		        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
-		        	　enctype="multipart/form-data" method="post">
+		        	  enctype="multipart/form-data" method="post">
 		            <div class="form-group">
 		                <div class="input-group clearfix mt-2">
 		                    <input type="text" id="message" placeholder="Digite uma mensagem..."
