@@ -6,7 +6,7 @@
 <body>
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main d-flex flex-column">
+	<div class="main d-flex flex-column animsition">
 		<div th:replace="fragments/Header :: header"></div>
 		<form th:action="@{/manage/users/UserRegistration.do}" class="container-fluid p-4 pb-5"
 				method="post" th:object="${userRegistrationForm}" enctype="multipart/form-data" autocomplete="off">

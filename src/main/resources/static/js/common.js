@@ -1,13 +1,111 @@
+
+/**----------- 定数 -------------- */
+/**
+	// オーバーレイ対象要素
+	var overlayElement = $(".overlay");
+	// フェードイン対象要素
+	var fadeInElement = $(".fadeIn");
+	// スクロール時に表示する要素
+	var displayElement = $(".displayElement");
+	var elementsPosition = displayElement.offset();
+ */
+
+
+/**----------- pluginの共通ロジック START -------------- */
+// $("body").addClass(animsition);
+
+/**
+//showBtnクラスのついた要素の位置情報を取得して変数showに入れる
+var show = $(".showBtn").offset();
+
+$(function() {
+    //画面をスクロールしたとき
+    $(window).scroll(function() {
+      //スクロールした量より変数showのトップからの高さの方が小さい場合
+      if($(this).scrollTop() > show.top) {
+         doOverlay($(".showBtn"));
+        //それ以外の場合
+      } else {
+        //ボタンをフェードアウトさせる
+        $('#topBtn').fadeOut();
+      }
+    });
+});
+ */
+
+
+
+$(document).ready(function() {
+  doOverlay($(".animsition-overlay"));
+});
+
+// Overlayアニメーション
+function doOverlay(doAnimation){
+  doAnimation.animsition({
+    inClass: 'overlay-slide-in-top',
+    outClass: 'overlay-slide-out-top',
+    inDuration: 1500,
+    outDuration: 800,
+    linkElement: '.animsition-link',
+    loading: true,
+    loadingParentElement: 'body', //animsition wrapper element
+    loadingClass: 'animsition-loading',
+    loadingInner: '', // e.g '<img src="loading.svg" />'
+    timeout: false,
+    timeoutCountdown: 5000,
+    onLoadEvent: true,
+    browser: [ 'animation-duration', '-webkit-animation-duration'],
+    overlay : true,
+    overlayClass : 'animsition-overlay-slide',
+    overlayParentElement : 'body',
+    transition: function(url){ window.location.href = url; }
+  });
+}
+
+
+// フェードインアニメーション
+$(document).ready(function() {
+	fadeInAnimation();
+});
+
+// フェードインアニメーション
+function fadeInAnimation() {
+  $(".animsition").animsition({
+    inClass: 'fade-in', // ロード時のエフェクト
+    outClass: 'fade-out', // 離脱時のエフェクト
+    inDuration: 1500, // ロード時の演出時間
+    outDuration: 800, // 離脱時の演出時間
+    linkElement: '.animsition-link', // アニメーションを行う要素
+    // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+    loading: true, // ローディングの有効/無効
+    loadingParentElement: 'body', // ローディング要素のラッパー
+    loadingClass: 'animsition-loading', // ローディングのクラス
+    loadingInner: '', // e.g '' ローディングの内容
+    timeout: false, // 一定時間が経ったらアニメーションをキャンセルの有効/無効
+    timeoutCountdown: 5000, // アニメーションをキャンセルするまでの時間
+    onLoadEvent: true, // onLoadイベント後にアニメーションをするかの有効/無効
+    browser: [ 'animation-duration', '-webkit-animation-duration'],
+    // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+    // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+    // ブラウザが配列内のCSSプロパティをサポートしていない場合、アニメーションを中止します。デフォルトは「animation-duration」をサポートしていない場合です。
+    overlay : false, // オーバーレイの有効/無効
+    overlayClass : 'animsition-overlay-slide', // オーバーレイのクラス
+    overlayParentElement : 'body', // オーバーレイ要素のラッパー
+    transition: function(url){ window.location.href = url; } // transition後にどこに遷移させるかを設定、urlは「linkElement」のhref
+  });
+}
+
+
+
+/**----------- pluginの共通ロジック END -------------- */
+
+
+
 var setAddress = function(pref, city) {
 	$('#pref').val(pref);
 	$('#city').val(city);
 }
 
-//smooth-scroll
-var scroll = new SmoothScroll('a[href*="#"]', {
-  speed: 800,
-  header: '[data-scroll-header]'
-});
 
 
 /**
