@@ -1,14 +1,18 @@
 @charset "UTF-8";
 
-thead{
-	background-color:rgba(130,130,130,0.35);
+table {
+	overflow-y: auto;
 }
 
-td a .userProfileImg{
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    border-radius: 50%;
+thead {
+	background-color: rgba(130, 130, 130, 0.35);
+}
+
+td a .userProfileImg {
+	width: 40px;
+	height: 40px;
+	color: #fff;
+	border-radius: 50%;
 }
 
 .newRegist {

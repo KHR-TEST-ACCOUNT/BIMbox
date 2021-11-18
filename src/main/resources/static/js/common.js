@@ -1,5 +1,6 @@
 
 /**----------- 定数 -------------- */
+var isDelete;
 /**
 	// オーバーレイ対象要素
 	var overlayElement = $(".overlay");
@@ -93,6 +94,66 @@ function fadeInAnimation() {
     overlayParentElement : 'body', // オーバーレイ要素のラッパー
     transition: function(url){ window.location.href = url; } // transition後にどこに遷移させるかを設定、urlは「linkElement」のhref
   });
+}
+
+/**
+$(document).ready(function() {
+	var $table = $('table');
+	if ($table) {
+		$table.floatThead({
+			top: 50,
+			position: 'fixed',
+			responsiveContainer: function($table) {
+				return $table.closest('.table-responsive');
+			}
+		});
+	}
+});
+ */
+
+
+function isSureMsg() {
+	// 削除を押下したとき
+	const promise = new Promise((resolve, reject) => {
+		
+		// 削除確認アラート
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+		swalWithBootstrapButtons.fire({
+			title: '本当に削除しますか?',
+			text: '',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '削除します',
+			cancelButtonText: 'キャンセル',
+			reverseButtons: true
+		}).then((result) => {
+			// 削除実行
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire(
+					'正常に削除しました',
+					'',
+					'success'
+				)
+				isDelete = true;
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				// キャンセル処理
+				swalWithBootstrapButtons.fire(
+					'キャンセルしました',
+					'',
+					'error'
+				)
+				isDelete = false;
+			}
+		})
+		resolve(isDelete);
+	});
+	return promise;
 }
 
 
@@ -245,15 +306,76 @@ $(function() {
 		$('.cover').toggleClass('visible');
 	});
 
+
+
+
+
+
+/**
+ */
 	// ユーザー情報削除を押下した際にFromのAction属性を変更する
 	$('#userDelete').click(function() {
-	    if(!confirm('本当にこの投稿を削除しますか？')){
-	        return false;
-	    }else{
-			$(this).parents('form').attr('action', $(this).data('action'));
-			$(this).parents('form').submit();
-	    }
+		dddd();
 	});
+	
+	
+	async function dddd() {
+		const isDeleted = await isSureMsg();
+		await isDoDelete(isDeleted);
+	}
+
+
+	function isDoDelete(isDeleted) {
+		const promise2 = new Promise((resolve, reject) => {
+			// isDelete isDeleted
+			isDeleted = false
+			setTimeout(() => {
+				if (isDeleted)  {
+					(this).parents('form').attr('action', $(this).data('action'));
+					$(this).parents('form').submit();
+				} else {
+					return false;
+				}
+				resolve();
+			}, 30000)
+		});
+		return promise2;
+	}
+	
+	
+	
+	/**
+	
+	async function helloWorld() {
+		const promise = new Promise((resolve, reject) => resolve());
+		const hw = await promise;
+		console.log(hw); // hello, world!
+	}
+
+	helloWorld();
+	
+	
+function openFile(url) {
+    const p = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.addEventListener('load', (e) => resolve(xhr));
+        xhr.send();
+    });
+    
+    return p;
+}
+
+async function loadAllFiles() {
+    const xhr1 = await openFile('foo.txt');
+    const xhr2 = await openFile('bar.txt');
+    const xhr3 = await openFile('baz.txt');
+    console.log('done!');
+}
+
+loadAllFiles();
+	 */
+
 
 	// HTMLを読み込んだ際の処理
 	$(document).ready(function() {
@@ -272,10 +394,10 @@ $(function() {
 	// UserProfileのデフォルトの画面表示を設定する。
 	function setProfileDefault() {
 		$('#wkSelect').multiselect({
-		    checkAllText: '全て選択',
-		    uncheckAllText: '全て選択解除',
-		    noneSelectedText: '選択してください',
-		    selectedText: '# 個選択',
+			checkAllText: '全て選択',
+			uncheckAllText: '全て選択解除',
+			noneSelectedText: '選択してください',
+			selectedText: '# 個選択',
 		});
 		// $("#wkSelect").multiselect();
 		// $("#id").dropdownchecklist( {width: 200 } );
@@ -284,9 +406,9 @@ $(function() {
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
 		fadeinAnimation();
-		switch($("#loginUserRoles").val()){
+		switch ($("#loginUserRoles").val()) {
 			case "01":
-	    		$('select[name="roles"] option[value="02"]').prop('disabled', true);
+				$('select[name="roles"] option[value="02"]').prop('disabled', true);
 	    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
 	    		$('#userDelete').prop('disabled', true);
 				break;
@@ -317,6 +439,7 @@ $(function() {
 		});
 	}
 
+	/**
 	//フェードイン
 	$("#topic div").on("click", function() {
 		$(this).next().slideToggle();
@@ -327,7 +450,6 @@ $(function() {
 	  $(".post").next().slideToggle();
 	  $(".post").toggleClass("active");//追加部分
 	});
-	/**
 	 */
 
 	// 郵便番号検索
