@@ -1,13 +1,172 @@
+
+/**----------- 定数 -------------- */
+var isDelete;
+/**
+	// オーバーレイ対象要素
+	var overlayElement = $(".overlay");
+	// フェードイン対象要素
+	var fadeInElement = $(".fadeIn");
+	// スクロール時に表示する要素
+	var displayElement = $(".displayElement");
+	var elementsPosition = displayElement.offset();
+ */
+
+
+/**----------- pluginの共通ロジック START -------------- */
+// $("body").addClass(animsition);
+
+/**
+//showBtnクラスのついた要素の位置情報を取得して変数showに入れる
+var show = $(".showBtn").offset();
+
+$(function() {
+    //画面をスクロールしたとき
+    $(window).scroll(function() {
+      //スクロールした量より変数showのトップからの高さの方が小さい場合
+      if($(this).scrollTop() > show.top) {
+         doOverlay($(".showBtn"));
+        //それ以外の場合
+      } else {
+        //ボタンをフェードアウトさせる
+        $('#topBtn').fadeOut();
+      }
+    });
+});
+ */
+
+
+
+$(document).ready(function() {
+  doOverlay($(".animsition-overlay"));
+});
+
+// Overlayアニメーション
+function doOverlay(doAnimation){
+  doAnimation.animsition({
+    inClass: 'overlay-slide-in-top',
+    outClass: 'overlay-slide-out-top',
+    inDuration: 1500,
+    outDuration: 800,
+    linkElement: '.animsition-link',
+    loading: true,
+    loadingParentElement: 'body', //animsition wrapper element
+    loadingClass: 'animsition-loading',
+    loadingInner: '', // e.g '<img src="loading.svg" />'
+    timeout: false,
+    timeoutCountdown: 5000,
+    onLoadEvent: true,
+    browser: [ 'animation-duration', '-webkit-animation-duration'],
+    overlay : true,
+    overlayClass : 'animsition-overlay-slide',
+    overlayParentElement : 'body',
+    transition: function(url){ window.location.href = url; }
+  });
+}
+
+
+// フェードインアニメーション
+$(document).ready(function() {
+	fadeInAnimation();
+});
+
+// フェードインアニメーション
+function fadeInAnimation() {
+  $(".animsition").animsition({
+    inClass: 'fade-in', // ロード時のエフェクト
+    outClass: 'fade-out', // 離脱時のエフェクト
+    inDuration: 1500, // ロード時の演出時間
+    outDuration: 800, // 離脱時の演出時間
+    linkElement: '.animsition-link', // アニメーションを行う要素
+    // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+    loading: true, // ローディングの有効/無効
+    loadingParentElement: 'body', // ローディング要素のラッパー
+    loadingClass: 'animsition-loading', // ローディングのクラス
+    loadingInner: '', // e.g '' ローディングの内容
+    timeout: false, // 一定時間が経ったらアニメーションをキャンセルの有効/無効
+    timeoutCountdown: 5000, // アニメーションをキャンセルするまでの時間
+    onLoadEvent: true, // onLoadイベント後にアニメーションをするかの有効/無効
+    browser: [ 'animation-duration', '-webkit-animation-duration'],
+    // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+    // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+    // ブラウザが配列内のCSSプロパティをサポートしていない場合、アニメーションを中止します。デフォルトは「animation-duration」をサポートしていない場合です。
+    overlay : false, // オーバーレイの有効/無効
+    overlayClass : 'animsition-overlay-slide', // オーバーレイのクラス
+    overlayParentElement : 'body', // オーバーレイ要素のラッパー
+    transition: function(url){ window.location.href = url; } // transition後にどこに遷移させるかを設定、urlは「linkElement」のhref
+  });
+}
+
+/**
+$(document).ready(function() {
+	var $table = $('table');
+	if ($table) {
+		$table.floatThead({
+			top: 50,
+			position: 'fixed',
+			responsiveContainer: function($table) {
+				return $table.closest('.table-responsive');
+			}
+		});
+	}
+});
+ */
+
+
+function isSureMsg() {
+	// 削除を押下したとき
+	const promise = new Promise((resolve, reject) => {
+		
+		// 削除確認アラート
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+		swalWithBootstrapButtons.fire({
+			title: '本当に削除しますか?',
+			text: '',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '削除します',
+			cancelButtonText: 'キャンセル',
+			reverseButtons: true
+		}).then((result) => {
+			// 削除実行
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire(
+					'正常に削除しました',
+					'',
+					'success'
+				)
+				isDelete = true;
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				// キャンセル処理
+				swalWithBootstrapButtons.fire(
+					'キャンセルしました',
+					'',
+					'error'
+				)
+				isDelete = false;
+			}
+		})
+		resolve(isDelete);
+	});
+	return promise;
+}
+
+
+
+/**----------- pluginの共通ロジック END -------------- */
+
+
+
 var setAddress = function(pref, city) {
 	$('#pref').val(pref);
 	$('#city').val(city);
 }
 
-//smooth-scroll
-var scroll = new SmoothScroll('a[href*="#"]', {
-  speed: 800,
-  header: '[data-scroll-header]'
-});
 
 
 /**
@@ -147,15 +306,76 @@ $(function() {
 		$('.cover').toggleClass('visible');
 	});
 
+
+
+
+
+
+/**
+ */
 	// ユーザー情報削除を押下した際にFromのAction属性を変更する
 	$('#userDelete').click(function() {
-	    if(!confirm('本当にこの投稿を削除しますか？')){
-	        return false;
-	    }else{
-			$(this).parents('form').attr('action', $(this).data('action'));
-			$(this).parents('form').submit();
-	    }
+		dddd();
 	});
+	
+	
+	async function dddd() {
+		const isDeleted = await isSureMsg();
+		await isDoDelete(isDeleted);
+	}
+
+
+	function isDoDelete(isDeleted) {
+		const promise2 = new Promise((resolve, reject) => {
+			// isDelete isDeleted
+			isDeleted = false
+			setTimeout(() => {
+				if (isDeleted)  {
+					(this).parents('form').attr('action', $(this).data('action'));
+					$(this).parents('form').submit();
+				} else {
+					return false;
+				}
+				resolve();
+			}, 30000)
+		});
+		return promise2;
+	}
+	
+	
+	
+	/**
+	
+	async function helloWorld() {
+		const promise = new Promise((resolve, reject) => resolve());
+		const hw = await promise;
+		console.log(hw); // hello, world!
+	}
+
+	helloWorld();
+	
+	
+function openFile(url) {
+    const p = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.addEventListener('load', (e) => resolve(xhr));
+        xhr.send();
+    });
+    
+    return p;
+}
+
+async function loadAllFiles() {
+    const xhr1 = await openFile('foo.txt');
+    const xhr2 = await openFile('bar.txt');
+    const xhr3 = await openFile('baz.txt');
+    console.log('done!');
+}
+
+loadAllFiles();
+	 */
+
 
 	// HTMLを読み込んだ際の処理
 	$(document).ready(function() {
@@ -174,10 +394,10 @@ $(function() {
 	// UserProfileのデフォルトの画面表示を設定する。
 	function setProfileDefault() {
 		$('#wkSelect').multiselect({
-		    checkAllText: '全て選択',
-		    uncheckAllText: '全て選択解除',
-		    noneSelectedText: '選択してください',
-		    selectedText: '# 個選択',
+			checkAllText: '全て選択',
+			uncheckAllText: '全て選択解除',
+			noneSelectedText: '選択してください',
+			selectedText: '# 個選択',
 		});
 		// $("#wkSelect").multiselect();
 		// $("#id").dropdownchecklist( {width: 200 } );
@@ -186,9 +406,9 @@ $(function() {
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
 		fadeinAnimation();
-		switch($("#loginUserRoles").val()){
+		switch ($("#loginUserRoles").val()) {
 			case "01":
-	    		$('select[name="roles"] option[value="02"]').prop('disabled', true);
+				$('select[name="roles"] option[value="02"]').prop('disabled', true);
 	    		$('select[name="roles"] option[value="03"]').prop('disabled', true);
 	    		$('#userDelete').prop('disabled', true);
 				break;
@@ -219,6 +439,7 @@ $(function() {
 		});
 	}
 
+	/**
 	//フェードイン
 	$("#topic div").on("click", function() {
 		$(this).next().slideToggle();
@@ -229,7 +450,6 @@ $(function() {
 	  $(".post").next().slideToggle();
 	  $(".post").toggleClass("active");//追加部分
 	});
-	/**
 	 */
 
 	// 郵便番号検索

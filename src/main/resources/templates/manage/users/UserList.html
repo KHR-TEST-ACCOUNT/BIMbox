@@ -6,7 +6,7 @@
 <body>
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main d-flex flex-column">
+	<div class="main d-flex flex-column animsition">
 		<div th:replace="fragments/Header :: header"></div>
 		<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
 			<div class="p-3">
@@ -89,8 +89,8 @@
 			</div>
 		</form>
 		<!-- 検索結果 -->
-		<div class="table-fixed-header px-3 searchBlock">
-			<table class="table table-sm table-striped m-0 pb-3">
+		<div class="px-3 searchBlock">
+			<table class="table table-sm table-striped table-responsive pb-3" >
 				<col width="5%"/>
 				<col width="15%"/>
 				<col width="25%"/>
