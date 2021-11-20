@@ -11,7 +11,7 @@
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
 	<div class="main">
 		<div th:replace="fragments/Header :: header"></div>
-		<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off"
+		<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off" class="animsition"
 			enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
 			<div class="container-fluid p-4 position-relative">
 				<div class="row g-4">

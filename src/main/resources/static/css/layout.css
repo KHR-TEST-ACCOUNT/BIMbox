@@ -23,6 +23,10 @@ body{
 	background: linear-gradient(to top, #333333, #999999);
 }
 
+header, navHeader {
+	height: 56px;	
+}
+
 .headerEnd{
 	margin-bottom: 55px;
 }
