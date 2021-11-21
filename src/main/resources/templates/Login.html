@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head_fragment(title = 'ログイン', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'ログイン', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/login.css}">
+	<script type="text/javascript" th:src="@{/}"></script>
 </head>
 <body>
 	<div id="body"></div>

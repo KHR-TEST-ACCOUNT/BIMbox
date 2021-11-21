@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'ユーザ−情報表示', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'ユーザ−情報表示', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/profile.css}">
+	<script type="text/javascript" th:src="@{/}"></script>
 </head>
 <body>
 	<div class="cover"></div>

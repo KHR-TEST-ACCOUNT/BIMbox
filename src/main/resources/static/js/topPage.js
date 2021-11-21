@@ -1,5 +1,7 @@
 //smooth-scroll
 var scroll = new SmoothScroll('a[href*="#"]', {
-	speed: 800,
-	header: '[data-scroll-header]'
+	speed: 10,
+	easing: 'easeInOutCubic',
+	header: '[data-scroll-header]',
+	offset: 56
 });

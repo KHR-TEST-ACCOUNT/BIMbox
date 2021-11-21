@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/top.css}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
 </head>
 <body>
@@ -26,7 +27,7 @@
 				<!-- Footer -->
 				<footer class="container">
 					<p class="float-end">
-						<a href="#top">▲ トップに戻る</a>
+						<a href="#">▲ トップに戻る</a>
 					</p>
 					<p>
 						&copy; 2017-2021 Company, Inc. &middot; 
