@@ -7,9 +7,9 @@
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
 		<!-- 表示内容 -->
-	<div class="main animsition">
+	<div class="main">
 		<div th:replace="fragments/Header :: header"></div>
-		<div class="container ">
+		<div class="container animsition">
 			<div id="chat-page" class="ccc">
 			    <div class="chat-container mx-4">
 			        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
