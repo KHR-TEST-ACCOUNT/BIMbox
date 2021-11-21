@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
 	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>

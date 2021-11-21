@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/post.css}">
 	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
 </head>

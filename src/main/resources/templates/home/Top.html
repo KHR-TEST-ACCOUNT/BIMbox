@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/top.css}">
 	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
 </head>
@@ -26,7 +26,11 @@
 				<!-- Footer -->
 				<footer class="container">
 					<p class="float-end">
+<<<<<<< HEAD
+						<a href="#">▲ トップに戻る</a>
+=======
 						<a href="#top">▲ トップに戻る</a>
+>>>>>>> branch 'master' of https://github.com/Kouya-Ajima/Klein.Netwerk.git
 					</p>
 					<p>
 						&copy; 2017-2021 Company, Inc. &middot; 
