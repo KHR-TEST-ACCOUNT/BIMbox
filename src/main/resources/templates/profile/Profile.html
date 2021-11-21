@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head_fragment(title = 'プロフィール編集', links = ~{::link})">
+<head th:replace="fragments/head :: head_fragment(title = 'プロフィール編集', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/profile.css}">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- JS -->
+	<script type="text/javascript" th:src="@{/}"></script>
 	<meta th:replace="fragments/Scripts :: scripts">
 </head>
 <body>

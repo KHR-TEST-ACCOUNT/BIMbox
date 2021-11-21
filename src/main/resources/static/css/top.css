@@ -23,6 +23,10 @@
 	user-select: none;
 }
 
+.functions-detail .col-lg-4{
+	margin-top: 15px;
+}
+
 .featurette-divider {
 	margin: 56px 0;
 }

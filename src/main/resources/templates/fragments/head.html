@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- 各画面専用のHead -->
-<head xmlns:th="http://www.thymeleaf.org" th:fragment="head_fragment(title, links)">
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="head_fragment(title, links, scripts)">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,5 +33,7 @@
 	<script type="text/javascript" th:src="@{/js/common.js}"></script>
 	<script type="text/javascript" th:src="@{/js/animations.js}"></script>
 	<script type="text/javascript" th:src="@{/js/components.js}"></script>
+	<!-- 各画面のJS -->
+	<th:block th:replace="${scripts}" />
 </head>
 </html>
