@@ -41,9 +41,8 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-	doOverlay($(".animsition-overlay"));
+	doOverlay();
 });
-
 
 
 // フェードインアニメーション
@@ -100,8 +99,8 @@ function fadeUpAnimation() {
 
 
 // Overlayアニメーション
-function doOverlay(doAnimation) {
-	doAnimation.animsition({
+function doOverlay() {
+	$(".animsition-overlay").animsition({
 		inClass: 'overlay-slide-in-top',
 		outClass: 'overlay-slide-out-top',
 		inDuration: 1500,
