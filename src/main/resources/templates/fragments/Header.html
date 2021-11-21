@@ -6,8 +6,8 @@
 		<h1 th:if="${message}" th:text="${message}"></h1>
 	</div>
 	<div th:fragment="header" th:remove="tag" >
-		<header class="navbar sticky-top sharedHeader">
-			<div data-scroll-header class="container-fluid">
+		<header class="navbar sticky-top sharedHeader" data-scroll-header>
+			<div class="container-fluid">
 				<span class="navbar-brand visible-lt-md text-light">Klein.Netwerk</span>
 				<button type="button" class="btn sidenav-toggler text-light">
 					<i class="bi bi-three-dots-vertical"></i>
