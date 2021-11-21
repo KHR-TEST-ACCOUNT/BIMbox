@@ -6,9 +6,9 @@
 <body>
 	<div class="cover"></div>
 	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main animsition">
+	<div class="main">
 		<div th:replace="fragments/Header :: header"></div>
-		<form th:object="${profileEditForm}">
+		<form th:object="${profileEditForm}" class="animsition">
 			<div class="container-fluid p-4 position-relative">
 				<div class="row g-4">
 					<div class="col col-12">
