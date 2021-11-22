@@ -2,52 +2,153 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 	<div th:fragment="sidenav" th:remove="tag">
-		<div id="particles-js"></div>
-		<div class="sidenav">
-			<nav class="navbar navHeader">
-				<div class="container-fluid text-light">
-					<a class="navbar-brand sidenav-toggler">
-						<i class="bi bi-chevron-left"></i>
-					</a>
-					<span class="navbar-brand visible-gt-lg">Klein.Netwerk</span>
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i
+			class="fa fa-bars"></i>
+		</a>
+		<nav id="sidebar" class="sidebar-wrapper"
+			th:with="user=${#authentication.principal}">
+			<div class="sidebar-content">
+				<div class="sidebar-brand">
+					<a th:href="@{/}">Klein.Netwerk</a>
+					<div id="close-sidebar">
+						<i class="fas fa-times"></i>
+					</div>
 				</div>
-			</nav>
-			<!-- ユーザ情報 -->
-			<!-- 
-				bg-secondary bg-gradient text-light
-			 -->
-			<div class="container-fluid py-3 loginUserField" th:with="user=${#authentication.principal}">
-				<span th:text="${#authentication.principal.username}">Username</span>
-				<!-- 画像 -->
-				<img class="profile-photo my-2" alt="Profile" th:src="${user.profileImage.encodedString}" />
-				<!-- E-Mail -->
-				<span th:text="${user.email}">XXXXXX@mydomain.com</span>
-				<hr />
-				<div class="d-flex justify-content-between">
-					<a th:href="@{/profile/UserProfile.html}" class="btn btn-primary btn-sm shadow-sm me-2">プロフィール</a>
-					<form th:action="@{/Logout.do}" method="post">
-						<button type="submit" class="btn btn-success btn-sm shadow-sm">ログオフ</button>
-					</form>
+				<div class="sidebar-header">
+					<div class="user-pic">
+						<img class="img-responsive img-rounded " alt="Profile" th:src="${user.profileImage.encodedString}" />
+					</div>
+					<div class="user-info">
+						<span class="user-name"> 
+							<strong> 
+								<span th:text="${user.username}">Username</span>
+							</strong>
+						</span>
+						<th:block th:switch="${user.roles.get(0).code}">
+							<span class="user-role" th:case=01 th:text="User">user-role</span>
+							<span class="user-role" th:case=02 th:text="Manager">user-role</span>
+							<span class="user-role" th:case=03 th:text="Administer">user-role</span>
+							<span class="user-role" th:case=* th:text="Unknown">user-role</span>
+						</th:block>
+						<span class="user-status"> 
+							<i class="fa fa-circle"></i> 
+							<span>Online</span>
+						</span>
+					</div>
 				</div>
+				<!-- sidebar-header  -->
+				<div class="sidebar-menu">
+					<ul>
+						<li class="header-menu"><span>General</span></li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/}"> 
+								<i class="fas fa-home"></i>
+								<span>Home</span> 
+								<span class="badge badge-pill badge-warning">New</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li><a href="@{/}">Dashboard 1</a></li>
+									<li><a href="#">Dashboard 2</a></li>
+									<li><a href="#">Dashboard 3</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/manage/users/UserList.html}"> 
+								<i class="fas fa-list-ul"></i>
+								<span>User List</span> 
+								<span class="badge badge-pill badge-danger">3</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li><a href="#">Products </a></li>
+									<li><a href="#">Orders</a></li>
+									<li><a href="#">Credit cart</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/comms/MeetingRoom.html}"> 
+								<i class="fas fa-users"></i>
+								<span>Community SNS</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li><a href="#">General</a></li>
+									<li><a href="#">Panels</a></li>
+									<li><a href="#">Tables</a></li>
+									<li><a href="#">Icons</a></li>
+									<li><a href="#">Forms</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/conversationTo/chatRoom.html}"> 
+								<i class="fas fa-comments"></i>
+								<span>Chat Room</span>
+						</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li><a href="#">Pie chart</a></li>
+									<li><a href="#">Line chart</a></li>
+									<li><a href="#">Bar chart</a></li>
+									<li><a href="#">Histogram</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/manage/sys/fs/DirectoryViewer.html}"> 
+								<i class="fas fa-folder-open"></i>
+								<span>Files</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li><a href="#">Google maps</a></li>
+									<li><a href="#">Open street map</a></li>
+								</ul>
+							</div>
+						</li>
+						<!-- Extra -->
+						<li class="header-menu"><span>Extra</span></li>
+						<li>
+							<a th:href="@{/profile/UserProfile.html}">
+								<i class="fas fa-address-card"></i> 
+								<span>Profile</span>
+								<span class="badge badge-pill badge-primary">Beta</span>
+							</a>
+						</li>
+						<li><a href="#"> <i class="fa fa-calendar"></i> <span>Calendar</span>
+						</a></li>
+						<li><a href="#"> <i class="fa fa-folder"></i> <span>Examples</span>
+						</a></li>
+						<!-- Extra end -->
+					</ul>
+				</div>
+				<!-- sidebar-menu  -->
 			</div>
-			<ul class="nav flex-column px-2 funcField">
-				<li class="nav-item border-top border-bottom">
-					<a th:href="@{/}" class="nav-link text-dark py-3">ホーム</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a th:href="@{/manage/users/UserList.html}" class="nav-link text-dark py-3">ユーザー情報一覧</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a th:href="@{/comms/MeetingRoom.html}" class="nav-link text-dark py-3">コミュニティー</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a th:href="@{/conversationTo/chatRoom.html}" class="nav-link text-dark py-3">チャットルーム</a>
-				</li>
-				<li class="nav-item border-bottom">
-					<a th:href="@{/manage/sys/fs/DirectoryViewer.html}" class="nav-link text-dark py-3">ファイル共有</a>
-				</li>
-			</ul>
-		</div>
+			<!-- sidebar-content  -->
+			<div class="sidebar-footer">
+				<a href="#"> 
+					 <i class="fa fa-bell"></i> 
+					 <span class="badge badge-pill badge-warning notification"></span>
+				</a> 
+				<a href="#"> 
+					<i class="fa fa-envelope"></i> 
+					<span class="badge badge-pill badge-success notification"></span>
+				</a> 
+				<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
+					<i class="fa fa-cog"></i> 
+					<span class="badge-sonar"></span>
+				</a> 
+				<form th:action="@{/Logout.do}" method="post">
+					<button type="submit" class="btn btn-link">
+						 <i class="fa fa-power-off"></i>
+					</button>
+				</form>
+			</div>
+		</nav>
+		<!-- sidebar-wrapper  -->
 	</div>
 </body>
 </html>

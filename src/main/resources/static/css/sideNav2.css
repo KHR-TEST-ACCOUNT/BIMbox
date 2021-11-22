@@ -1,0 +1,101 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+
+.navHeader{
+	background: linear-gradient(to top, #000044, #6699FF);
+}
+
+.cover {
+	height: 100%;
+	width: 100%;
+	/*
+	background: rgba(221,220,227,0.9);
+	background: rgba(245,245,245,0.8);
+	*/
+	background: rgba(50, 50, 50, 0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1030;
+	display: none;
+}
+
+.cover.visible {
+	display: block;
+}
+
+.sidenav {
+	height: 100vh;
+	width: 240px;
+	position: fixed;
+	margin-left: -240px;
+	z-index: 1040;
+	transition: all linear .3s;
+	/* 
+	background-color:rgba(245,245,245,0.8);
+	background-color:rgba(221,220,227,0.9);
+	 */
+}
+
+.sidenav-toggler:hover {
+	cursor: pointer;
+}
+
+.sidenav.visible {
+	margin-left: 0;
+}
+
+.loginUserField{
+	background: linear-gradient(to bottom,rgba(150,150,150,0.8),rgba(245,245,245,0.8));
+	/*
+	background: rgba(130,130,130,0.6);
+	*/
+}
+
+.funcField{
+	background-color:rgba(245,245,245,0.8);
+	height:100%; 
+}
+
+.profile-photo {
+	height: 128px;
+	width: 128px;
+	display: block;
+}
+
+.visible-lt-md {
+	visibility: visible;
+}
+
+.visible-gt-lg {
+	visibility: hidden;
+	height: 40px;
+}
+
+.nav-link:hover {
+	background: #cfcfcf;
+}
+
+
+@media ( min-width: 1200px) {
+	.cover {
+		z-index: 1020;
+	}
+	.sidenav {
+		margin-left: 0;
+		z-index: 1030;
+	}
+	.sidenav.slide-out {
+		margin-left: -240px;
+	}
+	.sidenav-toggler {
+		display: none;
+	}
+	.visible-lt-md {
+		visibility: hidden;
+	}
+	.visible-gt-lg {
+		visibility: visible;
+	}
+}

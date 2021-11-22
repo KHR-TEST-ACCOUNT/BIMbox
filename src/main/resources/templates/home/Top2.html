@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/top.css}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
+</head>
+<body>
+	<div class="cover"></div>
+	<!-- サイドバー -->
+	<div th:replace="fragments/Sidenav :: sidenav"></div>
+	<div class="main d-flex flex-column">
+		<!-- Header -->
+		<div th:replace="fragments/Header :: header"></div>
+		<!-- Contnt -->
+		<div class="container-fluid py-3">
+			<main class="animsition">
+				<!-- スライドページ -->
+				<div th:replace="home/Slide :: slide"></div>
+				<!-- 表示内容 -->
+				<div class="container marketing">
+					<!-- Aboutページ -->
+					<div th:replace="home/About :: about"></div>
+					<!-- 機能詳細ページ -->
+					<div th:replace="home/Functions :: functions"></div>
+				</div>
+				<!-- Footer -->
+				<footer class="container">
+					<p class="float-end">
+						<a href="#">▲ トップに戻る</a>
+					</p>
+					<p>
+						&copy; 2017-2021 Company, Inc. &middot; 
+						<a href="#">プライバシー</a>
+						&middot; 
+						<a href="#">利用規約</a>
+					</p>
+				</footer>
+			</main>
+		</div>
+	</div>
+</body>
+</html>
