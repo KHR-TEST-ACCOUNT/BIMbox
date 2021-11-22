@@ -91,6 +91,7 @@ body {
 	border-radius: 0 4px 4px 0px;
 	width: 35px;
 	transition-delay: 0.3s;
+	z-index: 1;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -135,7 +136,7 @@ body {
 
 /*--------------------sidebar-brand----------------------*/
 .sidebar-wrapper .sidebar-brand {
-	padding: 10px 20px;
+	padding: 14px 20px;
 	display: flex;
 	align-items: center;
 }
@@ -192,11 +193,6 @@ body {
 	font-size: 8px;
 	margin-right: 4px;
 	color: #5cb85c;
-}
-
-/*-----------------------sidebar-search------------------------*/
-.sidebar-wrapper .sidebar-search>div {
-	padding: 10px 20px;
 }
 
 /*----------------------sidebar-menu-------------------------*/
