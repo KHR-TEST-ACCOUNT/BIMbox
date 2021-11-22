@@ -5,8 +5,9 @@
 		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i
 			class="fa fa-bars"></i>
 		</a>
-		<nav id="sidebar" class="sidebar-wrapper"
-			th:with="user=${#authentication.principal}">
+		<nav id="sidebar" class="sidebar-wrapper" th:with="user=${#authentication.principal}">
+			<img src="https://azouaoui-med.github.io/react-pro-sidebar/static/media/bg2.de0153c5.jpg"
+				 alt="sidebar background" class="sidebar-bg">					
 			<div class="sidebar-content">
 				<div class="sidebar-brand">
 					<a th:href="@{/}">Klein.Netwerk</a>
