@@ -45,7 +45,6 @@ $(document).ready(function() {
 });
 
 
-
 // フェードインアニメーション
 function fadeInAnimation() {
 	$(".animsition").animsition({
