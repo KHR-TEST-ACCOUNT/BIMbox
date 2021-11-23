@@ -5,11 +5,12 @@
 	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
 </head>
 <body>
-	<div class="cover"></div>
-	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main d-flex flex-column">
-		<div th:replace="fragments/Header :: header"></div>
-		<div class="animsition">
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		
+		<main class="page-content animsition">
+
 			<form th:action="@{/manage/users/UserSearch.do}" method="post" class="container-fluid">
 				<div class="p-3">
 					<h4>ユーザー情報一覧</h4>
@@ -117,8 +118,10 @@
 					</div>
 				</div>
 			</div>		
-		</div>
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
 	</div>
-	<div th:replace="fragments/Toast :: toast"></div>
+	<!-- page-wrapper -->
 </body>
 </html>

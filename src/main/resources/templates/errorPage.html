@@ -5,15 +5,16 @@
 	<script type="text/javascript" th:src="@{/}"></script>
 </head>
 <body>
-	<div class="cover"></div>
-	<div th:replace="fragments/Sidenav :: sidenav"></div>
-	<div class="main animsition">
-		<div th:replace="fragments/Header :: header"></div>
-		<div id="main">
-		      <div class="fof">
-		            <h1>Error 404</h1>
-		      </div>
-		</div>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<div class="fof">
+				<h1>Error 404</h1>
+			</div>
+		</main>
+		<!-- page-content" -->
 	</div>
+	<!-- page-wrapper -->
 </body>
 </html>

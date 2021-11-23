@@ -1,6 +1,5 @@
 
-/** smooth-scroll
-
+/** smooth-scroll */
 var scroll = new SmoothScroll('a[href*="#"]', {
 	speed: 10,
 	easing: 'easeInOutCubic',
@@ -18,44 +17,29 @@ $(function() {
 	});
 
 });
- */
 
 
 
 
-$(document).ready(function() {
 
-	$('#pagepiling').pagepiling({
-		onLeave: function(index, nextIndex, direction) {
-			//after leaving section 2
-			if (direction == 'down') {
-				damn(true)
-			}
-			else if (direction == 'up') {
-				damn(false)
-			}
-		}
-	});
+//this is where we apply opacity to the arrow
+$(window).scroll( function(){
 
+  //get scroll position
+  var topWindow = $(window).scrollTop();
+  //multipl by 1.5 so the arrow will become transparent half-way up the page
+  var topWindow = topWindow * 1.5;
+  
+  //get height of window
+  var windowHeight = $(window).height();
+      
+  //set position as percentage of how far the user has scrolled 
+  var position = topWindow / windowHeight;
+  //invert the percentage
+  position = 1 - position;
 
-	$("*[data-bg]").each(function() {
-		color = $(this).attr("data-bg")
-		$(this).css("color", "white")//"light"+color)
-	})
-	
-	i = 0
-	colors = ["lightblue", "lightseagreen","lightcoral", "lightgreen"]
+  //define arrow opacity as based on how far up the page the user has scrolled
+  //no scrolling = 1, half-way up the page = 0
+  $('.arrow-wrap').css('opacity', position);
 
-	function damn(next) {
-		if (next) { i++; } else { i--; }
-		$("html, body").css("background-color", colors[i - 1])
-		//$(".section.active").css("background-color", colors[i-1])
-	}
-
-	damn(true)
 });
-
-
-
-	
-
