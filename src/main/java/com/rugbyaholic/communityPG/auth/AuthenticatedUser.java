@@ -32,6 +32,8 @@ public class AuthenticatedUser implements UserDetails {
 
 	private List<Option> roles;
 
+	// private String usersRole;
+	
 	private String empNo;
 
 	private String deptCd;
