@@ -5,12 +5,10 @@
 	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
 </head>
 <body>
-	<div class="cover"></div>
-	<div th:replace="fragments/Sidenav :: sidenav"></div>
-		<!-- 表示内容 -->
-	<div class="main">
-		<div th:replace="fragments/Header :: header"></div>
-		<div class="container animsition">
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
 			<div id="chat-page" class="ccc">
 			    <div class="chat-container mx-4">
 			        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
@@ -86,8 +84,10 @@
               		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
        	        </form>
 			</div>
-		</div>
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
 	</div>
-	<div th:replace="fragments/Toast :: toast"></div>
+	<!-- page-wrapper -->
 </body>
 </html>

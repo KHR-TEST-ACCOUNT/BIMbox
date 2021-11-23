@@ -7,13 +7,6 @@
     line-height: 1.58;
 } 
 
-/*
-.fff{
-	position: fixed;
-	width: 100%;
-}
-*/
-
 
 .form-control {
     width: 100%;
@@ -54,10 +47,6 @@ a {
 	position: relative;
 	top: 20px;
 	right: 62px;
-}
-
-a span {
-	overflow-wrap: break-word;
 }
 
 button {
@@ -162,8 +151,9 @@ button.accent {
     position: relative;
 }
 
-a > span{
+.page-content a>span {
     padding-left: 68px;
+	overflow-wrap: break-word;
 }
 
 a img{
