@@ -1,11 +1,8 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
-html {
-	width: 100%;
- }
 
-body{
+html, body {
 	/*
 	height: 100%;
 	width: 100%;
@@ -14,6 +11,8 @@ body{
 	min-height: 100vh;
 	*/
 	width: 100%;
+    font-family: "Open Sans", sans-serif;
+	font-size: 16px;
 }
 
 .sharedHeader{

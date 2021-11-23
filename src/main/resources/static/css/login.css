@@ -3,10 +3,10 @@
 body {
 	margin: 0;
 	height: 100vh;
+    font-family: "Open Sans", sans-serif;
 }
 
 h1, button {
-	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 	letter-spacing: 2px;
 	font-size: 48px;
@@ -24,14 +24,13 @@ h1, form, .logo {
 	padding: 10px;
 }
 
-input[type=email], input[type=password] {
+input {
 	width: 250px;
 	height: 30px;
 	background: transparent;
 	border: 1px solid rgba(255, 255, 255, 0.6);
 	border-radius: 2px;
 	color: #fff;
-	font-family: 'Exo', sans-serif;
 	font-size: 16px;
 	font-weight: 400;
 	padding: 4px;
@@ -50,7 +49,6 @@ button {
 	cursor: pointer;
 	border-radius: 2px;
 	color: #a18d6c;
-	font-family: 'Exo', sans-serif;
 	font-size: 16px;
 	font-weight: 400;
 	padding: 6px;
@@ -58,7 +56,6 @@ button {
 }
 
 p {
-	font-family: 'Lato', sans-serif;
 	letter-spacing: 1px;
 	font-size: 14px;
 	color: #333333;
