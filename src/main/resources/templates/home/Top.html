@@ -1,116 +1,73 @@
 <!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
+	<!-- Top CSS -->
 	<link rel="stylesheet" th:href="@{/css/top.css}">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js"></script>
+	<!-- slider CSS -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
+	<!-- pagepiling CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pagepiling.js@1/jquery.pagepiling.min.css">
+	<!-- Smooth scroll JS -->
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js}"></script>
+	
+	<!-- slider JS -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<!-- pagepiling JS -->
+<script src="https://cdn.jsdelivr.net/npm/pagepiling.js@1/jquery.pagepiling.min.js"></script>
+
+	<!-- topPage.js -->
 	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
+	<!-- JQuery plugin -->
 	<script th:replace="fragments/Scripts :: scripts"></script>
 </head>
 <body>
 	<!-- サイドバー -->
 	<div class="page-wrapper chiller-theme toggled">
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
-		<main class="page-content animsition">
+		
 
-			<div class="container">
-
-				<h2>Pro Sidebar</h2>
-				<hr>
-				<div class="row">
-					<div class="form-group col-md-12">
-						<p>This is a responsive sidebar template with dropdown menu
-							based on bootstrap 4 framework.</p>
-						<p>
-							You can find the complete code on <a
-								href="https://github.com/azouaoui-med/pro-sidebar-template"
-								target="_blank"> Github</a>, it contains more themes and
-							background image option
-						</p>
-					</div>
-					<div class="form-group col-md-12">
-						<iframe
-							src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=star&count=true&size=small"
-							frameborder="0" scrolling="0" width="90px" height="30px"></iframe>
-						<iframe
-							src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=fork&count=true&size=small"
-							frameborder="0" scrolling="0" width="90px" height="30px"></iframe>
-					</div>
-					<div class="form-group col-md-12">
-						<div class="alert alert-success" role="alert">
-							<h4 class="alert-heading">New !</h4>
-							<p>
-								New react pro sidebar library is now available on <a
-									href="https://www.npmjs.com/package/react-pro-sidebar"
-									target="_blank">npm</a> <a
-									href="https://github.com/azouaoui-med/react-pro-sidebar"
-									target="_blank"> <img alt="GitHub stars"
-									src="https://img.shields.io/github/stars/azouaoui-med/react-pro-sidebar?style=social" />
-								</a>
-							</p>
-							<a href="https://github.com/azouaoui-med/react-pro-sidebar"
-								target="_blank" class="btn btn-sm btn-primary mr-2"> Github</a>
-							<a href="https://azouaoui-med.github.io/react-pro-sidebar"
-								target="_blank" class="btn btn-sm btn-success"> Demo</a>
-
-						</div>
-
-					</div>
-				</div>
-				<h5>More templates</h5>
-				<hr>
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-						<div class="card rounded-0 p-0 shadow-sm">
-							<img
-								src="https://user-images.githubusercontent.com/25878302/58369568-a49b2480-7efc-11e9-9ca9-2be44afacda1.png"
-								class="card-img-top rounded-0" alt="Angular pro sidebar">
-							<div class="card-body text-center">
-								<h6 class="card-title">Angular Pro Sidebar</h6>
-								<a href="https://github.com/azouaoui-med/angular-pro-sidebar"
-									target="_blank" class="btn btn-primary btn-sm">Github</a> <a
-									href="https://azouaoui-med.github.io/angular-pro-sidebar/demo/"
-									target="_blank" class="btn btn-success btn-sm">Demo</a>
-								<hr>
-								<a href="https://github.com/azouaoui-med/react-pro-sidebar"
-									target="_blank"> <img alt="GitHub stars"
-									src="https://img.shields.io/github/stars/azouaoui-med/angular-pro-sidebar?style=social" />
-								</a> <a href="https://github.com/azouaoui-med/react-pro-sidebar"
-									target="_blank"> <img alt="GitHub stars"
-									src="https://img.shields.io/github/forks/azouaoui-med/angular-pro-sidebar?style=social" />
-								</a>
-
-							</div>
-
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-						<div class="card rounded-0 p-0 shadow-sm">
-							<img
-								src="https://user-images.githubusercontent.com/25878302/58369258-33f20900-7ef8-11e9-8ff3-b277cb7ed7b4.PNG"
-								class="card-img-top rounded-0" alt="Angular pro sidebar">
-							<div class="card-body text-center">
-								<h6 class="card-title">Angular Dashboard</h6>
-								<a
-									href="https://github.com/azouaoui-med/lightning-admin-angular"
-									target="_blank" class="btn btn-primary btn-sm">Github</a> <a
-									href="https://azouaoui-med.github.io/lightning-admin-angular/demo/"
-									target="_blank" class="btn btn-success btn-sm">Demo</a>
-								<hr>
-								<a href="https://github.com/azouaoui-med/react-pro-sidebar"
-									target="_blank"> <img alt="GitHub stars"
-									src="https://img.shields.io/github/stars/azouaoui-med/lightning-admin-angular?style=social" />
-								</a> <a href="https://github.com/azouaoui-med/react-pro-sidebar"
-									target="_blank"> <img alt="GitHub stars"
-									src="https://img.shields.io/github/forks/azouaoui-med/lightning-admin-angular?style=social" />
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<div id="pagepiling">
+			  <div class="section" data-bg="seagreen">
+			    <h1>Hola!</h1>
+			    <p>Mi nombre es <b>Fernando Muñoz </b>y tengo 15 años, y necesito un medio de transporte. <br /><br />Recién hace unas semanas terminé mi secundaria por método abierto hace apenas unas semanas y conseguí una beca del 60% en Tecnológico de Monterrey</p>
+			    <p><a class="btn btn-ux">Know more about</a></p>
+			  </div>
+			  <div class="section" data-bg="green">
+			    <h1>The Proyect</h1>
+			    <div class="blank">
+			      <div class="row">
+			        <div class="one-half column">
+			          <h5>Tecnológico de Monterrey</h5>
+			          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia saepe nam, voluptatum nostrum, repellendus ut odit praesentium doloremque. Fuga corporis, quis numquam tempore tenetur fugit fugiat cum pariatur rerum alias.</p>
+			        </div>
+			        <div class="one-half column">
+			          <h5>Tecnológico de Monterrey</h5>
+			          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident aut adipisci possimus qui, ullam sit quos? Cum doloremque soluta, laboriosam beatae cumque quis odit, voluptatem porro earum dolor blanditiis nobis.</p>
+			        </div>
+			      </div>
+			      <div class="row">
+			        <div class="one-half column"><a class="btn-ux btn btn-black">Show more</a></div>
+			        <div class="one-half column"><a class="btn-ux btn btn-black">Show more</a></div>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="section" data-bg="blue">
+			    <h1>Corals are life</h1>
+			  </div>
+			  <div class="section" data-bg="">
+			    <h1>Apple :v</h1>
+			    <button class="btn-ux" data-close="#pagepiling">Close</button>
+			  </div>
 			</div>
-
+			
+		<!-- 
+		<main class="pagepiling-content">
 		</main>
+		
+		<main class="page-content ">
+		</main>
+		 -->
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->

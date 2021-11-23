@@ -80,7 +80,7 @@ body {
 
 @media screen and (min-width: 768px) {
 	.page-wrapper.toggled .page-content {
-		padding-left: 300px;
+		padding-left: 267px;
 	}
 }
 /*----------------show sidebar button----------------*/
@@ -104,7 +104,7 @@ body {
 	max-height: 100%;
 	position: fixed;
 	top: 0;
-	left: -300px;
+	left: -267px;
 	z-index: 999;
 }
 
@@ -272,7 +272,7 @@ body {
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before
 	{
 	content: "\f111";
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 6 Free";
 	font-weight: 400;
 	font-style: normal;
 	display: inline-block;
