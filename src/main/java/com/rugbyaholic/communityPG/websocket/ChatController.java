@@ -25,24 +25,24 @@ public class ChatController {
 	
 	
 	// サジェストされたユーザーを追加。
-	@GetMapping("/conversationTo/chatRoom.html")
+	@GetMapping("/conversationTo/ChatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
 		service.deleteMessageHistDemo();
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
-		return "UserSugest.html";
+		return "websocket/UserSugest.html";
 	}
 
 	
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
-	@GetMapping("/chatRoom.html")
+	@GetMapping("/ChatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
 				 Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
 		service.deleteMessageHistDemo();
 		model.addAttribute("chatMessage", new ChatMessage()); 
 		model.addAttribute("messageHist", service.getMessageHist(user, id)); 
 		model.addAttribute("idSet", new ChatMessage(user.getId(), id)); 
-		return "chatRoom.html";
+		return "websocket/ChatRoom.html";
 	}
 
 	
@@ -77,23 +77,4 @@ public class ChatController {
     	return chatMessage;
     }
 
-
-//    
-//    // メッセージを削除する（週次のバッチで完全に削除する。）
-//    @GetMapping("/websocket/DeleteMessage.do")
-//    public String toDeleterMessage(@RequestParam(value = "id", required = true) Long msgId,
-//    			Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-//    	//service.deleteMessageHist(msgId, user);
-//    	return "redirect:/chatRoom.html";
-//    }
-    
-    
-//    // メッセージを復元する
-//    @GetMapping("/websocket/restoreMessage.do")
-//    public String toRestoreMessage(@RequestParam(value = "id", required = true) Long msgId,
-//    		Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-//    	service.restoreMessageHist(msgId, user);
-//    	return "redirect:/chatRoom.html";
-//    }
-    
 }
