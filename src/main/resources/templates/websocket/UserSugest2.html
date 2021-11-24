@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
+	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<form th:object="${profileEditForm}">
+				<div class="p-3 sugestUsers">
+					<!-- 検索条件 -->
+					<div class="d-flex align-items-between">
+						<h6 class="me-2">あなたと気の合いそうなユーザーです。</h6>
+						<a href="#" id="condition-toggler" data-bs-toggle="collapse" data-bs-target="#searchCondition">
+							<span id="isShow" class="d-none">[表示]</span>
+							<span id="isShow">[隠す]</span>
+						</a>
+					</div>
+					<div id="searchCondition" class="collapse show">
+						<div class="border p-3 rounded">
+							<div class="d-flex align-items-between mb-3" th:each="user : ${profileEditForm.sujestUsers}" >
+							
+								<a th:href="|@{/profile/UserProfile.html}?id=${ user.key }|">
+									<img class="toUserImg" th:src="${ user.value.profileImage.encodedString }" />
+								</a>
+								<a th:href="|@{/ChatRoom.html}?id=${ user.key }|" class="text-decoration-none">
+				                	<span th:text="${ user.value.name }"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- 検索結果 -->
+			<div class="pb-3 px-3 chatUsers">
+				<form th:object="${conversationalUsers}">
+					<div class="">
+						<!-- 検索条件 -->
+						<div class="d-flex align-items-between">
+							<h6 class="me-2">チャット中のユーザー</h6>
+						</div>
+						<div class="d-flex align-items-top my-2 border p-3 rounded" th:each="chatUser : ${conversationalUsers}">
+						
+							<a th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
+								<img class="toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
+							</a>
+							
+							<a  th:href="|@{/ChatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
+			                	<span th:text="${chatUser.toUser}"></span><br>
+			                	<span th:text="${chatUser.content}"></span><br>
+			                	<span th:text="${chatUser.AVF}"></span>
+							</a>
+							<!-- 
+							<a  th:href="|@{/closed.html}?id=${chatUser.fromUserId}?id=${chatUser.toUserId}|"
+							    class="text-decoration-none text-end">
+								<small>非表示にする</small>
+							</a>
+							 -->
+						</div>
+						<div class="text-center mt-5">
+							<p>他にメッセージを送りたい人がいたら検索画面からメッセージを送りましょう。</p>
+							<a th:href="@{/manage/users/UserList.html}">　→　検索画面へ</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>

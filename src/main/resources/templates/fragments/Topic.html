@@ -1,134 +1,93 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
+	<!-- <article class="post-container"> -->
 	<div th:fragment="topic(topic)" th:remove="tag">
-	<!-- トピック -->
-		<div class="mt-3 ">
-			<div class="d-flex justify-content-between bg-light bg-light topic">
-				<h5 th:text="${topic.subject}">トピックのタイトル</h5>
-				<form id="deleteForm" th:action="@{/comms/deleteTopic.do}" method="post" th:object="${ topicSearchForm }">
-					<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
-					<div th:if="${topic.isOwnedBy(user)}">
-						<button id="topoicDelete" class="btn btn-link p-0 text-dark fs-5" title="トピック削除">
-							<i class="bi bi-trash"></i>
-						</button>
-					</div>
-				</form>
-			</div>
-			<!-- 投稿一覧 -->
-			<div id="posts">
-				<div class="bg-light p-3 posts post" th:each="post : ${topic.posts}">
-					<div class="d-flex border-bottom">
-						<div class="me-3">
-							<a th:href="|@{/profile/UserProfile.html}?id=${post.author.id}|">
-								<img class="userImg" th:src="${ post.author.profileImage.encodedString }"/>
-							</a>
-						</div>
-						<div class="flex-grow-1">
-							<!-- rateByUser に各 Ratings を格納 -->
-							<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
-								th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
-								<div class="d-flex justify-content-between">
-									<p class="fw-bold" th:text="${post.author.username}">投稿者の名前</p>
-									<!-- 投稿編集 -->
-									<div th:if="${post.isPostedBy(user)}">
-										<button id="postEdit" type="button" title="投稿編集" class="btn btn-link p-0 text-dark fs-5"
-												th:data-ts-target="|#${topic.topicNo + post.postNo}|">
-											<i class="bi bi-pencil-square"></i>
-										</button>
-									</div>
-								</div>
-								<!-- IMG -->
-								<div th:if="${ post.postImg }"><img class="postImg" th:src="${ post.postImg.encodedString }" /></div>
-								<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
-								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
-									<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
-									<!-- 投稿削除 -->
-									<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
-								</div>
-								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
-								<input type="hidden" name="postNo" th:value="${post.postNo}" />
-								<div class="d-flex justify-content-end py-2">
-									<!-- 高評価 -->
-									<div class="d-flex align-items-baseline me-3">
-										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
-												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
-											<th:block th:if="!${rateByUser.rater}">
-												<i class="bi bi-hand-thumbs-up"></i>
-											</th:block>
-											<th:block th:if="${rateByUser.rater}">
-												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
-													<i class="bi bi-hand-thumbs-up"></i>
-												</div>								 
-												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
-													<i class="bi bi-hand-thumbs-up-fill"></i>
-												</div>	
-											</th:block>							 
-										</button>
-										<span th:text="${rateByUser.goodRatings.size()}">13</span>
-									</div>
-									<!-- 低評価 -->
-									<div class="d-flex align-items-baseline me-3">
-										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
-											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
-											<th:block th:if="!${rateByUser.rater}">
-												<i class="bi bi-hand-thumbs-down"></i>
-											</th:block>
-											<th:block th:if="${rateByUser.rater}">
-												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating lt 0 }">
-													<i class="bi bi-hand-thumbs-down"></i>
-												</div>								 
-												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating lt 0 }">
-													<i class="bi bi-hand-thumbs-down-fill"></i>
-												</div>				
-											</th:block>				 
-										</button>
-										<span th:text="${rateByUser.badRatings.size()}">2</span>
-									</div>
-									<!-- 最初のtopicのみ、post数を表示 -->
-									<div class="d-flex align-items-baseline"
-										th:classappend="${post.isFirstPost() ? '' : 'd-none'}">
-										<span class="me-2 text-dark fs-5">
-											<i class="bi bi-chat"></i>
-										</span>
-										<span th:text="${topic.posts.size() - 1}">8</span>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
+	
+		<!-- post header -->
+		<div class="post-top-bar">
+			<h4 class="name" th:text="${topic.subject}">topic</h4> 
+			<form id="deleteForm" th:action="@{/comms/deleteTopic.do}" 
+				  method="post" th:object="${ topicSearchForm }">
+				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
+				<div th:if="${topic.isOwnedBy(user)}">
+					<button id="topoicDelete" class="btn btn-link p-0 text-dark fs-5" title="トピック削除">
+						<i class="fas fa-cog"></i>
+					</button>
 				</div>
-				<!-- 新規投稿 -->
-				<div class="d-flex bg-light p-3 post newPost">
-					<div class="me-3">
-						<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|">
-							<img class="userImg" th:src="${user.profileImage.encodedString}"/>
-						</a>
+			</form>
+			<!--
+			 -->		
+ 		</div>
+		
+		<!-- posts -->
+		<div th:each="post : ${topic.posts}">
+			<!-- auther -->
+			<div class="profile-title">
+				<!-- user icons -->
+				<a th:href="|@{/profile/UserProfile.html}?id=${post.author.id}|">
+					<img class="userImg" th:src="${ post.author.profileImage.encodedString }"/>
+				</a>
+				
+				<!-- post content -->
+				<div class="user-information-container">
+					<p>
+						<a href="#" class="name"> Charlie Marcotte </a>
+					</p>
+					<p class="job-title">UX Designer, Developer, Researcher</p>
+					<p class="time-stamp">3h</p>
+				</div>
+
+				<!-- info -->
+	 			<input class="toggle" type="checkbox" id="toggleFor" /> 
+				<label id="toggle-info" for="toggleFor"></label>
+				<aside class="toggle-options">
+					<h3>Copy link to post</h3>
+					<h3>Hide this post</h3>
+					<h3>Unfollow Michael</h3>
+					<h3>Report this post</h3>
+				</aside>
+
+			</div>
+			
+			<!-- content -->
+			<div class="user-text">
+				<p class="custom-text">"Lorem ipsum dolor sit amet, consectetur
+					adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+					dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+					exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+					esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+					cupidatat non proident, sunt in culpa qui officia deserunt mollit
+					anim id est laborum."</p>
+			</div>
+			
+			<!-- post footer -->
+			<div class="bottom-bar-container">
+				<div class="bottom-bar-social">
+					<input id="like" type="checkbox" placeholder="" name="socialIcon" />
+					<label class="social" for="like" id="liked-after"><span
+						class="glyphicon glyphicon-thumbs-up"></span> Like</label> <input
+						id="comment" type="checkbox" placeholder="" name="socialIcon" /> <label
+						class="social" for="comment"><span
+						class="glyphicon glyphicon-comment"></span> Comment</label> <input
+						id="share" type="checkbox" placeholder="" name="socialIcon" /> <label
+						class="social" for="share"><span
+						class="glyphicon glyphicon-share-alt	"></span> Share</label><span
+						class="icon fa fa-facebook-square"></span><span
+						class="	icon fa fa-twitter-square"></span><span
+						class="icon 	fa fa-google-plus-square"></span><span
+						class="	icon fa fa-slack"></span>
+					<div class="comment-box">
+						<img
+							src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjYAAAAJDBkMjZiYzJiLWEyYjgtNDNlZS04MDQ5LTg1NDI1YjVlYzJmMw.jpg" />
+						<input type="text" placeholder="Add a comment..." />
 					</div>
-					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}"
-						  enctype="multipart/form-data" method="post" th:object="${ topicSearchForm }">
-						<p class="fw-bold mb-2" th:text="${user.username}">ログインユーザーの名前</p>
-						<input type="hidden" th:value="${topic.topicNo}" id="topicNo" />
-						<input type="hidden" th:value="${topic.subject}" id="subject" />
-						<textarea rows="2" class="form-control" id="postText"></textarea>
-						<!-- 画像のアップロード -->
-						<div class="view_box">
-						  <input type="file" id="postImg" class="file">
-						</div>						
-           				<!-- 
-						<input type="file" id="postImg" class="file">
-						<input type="file" id="postImg" />
-						 -->
-						<div th:if="${validationMessage}">
-							<span class="text-danger" th:text="${validationMessage}"></span>
-						</div>
-						<div class="text-end mt-3">
-							<button type="button" class="btn btn-success btn-sm shadow-sm">投稿</button>
-						</div>
-					</form>
 				</div>
 			</div>
 		</div>
+		<!-- </article> -->
 	</div>
 </body>
 </html>
