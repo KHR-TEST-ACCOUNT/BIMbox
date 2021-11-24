@@ -15,7 +15,7 @@
   const pagination = document.getElementById('pagination')
   const filter = document.getElementById('filter')
   const viewMode =  document.querySelector('.switch-mode')
-  const itemPerPage = 20
+  const itemPerPage = 8
   let cardMode = true;
   let favoritePage = false;
   let paginationData = []
