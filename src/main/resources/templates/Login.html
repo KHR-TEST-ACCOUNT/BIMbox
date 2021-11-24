@@ -84,6 +84,18 @@
 						<div class="modal-footer">
 							<button type="submit">SignUp</button>
 						</div>
+							<!-- 
+							<div class="text-end newRegist">
+								<a  th:if="${#authentication.principal.roles.get(0).code == '01'}"
+									id="disabled_do" class="btn btn-outline-primary btn-sm shadow-sm">
+									<span>ユーザー新規登録</span>
+								</a>
+								<a  th:unless="${#authentication.principal.roles.get(0).code == '01'}"
+									th:href="@{/manage/users/UserRegistration.html}" class="btn btn-outline-primary btn-sm shadow-sm py-2">
+									<span>ユーザー新規登録</span>
+								</a>
+							</div>
+							 -->
 					</form>
 				</div>
 			</div>

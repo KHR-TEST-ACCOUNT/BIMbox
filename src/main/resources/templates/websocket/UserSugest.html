@@ -28,7 +28,7 @@
 								<a th:href="|@{/profile/UserProfile.html}?id=${ user.key }|">
 									<img class="toUserImg" th:src="${ user.value.profileImage.encodedString }" />
 								</a>
-								<a th:href="|@{/chatRoom.html}?id=${ user.key }|" class="text-decoration-none">
+								<a th:href="|@{/ChatRoom.html}?id=${ user.key }|" class="text-decoration-none">
 				                	<span th:text="${ user.value.name }"></span>
 								</a>
 							</div>
@@ -50,7 +50,7 @@
 								<img class="toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 							</a>
 							
-							<a  th:href="|@{/chatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
+							<a  th:href="|@{/ChatRoom.html}?id=${chatUser.toUserId}|" class="text-decoration-none">
 			                	<span th:text="${chatUser.toUser}"></span><br>
 			                	<span th:text="${chatUser.content}"></span><br>
 			                	<span th:text="${chatUser.AVF}"></span>

@@ -1,26 +1,45 @@
-@charset "UTF-8";
 
-table {
-	overflow-y: auto;
+#home:hover {
+	transform: scale(1.1)
 }
 
-thead {
-	background-color: rgba(130, 130, 130, 0.35);
+.zooming:hover img {
+	transform: scale(1.2);
 }
 
-td a .userProfileImg {
-	width: 40px;
-	height: 40px;
-	color: #fff;
-	border-radius: 50%;
+.zooming {
+	overflow: hidden;
 }
 
-.newRegist {
-	position: relative;
-	bottom: 36px;
+.card-image {
+	transition: all 0.5s ease;
 }
 
-.searchBlock {
-	position: relative;
-	bottom: 7px;
+.btn-favorite {
+	position: absolute;
+	left: 77%;
+	bottom: 1%;
+}
+
+.list-favorite {
+	position: absolute;
+	bottom: 30%;
+	left: 85%;
+}
+
+#favorite:hover {
+	transform: scale(1.2);
+	color: red;
+}
+
+.fa-heart {
+	color: red;
+}
+
+.list-avatar {
+	width: 100px;
+}
+
+.list-name {
+	width: 70%;
 }
