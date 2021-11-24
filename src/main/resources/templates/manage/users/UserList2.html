@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'ユーザー情報一覧', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/usersList.css}">
+	<script type="text/javascript" th:src="@{/}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<!-- ユーザー登録・検索 -->
+			<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
+				<div class="p-3">
+					<h4>ユーザー情報一覧</h4>
+					<div class="text-end newRegist">
+						<a  th:if="${#authentication.principal.roles.get(0).code == '01'}"
+							id="disabled_do" class="btn btn-primary btn-sm shadow-sm">
+							<span>ユーザー新規登録</span>
+						</a>
+						<a  th:unless="${#authentication.principal.roles.get(0).code == '01'}"
+							th:href="@{/manage/users/UserRegistration.html}" class="btn btn-primary btn-sm shadow-sm">
+							<span>ユーザー新規登録</span>
+						</a>
+					</div>
+					<div class="searchBlock">
+						<div class="d-flex align-items-between">
+							<h5 class="me-2">検索条件</h5>
+							<a href="#" id="condition-toggler" data-bs-toggle="collapse" data-bs-target="#searchCondition">
+								<span class="d-none">[表示]</span>
+								<span>[隠す]</span>
+							</a>
+						</div>
+						<!-- ユーザー登録・検索 -->
+						<div id="searchCondition" class="collapse show mb-1">
+							<div class="border p-3 rounded">
+								<div class="row">
+									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+										<strong style="width: 7rem;">ユーザー番号</strong>
+										<input type="text" class="form-control form-control-sm" style="width: 11rem;"
+												th:field="*{empNo}" />
+									</div>
+									<div class="d-flex align-items-top mb-2  col-md-5 col-lg-4">
+										<strong style="width: 7rem;">ユーザー名</strong>
+										<input type="text" class="form-control form-control-sm" style="width: 11rem;"
+											   th:field="*{name}" />
+									</div>
+									<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
+										<strong style="width: 7rem;">趣味</strong>
+										<!-- id='wkSelect' multiple="multiple" -->
+									    <select class="form-select form-select-sm" style="width: 11rem;" th:field="*{hobbys}">
+											<option value="">-- 選択してください</option>
+											<option value="プログラミング">プログラミング</option>
+											<option value="アウトドア">アウトドア</option>
+											<option value="ファッション">ファッション</option>
+											<option value="筋トレ">筋トレ</option>
+											<option value="映画">映画</option>
+											<option value="漫画・アニメ">漫画・アニメ</option>
+											<option value="ペット">ペット</option>
+									    </select>
+									</div>
+								</div>
+							</div>
+							<div class="py-2">
+								<button class="btn btn-success btn-sm shadow-sm px-3">
+									<span>検索実行</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- 検索結果 -->
+			<div class="table-fixed-header px-3 searchBlock">
+				<table class="table table-sm table-striped table-responsive pb-3" >
+					<col width="5%"/>
+					<col width="15%"/>
+					<col width="25%"/>
+					<col width="30%"/>
+					<col width="25%"/>
+					<thead>
+						<tr>
+							<th class="sticky-top text-truncate text-center">管理</th>
+							<th class="sticky-top text-truncate"></th>
+							<th class="sticky-top text-truncate">番号</th>
+							<th class="sticky-top text-truncate">ユーザー名</th>
+							<th class="sticky-top text-truncate">趣味</th>
+						</tr>
+					</thead>
+					<tbody th:if="${searchResult}">
+						<tr th:each="user : ${searchResult.entities}">
+							<td class="text-center">
+								<div th:if="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+									<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
+										 <i class="bi bi-pen"></i>
+									</a>
+								</div>
+								<div th:unless="${#authentication.principal.roles.get(0).code != '01' || user.id == #authentication.principal.id }">
+									<a id="disabled_do" ><i class="bi bi-pen"></i></a>
+								</div>
+							</td>
+							<td>
+								<a th:href="|@{/profile/UserProfile.html}?id=${ user.id }|">
+									<img class="userProfileImg text-center" th:src="${ user.profileImage.encodedString}" />
+								</a>
+							</td>
+							<td th:text="${user.empNo}"></td>
+								<td>
+									<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|" 
+										th:text="${user.username}" class="text-decoration-none">
+									</a>
+								</td>
+							<td>
+						</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- Pagenation -->
+			<div th:replace="fragments/Pagination :: pagination(@{/manage/users/UserPageView.do})"></div>
+			<!-- Message -->
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>
