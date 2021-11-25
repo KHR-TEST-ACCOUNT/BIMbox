@@ -10,9 +10,14 @@ body {
   color: white;
 }
 
+
+ul, li{
+	text-decoration: none;
+}
+
 .container {
   margin: 0 auto;
-  width: 750px;
+  width: 850px;
   background: #444753;
   border-radius: 5px;
 }

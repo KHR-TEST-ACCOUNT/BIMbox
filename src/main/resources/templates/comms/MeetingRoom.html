@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
+	<!-- 
 	<link rel="stylesheet" th:href="@{/css/post.css}">
+	 -->
 	<link rel="stylesheet" th:href="@{/css/meetingRoom.css}">
 	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
 </head>
@@ -9,64 +11,110 @@
 	<!-- サイドバー -->
 	<div class="page-wrapper chiller-theme toggled">
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
-		
 		<main class="page-content animsition">
+			<!-- Content -->
+			<div class="column two">
+			
+			
+				<!-- 投稿検索 -->
+				<form th:action="@{/manage/users/UserSearch.do}" method="post" class="container-fluid">
+					<div class="p-3 searchBlock">
+						<!-- 検索条件 -->
+						<div class="d-flex align-items-between" style="color:white;">
+							<h5 class="me-2">検索条件</h5>
+							<a href="#" id="condition-toggler" data-bs-toggle="collapse"
+								data-bs-target="#searchCondition"> <span class="d-none">[表示]</span>
+								<span>[隠す]</span>
+							</a>
+						</div>
+						<div id="searchCondition" class="collapse show"  style="color:white;">
+							<div class="border p-3 rounded">
+								<div class="row">
+									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+										<strong style="width: 7rem;">トピック</strong> <input type="text"
+											class="form-control form-control-sm" style="width: 11rem;"
+											th:field="*{topicSearchForm.subjectContent}" />
+										<div
+											th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+											<span class="text-danger"
+												th:errors="*{topicSearchForm.subjectContent}"></span>
+										</div>
+									</div>
+									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+										<strong style="width: 7rem;">投稿内容</strong> <input type="text"
+											class="form-control form-control-sm" style="width: 11rem;"
+											th:field="*{topicSearchForm.postContent}" />
+									</div>
+									<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
+										<strong style="width: 7rem;">投稿ユーザー</strong> <input
+											type="text" class="form-control form-control-sm"
+											style="width: 11rem;"
+											th:field="*{topicSearchForm.createByUser}" />
+									</div>
+								</div>
+							</div>
+							<div class="py-2">
+								<button class="btn btn-success btn-sm shadow-sm px-3">
+									<span>検索実行</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
 
 
-  <div class="column two">
-    <article class="moodle-container">
-      <div class="share-container">
-        <input type="text" placeholder="Share an article, photo, video, or idea"/>
-      </div>
-      <div class="action-container">
-        <button class="media-button">Write an article</button>
-        <button class="media-button">Image</button>
-        <button class="media-button">Video</button>
-        <button class="post-button">Post</button>
-      </div>
-    </article>
-    <article class="post-container">
-      <div class="post-top-bar">
-        <p><a href="#" class="name">Charlie Marcotte</a> likes this</p>
-        <input class="toggle" type="checkbox" id="toggleFor"/>
-        <label id="toggle-info" for="toggleFor"></label>
-        <aside class="toggle-options">
-          <h3>Copy link to post</h3>
-          <h3>Hide this post</h3>
-          <h3>Unfollow Michael</h3>
-          <h3>Report this post</h3>
-        </aside>
-      </div>
-      <div class="profile-title"><img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjYAAAAJDBkMjZiYzJiLWEyYjgtNDNlZS04MDQ5LTg1NDI1YjVlYzJmMw.jpg"/>
-        <div class="user-information-container">
-          <p><a href="#" class="name"> Charlie Marcotte </a></p>
-          <p class="job-title">UX Designer, Developer, Researcher</p>
-          <p class="time-stamp">3h</p>
-        </div>
-      </div>
-      <div class="user-text">
-        <p class="custom-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-      </div>
-      <div class="bottom-bar-container">
-        <div class="bottom-bar-social">
-          <input id="like" type="checkbox" placeholder="" name="socialIcon"/>
-          <label class="social" for="like" id="liked-after"><span class="glyphicon glyphicon-thumbs-up"></span> Like</label>
-          <input id="comment" type="checkbox" placeholder="" name="socialIcon"/>
-          <label class="social" for="comment"><span class="glyphicon glyphicon-comment"></span> Comment</label>
-          <input id="share" type="checkbox" placeholder="" name="socialIcon"/>
-          <label class="social" for="share"><span class="glyphicon glyphicon-share-alt	"></span> Share</label><span class="icon fa fa-facebook-square"></span><span class="	icon fa fa-twitter-square"></span><span class="icon 	fa fa-google-plus-square"></span><span class="	icon fa fa-slack"></span>
-          <div class="comment-box"><img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjYAAAAJDBkMjZiYzJiLWEyYjgtNDNlZS04MDQ5LTg1NDI1YjVlYzJmMw.jpg"/>
-            <input type="text" placeholder="Add a comment..."/>
-          </div>
-        </div>
-      </div>
-    </article>
-  </div>
-
-
-
-
-
+				<!-- トピック新規登録 -->
+				<article class="moodle-container">
+					<!-- Formの表示非表示 -->
+					<div class="d-flex justify-content-end">
+						<a href="#" class="py-2 px-3" data-bs-toggle="collapse" data-bs-target="#topicCreation"> 
+							<span class="d-none">[表示]</span>
+							<span>[隠す]</span>
+						</a>
+					</div>
+					<!-- 新規投稿内容 -->
+					<div id="topicCreation" class="collapse mt-3" th:object="${topicCreationForm}"
+						 th:classappend="${topicCreationForm.isError ? '' : 'show'}">
+						<form th:action="@{/comms/CreateTopic.do}" method="POST" class="border px-3 bg-light" autocomplete="off">
+							<!-- topic content  collapse -->
+							<div class="share-container">
+								<input type="text" th:field="*{subject}" placeholder="Enter a title for the topic." />
+								<div th:if="${#fields.hasErrors('subject')}">
+									<span class="text-danger" th:errors="*{subject}"></span>
+								</div>
+							</div>
+							<!-- post content -->
+							<div class="share-container">
+								<input type="text" th:field="*{primaryPost}" placeholder="Share an article, photo, video, or idea" />
+								<div th:if="${#fields.hasErrors('primaryPost')}">
+									<span class="text-danger" th:errors="*{primaryPost}"></span>
+								</div>
+							</div>
+							<!-- buttons -->
+							<div class="action-container">
+							
+								<!-- img できてない。-->
+								<label for="photo-file" class="media-button">Image</label> 
+								<input type="file" id="photo-file" class="d-none" accept="image/*" />
+								<div class="p-1 d-inline-block" id="dragandrophandler">
+									<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+								</div>
+								
+								<button class="post-button shadow">Post</button>
+							</div>
+						</form>
+					</div>
+				</article>
+				<!-- トピック情報 -->
+				<article class="post-container">
+					<div th:each="topic : ${topics}">
+						<div th:id="${topic.topicNo}" class="m-2">
+							<div th:replace="fragments/Topic :: topic(${topic})"></div>
+						</div>
+					</div>
+				</article>
+			</div>
+			<!-- Message Content -->
 			<div th:replace="fragments/Toast :: toast"></div>
 		</main>
 		<!-- page-content" -->
