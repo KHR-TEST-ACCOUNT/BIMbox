@@ -18,6 +18,15 @@ h1, form, .logo {
     top: 80px;
 }
 
+.hidden{
+    display: none;
+}
+
+.signIn, .toWelcom{
+	position: fixed;
+	top: calc(50% - 20px);
+}
+
 .login {
 	height: 180px;
 	width: 271px;
@@ -101,7 +110,7 @@ p {
 	max-height: 150px;
 }
 
-.content {
+.WelcomPage .content {
 	position: relative;
 	height: 20vh;
 	text-align: center;

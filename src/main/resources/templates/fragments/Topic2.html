@@ -33,9 +33,10 @@
 							<!-- rateByUser に各 Ratings を格納 -->
 							<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
 								th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
+								
 								<div class="d-flex justify-content-between">
 									<p class="fw-bold" th:text="${post.author.username}">投稿者の名前</p>
-									<!-- 投稿編集 -->
+									<!-- 投稿編集 NG -->
 									<div th:if="${post.isPostedBy(user)}">
 										<button id="postEdit" type="button" title="投稿編集" class="btn btn-link p-0 text-dark fs-5"
 												th:data-ts-target="|#${topic.topicNo + post.postNo}|">
@@ -43,18 +44,25 @@
 										</button>
 									</div>
 								</div>
-								<!-- IMG -->
-								<div th:if="${ post.postImg }"><img class="postImg" th:src="${ post.postImg.encodedString }" /></div>
+								
+								<!-- IMG NG-->
+								<div th:if="${ post.postImg }">
+									<img class="postImg" th:src="${ post.postImg.encodedString }" />
+								</div>
 								<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
+								
 								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
+									<!-- update -->
 									<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
-									<!-- 投稿削除 -->
+									<!-- 投稿削除 NG-->
 									<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
 								</div>
+								
 								<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 								<input type="hidden" name="postNo" th:value="${post.postNo}" />
+								
 								<div class="d-flex justify-content-end py-2">
-									<!-- 高評価 -->
+									<!-- 高評価 NG-->
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link" 
 												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
@@ -73,6 +81,7 @@
 										<span th:text="${rateByUser.goodRatings.size()}">13</span>
 									</div>
 									<!-- 低評価 -->
+									<!-- 
 									<div class="d-flex align-items-baseline me-3">
 										<button type="button" class="btn btn-link p-0 me-2 text-dark fs-5 ajax-link"
 											th:data-ts-param="-1" th:disabled="${post.isPostedBy(user)}">
@@ -90,13 +99,14 @@
 										</button>
 										<span th:text="${rateByUser.badRatings.size()}">2</span>
 									</div>
+									 -->
 									<!-- 最初のtopicのみ、post数を表示 -->
 									<div class="d-flex align-items-baseline"
 										th:classappend="${post.isFirstPost() ? '' : 'd-none'}">
 										<span class="me-2 text-dark fs-5">
 											<i class="bi bi-chat"></i>
 										</span>
-										<span th:text="${topic.posts.size() - 1}">8</span>
+										<span th:text="${topic.posts.size() - 1}">post count</span>
 									</div>
 								</div>
 							</form>

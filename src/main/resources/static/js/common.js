@@ -3,7 +3,7 @@ $(function() {
 	/* Side Nav */
 	$(".sidebar-dropdown > a").click(function() {
 		$(".sidebar-submenu").slideUp(200);
-		if (
+		if ( 
 			$(this)
 				.parent()
 				.hasClass("active")
