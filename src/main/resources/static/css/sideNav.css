@@ -80,7 +80,7 @@ body {
 
 @media screen and (min-width: 768px) {
 	.page-wrapper.toggled .page-content {
-		padding-left: 267px;
+		padding-left: 260px;
 	}
 }
 /*----------------show sidebar button----------------*/
@@ -91,7 +91,7 @@ body {
 	border-radius: 0 4px 4px 0px;
 	width: 35px;
 	transition-delay: 0.3s;
-	z-index: 1;
+	z-index: 100;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -104,7 +104,7 @@ body {
 	max-height: 100%;
 	position: fixed;
 	top: 0;
-	left: -267px;
+	left: -260px;
 	z-index: 999;
 }
 
@@ -357,12 +357,13 @@ body {
 	display: inline-block;
 	width: 100%;
 	padding-left: 0px;
-	padding-top: 20px;
 }
 
+/*
 .page-wrapper .page-content>div {
 	padding: 20px 40px;
 }
+*/
 
 .page-wrapper .page-content {
 	overflow-x: hidden;
