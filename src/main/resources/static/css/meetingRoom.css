@@ -161,7 +161,7 @@ article {
 	padding: 12px 20px;
 }
 
-.action-container img {
+.action-container img, .postImg {
 	max-width: 250px;
 	max-height: 250px;
 }
