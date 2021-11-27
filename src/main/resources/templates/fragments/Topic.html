@@ -22,10 +22,9 @@
  		</div>
 		
 		<!-- posts -->
-		<div th:each="post : ${topic.posts}">
+		<div th:each="post : ${topic.posts}" id="accordion" th:classappend="${post.isFirstPost()} ? accordion : submenu">
 			<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
 				th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
-
 				<!-- auther -->
 				<div class="profile-title">
 					<!-- user icons -->
@@ -57,33 +56,41 @@
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
 					<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
-					<p class="custom-text">"Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit</p>
 				</div>
 				
 				<!-- post footer -->
 				<div class="bottom-bar-container">
 					<div class="bottom-bar-social">
+						<!-- like -->
 						<input id="like" type="checkbox" placeholder="" name="socialIcon" />
-						<label class="social" for="like" id="liked-after"><span
-							class="glyphicon glyphicon-thumbs-up"></span> Like</label> <input
-							id="comment" type="checkbox" placeholder="" name="socialIcon" /> <label
-							class="social" for="comment"><span
-							class="glyphicon glyphicon-comment"></span> Comment</label> <input
-							id="share" type="checkbox" placeholder="" name="socialIcon" /> <label
-							class="social" for="share"><span
-							class="glyphicon glyphicon-share-alt	"></span> Share</label><span
-							class="icon fa fa-facebook-square"></span><span
-							class="	icon fa fa-twitter-square"></span><span
-							class="icon 	fa fa-google-plus-square"></span><span
-							class="	icon fa fa-slack"></span>
+						<label class="social" for="like" id="liked-after">
+							<span class="glyphicon glyphicon-thumbs-up">Like</span>
+						</label>
+						<input id="comment" type="checkbox" placeholder="" name="socialIcon" />
+						<!-- comment -->
+						<label class="social" for="comment">
+							<span class="glyphicon glyphicon-comment">Comment</span>
+						</label>
+						<input id="share" type="checkbox" placeholder="" name="socialIcon" />
+						<!-- share -->
+						<label class="social" for="share">
+							<span class="glyphicon glyphicon-share-alt">Share</span>
+						</label>
+						<span class="icon fa fa-facebook-square"></span>
+						<span class="icon fa fa-twitter-square"></span>
+						<span class="icon fa fa-google-plus-square"></span>
+						<span class="icon fa fa-slack"></span>
+						<!-- Smooth Drop Down menu -->
+						<label class="social link text-end" th:if="${post.isFirstPost() && topic.posts.size() > 1}">
+							<i class="fa fa-chevron-down"></i>
+						</label>
+						<!-- comment contents -->
 						<div class="comment-box">
-							<img
-								src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjYAAAAJDBkMjZiYzJiLWEyYjgtNDNlZS04MDQ5LTg1NDI1YjVlYzJmMw.jpg" />
+							<img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAjYAAAAJDBkMjZiYzJiLWEyYjgtNDNlZS04MDQ5LTg1NDI1YjVlYzJmMw.jpg" />
 							<input type="text" placeholder="Add a comment..." />
 						</div>
 					</div>
-				</div>
+				</div>				
 				<!-- end -->
 			</form>
 		</div>
