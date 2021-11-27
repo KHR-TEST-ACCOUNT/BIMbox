@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head_fragment(title = 'ファイル共有', links = ~{::link}, scripts = ~{::script})">
-	<link rel="stylesheet" th:href="@{/}">
-	<script type="text/javascript" th:src="@{/}"></script>
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css}">
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/shareFolders.js}"></script>
 </head>
 <body>
 	<!-- サイドバー -->
@@ -76,32 +77,34 @@
 					</div>
 				</div>
 				<div class="row flex-grow-1 py-1 border-top my-2">
-					<div class="col col-12">
+					<div class="col col-12" id="tree1">
 						<div class="py-1" th:if="${parentAvailable}" th:with="parent=${currentDirectory.parentFile}" title="戻る">
 							<a th:href="@{/manage/sys/fs/ChangeDirectory.do(to=${parent.absolutePath})}">
 								<i class="bi bi-arrow-return-left"></i>
 							</a>
 						</div>
-						<div th:each="file : ${currentDirectory.listFiles}" class="py-1">
-							<div th:if="${file.directory}">
-								<a th:href="@{/manage/sys/fs/ChangeDirectory.do(to=${file.absolutePath})}" class="text-decoration-none">
-									<i class="bi bi-folder-fill"></i>
+						<ul th:each="file : ${currentDirectory.listFiles}" data-jstree='{ "opened" : true }' class="py-1">
+							<li th:if="${file.directory}">
+								<a  class="text-decoration-none"
+								 	th:href="@{/manage/sys/fs/ChangeDirectory.do(to=${file.absolutePath})}">
 									<span th:text="${file.name}"></span>
 								</a>
-							</div>
-							<div th:if="${file.file}">
-								<a th:href="@{/manage/sys/fs/Download.do(target=${file.absolutePath})}" class="link-success text-decoration-none">
-									<i class="bi bi-file-earmark-text"></i>
+							</li>
+							<li th:if="${file.file}" data-jstree='{ "icon" : "jstree-file" }'>
+								<a  class="link-success text-decoration-none"
+									th:href="@{/manage/sys/fs/Download.do(target=${file.absolutePath})}">
 									<span th:text="${file.name}"></span>
 								</a>
-							</div>
-						</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
+			
 		</main>
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->
+	
 </body>
 </html>
