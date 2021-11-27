@@ -91,7 +91,7 @@ body {
 	border-radius: 0 4px 4px 0px;
 	width: 35px;
 	transition-delay: 0.3s;
-	z-index: 1;
+	z-index: 100;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -359,9 +359,11 @@ body {
 	padding-left: 0px;
 }
 
+/*
 .page-wrapper .page-content>div {
 	padding: 20px 40px;
 }
+*/
 
 .page-wrapper .page-content {
 	overflow-x: hidden;
