@@ -46,7 +46,7 @@ public class ChatMessage {
     // 日付をString型に変換
 	public void setSentAvf(Timestamp sentAvf) {
 		this.sentAvf = sentAvf;
-		this.AVF = new SimpleDateFormat("yyyy年M月d日 H:mm").format(sentAvf);
+		this.AVF = new SimpleDateFormat("M月d日 H:mm").format(sentAvf);
 	}
 	public Timestamp getSentAvf() {
 		return sentAvf;

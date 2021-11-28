@@ -1,3 +1,44 @@
+
+//tooltip
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+})
+
+
+// Accordion
+$(function() {
+
+
+	// OnClick Event で発火させる。
+	var Accordion = function(event, multiple) {
+		this.event = event || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.event.find('.link');
+		// Evento
+		links.on('click', {event: this.event, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.event;
+			$this = $(this),
+			$next = $this.parents('.accordion').siblings('.submenu');
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open');
+
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+		};
+	}	
+
+	var accordion = new Accordion($('#accordion'), false);
+});
+
+
+
+//send options
 $(function() {
 
 	$(document).ajaxSend(function(e, xhr, options) {

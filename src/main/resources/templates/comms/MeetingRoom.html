@@ -23,11 +23,12 @@
 						<div class="d-flex align-items-between" style="color:white;">
 							<h5 class="me-2">検索条件</h5>
 							<a href="#" id="condition-toggler" data-bs-toggle="collapse"
-								data-bs-target="#searchCondition"> <span class="d-none">[表示]</span>
-								<span>[隠す]</span>
+								data-bs-target="#searchCondition"> 
+								<span class="d-none">[隠す]</span>
+								<span>[表示]</span>
 							</a>
 						</div>
-						<div id="searchCondition" class="collapse show"  style="color:white;">
+						<div id="searchCondition" class="collapse"  style="color:white;">
 							<div class="border p-3 rounded">
 								<div class="row">
 									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
@@ -106,13 +107,13 @@
 					</div>
 				</article>
 				<!-- トピック情報 -->
-				<article class="post-container">
-					<div th:each="topic : ${topics}">
+				<div th:each="topic : ${topics}">
+					<article class="post-container">
 						<div th:id="${topic.topicNo}" class="m-2">
 							<div th:replace="fragments/Topic :: topic(${topic})"></div>
-						</div>
-					</div>
-				</article>
+						</div>	
+					</article>
+				</div>
 			</div>
 			<!-- Message Content -->
 			<div th:replace="fragments/Toast :: toast"></div>
