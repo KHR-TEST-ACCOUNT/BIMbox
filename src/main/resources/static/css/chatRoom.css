@@ -563,7 +563,7 @@ html {
   outline: none;
 }
 
-.chats-item .profile-image {
+.chats-item .profile-image , .user-profile{
   grid-area: image;
 }
 
@@ -575,7 +575,9 @@ html {
   grid-area: content;
 }
 
-.chats-item .profile-image {
+.chats-item .profile-image , .user-profile{
+  position: relative;
+  top: 6px;
   flex-shrink: 0;
   height: 50px;
   margin: auto;
