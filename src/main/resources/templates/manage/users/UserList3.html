@@ -115,106 +115,38 @@
 							aria-hidden="true"></i>
 					</div>
 				</div>
-				
-				
-				<th:block th:if="${searchResult}">
-					<div class="row">
-						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
-							<div class="card mb-3 p-1">
-								<div class="zooming">
-									<img class="card-img-top card-image"
-										th:src="${ user.profileImage.encodedString}"
-										alt="Card image cap" data-id="601" data-toggle="modal"
-										data-target="#show-user-modal">
-								</div>
-								<div class="card-body">
-									<input type="hidden" id="userId" th:text="${ user.id }">
-									<h5 class="card-text" th:text="${user.username}">
-										<i class="fa fa-male"></i> user name
-									</h5>
-									<p class="card-text">
-										<i class="fa fa-home" style="color: gray"></i> 
-										<th:block th:switch="${user.roles.get(0).code}">
-											<span th:case=01 th:text="User">user-role</span>
-											<span th:case=02 th:text="Manager">user-role</span>
-											<span th:case=03 th:text="Administer">user-role</span>
-											<span th:case=* th:text="Unknown">user-role</span>
-										</th:block>
-									</p>
-									<i class="fa fa-heart-o btn btn-favorite" id="favorite"
-										style="font-size: 25px" data-id="601"></i>
-								</div>
-							</div>
-							
-							<!-- Modal インタラクティブウィンドウからの飛び出し-->
-							<div class="modal fade" id="show-user-modal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLongTitle"
-								aria-hidden="true">
-								<div class="modal-dialog modal-lg" role="document">
-								
-									<div class="modal-content">
-										<div class="modal-header">
-											<input type="hidden" id="userId" th:text="${ user.id }">
-											<h3 class="modal-title" id="show-user-name" th:text="${user.username}"></h3>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">×</span>
-											</button>
-										</div>
-										<div class="modal-body" id="show-user-body">
-											<div class="row">
-												<div class="col-sm-4" id="show-user-image">
-													<img th:src="${ user.profileImage.encodedString}"
-														class="img-fluid" alt="Responsive image">
-												</div>
-												<div class="col-sm-8" id="show-user-details">
-													<p id="show-user-age">Age: 25</p>
-													<p id="show-user-region">administer: 
-														<th:block th:switch="${user.roles.get(0).code}">
-															<span th:case=01 th:text="User">user-role</span>
-															<span th:case=02 th:text="Manager">user-role</span>
-															<span th:case=03 th:text="Administer">user-role</span>
-															<span th:case=* th:text="Unknown">user-role</span>
-														</th:block>
-													</p>
-													
-													<p id="show-user-birthday">
-														<i class="fa fa-birthday-cake"></i> 1995-05-05
-													</p>
-													<p id="show-user-email">
-														<i class="fa fa-envelope"></i>
-														<span th:text="${user.email}"></span>
-													</p>
-				
-												</div>
-											</div>
-										</div>
-										<div class="modal-footer row mr-5">
-											<div class="col-9" id="user-update">
-												<p id="show-user-update">
-													<small class="text-muted">Created at:
-														2020-04-01T09:37:57.270Z<br>Updated at:
-														2020-04-01T09:37:57.270Z
-													</small>
-												</p>
-											</div>
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-										</div>
-									</div>
-				
-								</div>
-							</div>
-							
-							
-						</div>
-					</div>
-					
-					
-				</th:block>
-				
+				<div class="row" id="data-panel">
+					<!-- print movie list here -->
+				</div>
 			</div>
 
+			<!-- Modal インタラクティブウィンドウからの飛び出し-->
+			<div class="modal fade" id="show-user-modal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLongTitle"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title" id="show-user-name">Modal title</h3>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" id="show-user-body">
+							<div class="row">
+								<div class="col-sm-4" id="show-user-image"></div>
+								<div class="col-sm-8" id="show-user-details"></div>
+							</div>
+						</div>
+						<div class="modal-footer row mr-5">
+							<div class="col-9" id="user-update"></div>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<!-- pagination -->
 			<nav aria-label="Page navigation">
