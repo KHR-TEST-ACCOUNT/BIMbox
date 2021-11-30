@@ -8,6 +8,8 @@ $(function () {
 // Accordion
 $(function() {
 
+
+	// OnClick Event で発火させる。
 	var Accordion = function(event, multiple) {
 		this.event = event || {};
 		this.multiple = multiple || false;
@@ -21,7 +23,7 @@ $(function() {
 	Accordion.prototype.dropdown = function(e) {
 		var $el = e.data.event;
 			$this = $(this),
-			$next = $el.siblings('.submenu');
+			$next = $this.parents('.accordion').siblings('.submenu');
 
 		$next.slideToggle();
 		$this.parent().toggleClass('open');
