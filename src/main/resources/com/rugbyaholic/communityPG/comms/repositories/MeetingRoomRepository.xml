@@ -130,9 +130,9 @@
 		</if>
 	</where>
 	<![CDATA[
-		ORDER BY
-		        TOPICS.TOPICNO,
-		        POSTS.POSTNO
+			ORDER BY
+			        TOPICS.TOPICNO,
+			        POSTS.POSTNO
 	]]>
 	</select>
 	

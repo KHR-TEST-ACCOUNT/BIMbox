@@ -11,226 +11,236 @@
 	<div class="page-wrapper chiller-theme toggled">
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
 		<main class="page-content animsition">
-
-
-<section class="main-grid">  
-  <aside class="main-side">
-     <header class="common-header" th:with="user=${#authentication.principal}">
-       <div class="common-header-start">
-           <button class="u-flex js-user-nav">
-             <img class="profile-image"  th:src="${user.profileImage.encodedString}" />
-             <div class="common-header-content">
-                <h1 class="common-header-title" th:text="${user.username}">user name</h1>
-            </div>
-           </button>       
-       </div>
-       <nav class="common-nav">
-           <ul class="common-nav-list">
-             <li class="common-nav-item">
-               <button class="common-button">
-                 <span class="icon">🕘</span>
-               </button>
-             </li>
-             <li class="common-nav-item">
-               <button class="common-button">
-                 <span class="icon icon-status">💬</span>
-               </button>
-             </li>
-             <li class="common-nav-item">
-               <button class="common-button">
-                 <span class="icon icon-menu" aria-label="menu"></span>
-               </button>
-             </li>
-           </ul>
-         </nav>
-     </header>
-     
-     
-    <section class="common-alerts"><!-- optional alert message --></section>
-    <section class="common-search">
-        <input type="search" class="text-input" placeholder="Search or start new chat">
-    </section>
-    
-    
-	<form th:object="${conversationalUsers}">
-	    <section class="chats">
-	      <ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
-	      
-	        <li class="chats-item">
-	          <div class="chats-item-button js-chat-button" role="button" tabindex="0">
-	          
-				<a class="" th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
-					<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
-				</a>
-							
-	            <header class="chats-item-header">
-	              <h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
-	              <time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
-	            </header>
-	            <div class="chats-item-content">
-	              <p class="chats-item-last" th:text="${chatUser.content}">message content</p>
-	              <ul class="chats-item-info">
-	                <li class="chats-item-info-item u-hide"><span class="icon-silent">🔇</span></li>
-	                <!-- 
+		<section class="main-grid">
+		<aside class="main-side">
+			<header class="common-header" th:with="user=${#authentication.principal}">
+				<div class="common-header-start">
+					<button class="u-flex js-user-nav">
+						<img class="profile-image" th:src="${user.profileImage.encodedString}" />
+						<div class="common-header-content">
+							<h1 class="common-header-title" th:text="${user.username}">user name</h1>
+						</div>
+					</button>
+				</div>
+				<nav class="common-nav">
+					<ul class="common-nav-list">
+						<li class="common-nav-item">
+						<button class="common-button">
+							<span class="icon">🕘</span>
+						</button>
+						</li>
+						<li class="common-nav-item">
+						<button class="common-button">
+							<span class="icon icon-status">💬</span>
+						</button>
+						</li>
+						<li class="common-nav-item">
+						<button class="common-button">
+							<span class="icon icon-menu" aria-label="menu"></span>
+						</button>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<section class="common-alerts">
+			<!-- optional alert message -->
+			</section>
+			<section class="common-search">
+			<input type="search" class="text-input" placeholder="Search or start new chat">
+			</section>
+			<form th:object="${conversationalUsers}">
+				<section class="chats">
+				<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
+					<li class="chats-item">
+					<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+						<a class="" th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
+							<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
+						</a>
+						<header class="chats-item-header">
+							<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
+							<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
+						</header>
+						<div class="chats-item-content">
+							<p class="chats-item-last" th:text="${chatUser.content}">message content
+							</p>
+							<ul class="chats-item-info">
+								<li class="chats-item-info-item u-hide">
+								<span class="icon-silent">🔇</span>
+								</li>
+								<!-- 
 	                <li class="chats-item-info-item"><span class="unread-messsages">1</span></li>
 	                 -->
-	                
-	              </ul>
-	            </div>
-	            <!-- 
+							</ul>
+						</div>
+						<!-- 
 	            <footer class="chats-item-header">
 	              <time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
 	            </footer>
 	             -->
-	          </div>
-	        </li>
-	        
-	      </ul>
-	    </section>
-    </form>
-    
-    
-  </aside>  
-  <main class="main-content">
-    <header class="common-header">
-       <div class="common-header-start">  
-         <button class="common-button is-only-mobile u-margin-end js-back"><span class="icon icon-back">⬅</span></button>
-         <button class="u-flex js-side-info-button">
-             <img class="profile-image" src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-1/p100x100/10325799_276849335820343_269039155920934591_n.png?_nc_cat=101&_nc_sid=dbb9e7&_nc_ohc=fxci6qYcSvoAX-bZfj2&_nc_ht=scontent.fhfa1-2.fna&oh=ad1c246e7e4a52c607aafd99ed7217a2&oe=5EEAF8B0" alt="CSS Masters Israel">
-             <div class="common-header-content">
-               <h2 class="common-header-title">CSS Masters Israel</h2>
-               <p class="common-header-status">Online</p>
-             </div>
-           </button>       
-       </div>
-       <nav class="common-nav">
-           <ul class="common-nav-list">
-             <li class="common-nav-item">
-               <button class="common-button">
-                 <span class="icon">🔎</span>
-               </button>
-             </li>
-             <li class="common-nav-item">
-               <button class="common-button">
-                 <span class="icon icon-attach">📎</span>
-               </button>
-             </li>
-             <li class="common-nav-item">
-               <button class="common-button u-animation-click js-side-info-button">
-                 <span class="icon icon-menu" aria-label="menu"></span>
-               </button>
-             </li>
-           </ul>
-         </nav>
-     </header>
-    <div class="messanger">
-      <ol class="messanger-list">
-        <li class="common-message is-time">
-          <p class="common-message-content">
-            Today
-          </p>          
-        </li>
-        <li class="common-message is-you">
-          <p class="common-message-content">
-            This is my CSS/HTML Revers Engineering for WhatsApp
-          </p>
-          <span class="status is-seen">✔️✔️</span>
-          <time datetime>14:11</time>
-        </li>
-        <li class="common-message is-you">
-          <p class="common-message-content">
-            Just take a look
-          </p>
-          <span class="status is-seen">✔️✔️</span>
-          <time datetime>14:12</time>
-        </li> 
-        <li class="common-message is-other">        
-          <p class="common-message-content">
-            Who are you?
-          </p>
-          <time datetime>14:33</time>          
-        </li>
-        <li class="common-message is-you">        
-          <p class="common-message-content">            
-            I’m Elad Shechter, a Web Developer specializing in CSS & HTML design and architecture.<br><br>
+					</div>
+					</li>
+				</ul>
+				</section>
+			</form>
+		</aside>
+		<main class="main-content">
+		<header class="common-header">
+			<div class="common-header-start">
+				<button class="common-button is-only-mobile u-margin-end js-back">
+					<span class="icon icon-back">⬅</span>
+				</button>
+				<button class="u-flex js-side-info-button">
+					<img class="profile-image" src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-1/p100x100/10325799_276849335820343_269039155920934591_n.png?_nc_cat=101&_nc_sid=dbb9e7&_nc_ohc=fxci6qYcSvoAX-bZfj2&_nc_ht=scontent.fhfa1-2.fna&oh=ad1c246e7e4a52c607aafd99ed7217a2&oe=5EEAF8B0" alt="CSS Masters Israel">
+					<div class="common-header-content">
+						<h2 class="common-header-title">CSS Masters Israel</h2>
+						<p class="common-header-status">Online
+						</p>
+					</div>
+				</button>
+			</div>
+			<nav class="common-nav">
+				<ul class="common-nav-list">
+					<li class="common-nav-item">
+					<button class="common-button">
+						<span class="icon">🔎</span>
+					</button>
+					</li>
+					<li class="common-nav-item">
+					<button class="common-button">
+						<span class="icon icon-attach">📎</span>
+					</button>
+					</li>
+					<li class="common-nav-item">
+					<button class="common-button u-animation-click js-side-info-button">
+						<span class="icon icon-menu" aria-label="menu"></span>
+					</button>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<div class="messanger">
+			<ol class="messanger-list">
+			<li class="common-message is-time">
+			<p class="common-message-content">Today
+			</p>
+			</li>
+			<li class="common-message is-you">
+			<p class="common-message-content">This is my CSS/HTML Revers Engineering for WhatsApp
+			</p>
+			<span class="status is-seen">✔️✔️</span>
+			<time datetime>14:11</time>
+			</li>
+			<li class="common-message is-you">
+			<p class="common-message-content">Just take a look
+			</p>
+			<span class="status is-seen">✔️✔️</span>
+			<time datetime>14:12</time>
+			</li>
+			<li class="common-message is-other">
+			<p class="common-message-content">Who are you?
+			</p>
+			<time datetime>14:33</time>
+			</li>
+			<li class="common-message is-you">
+			<p class="common-message-content">I’m Elad Shechter, a Web Developer specializing in CSS & HTML design and architecture. 
+			<br>
+			<br>A bit more about myself: 
+			<br>- Writer of various globally known CSS articles 
+			<br>- CSS speaker. 
+			<br>- Founder of CSS Masters Israel Community 
+			<br>
+			<br>You can see more of my stuff on my website 
+			<a href="https://eladsc.com/" tarhet="_blank">eladsc.com</a>
+			</p>
+			<span class="status is-seen">✔️✔️</span>
+			<time datetime>14:41</time>
+			</li>
+			<li class="common-message is-other">
+			<p class="common-message-content">Who's those peoples on the
+									contact list?</p> <time datetime>14:33</time>
+							</li>
+							<li class="common-message is-you">
+								<p class="common-message-content">
+									These are friends from our comunity "<a
+										href="https://www.facebook.com/groups/css.masters.israel/"
+										target="_blank">CSS Masters Israel</a>".<br> Beside it we
+									have anoather global comunity channel, called" <a
+										href="https://www.facebook.com/groups/css.master/"
+										target="_blank">CSS Masters</a>", if you love CSS, you are all
+									welcome to join.
+								</p> <span class="status">✔️✔️</span> <time datetime>14:34</time>
+							</li>
+							<li class="common-message is-you">
+								<p class="common-message-content">
+									If you want to know how I created reverse engineering to
+									WhatsApp web, you can read my article <a
+										href="https://blog.animaapp.com/reverse-engineering-whatsapp-webs-css-9239293009f4?utm_medium=blog&utm_source=elad-css&utm_content=reverse-whatsapp&utm_campaign=css-reverse"
+										target="_blank">"Reverse Engineering WhatsApp Web's CSS"</a>
+								</p> <span class="status">✔️</span> <time datetime>14:43</time>
+							</li>
+							<li class="common-message is-you">
+								<p class="common-message-content">
+									Beside it you can follow me on twitter:<br> <a
+										class="twitter" href="https://twitter.com/eladsc"><span
+										class="twitter-user">@eladsc</span></a>
+								</p> <span class="status">✔️</span> <time datetime>14:43</time>
+							</li>
+						</ol>
+					</div>
+					<div class="message-box">
+						<button class="common-button">
+							<span class="icon">😃</span>
+						</button>
+						<div class="text-input" id="message-box"
+							placeholder="Type a message" contenteditable></div>
+						<button id="voice-button" class="common-button">
+							<span class="icon">🎤</span>
+						</button>
+						<button id="submit-button" class="common-button">
+							<span class="icon">➤</span>
+						</button>
+					</div>
+				</main>
+				<aside class="main-info u-hide">
+					<header class="common-header">
+						<button class="common-button js-close-main-info">
+							<span class="icon">❌</span>
+						</button>
+						<div class="common-header-content">
+							<h3 class="common-header-title">Info</h3>
+						</div>
+					</header>
+					<div class="main-info-content">
+						<section class="common-box">
+							<img class="main-info-image"
+								src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-1/p100x100/10325799_276849335820343_269039155920934591_n.png?_nc_cat=101&_nc_sid=dbb9e7&_nc_ohc=fxci6qYcSvoAX-bZfj2&_nc_ht=scontent.fhfa1-2.fna&oh=ad1c246e7e4a52c607aafd99ed7217a2&oe=5EEAF8B0"
+								alt="CSS Masters Israel">
+							<h4 class="big-title">CSS Masters Israel</h4>
+							<p class="info-text">Created 6/11/2013 at 22:45</p>
+						</section>
+						<section class="common-box">
+							<h5 class="section-title">Description</h5>
+							<p>
+								Out main channel of the comunity is on Fecbook: 
+								<a href="https://www.facebook.com/groups/css.masters.israel/">
+									http://bit.ly/2Up8On5
+								</a>
+							</p>
+						</section>
+						<section class="common-box">
+							<h5 class="section-title">Other content</h5>
+							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+								Architecto odit voluptatem magnam sequi dolorem soluta assumenda
+								ipsum iusto culpa velit repudiandae vitae minus minima corporis
+								labore sit, molestias, a ut!</p>
+						</section>
+					</div>
+				</aside>
+			</section>
 
-A bit more about myself:<br>
-- Writer of various globally known CSS articles<br>
-- CSS speaker.<br>
-- Founder of CSS Masters Israel Community<br><br>
 
-            You can see more of my stuff on my website <a href="https://eladsc.com/" tarhet="_blank">eladsc.com</a>
-        
-          </p>
-          <span class="status is-seen">✔️✔️</span>
-          <time datetime>14:41</time>
-        </li>
-        <li class="common-message is-other">        
-          <p class="common-message-content">
-            Who's those peoples on the contact list?
-          </p>
-          <time datetime>14:33</time>          
-        </li>
-        <li class="common-message is-you">        
-          <p class="common-message-content">
-            These are friends from our comunity "<a href="https://www.facebook.com/groups/css.masters.israel/" target="_blank">CSS Masters Israel</a>".<br>
-            Beside it we have anoather global comunity channel, called" <a href="https://www.facebook.com/groups/css.master/" target="_blank">CSS Masters</a>", if you love CSS, you are all welcome to join.
-          </p>
-           <span class="status">✔️✔️</span>
-          <time datetime>14:34</time>
-        </li>
-        <li class="common-message is-you">        
-          <p class="common-message-content">
-            If you want to know how I created reverse engineering to WhatsApp web, you can read my article 
-            <a href="https://blog.animaapp.com/reverse-engineering-whatsapp-webs-css-9239293009f4?utm_medium=blog&utm_source=elad-css&utm_content=reverse-whatsapp&utm_campaign=css-reverse" target="_blank">"Reverse Engineering WhatsApp Web's CSS"</a>
-          </p>
-          <span class="status">✔️</span>
-          <time datetime>14:43</time>
-        </li>
-        <li class="common-message is-you">        
-          <p class="common-message-content">
-            Beside it you can follow me on twitter:<br>
-            <a class="twitter" href="https://twitter.com/eladsc"><span class="twitter-user">@eladsc</span></a>
-          </p>
-          <span class="status">✔️</span>
-          <time datetime>14:43</time>
-        </li>
-    </ol>
-    </div>    
-    <div class="message-box">
-      <button class="common-button"><span class="icon">😃</span></button>
-      <div class="text-input" id="message-box" placeholder="Type a message" contenteditable></div>
-      <button id="voice-button" class="common-button"><span class="icon">🎤</span></button>
-      <button id="submit-button" class="common-button"><span class="icon">➤</span></button>
-    </div>  
-  </main>
-  <aside class="main-info u-hide">    
-      <header class="common-header">
-        <button class="common-button js-close-main-info"><span class="icon">❌</span></button>
-        <div class="common-header-content">
-          <h3 class="common-header-title">Info</h3>
-        </div>
-      </header>
-      <div class="main-info-content">
-        <section class="common-box">
-          <img class="main-info-image" src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-1/p100x100/10325799_276849335820343_269039155920934591_n.png?_nc_cat=101&_nc_sid=dbb9e7&_nc_ohc=fxci6qYcSvoAX-bZfj2&_nc_ht=scontent.fhfa1-2.fna&oh=ad1c246e7e4a52c607aafd99ed7217a2&oe=5EEAF8B0" alt="CSS Masters Israel">
-          <h4 class="big-title">CSS Masters Israel</h4>
-          <p class="info-text">Created 6/11/2013 at 22:45</p>
-        </section>
-        <section class="common-box">
-          <h5 class="section-title">Description</h5>
-          <p>Out main channel of the comunity is on Fecbook: <a href="https://www.facebook.com/groups/css.masters.israel/">http://bit.ly/2Up8On5</a></p>
-        </section>
-        <section class="common-box">
-          <h5 class="section-title">Other content</h5>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto odit voluptatem magnam sequi dolorem soluta assumenda ipsum iusto culpa velit repudiandae vitae minus minima corporis labore sit, molestias, a ut!</p>
-        </section>
-    </div>
-  </aside>
-</section>
-
-
-			<div th:replace="fragments/Toast :: toast"></div>
+			<div th:replace="fragments/Toast :: toast">
+		</div>
 		</main>
 		<!-- page-content" -->
 	</div>

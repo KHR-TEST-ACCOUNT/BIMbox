@@ -28,6 +28,7 @@ public class ChatController {
 	@GetMapping("/conversationTo/ChatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
 		service.deleteMessageHistDemo();
+		model.addAttribute("messageHist", service.getMessageHist(user, null)); 
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
 		return "websocket/UserSugest.html";
