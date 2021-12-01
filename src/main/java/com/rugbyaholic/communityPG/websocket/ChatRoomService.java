@@ -33,6 +33,10 @@ public class ChatRoomService {
 	}
 
 	
+	public Long findMostFirst(AuthenticatedUser user) {
+		return repository.findMostFirstOfUser(user.getId());
+	}
+
 	/**
 	 * メッセージ履歴を取得
 	 * 

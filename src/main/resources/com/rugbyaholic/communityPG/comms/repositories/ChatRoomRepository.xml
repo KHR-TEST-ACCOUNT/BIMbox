@@ -5,6 +5,19 @@
 
 <mapper namespace="com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository">
 	
+	
+	<select id="findMostFirstOfUser" resultType="Long">
+	<![CDATA[
+		SELECT	MSG.TO_USER_ID
+		FROM    MESSAGE_HIST MSG
+		WHERE	FROM_USER_ID = #{fromUserId}
+		ORDER BY
+		        MSG.SENT_AVF
+		        LIMIT 	1;
+	]]>
+	</select>
+	
+	
 	<select id="findConversationalUser" resultMap="msg_detail">
 	<![CDATA[
 		SELECT  MSG.MESSAGE_ID       		 AS msgId,

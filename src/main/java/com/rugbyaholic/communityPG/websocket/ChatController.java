@@ -18,7 +18,7 @@ public class ChatController {
 
 	
 	@Autowired
-	private ChatRoomService service;
+	private ChatRoomService chatRoomService;
 	
 	@Autowired
 	private ProfileService profileService;
@@ -27,9 +27,12 @@ public class ChatController {
 	// サジェストされたユーザーを追加。
 	@GetMapping("/conversationTo/ChatRoom.html")
 	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		service.deleteMessageHistDemo();
+		chatRoomService.deleteMessageHistDemo();
+		Long toUserId = chatRoomService.findMostFirst(user);
+		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
+		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		model.addAttribute("conversationalUsers", service.getConversationalUsers(user)); 
+		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
 		return "websocket/UserSugest.html";
 	}
 
@@ -38,9 +41,9 @@ public class ChatController {
 	@GetMapping("/ChatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
 				 Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		service.deleteMessageHistDemo();
+		chatRoomService.deleteMessageHistDemo();
 		model.addAttribute("chatMessage", new ChatMessage()); 
-		model.addAttribute("messageHist", service.getMessageHist(user, id)); 
+		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, id)); 
 		model.addAttribute("idSet", new ChatMessage(user.getId(), id)); 
 		return "websocket/ChatRoom.html";
 	}
@@ -53,7 +56,7 @@ public class ChatController {
     		 @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
 //    	ImageFile messageImg = chatMessage.getMessageImg();
 //    	if(messageImg != null) messageImg.setEncodeImgFile(messageImg);
-		service.registMessageInfo(chatMessage);
+    	chatRoomService.registMessageInfo(chatMessage);
 		user = profileService.provideUserInfo(chatMessage.getFromUserId());
 		chatMessage.setFromUserIcon(user.getProfileImage());
         return chatMessage;
@@ -64,7 +67,7 @@ public class ChatController {
     @MessageMapping("/chat.delete")
     @SendTo("/topic/public")
     public ChatMessage deleteMessage(@Payload ChatMessage chatMessage) throws Exception {
-    	service.deleteMessageHist(chatMessage);
+    	chatRoomService.deleteMessageHist(chatMessage);
     	return chatMessage;
     }
     
@@ -73,7 +76,7 @@ public class ChatController {
     @MessageMapping("/chat.restore")
     @SendTo("/topic/public")
     public ChatMessage toRestoreMessage(@Payload ChatMessage chatMessage) throws Exception {
-    	service.restoreMessageHist(chatMessage);
+    	chatRoomService.restoreMessageHist(chatMessage);
     	return chatMessage;
     }
 
