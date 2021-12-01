@@ -10,6 +10,8 @@ import com.rugbyaholic.communityPG.websocket.ChatMessage;
 @Mapper
 public interface ChatRoomRepository {
 	
+	public Long findMostFirstOfUser(@Param("fromUserId") Long fromUserId);
+	
 	public List<ChatMessage> findMessages(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	
 	public List<ChatMessage> findConversationalUser(@Param("userId") Long userId);

@@ -2,6 +2,7 @@ package com.rugbyaholic.communityPG.websocket;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,9 @@ public class ChatRoomService {
 	 */
 	@Transactional(rollbackFor = Throwable.class)
 	public List<ChatMessage> getMessageHist(AuthenticatedUser user, Long toUserId) throws Exception {
+		if(Objects.isNull(toUserId)) {
+			toUserId = repository.findMostFirstOfUser(user.getId());
+		}
 		List<ChatMessage> messageHist = repository.findMessages(user.getId(), toUserId);
 		if(messageHist.isEmpty()) messageHist = Arrays.asList(new ChatMessage());
 		return messageHist;
