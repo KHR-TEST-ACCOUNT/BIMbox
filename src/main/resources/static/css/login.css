@@ -13,7 +13,7 @@ h1, button {
 	font-weight: bold;
 }
 
-h1, form, .logo {
+h1, .logo {
     position: relative;
     top: 80px;
 }
@@ -31,23 +31,6 @@ h1, form, .logo {
 	height: 180px;
 	width: 271px;
 	padding: 10px;
-}
-
-input {
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255, 255, 255, 0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	display: block;
-}
-
-input[type=password] {
-	margin-top: 10px;
 }
 
 button {
@@ -90,6 +73,10 @@ p {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+}
+
+.inner-header svg, .inner-header h1 {
+	padding-bottom: 47px;
 }
 
 /*Flexbox*/
@@ -158,58 +145,14 @@ p {
 
 /*モバイル端末をシェイクしたら波が動く*/
 @media ( max-width : 768px) {
-	.waves {
+	.WelcomPage .waves {
 		height: 40px;
 		min-height: 40px;
 	}
-	.content {
+	.WelcomPage .content {
 		height: 30vh;
 	}
-	h1 {
+	.WelcomPage h1 {
 		font-size: 24px;
-	}
-}
-
-@media screen and (max-width: 1000px) {
-	h1, form {
-		display: block;
-	}
-	h1, .logo, form {
-		position: absolute;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-	}
-	h1 {
-		top: calc(50% - 80px);
-		left: calc(50% - 140px);
-	}
-	.logo {
-		top: calc(50% - 67px);
-		left: calc(50% - 183px);
-	}
-	form {
-		position: absolute;
-		top: calc(50% - 5px);
-	}
-}
-
-@media screen and (max-width: 768px) {
-	h1, form {
-		display: block;
-	}
-	h1, .logo, form {
-		position: absolute;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-	}
-	h1 {
-		top: calc(50% - 61px);
-		left: calc(50% - 73px);
-	}
-	.logo {
-		top: calc(50% - 64px);
-		left: calc(50% - 115px);
 	}
 }
