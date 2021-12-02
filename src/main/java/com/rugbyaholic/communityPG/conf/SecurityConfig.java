@@ -31,8 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 		// ログイン
 		.and()
-			.formLogin().loginPage("/Login.html")
+			.formLogin()
 			.loginProcessingUrl("/Login.do")
+			.loginPage("/Login.html")
 			.failureHandler(new ForwardAuthenticationFailureHandler("/Login.err"))
 			.usernameParameter("email").passwordParameter("password").permitAll()
 		// ログアウト

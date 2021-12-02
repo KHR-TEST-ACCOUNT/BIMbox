@@ -124,23 +124,25 @@ public class UserManagementService {
 		return userRepository.countUser(form);
 	}
 
-	public int isMail(String mail) {
-		return userRepository.findUserEmail(mail);
+	public Boolean isMail(String mail) {
+		if(userRepository.findUserEmail(mail) == 0) return false;
+		return true;
 	}
 	
-	public int findAdminUser() {
-		return userRepository.findAdminUser();
+	public String isUserPermission() {
+		if(userRepository.findAdminUser() == 0) return "03";
+		return "01";
 	}
 	
 	// ユーザーリストをロードする。（Hobbyの格納先がないので解決する。）
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
-		form.setPosOptions(codeRepository.getPositionCd());
+		form.setPosOptions(codeRepository.getPositionCd()); 
 		return userRepository.loadUserList(form);
 	}
 
 	@Transactional(rollbackFor = Throwable.class)
-	public void registerInitialUser(String email, String password) throws Exception {
+	public void registerInitialUser(String email, String password, String userPermission) throws Exception {
 		AuthenticatedUser user = new AuthenticatedUser();
 		user.setEmail(email);
 		user.setPassword(passwordEncoder.encode(password));
@@ -150,7 +152,7 @@ public class UserManagementService {
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_EMPNO, availYear, user);
 		int updCount = 0;
 		updCount += userRepository.registerInitialUser(user);
-		updCount += userRepository.grantAuthority(user, "03");
+		updCount += userRepository.grantAuthority(user, userPermission);
 		if (updCount < 2)
 			throw new Exception();
 	}

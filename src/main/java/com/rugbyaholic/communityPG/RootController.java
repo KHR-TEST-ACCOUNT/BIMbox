@@ -28,6 +28,8 @@ public class RootController {
 
 	@GetMapping("/")
 	public String onActivated(Model model) {
+		
+		
 		return "home/Top.html"; 
 	}
 
@@ -40,6 +42,9 @@ public class RootController {
 	public String onLoginFailed(@RequestAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) 
 								AuthenticationException ex,
 								Model model) {
+		
+		
+		
 		model.addAttribute("authenticationException", ex);
 		return "Login.html";
 	}
@@ -49,18 +54,21 @@ public class RootController {
 	public String onInitialUserRequested(@Valid @ModelAttribute UserRegistrationForm registrationForm,
 			BindingResult bindingResult, Model model) throws Exception {
 		
-		if(service.isMail(registrationForm.getEmail()) != 0) {
+		String inputEmail = registrationForm.getEmail();
+		String inputPass = registrationForm.getPassword();
+		String userPermission = service.isUserPermission();
+		
+		// Emailがあればエラーを表示する
+		if(service.isMail(registrationForm.getEmail())) {
 			model.addAttribute("notificationMessage",
 					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
 					.messageCode("AbstractUserDetailsAuthenticationProvider.alreadyRegisteredIfEmail").build());
-		} else if(service.findAdminUser() != 0) {
-			model.addAttribute("notificationMessage",
-					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
-					.messageCode("AbstractUserDetailsAuthenticationProvider.alreadyRegisteredIfUsers").build());
 		} else {
-			service.registerInitialUser(registrationForm.getEmail(), registrationForm.getPassword());
+			// User権限を指定
+			service.registerInitialUser(inputEmail, inputPass, userPermission);
 		}
-		return "Login.html";
+		return "forward:Login.do";
+		// return "home/Top.html"; 
 	}
 	
 }
