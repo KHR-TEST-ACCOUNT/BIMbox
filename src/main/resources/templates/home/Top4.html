@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
+	<!-- Top CSS -->
+	<link rel="stylesheet" th:href="@{/css/top.css}">
+	
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+	<!-- Smooth scroll JS -->
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js}"></script>
+	<!-- verge JS -->
+ <script src = "https://cdn.jsdelivr.net/npm/vergejs@latest/index.min.js"></script>
+ <script src = "https://unpkg.com/vergejs@1.0.0/index.js"></script>
+	<!-- topPage.js -->
+	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
+</head>
+
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		
+		<main class="page-content animsition">
+
+
+
+
+  <nav id="nav-bar" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+        <a class="navbar-brand animated flip" href="#twoam">About Klein.Netwerk</a>
+      </div>
+      
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#about">Detail</a></li>
+          <li><a href="#portfolio">Functions</a></li>
+        </ul>
+
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+
+  <header id="twoam">
+    <div class="container-fluid">
+      <div class="row me animated fadeIn">
+        <div class="col-xs-offset-5 col-sm-offset-6 col-xs-7 col-sm-6">
+          <div class="tagline1">ABOUT</div>
+          <div class="tagline2 animated fadeIn">&nbsp;KLEIN</div>
+          <div class="tagline2 animated fadeIn">.NETWERK</div>
+          <div class="animated fadeIn">
+            <div class="tagline3a">----------</div>
+            <div class="tagline3b">"Klein.Netwerk" は :
+              <br> 社内コミュニティの活性化を目的とした :
+              <br> 小規模コミュニティシステムです。 :
+              <br>
+            </div>
+            <div class="tagline3c">----------</div>
+          </div>
+        </div>
+      </div>
+      <div id="down" class="animated infinite slideInDown">
+        <i class="fa fa-chevron-circle-down fa-5x" aria-hidden="true"></i>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- about page -->
+  <section id="about" class="container-fluid">
+
+    <div class="row section-banner">
+      <div class="col-md-offset-3 col-md-6 text-center">
+        <div>
+          <span class="line about"></span>
+          <span class="section-title about">詳細</span>
+          <span class="line about"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row max">
+
+      <div class="col-sm-6　text-center">
+        <div class="desc">
+          <div class="icon-me"><i class="fa fa-user"></i></div>
+          <p>「Klein.Netwerk」 は、コミュニティー内の共通点を持ってる人を探すサービスで、趣味や自己紹介文などを登録しておくと同じ趣味の人をサジェストします。趣味の合う友人を見つけて、チャットを送ってみましょう。</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 text-center">
+        <div class="desc">
+          <div class="icon-me"><i class="fa fa-mortar-board"></i></div>
+          <p>機能には、「ユーザー情報一覧機能、コミュニティ機能、ファイル共有機能」があり、これらは「USER・MANAGER・ADMIN」の3つの各権限によって処理が制限されます。</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- portfolio projects page -->
+  <section id="portfolio" class="container-fluid">
+
+    <div class="row section-banner">
+      <div class="col-md-offset-3 col-md-6 text-center">
+        <div>
+          <span class="line portfolio"></span>
+          <span class="section-title portfolio">機能一覧</span>
+          <span class="line portfolio"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row max">
+      <div class="col-sm-offset-2 col-sm-8 text-center">
+        <div class="desc">
+          <p>全４つの機能に関しての詳細を記します。知りたい機能のカードをクリックしてみましょう。</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- portfoloio projects cards -->
+
+    <div class="row" id="theProjects">
+
+    </div>
+  </section>
+
+
+
+  
+  
+  <!-- fixed footer for social links -->
+    <footer id='social-footer'>
+        <ul>
+            <li class='highlight'>
+                <a class="fa-stack fa-1x" data-toggle="tooltip" title="GitHub" data-placement="top" href="https://github.com/mutantspore" target="_blank"><i class="fa fa-github-square fa-stack-2x"></i></a>
+            </li>
+        </ul>
+        <div class="text-center copyright"></div>
+    </footer>
+
+
+
+
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>
