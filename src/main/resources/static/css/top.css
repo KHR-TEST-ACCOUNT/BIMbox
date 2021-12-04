@@ -100,31 +100,132 @@ a:hover {
 /* POPULAR DESTINATIONS SECTION
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .popular-destinations figure {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
+	cursor: pointer;
 }
 
 .popular-destinations figcaption {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.3);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.3);
 }
 
 .popular-destinations img {
-  filter: grayscale(100%) blur(3px);
-  transition: transform 0.5s, filter 0.75s;
+	filter: grayscale(100%) blur(3px);
+	transition: transform 0.5s, filter 0.75s;
 }
 
-.popular-destinations a:hover img {
-  transform: scale(1.25);
-  filter: none;
+.popular-destinations figure:hover img {
+	transform : scale( 1.25);
+	filter: none;
+	transform: scale(1.25);
 }
 
-/* PAGE FOOTER
+/* Card Animation
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.page-footer .footer-links {
-  text-align: right;
+.flip-container, .flipper  {
+	box-sizing: border-box;
+	transition: all 0.7s
+}
+
+#page-bussiness .wrap {
+	-webkit-perspective: 1000;
+	perspective: 1000;
+	position: relative;
+	height: auto;
+}
+
+#page-bussiness .wrap::after {
+	content: "";
+	display: block;
+	clear: both
+}
+
+#page-bussiness .flip-container .flipper {
+	position: relative;
+	width: 100%;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 0 50%;
+	transform-origin: 0 50%
+}
+
+#page-bussiness .flip-container .flipper:after {
+	z-index: -1;
+	position: absolute;
+	content: "";
+	bottom: 15px;
+	right: 10px;
+	left: auto;
+	width: 50%;
+	top: 80%;
+	max-width: 300px;
+	background: #777;
+	box-shadow: 0 15px 10px #777;
+	-webkit-transform: rotate(3deg);
+	transform: rotate(3deg)
+}
+
+#page-bussiness .flip-container .flipper .front, #page-bussiness .flip-container .flipper .back
+	{
+	position: absolute;
+	z-index: 2060;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	text-align: center;
+	line-height: 5
+}
+
+#page-bussiness .flip-container .flipper .front {
+	z-index: 2060;
+	background: #ddd
+}
+
+#page-bussiness .flip-container .flipper .back {
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+	background: #f8f8f8
+}
+
+#page-bussiness .flip-container.active {
+	max-width: 80%;
+	width: 100vw !important;
+	height: 70vh !important;
+	position: fixed !important;
+	left: 8vw !important;
+	top: 14vh !important;
+	z-index: 2160;
+}
+
+#page-bussiness .flip-container.active .flipper {
+	-webkit-transform: rotateY(-180deg) translateX(-100%);
+	transform: rotateY(-180deg) translateX(-100%)
+}
+
+#page-bussiness .flip-container.active .flipper:after {
+	display: none
+}
+
+.popular-destinations .lightbox {
+	display: none
+}
+
+.popular-destinations .lightbox.active {
+	/*
+	background: rgba(0, 0, 0, 0.6);
+	*/
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	display: block
 }
 
 /* MEDIA QUERIES
