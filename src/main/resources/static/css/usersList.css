@@ -1,4 +1,8 @@
 
+main {
+	background: #e5ddd5
+}
+
 #home:hover {
 	transform: scale(1.1)
 }

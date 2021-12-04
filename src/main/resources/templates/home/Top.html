@@ -18,6 +18,8 @@
 	<!-- verge JS -->
 	<script src="https://cdn.jsdelivr.net/npm/vergejs@latest/index.min.js"></script>
 	<script src="https://unpkg.com/vergejs@1.0.0/index.js"></script>
+	<!-- masonry -->
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 	<!-- topPage.js -->
 	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
 </head>
@@ -137,71 +139,92 @@
 					</div>
 				</section>
 				
+				
 				<!-- features -->
 				<section id="popular-destinations" class="popular-destinations py-5">
-					<div class="container-fluid container-fluid-max">
-						<div class="row">
+					<div id="page-bussiness" class="container-fluid container-fluid-max">
+						<div class="row wrap">
 							<div class="col-12">
 								<h2 class="pb-3 text-red">Available Features</h2>
 							</div>
+							
+							
 							<div class="col-12 col-sm-6 col-md-4">
-								<a href="" class="text-white">
-									<figure class="position-relative overflow-hidden">
-										<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Vienna.jpg" alt="Vienna">
-										<figcaption class="d-flex align-items-center justify-content-center position-absolute">
-											<h3>Vienna</h3>
-										</figcaption>
-									</figure>
-								</a>
+								<div class="flip-container">
+									<div class="flipper">
+										<figure class="position-relative overflow-hidden text-white front">
+											<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Vienna.jpg" alt="Vienna">
+											<figcaption class="d-flex align-items-center justify-content-center position-absolute">
+												<h3>Vienna</h3>
+											</figcaption>
+										</figure>
+										<div class="back">後面內容1</div>
+									</div>
+								</div>
 							</div>
 							<div class="col-12 col-sm-6 col-md-4">
-								<a href="" class="text-white">
-									<figure class="position-relative overflow-hidden">
-										<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Edinburgh.jpg" alt="Edinburgh">
-										<figcaption class="d-flex align-items-center justify-content-center position-absolute">
-											<h3>Edinburgh</h3>
-										</figcaption>
-									</figure>
-								</a>
+								<div class="flip-container">
+									<div class="flipper">
+										<figure class="position-relative overflow-hidden text-white front">
+											<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Edinburgh.jpg" alt="Edinburgh">
+											<figcaption class="d-flex align-items-center justify-content-center position-absolute">
+												<h3>Edinburgh</h3>
+											</figcaption>
+										</figure>
+										<div class="back">後面內容1</div>
+									</div>
+								</div>
 							</div>
 							<div class="col-12 col-sm-6 col-md-4">
-								<a href="" class="text-white">
-									<figure class="position-relative overflow-hidden">
-										<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/new_york.jpg" alt="New York">
-										<figcaption class="d-flex align-items-center justify-content-center position-absolute">
-											<h3>New York</h3>
-										</figcaption>
-									</figure>
-								</a>
+								<div class="flip-container">
+									<div class="flipper">
+										<figure class="position-relative overflow-hidden text-white front">
+											<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/new_york.jpg" alt="New York">
+											<figcaption class="d-flex align-items-center justify-content-center position-absolute">
+												<h3>New York</h3>
+											</figcaption>
+										</figure>
+										<div class="back">後面內容1</div>
+									</div>
+								</div>
 							</div>
 							<div class="col-12 col-sm-6">
-								<a href="" class="text-white">
-									<figure class="position-relative overflow-hidden">
-										<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/porto.jpg" alt="Porto">
-										<figcaption class="d-flex align-items-center justify-content-center position-absolute">
-											<h3>Porto</h3>
-										</figcaption>
-									</figure>
-								</a>
+								<div class="flip-container">
+									<div class="flipper">
+										<figure class="position-relative overflow-hidden text-white front">
+											<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/porto.jpg" alt="Porto">
+											<figcaption class="d-flex align-items-center justify-content-center position-absolute">
+												<h3>Porto</h3>
+											</figcaption>
+										</figure>
+										<div class="back">後面內容1</div>
+									</div>
+								</div>
 							</div>
-							<div class="col-12 col-md-6">
-								<a href="" class="text-white">
-									<figure class="position-relative overflow-hidden">
-										<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/manarola.jpg" alt="Manarola">
-										<figcaption class="d-flex align-items-center justify-content-center position-absolute">
-											<h3>Manarola</h3>
-										</figcaption>
-									</figure>
-								</a>
+							<div class="col-12 col-sm-6">
+								<div class="flip-container">
+									<div class="flipper">
+										<figure class="position-relative overflow-hidden text-white front">
+											<img class="img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/manarola.jpg" alt="Manarola">
+											<figcaption class="d-flex align-items-center justify-content-center position-absolute">
+												<h3>Manarola</h3>
+											</figcaption>
+										</figure>
+										<div class="back">後面內容1</div>
+									</div>
+								</div>
 							</div>
+							
 						</div>
 						<div class="row">
 							<div class="col text-center">
 								<a class="btn bg-red text-white" href="" role="button">More Destinations ↓</a>
 							</div>
 						</div>
+					    <div class="lightbox"></div>
 					</div>
 				</section>
+				
 				
 				<!-- details -->
 				<section id="featured-destinations" class="featured-destinations bg-lightblue m-3">
