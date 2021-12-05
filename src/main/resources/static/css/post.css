@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+main {
+	background: #e5ddd5
+}
+
 a .userImg{
     position: absolute;
     width: 55px;
