@@ -34,7 +34,7 @@ public class UserManagementService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public static final int PAGE_LIMIT = 10;
+	public static final int PAGE_LIMIT = 8;
 
 	@Transactional(rollbackFor = Throwable.class)
 	public void registerUser(UserRegistrationForm form, AuthenticatedUser user) throws Exception {
