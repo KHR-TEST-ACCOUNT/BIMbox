@@ -3,11 +3,17 @@ main {
 	background: #e5ddd5
 }
 
+.page-content .navbar{
+	min-height: 58px;	
+}
+
 #home:hover {
 	transform: scale(1.1)
 }
 
 .zooming:hover img {
+	transform: scale(1.2)
+/*
   --scale-ratio: 2.0;
   --width-length: 32px;
   --height-length: 32px;
@@ -20,7 +26,6 @@ main {
   border: 1px solid #ff6a00;
   position: absolute;
   transform: scale(var(--scale-ratio),var(--scale-ratio));
-/*
 */
 }
 
