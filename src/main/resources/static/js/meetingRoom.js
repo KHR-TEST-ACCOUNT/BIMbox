@@ -5,6 +5,20 @@ $(function () {
 })
 
 
+//textareaの高さを自動で合わせる
+$(function(){
+  $('#textarea')
+  .on('input', function(){
+    if ($(this).outerHeight() > this.scrollHeight){
+      $(this).height(1)
+    }
+    while ($(this).outerHeight() < this.scrollHeight){
+      $(this).height($(this).height() + 1)
+    }
+  });
+});
+
+
 // Accordion
 $(function() {
 

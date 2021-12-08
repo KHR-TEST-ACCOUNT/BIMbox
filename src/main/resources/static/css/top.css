@@ -14,10 +14,6 @@ a:hover {
   text-decoration: none;
 }
 
-.bg-lightblue {
-  background: var(--lightblue);
-}
-
 .bg-red {
   background: var(--red);
 }
