@@ -13,71 +13,118 @@
 		
 
 			<!-- Content -->
-			<nav class="navbar navbar-light bg-dark justify-content-between">
-				<div class="row">
-					<a class="navbar-brand btn col-5" id="home" style="color: white;">User List</a> 
-						<a href="#" id="condition-toggler"  class=" col-5 p-2" 
-						   data-bs-toggle="collapse" data-bs-target="#searchCondition">
-							<span class="d-none">[隠す]</span>
-							<span>[表示]</span>
-						</a>
+			<nav class="page-header navbar navbar-light bg-dark">
+				<div class="center d-flex justify-content-center">
+					<a  th:href="@{/manage/users/UserList.html}" class="navbar-brand btn" style="color: white;">User List</a> 
+					<form class="foge" th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
+							<!-- ユーザー登録・検索 -->
+						<div class="input-group">
+							<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名">
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-secondary" >
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 				</div>
+					<!-- 
+					<a href="#" id="condition-toggler" 
+					   data-bs-toggle="collapse" data-bs-target="#searchCondition">
+						<span class="d-none">[隠す]</span>
+						<span>[表示]</span>
+					</a>
+					 -->
 				
 				
-			<!-- ユーザー登録・検索 -->
-			<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
-				<div class="p-3">
-					<div class="searchBlock">
+				<!-- ユーザー登録・検索 -->
+				<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
+					<div id="searchCondition" class="collapse p-3 searchBlock">
 						<!-- ユーザー登録・検索 -->
-						<div id="searchCondition" class="collapse mb-1">
-							<div class="border p-3 rounded">
-								<div class="row">
-									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
-										<strong style="width: 7rem;">ユーザー番号</strong>
-										<input type="text" class="form-control form-control-sm" style="width: 11rem;"
-												th:field="*{empNo}" placeholder="Search by name..." />
-									</div>
-									<div class="d-flex align-items-top mb-2  col-md-5 col-lg-4">
-										<strong style="width: 7rem;">ユーザー名</strong>
-										<input type="text" class="form-control form-control-sm" style="width: 11rem;"
-											   th:field="*{name}" placeholder="Search by name..." />
-									</div>
-									<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
-										<strong style="width: 7rem;">趣味</strong>
-										<!-- id='wkSelect' multiple="multiple" -->
-									    <select class="form-select form-select-sm" style="width: 11rem;" th:field="*{hobbys}">
-											<option value="">-- 選択してください</option>
-											<option value="プログラミング">プログラミング</option>
-											<option value="アウトドア">アウトドア</option>
-											<option value="ファッション">ファッション</option>
-											<option value="筋トレ">筋トレ</option>
-											<option value="映画">映画</option>
-											<option value="漫画・アニメ">漫画・アニメ</option>
-											<option value="ペット">ペット</option>
-									    </select>
+						<div class="border p-3 rounded">
+							<div class="row">
+
+								<!-- Actual search box -->
+								<div class="d-flex align-items-top input-group col-12">
+									<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名">
+									<div class="input-group-append">
+										<button class="btn btn-secondary" type="button">
+											<i class="fa fa-search"></i>
+										</button>
 									</div>
 								</div>
 							</div>
-							<button class="btn btn-outline-success btn-sm shadow-sm px-3 py-2 my-2">
-								<span>Search</span>
-							</button>
-							<!-- 
-							<div class="text-end newRegist">
-								<a  th:if="${#authentication.principal.roles.get(0).code == '01'}"
-									id="disabled_do" class="btn btn-outline-primary btn-sm shadow-sm">
-									<span>ユーザー新規登録</span>
-								</a>
-								<a  th:unless="${#authentication.principal.roles.get(0).code == '01'}"
-									th:href="@{/manage/users/UserRegistration.html}" class="btn btn-outline-primary btn-sm shadow-sm py-2">
-									<span>ユーザー新規登録</span>
-								</a>
-							</div>
-							 -->
 						</div>
+						<button
+							class="btn btn-outline-success btn-sm shadow-sm px-3 py-2 my-2">
+							<span>Search</span>
+						</button>
 					</div>
-				</div>
-			</form>
+				</form>
 			</nav>
+								<!-- 
+								<div class="d-flex align-items-top input-group col-12">
+									<input type="text" class="form-control" th:field="*{empNo}" placeholder="趣味">
+									<div class="input-group-append">
+										<button class="btn btn-secondary" type="button">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</div>
+								 -->
+
+								<!-- 
+										<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+											<strong style="width: 7rem;">ユーザー番号</strong> <input
+												type="text" class="form-control form-control-sm"
+												style="width: 11rem;" th:field="*{empNo}"
+												placeholder="Search by name..." />
+										</div>
+										<div class="d-flex align-items-top mb-2  col-md-5 col-lg-4">
+											<strong style="width: 7rem;">ユーザー名</strong>
+											<input type="text" class="form-control form-control-sm" style="width: 11rem;"
+												   th:field="*{name}" placeholder="Search by name..." />
+										</div>
+										<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
+											<strong style="width: 7rem;">趣味</strong> 
+												<select class="form-select form-select-sm" style="width: 11rem;" th:field="*{hobbys}">
+												<option value="">-- 選択してください</option>
+												<option value="プログラミング">プログラミング</option>
+												<option value="アウトドア">アウトドア</option>
+												<option value="ファッション">ファッション</option>
+												<option value="筋トレ">筋トレ</option>
+												<option value="映画">映画</option>
+												<option value="漫画・アニメ">漫画・アニメ</option>
+												<option value="ペット">ペット</option>
+											</select>
+										</div>
+											 -->
+
+								<!-- 
+												<select name="" th:field="*{hobbys}">
+													<option value="">-- 選択してください</option>
+													<option value="プログラミング">プログラミング</option>
+													<option value="アウトドア">アウトドア</option>
+													<option value="ファッション">ファッション</option>
+													<option value="筋トレ">筋トレ</option>
+													<option value="映画">映画</option>
+													<option value="漫画・アニメ">漫画・アニメ</option>
+													<option value="ペット">ペット</option>
+												</select> 
+												
+												 -->
+						<!-- 
+								<div class="text-end newRegist">
+									<a  th:if="${#authentication.principal.roles.get(0).code == '01'}"
+										id="disabled_do" class="btn btn-outline-primary btn-sm shadow-sm">
+										<span>ユーザー新規登録</span>
+									</a>
+									<a  th:unless="${#authentication.principal.roles.get(0).code == '01'}"
+										th:href="@{/manage/users/UserRegistration.html}" class="btn btn-outline-primary btn-sm shadow-sm py-2">
+										<span>ユーザー新規登録</span>
+									</a>
+								</div>
+								 -->
 			
 			
 			
@@ -86,7 +133,7 @@
 				<th:block th:if="${searchResult}">
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
-							<div class="card mb-3 p-1">
+							<div class="card-rounded-7 mb-3 p-1">
 								<div class="zooming">
 									<img class="card-image"
 										th:src="${ user.profileImage.encodedString}"
