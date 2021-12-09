@@ -6,9 +6,9 @@
 	<div th:fragment="topic(topic)" th:remove="tag">
 	
 		<!-- post header -->
-		<div class="post-top-bar">
-			<h4 class="name" th:text="${topic.subject}">topic</h4> 
-			<form id="deleteForm" th:action="@{/comms/deleteTopic.do}" 
+		<div class="post-top-bar row">
+			<h4 class="name col-10" th:text="${topic.subject}">topic</h4> 
+			<form id="deleteForm" class="col-2 text-end" th:action="@{/comms/deleteTopic.do}" 
 				  method="post" th:object="${ topicSearchForm }">
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 				<div th:if="${topic.isOwnedBy(user)}">
@@ -55,7 +55,7 @@
 					<div th:if="${ post.postImg }">
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
-					<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
+					<textarea class="form-control text-dark readonly p-0 auto-resize" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
 				</div>
 				
 				<!-- post footer -->
@@ -71,15 +71,6 @@
 						<label class="social" for="comment">
 							<span class="glyphicon glyphicon-comment">Comment</span>
 						</label>
-						<input id="share" type="checkbox" placeholder="" name="socialIcon" />
-						<!-- share -->
-						<label class="social" for="share">
-							<span class="glyphicon glyphicon-share-alt">Share</span>
-						</label>
-						<span class="icon fa fa-facebook-square"></span>
-						<span class="icon fa fa-twitter-square"></span>
-						<span class="icon fa fa-google-plus-square"></span>
-						<span class="icon fa fa-slack"></span>
 						<!-- Smooth Drop Down menu -->
 						<label class="social link text-end" th:if="${post.isFirstPost() && topic.posts.size() > 1}">
 							<i class="fa fa-chevron-down"></i>
