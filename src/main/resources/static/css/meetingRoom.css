@@ -293,6 +293,7 @@ button:focus {
 	border: none;
 	color: white;
 	background: #0084BF;
+	border-radius: 40px;
 }
 
 .post-button:hover {

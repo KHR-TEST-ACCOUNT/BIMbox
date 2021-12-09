@@ -23,14 +23,36 @@ $(function() {
 		}
 	});
 
+	// closeボタン押下
 	$("#close-sidebar").click(function() {
 		$(".page-wrapper").removeClass("toggled");
 	});
 
+	// Showボタン押下
 	$("#show-sidebar").click(function() {
 		$(".page-wrapper").addClass("toggled");
 	});
 
+	// window size に合わせてSideNaviを表示
+	$(window).on('resize', function() {
+		toggled();
+	});
+	
+	// ロード時の window size に合わせてSideNaviを表示
+	$(window).on('load', function() {
+		toggled();
+	});
+	
+	// 表示非表示を設定
+	function toggled() {
+		var windowSize = $(window).width();
+		if (windowSize < 768) {
+			$(".page-wrapper").removeClass("toggled");
+		}
+		if (windowSize >= 768) {
+			$(".page-wrapper").addClass("toggled");
+		}
+	}
 });
 
 
