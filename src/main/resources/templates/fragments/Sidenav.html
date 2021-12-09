@@ -9,7 +9,7 @@
 			<img src="https://azouaoui-med.github.io/react-pro-sidebar/static/media/bg2.de0153c5.jpg" alt="sidebar background" class="sidebar-bg">
 			<div class="sidebar-content">
 				<div class="sidebar-brand">
-					<a th:href="@{/}">Klein.Netwerk</a>
+					<a href="#">Klein.Netwerk</a>
 					<div id="close-sidebar">
 						<i class="fas fa-times"></i>
 					</div>
@@ -48,6 +48,12 @@
 								<span>Home</span>
 							</a>
 						</li>
+						<li>
+							<a th:href="@{/profile/UserProfile.html}">
+								<i class="fas fa-address-card"></i>
+								<span>Profile</span>
+							</a>
+						</li>
 						<li class="sidebar-dropdown">
 							<a th:href="@{/manage/users/UserList.html}">
 								<i class="fas fa-list-ul"></i>
@@ -73,40 +79,17 @@
 							</a>
 						</li>
 						 -->
-						<!-- Extra -->
-						<li class="header-menu">
-							<span>Extra</span>
-						</li>
-						<li>
-							<a th:href="@{/profile/UserProfile.html}">
-								<i class="fas fa-address-card"></i>
-								<span>Profile</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-calendar"></i>
-								<span>Calendar</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-folder"></i>
-								<span>under construction</span>
-							</a>
-						</li>
-						<!-- Extra end -->
 					</ul>
 				</div>
 				<!-- sidebar-menu  -->
 			</div>
 			<!-- sidebar-content  -->
 			<div class="sidebar-footer">
-				<a href="#">
+				<a th:href="|@{/onError}">
 					<i class="fa fa-bell"></i>
 					<span class="badge badge-pill badge-warning notification"></span>
 				</a>
-				<a href="#">
+				<a th:href="|@{/onError}">
 					<i class="fa fa-envelope"></i>
 					<span class="badge badge-pill badge-success notification"></span>
 				</a>

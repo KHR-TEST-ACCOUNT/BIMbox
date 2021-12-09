@@ -17,3 +17,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         img.onerror = function(){this.src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='50' height='50' viewport='0 0 100 100' style='fill:black;font-size:50px;opacity:0.5;filter:grayscale(1)'><filter id='grayscale'><feColorMatrix type='saturate' values='0.10'/></filter><text y='85%'>👶</text></svg>";};
     })
 });
+
+
+$(function() {
+	// ロード時の window size に合わせてSideNaviを表示
+	$(window).on('load', function() {
+		$(".page-wrapper").removeClass("toggled");
+	});
+	// window size に合わせてSideNaviを非表示
+	$(window).on('resize', function() {
+		$(".page-wrapper").removeClass("toggled");
+	});
+});
