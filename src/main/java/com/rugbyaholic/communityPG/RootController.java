@@ -40,14 +40,22 @@ public class RootController {
 	
 	@PostMapping("/Login.err")
 	public String onLoginFailed(@RequestAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) 
-								AuthenticationException ex,
-								Model model) {
+	AuthenticationException ex,
+	Model model) {
 		
 		
 		
 		model.addAttribute("authenticationException", ex);
 		return "Login.html";
 	}
+	
+	
+	@GetMapping("/onError")
+	public String onError() {
+		
+		return "errorPage.html";
+	}
+	
 	
 	// 初期登録時の処理
 	@PostMapping("/UserRegistration.do")
