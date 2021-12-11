@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+.page-wrapper .page-content {
+	height: 100vh;
+    border-radius: 20px;
+}
+
 ul, li{
   list-style: none;
 }

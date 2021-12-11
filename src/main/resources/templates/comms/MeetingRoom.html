@@ -76,7 +76,7 @@
 					</div>
 					<!-- 新規投稿内容 -->
 					<div id="topicCreation" class="collapse mt-3" th:object="${topicCreationForm}"
-						 th:classappend="${topicCreationForm.isError ? '' : 'show'}">
+						 th:classappend="${topicCreationForm.isError ? '' : ''}">
 						<form th:action="@{/comms/CreateTopic.do}" method="POST" class="border px-3 bg-light form-content" autocomplete="off">
 							<!-- topic content  collapse -->
 							<div class="share-container">

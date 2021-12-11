@@ -8,7 +8,11 @@ main {
 }
 
 .submenu {
-  display: none;
+	display: none;
+}
+
+#condition-toggler span {
+    cursor: pointer;
 }
 
 .accordion div i {
