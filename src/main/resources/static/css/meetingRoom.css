@@ -8,16 +8,21 @@ main {
 }
 
 .submenu {
-  display: none;
+	display: none;
+}
+
+#condition-toggler span {
+    cursor: pointer;
 }
 
 .accordion div i {
-  color: #595959;
-  -webkit-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+	position: relative;
+	bottom: 5px;
+	color: #595959;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
 }
-
 
 .accordion div.open i.fa-chevron-down {
   -webkit-transform: rotate(180deg);
@@ -208,6 +213,11 @@ body {
 	border-bottom-right-radius: 13px;
 }
 
+.two .moodle-container {
+	margin-top: 13px;
+    margin-bottom: 0;	
+}
+
 .two .moodle-container .share-container {
 	position: relative;
 	top: 0px;
@@ -302,6 +312,15 @@ button:focus {
 
 .post-button:active {
 	transform: scale(0.8) translateY(-50%);
+}
+
+.topics{
+	margin: 0;
+	overflow: auto;
+}
+
+#postText{
+	max-height: 200px;
 }
 
 .post-container {
@@ -483,6 +502,7 @@ button:focus {
 
 .bottom-bar-social {
 	padding: 10px;
+	padding-bottom: 0;
 	position: relative;
 }
 
