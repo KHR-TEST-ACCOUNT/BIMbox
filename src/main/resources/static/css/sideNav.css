@@ -339,6 +339,7 @@ body {
 .page-wrapper .page-content {
 	display: inline-block;
 	width: 100%;
+    height: 100vh;
 	padding-left: 0px;
 }
 

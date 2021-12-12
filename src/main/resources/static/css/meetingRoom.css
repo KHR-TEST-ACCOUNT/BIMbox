@@ -15,21 +15,32 @@ main {
     cursor: pointer;
 }
 
-.accordion div i {
-  color: #595959;
-  -webkit-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+.ac-parent i.fa-chevron-down {
+	position: relative;
+	top: 2px;
+	cursor: pointer;
+	color: #595959;
+    font-size: 20px;
+    margin-right: 7px;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
 }
 
-
-.accordion div.open i.fa-chevron-down {
+.ac-parent.open i.fa-chevron-down {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
+.ac-child{
+	display: none;
+	margin: 0
+}
+
+/*
+*/
 
 
 /**********
@@ -212,6 +223,11 @@ body {
 	border-bottom-right-radius: 13px;
 }
 
+.two .moodle-container {
+	margin-top: 13px;
+    margin-bottom: 0;	
+}
+
 .two .moodle-container .share-container {
 	position: relative;
 	top: 0px;
@@ -306,6 +322,16 @@ button:focus {
 
 .post-button:active {
 	transform: scale(0.8) translateY(-50%);
+}
+
+.topics{
+	margin: 0;
+	overflow: auto;
+	transition-duration: .5s;
+}
+
+#postText{
+	max-height: 200px;
 }
 
 .post-container {
@@ -487,6 +513,7 @@ button:focus {
 
 .bottom-bar-social {
 	padding: 10px;
+	padding-bottom: 0;
 	position: relative;
 }
 
@@ -595,16 +622,6 @@ button:focus {
 
 .comment-box input:focus {
 	outline: none;
-}
-
-.two .fa {
-	cursor: pointer;
-	margin-right: 7px;
-	font-size: 20px;
-	/*
-	opacity: 0;
-	*/
-	transform: translateY(7px);
 }
 
 .three {
