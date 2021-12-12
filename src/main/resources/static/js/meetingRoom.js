@@ -1,27 +1,46 @@
 
 //tooltip
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
+$(function() {
+	
+	$(document).ready(function() {
+		decide_topics_height();
+	});
+	
+	/**
+	$(document).on('click', '#condition-toggler', function() {
+		decide_topics_height();
+	});
+	 */
+	
+	function decide_topics_height(){
+		var column_height = $(window).height() - 40;
+		var sc_height = $('.search-container').outerHeight(true);
+		var mc_height = $('.moodle-container').outerHeight(true);
+		var show_height = $('.show').outerHeight(true);
+		
+		var topics_height = column_height - (sc_height + mc_height)
+		$('.topics').outerHeight(topics_height);
+	}
+	
+	$('[data-toggle="tooltip"]').tooltip();
 })
 
-
+	
 //textareaの高さを自動で合わせる
-$(function(){
-  $('#textarea')
-  .on('input', function(){
-    if ($(this).outerHeight() > this.scrollHeight){
-      $(this).height(1)
-    }
-    while ($(this).outerHeight() < this.scrollHeight){
-      $(this).height($(this).height() + 1)
-    }
-  });
+$(function() {
+	$('#textarea').on('input', function() {
+		if ($(this).outerHeight() > this.scrollHeight) {
+			$(this).height(1)
+		}
+		while ($(this).outerHeight() < this.scrollHeight) {
+			$(this).height($(this).height() + 1)
+		}
+	});
 });
 
 
 // Accordion
 $(function() {
-
 
 	// OnClick Event で発火させる。
 	var Accordion = function(event, multiple) {

@@ -63,15 +63,25 @@
 					</div>
 				</form>
 
-
+				<!-- トピック情報 -->
+				<div class="topics">
+					<div th:each="topic : ${topics}">
+						<article class="post-container">
+							<div th:id="${topic.topicNo}" class="m-3">
+								<div th:replace="fragments/Topic :: topic(${topic})"></div>
+							</div>	
+						</article>
+					</div>
+				</div>
+				
 				<!-- トピック新規登録 -->
 				<article class="moodle-container">
 					<!-- Formの表示非表示 -->
 					<div class="d-flex justify-content-end p-1">
 						<h6 id="condition-toggler" class="text-primary px-3" 
 							data-bs-toggle="collapse" data-bs-target="#topicCreation"> 
-							<span class="d-none">[表示]</span>
-							<span>[隠す]</span>
+							<span>[表示]</span>
+							<span class="d-none">[隠す]</span>
 						</h6>
 					</div>
 					<!-- 新規投稿内容 -->
@@ -106,14 +116,7 @@
 						</form>
 					</div>
 				</article>
-				<!-- トピック情報 -->
-				<div th:each="topic : ${topics}">
-					<article class="post-container">
-						<div th:id="${topic.topicNo}" class="m-3">
-							<div th:replace="fragments/Topic :: topic(${topic})"></div>
-						</div>	
-					</article>
-				</div>
+				
 			</div>
 			<!-- Message Content -->
 			<div th:replace="fragments/Toast :: toast"></div>
