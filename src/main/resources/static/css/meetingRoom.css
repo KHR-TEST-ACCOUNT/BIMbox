@@ -15,22 +15,32 @@ main {
     cursor: pointer;
 }
 
-.accordion div i {
+.ac-parent i.fa-chevron-down {
 	position: relative;
-	bottom: 5px;
+	top: 2px;
+	cursor: pointer;
 	color: #595959;
+    font-size: 20px;
+    margin-right: 7px;
 	-webkit-transition: all 0.4s ease;
 	-o-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 }
 
-.accordion div.open i.fa-chevron-down {
+.ac-parent.open i.fa-chevron-down {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
+.ac-child{
+	display: none;
+	margin: 0
+}
+
+/*
+*/
 
 
 /**********
@@ -317,6 +327,7 @@ button:focus {
 .topics{
 	margin: 0;
 	overflow: auto;
+	transition-duration: .5s;
 }
 
 #postText{
@@ -611,16 +622,6 @@ button:focus {
 
 .comment-box input:focus {
 	outline: none;
-}
-
-.two .fa {
-	cursor: pointer;
-	margin-right: 7px;
-	font-size: 20px;
-	/*
-	opacity: 0;
-	*/
-	transform: translateY(7px);
 }
 
 .three {

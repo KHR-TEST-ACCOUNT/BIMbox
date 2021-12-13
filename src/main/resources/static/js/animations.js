@@ -217,10 +217,55 @@ $(function() {
 	}
 
 
+	function isSureMsg() {
+		// 削除を押下したとき
+		const promise = new Promise((resolve, reject) => {
+			
+			// 削除確認アラート
+			const swalWithBootstrapButtons = Swal.mixin({
+				customClass: {
+					confirmButton: 'btn btn-success',
+					cancelButton: 'btn btn-danger'
+				},
+				buttonsStyling: false
+			})
+			swalWithBootstrapButtons.fire({
+				title: '本当に削除しますか?',
+				text: '',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonText: '削除します',
+				cancelButtonText: 'キャンセル',
+				reverseButtons: true
+			}).then((result) => {
+				// 削除実行
+				if (result.isConfirmed) {
+					swalWithBootstrapButtons.fire(
+						'正常に削除しました',
+						'',
+						'success'
+					)
+					isDelete = true;
+				} else if (result.dismiss === Swal.DismissReason.cancel) {
+					// キャンセル処理
+					swalWithBootstrapButtons.fire(
+						'キャンセルしました',
+						'',
+						'error'
+					)
+					isDelete = false;
+				}
+			})
+			resolve(isDelete);
+		});
+		return promise;
+	}
+
+
 	function isDoDelete(isDeleted) {
 		const promise2 = new Promise((resolve, reject) => {
 			// isDelete isDeleted
-			isDeleted = false
+			isDeleted = false,
 			setTimeout(() => {
 				if (isDeleted) {
 					(this).parents('form').attr('action', $(this).data('action'));

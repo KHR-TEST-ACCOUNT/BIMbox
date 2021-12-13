@@ -20,15 +20,18 @@
 				<form th:action="@{/manage/users/UserSearch.do}" method="post" class="search-container container-fluid">
 					<div class="p-1 searchBlock">
 						<!-- 検索条件 -->
-						<div class="d-flex align-items-between">
+						<div class="d-flex align-items-between ac-parent">
 							<h6 class="search-criteria">検索条件</h6>
-							<h6 id="condition-toggler" class="text-primary" 
-								data-bs-toggle="collapse" data-bs-target="#searchCondition"> 
-								<span class="d-none">[隠す]</span>
+							<h6 id="condition-toggler" class="link" >
+							<!-- 
+								data-bs-toggle="collapse" data-bs-target="#topicCreation"> 
 								<span>[表示]</span>
+								<span class="d-none">[隠す]</span>
+							 -->
+								<i class="fa fa-chevron-down"></i>
 							</h6>
 						</div>
-						<div id="searchCondition" class="collapse">
+						<div id="searchCondition" class="collapse ac-child">
 							<div class="border p-3 rounded">
 								<div class="row">
 									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
@@ -77,15 +80,18 @@
 				<!-- トピック新規登録 -->
 				<article class="moodle-container">
 					<!-- Formの表示非表示 -->
-					<div class="d-flex justify-content-end p-1">
-						<h6 id="condition-toggler" class="text-primary px-3" 
+					<div class="d-flex justify-content-end p-1 ac-parent">
+						<h6 id="condition-toggler" class="px-3 link" >
+						<!-- 
 							data-bs-toggle="collapse" data-bs-target="#topicCreation"> 
 							<span>[表示]</span>
 							<span class="d-none">[隠す]</span>
+						 -->
+							<i class="fa fa-chevron-down"></i>
 						</h6>
 					</div>
 					<!-- 新規投稿内容 -->
-					<div id="topicCreation" class="collapse mt-3" th:object="${topicCreationForm}"
+					<div id="topicCreation" class="collapse mt-3 ac-child" th:object="${topicCreationForm}"
 						 th:classappend="${topicCreationForm.isError ? '' : ''}">
 						<form th:action="@{/comms/CreateTopic.do}" method="POST" class="border px-3 bg-light form-content" autocomplete="off">
 							<!-- topic content  collapse -->
