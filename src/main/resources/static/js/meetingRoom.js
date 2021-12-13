@@ -1,30 +1,52 @@
 
-//tooltip
+// layout
 $(function() {
 	
+	// 読み込み時にPostの高さを決定する
 	$(document).ready(function() {
 		decide_topics_height();
 	});
 	
-	/**
-	$(document).on('click', '#condition-toggler', function() {
+	$(window).on('resize', function() {
 		decide_topics_height();
 	});
-	 */
 	
+	// accordion
+	$('.link').on('click', function() {
+		accodion_do($(this))
+		setTimeout(function() {
+			decide_topics_height()
+			},
+			450
+		);		
+	});
+	
+	function accodion_do(e){
+		var parent = e.closest('.ac-parent');
+		parent.nextAll('.ac-child').slideToggle();
+		parent.toggleClass("open");
+		$('.ac-parent').not(parent).removeClass('open');
+		$('.ac-parent').not(parent).nextAll('.ac-child').slideUp();
+	}
+	
+	//　Postの高さを決定する
 	function decide_topics_height(){
 		var column_height = $(window).height() - 40;
 		var sc_height = $('.search-container').outerHeight(true);
 		var mc_height = $('.moodle-container').outerHeight(true);
-		var show_height = $('.show').outerHeight(true);
 		
 		var topics_height = column_height - (sc_height + mc_height)
 		$('.topics').outerHeight(topics_height);
 	}
 	
-	$('[data-toggle="tooltip"]').tooltip();
 })
 
+
+// tooltip
+$(function() {
+	$('[data-toggle="tooltip"]').tooltip();
+});
+	
 	
 //textareaの高さを自動で合わせる
 $(function() {
@@ -37,38 +59,6 @@ $(function() {
 		}
 	});
 });
-
-
-// Accordion
-$(function() {
-
-	// OnClick Event で発火させる。
-	var Accordion = function(event, multiple) {
-		this.event = event || {};
-		this.multiple = multiple || false;
-
-		// Variables privadas
-		var links = this.event.find('.link');
-		// Evento
-		links.on('click', {event: this.event, multiple: this.multiple}, this.dropdown)
-	}
-
-	Accordion.prototype.dropdown = function(e) {
-		var $el = e.data.event;
-			$this = $(this),
-			$next = $this.parents('.accordion').siblings('.submenu');
-
-		$next.slideToggle();
-		$this.parent().toggleClass('open');
-
-		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-		};
-	}	
-
-	var accordion = new Accordion($('#accordion'), false);
-});
-
 
 
 //send options
