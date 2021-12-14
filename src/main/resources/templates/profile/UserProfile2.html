@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'ユーザ−情報表示', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/profile.css}">
+	<script type="text/javascript" th:src="@{/}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+		<form th:object="${profileEditForm}" class="animsition">
+			<div class="container-fluid p-4 position-relative">
+				<div class="row g-4">
+					<div class="col col-12">
+						<h5 class="m-0 pb-2 mb-3 border-bottom">アカウント情報</h5>
+					</div>
+				</div>
+				<div class="row gy-2 mb-4">
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">ユーザー番号</span>
+					</div>
+					<div class="col col-12 col-md-9">
+						<span th:text="${targetUser.empNo}"></span>
+					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">ユーザー名</span>
+					</div>
+					<div class="col col-12 col-md-9">
+						<span th:text="${targetUser.username}"></span>
+						<span class='toEnterToChatRoom' th:if="!${#strings.equals(#authentication.principal.id, targetUser.id)}">
+							<a th:href="|@{/ChatRoom.html}?id=${targetUser.id}|" class="text-decoration-none">
+								チャットルームへ
+							</a>
+						</span>
+					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">E-Mail</span>
+					</div>
+					<div class="col col-12 col-md-9">
+						<span th:text="${targetUser.email}">user@sample.co.jp</span>
+					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">プロフィール画像</span>
+					</div>
+					<div class="col col-12 col-md-9">
+						<div class="p-1 d-inline-block" id="dragandrophandler">
+							<img
+								th:src="${targetUser.profileImage.encodedString}"
+								alt="" class="profile-photo" id="thumbnail" />
+						</div>
+					</div>
+				</div>
+				<div class="row g-3">
+					<div class="col col-12">
+						<h5 class="m-0 pb-2 mb-3 border-bottom">個人情報</h5>
+					</div>
+				</div>
+				<div class="row gy-2 mb-4">
+				
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">同じ趣味のユーザー</span>
+					</div>
+					<div class="col col-12 col-md-8">
+						<a  th:each="user : ${profileEditForm.sujestUsers}" 
+							th:href="|@{/profile/UserProfile.html}?id=${user.key}|" class="text-decoration-none">
+		                	<span th:text="${user.value.name}"></span>
+						</a>
+					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">自己紹介</span>
+					</div>
+					<div class="col col-12 col-md-8">
+						<span th:if="!${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="*{aboutMe}" class="personal-info">自分自身についての簡単な紹介（256文字以内）</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.aboutMe)}" th:text="'未登録'" class="personal-info">登録されていません</span>
+					</div>
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">郵便番号</span>
+					</div>
+					<div class="col col-12 col-md-8 d-flex">
+						<span th:if="!${#strings.isEmpty(profileEditForm.zipcode)}" th:text="*{zipcode}" class="personal-info">ハイフンなし</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.zipcode)}" th:text="'未登録'" class="personal-info">登録されていません</span>
+					</div>
+					<!-- 住所 -->
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">住所</span>
+					</div>
+					<div class="col col-12 col-md-8">
+						<span th:if="${!#strings.isEmpty(profileEditForm.pref)}" th:text="*{pref}" class="personal-info">都道府県</span>
+						<span th:if="${#strings.isEmpty(profileEditForm.pref)}" th:text="'未登録'" class="personal-info">登録されていません</span>
+					</div>
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.pref) && !#strings.isEmpty(profileEditForm.city)}" >
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{city}" class="personal-info">市区町村</span>
+						</div>
+					</th:block>
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.city) && !#strings.isEmpty(profileEditForm.bldg) }" >
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{bldg}" class="personal-info">番地・建物</span>
+						</div>
+					</th:block>
+					<!-- 電話番号 -->
+					<div class="col col-12 col-md-3">
+						<span class="fw-bold">電話番号</span>
+					</div>
+					<!-- 自宅のみ登録 -->
+					<th:block th:if="${#strings.isEmpty(profileEditForm.mobilePhoneNo) && !#strings.isEmpty(profileEditForm.phoneNo) }" >
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{phoneNo}" class="personal-info">自宅</span>
+						</div>
+						<div class="col col-12 col-md-3 "></div>
+					</th:block>
+					<!-- 携帯のみ登録 -->
+					<div th:if="${!#strings.isEmpty(profileEditForm.mobilePhoneNo) && #strings.isEmpty(profileEditForm.phoneNo) }" 
+						 class="col col-12 col-md-8">
+							<span th:text="*{mobilePhoneNo}" class="personal-info">携帯</span>
+					</div>
+					<!-- 両方未登録 -->
+					<div th:if="${#strings.isEmpty(profileEditForm.mobilePhoneNo) && #strings.isEmpty(profileEditForm.phoneNo) }"
+						 class="col col-12 col-md-8 existsBoth">
+						<span th:text="'未登録'" class="personal-info">自宅</span>
+					</div>
+					<!-- 両方登録 -->
+					<th:block th:if="${!#strings.isEmpty(profileEditForm.mobilePhoneNo) && !#strings.isEmpty(profileEditForm.phoneNo) }">
+						<div class="col col-12 col-md-8 ">
+							<span th:text="*{phoneNo}" class="personal-info">自宅</span>
+						</div>
+						<div class="col col-12 col-md-3 "></div>
+						<div class="col col-12 col-md-8">
+							<span th:text="*{mobilePhoneNo}" class="personal-info">携帯</span>
+						</div>
+					</th:block>
+				</div>
+				<div class="footer px-3">
+					<th:block th:with="userRole = ${#authentication.principal.roles.get(0).code}">
+						<!-- 変更不可 -->
+						<a  th:if="${userRole.equals('01') && targetUser.id != #authentication.principal.id}"
+							class="btn btn-success btn-sm shadow-sm" id="disabled_do" >プロフィール編集</a>
+						<!-- 変更可能 -->
+						<a  th:unless="${userRole.equals('01') && targetUser.id != #authentication.principal.id}"
+							th:href="|@{/profile/Profile.html}?id=${targetUser.id}|" id="editProfile"
+							class="btn btn-success btn-sm shadow-sm" >プロフィール編集</a>
+					</th:block>
+				</div>
+			</div>
+		</form>
+		<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>
