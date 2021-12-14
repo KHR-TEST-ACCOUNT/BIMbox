@@ -134,34 +134,33 @@
 				<th:block th:if="${searchResult}">
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
-							<div class="card-rounded-7 mb-3 p-1">
+							<div class="card-content card-rounded-7 mb-3 p-1">
 								<div class="zooming">
-									<img class="card-image"
+									<img class="card-image" id="show-user-modal"
 										th:src="${ user.profileImage.encodedString}"
 										alt="Card image cap" data-id="601" data-toggle="modal"
-										data-target="#show-user-modal">
+										th:data-target="'#show-user-modal' + ${user.id}" >
 								</div>
 								<div class="card-body">
-									<input type="hidden" id="userId" th:text="${ user.id }">
-									<h5 class="card-text" th:text="${user.username}">
+									<input type="hidden" name="userId" id="userId" th:text="${ user.id }">
+									<h5 class="card-text username" th:text="${user.username}">
 										<i class="fa fa-male"></i> user name
 									</h5>
 									<p class="card-text">
 										<i class="fas fa-podcast" style="color: gray"></i>
 										<th:block th:switch="${user.roles.get(0).code}">
-											<span th:case=01 th:text="User">user-role</span>
-											<span th:case=02 th:text="Manager">user-role</span>
-											<span th:case=03 th:text="Administer">user-role</span>
-											<span th:case=* th:text="Unknown">user-role</span>
+											<span th:case=01 th:text="User" class="user-role">user-role</span>
+											<span th:case=02 th:text="Manager" class="user-role">user-role</span>
+											<span th:case=03 th:text="Administer" class="user-role">user-role</span>
+											<span th:case=* th:text="Unknown" class="user-role">user-role</span>
 										</th:block>
 									</p>
 								</div>
 							</div>
 							
 							<!-- Modal インタラクティブウィンドウからの飛び出し-->
-							<div class="modal fade" id="show-user-modal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLongTitle"
-								aria-hidden="true">
+							<div class="modal fade"th:id="'show-user-modal' + ${user.id}"
+								 tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-lg" role="document">
 								
 									<div class="modal-content">
@@ -181,12 +180,12 @@
 												</div>
 												<div class="col-sm-8" id="show-user-details">
 													<p id="show-user-age">Age: 25</p>
-													<p id="show-user-region">administer: 
+													<p id="show-user-region">access level: 
 														<th:block th:switch="${user.roles.get(0).code}">
-															<span th:case=01 th:text="User">user-role</span>
-															<span th:case=02 th:text="Manager">user-role</span>
-															<span th:case=03 th:text="Administer">user-role</span>
-															<span th:case=* th:text="Unknown">user-role</span>
+															<span th:case=01 th:text="User" class="user-role">user-role</span>
+															<span th:case=02 th:text="Manager" class="user-role">user-role</span>
+															<span th:case=03 th:text="Administer" class="user-role">user-role</span>
+															<span th:case=* th:text="Unknown" class="user-role">user-role</span>
 														</th:block>
 													</p>
 													
@@ -201,8 +200,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="modal-footer row mr-5">
-											<div class="col-9" id="user-update">
+										<div class="modal-footer row mx-3">
+											<div class="col-12" id="user-update">
 												<p id="show-user-update">
 													<small class="text-muted">Created at:
 														2020-04-01T09:37:57.270Z<br>Updated at:
