@@ -85,6 +85,10 @@ main {
     transform: translate(-50%, -50%)
 }
 
+#show-user-update{
+	text-align: center!important;
+}
+
 .btn-favorite {
 	position: absolute;
 	left: 77%;

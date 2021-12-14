@@ -134,7 +134,7 @@
 				<th:block th:if="${searchResult}">
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
-							<div class="card-rounded-7 mb-3 p-1">
+							<div class="card-content card-rounded-7 mb-3 p-1">
 								<div class="zooming">
 									<img class="card-image"
 										th:src="${ user.profileImage.encodedString}"
@@ -142,8 +142,8 @@
 										data-target="#show-user-modal">
 								</div>
 								<div class="card-body">
-									<input type="hidden" id="userId" th:text="${ user.id }">
-									<h5 class="card-text" th:text="${user.username}">
+									<input type="hidden" name="userId" id="userId" th:text="${ user.id }">
+									<h5 class="card-text username" th:text="${user.username}">
 										<i class="fa fa-male"></i> user name
 									</h5>
 									<p class="card-text">
@@ -181,7 +181,7 @@
 												</div>
 												<div class="col-sm-8" id="show-user-details">
 													<p id="show-user-age">Age: 25</p>
-													<p id="show-user-region">administer: 
+													<p id="show-user-region">user-role: 
 														<th:block th:switch="${user.roles.get(0).code}">
 															<span th:case=01 th:text="User">user-role</span>
 															<span th:case=02 th:text="Manager">user-role</span>
@@ -201,8 +201,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="modal-footer row mr-5">
-											<div class="col-9" id="user-update">
+										<div class="modal-footer row mx-3">
+											<div class="col-12" id="user-update">
 												<p id="show-user-update">
 													<small class="text-muted">Created at:
 														2020-04-01T09:37:57.270Z<br>Updated at:
