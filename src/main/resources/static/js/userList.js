@@ -13,5 +13,6 @@ $(function() {
 			$(".page-wrapper").addClass("toggled");
 		}
 	}
+	
 });
 
