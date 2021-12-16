@@ -41,8 +41,9 @@ public class ProfileService {
 		// （Profileタグ）自分以外のユーザー情報を更新する場合、Userに更新対象の情報を格納する。
 		if(form.getUserId() != user.getId()) user = provideUserInfo(form.getUserId());
 		// 名前変更時の処理
-		if(!user.getUsername().equals(form.getName())) user.setUsername(form.getName());
-		
+		if(!Objects.isNull(form.getName())) {
+			if(!user.getUsername().equals(form.getName())) user.setUsername(form.getName());
+		}
 		// （Accontタグ）Email変更時の処理
 		if(!Objects.isNull(form.getEmail())) {
 			if(!user.getEmail().equals(form.getEmail())) user.setEmail(form.getEmail());
