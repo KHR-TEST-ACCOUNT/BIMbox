@@ -39,8 +39,7 @@
   }
 }
 
-
-body {
+body, .sidebar-brand a, .sidebar-menu li {
 	font-size: 0.9rem;
 }
 
@@ -112,10 +111,6 @@ body {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
-}
-
-.sidebar-wrapper a {
-	text-decoration: none;
 }
 
 .sidebar-wrapper a {

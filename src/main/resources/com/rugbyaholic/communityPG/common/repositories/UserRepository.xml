@@ -388,6 +388,7 @@
 	<![CDATA[
 		UPDATE  USERS
 		SET     NAME		 =	#{username},
+				EMAIL		 =	#{email},
 				PASSWORD     =  #{password},
 		        PROFILE_IMG  =  #{profileImage.encodedString}
 		WHERE   ID           =  #{id}

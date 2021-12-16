@@ -40,7 +40,7 @@ a, button, input[type=submit] {
 }
 
 #settings {
-opacity: 0;
+	opacity: 0;
     transform-origin: center top;
     will-change: opacity, transform;
     animation: rotateIn 1000ms cubic-bezier(0.215, 0.61, 0.355, 1) 500ms forwards;

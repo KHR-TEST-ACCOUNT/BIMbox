@@ -8,7 +8,14 @@
 
 .page-wrapper .page-content {
 	height: 100vh;
-    border-radius: 20px;
+}
+
+html {
+  font-size: 0.9px;
+}
+
+body, .sidebar-brand a, .sidebar-menu li {
+    font-size: 16rem;
 }
 
 ul, li{
@@ -69,14 +76,8 @@ img {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-/* typography */
-html {
-  font-size: 1px;
-  /*for using REM units*/
-}
-
-body {
-  font-size: 16rem;
+.main-grid {
+  font-size: 17rem;
   line-height: 1.3;
   color: var(--dark-gray);
 }
@@ -392,6 +393,7 @@ html {
   white-space: nowrap;
   overflow: hidden;
   display: block;
+  font-size: smaller;
 }
 
 .common-header-start {

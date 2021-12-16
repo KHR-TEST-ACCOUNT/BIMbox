@@ -1,5 +1,6 @@
 package com.rugbyaholic.communityPG.auth.account;
 
+import java.util.Objects;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,21 +38,26 @@ public class ProfileService {
 		// DB登録用の画像ファイル名を生成
 		MultipartFile uploadFile = form.getUploadFile();
 		
-		// 自分以外のユーザー情報を更新する場合、Userに更新対象の情報を格納する。
+		// （Profileタグ）自分以外のユーザー情報を更新する場合、Userに更新対象の情報を格納する。
 		if(form.getUserId() != user.getId()) user = provideUserInfo(form.getUserId());
 		// 名前変更時の処理
 		if(!user.getUsername().equals(form.getName())) user.setUsername(form.getName());
-		// パスワード更新時の処理
-		if (form.getPassword() != null) {
+		
+		// （Accontタグ）Email変更時の処理
+		if(!Objects.isNull(form.getEmail())) {
+			if(!user.getEmail().equals(form.getEmail())) user.setEmail(form.getEmail());
+		}
+		// （Accontタグ）パスワード更新時の処理
+		if(!Objects.isNull(form.getPassword())) {
 			user.setPassword(passwordEncoder.encode(form.getPassword()));
 		}
-		// ファイルアップロード時の処理
+		
+		// (共通)ファイルアップロード時の処理
 		if (!uploadFile.isEmpty()) {
 			ImageFile imageFile = new ImageFile();
 			imageFile.encode(uploadFile);
 			user.setProfileImage(imageFile);
 		}
-		
 		// USERSテーブル更新
 		updateCount += repository.changeProfile(user);
 		// PERSONAL_INFOテーブル更新
