@@ -95,7 +95,8 @@
 								<li class="large">
 									<fieldset class="material">
 										<div>
-											<textarea th:field="*{aboutMe}"></textarea>
+											<textarea th:field="*{aboutMe}" required
+												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" ></textarea>
 										<!-- 
 											<input type="text" class=""
 												th:field="*{aboutMe}" placeholder="自己紹介（256文字以内）"
