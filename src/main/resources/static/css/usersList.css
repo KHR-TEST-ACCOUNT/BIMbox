@@ -39,7 +39,6 @@ main {
   --scale-ratio: 2.0;
   --width-length: 32px;
   --height-length: 32px;
-
   position: absolute;
   width: var(--width-length);
   height: var(--height-length);
