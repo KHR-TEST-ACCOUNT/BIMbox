@@ -30,45 +30,28 @@ $(function() {
 
 $(function() {
 	
-	const $body = $("body");
 	const $main = $(".page-content");
-	const $header = $(".page-header");
-	const $navCollapse = $(".navbar-collapse");
 	const scrollClass = "scroll";
-
-	console.log('start');
 	
-	$('.page-content').on("scroll", () => {
-			const scrollY = $(this).scrollTop();
-			if(scrollY > 20) {
-				$main.addClass(scrollClass);
-			}
-			if(scrollY <= 20) {
-				$main.removeClass(scrollClass);
-			}
-			
-				/**
-				? $header.css('background','none')
-				: $header.css('background','var(--red)');
-				
-				? $header.removeClass(scrollClass)
-				: $header.addClass(scrollClass);
-				
-		if (this.matchMedia("(min-width: 992px)").matches) {
-		} else {
-			$main.removeClass(scrollClass);
-		}
-				 */
+	$('.page-content').on("scroll", function() {
+		const scrollY = $(this).scrollTop();
+	    scrollY > 7
+	      ? $main.addClass(scrollClass)
+	      : $main.removeClass(scrollClass);
 	});
-	
+});
+
+
+// Scroll　Function
+$(function() {
 	$(".page-header .nav-link, .navbar-brand").on("click", function(e) {
-		// e.preventDefault();
+		e.preventDefault();
 		const href = $(this).attr("href");
-		$("html, body").animate({
-			scrollTop: $(href).offset().top - 71
+		console.log($('.page-content').scrollTop());
+		$(".page-content").animate({
+			scrollTop: $(href).offset().top - 58
 		}, 600);
 	});
-	
 });
 
 

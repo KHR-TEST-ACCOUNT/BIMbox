@@ -32,6 +32,7 @@
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
 		
 		<main class="page-content animsition">
+			<div class="page-scroll">
 
 			<!-- Header -->
 			<header class="page-header">
@@ -46,13 +47,13 @@
 						<div class="collapse navbar-collapse justify-content-lg-between" id="navbarNav">
 							<ul class="navbar-nav">
 								<li class="nav-item">
-									<a class="nav-link" href="#process">About</a>
+									<a class="nav-link" href="#about">About</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#popular-destinations">Available Features</a>
+									<a class="nav-link" href="#features">Available Features</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#featured-destinations">Feature Details</a>
+									<a class="nav-link" href="#details">Feature Details</a>
 								</li>
 							</ul>
 							<div class="text-white">
@@ -92,7 +93,7 @@
 				</section>
 				
 				<!-- about -->
-				<section id="process" class="process">
+				<section id="about">
 					<div class="container-fluid container-fluid-max">
 						<div class="row text-center py-5">
 							<div class="col-12 pb-4">
@@ -141,7 +142,7 @@
 				
 				
 				<!-- features -->
-				<section id="popular-destinations" class="popular-destinations py-5">
+				<section id="features" class="py-5">
 					<div id="page-bussiness" class="container-fluid container-fluid-max">
 						<div class="row wrap">
 							<div class="col-12">
@@ -267,7 +268,7 @@
 				
 				
 				<!-- details -->
-				<section id="featured-destinations" class="featured-destinations bg-lightblue m-3">
+				<section id="details" class="bg-lightblue m-3">
 					<div class="row no-gutters">
 						<div class="col-12">
 							<h2 class="p-2 text-red">Feature Details</h2>
@@ -303,6 +304,7 @@
 			</div>
 			<!-- main content end -->
 
+		</div>
 		</main>
 		<!-- page-content" -->
 	</div>
