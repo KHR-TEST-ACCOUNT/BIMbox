@@ -39,25 +39,35 @@ $(function() {
 	console.log('start');
 	
 	$('.page-content').on("scroll", () => {
+		
+		
 			const scrollY = $(this).scrollTop();
-			if(scrollY > 20) {
+			if(scrollY > 0){
 				$main.addClass(scrollClass);
-			}
-			if(scrollY <= 20) {
+			} else {
 				$main.removeClass(scrollClass);
 			}
 			
 				/**
+			scrollY > 0
+				? $main.removeClass(scrollClass)
+				: $main.addClass(scrollClass);
+				
+		if (this.matchMedia("(min-width: 992px)").matches) {
+			const scrollY = $(this).scrollTop();
+			scrollY > 0
+				? $main.removeClass(scrollClass)
+				: $main.addClass(scrollClass);
+		} else {
+			$main.removeClass(scrollClass);
+		}
+
 				? $header.css('background','none')
 				: $header.css('background','var(--red)');
 				
 				? $header.removeClass(scrollClass)
 				: $header.addClass(scrollClass);
 				
-		if (this.matchMedia("(min-width: 992px)").matches) {
-		} else {
-			$main.removeClass(scrollClass);
-		}
 				 */
 	});
 	

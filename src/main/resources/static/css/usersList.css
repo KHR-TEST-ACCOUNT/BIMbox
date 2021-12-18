@@ -16,10 +16,13 @@ main {
 	background: #e5ddd5
 }
 
-.topics{
-	margin: 0;
+.topics {
 	overflow: auto;
 	transition-duration: 1s;
+	border-radius: 0.5rem !important;
+	padding-top: 1rem !important;
+	margin-top: 1.2rem !important;
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
 .page-content .navbar{
@@ -36,7 +39,6 @@ main {
   --scale-ratio: 2.0;
   --width-length: 32px;
   --height-length: 32px;
-
   position: absolute;
   width: var(--width-length);
   height: var(--height-length);
