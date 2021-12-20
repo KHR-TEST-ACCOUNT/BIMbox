@@ -399,6 +399,12 @@ section.upcoming h1 {
     display: inline-block;
  }
  
+.material .textarea-label {
+    position: absolute;
+    top: 0;
+    font-size: 12px;
+}
+ 
 .material input:focus ~ hr:after {
 	transform: scaleX(1) translateZ(0);
 }

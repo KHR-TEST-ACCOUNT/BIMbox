@@ -95,14 +95,14 @@
 								<li class="large">
 									<fieldset class="material">
 										<div>
-											<textarea th:field="*{aboutMe}" required
+											<label class="textarea-label">About me</label>
+											<textarea th:field="*{aboutMe}" required placeholder=""
 												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" ></textarea>
 										<!-- 
 											<input type="text" class=""
 												th:field="*{aboutMe}" placeholder="自己紹介（256文字以内）"
 												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" />
 										 -->
-											<label>About me</label>
 											<hr>
 										</div>
 									</fieldset>
@@ -221,15 +221,6 @@
 								<li class="large padding avatar">
 									<img th:src="${targetUser.profileImage.encodedString}"
 										 alt="" class="profile-photo" id="thumbnail" />
-									<div>
-										<fieldset class="material-button">
-											<div>
-												<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">Select File</label>
-												<input type="file" id="photo-file" class="d-none" accept="image/*"
-													th:field="*{uploadFile}" />
-											</div>
-										</fieldset>
-									</div>
 								</li>
 								<li>
 									<fieldset class="material">
@@ -275,45 +266,6 @@
 										</div>
 									</fieldset>
 								</li>
-								
-								<!-- 
-								<li class="padding">
-									<fieldset class="material-button">
-										<div>
-											<button class="connect gh connected">
-												<span>Unlink Github Account</span>
-											</button>
-										</div>
-									</fieldset>
-								</li>
-								<li class="padding">
-									<fieldset class="material-button">
-										<div>
-											<button class="connect tw">
-												<span>Link Twitter Account</span>
-											</button>
-										</div>
-									</fieldset>
-								</li>
-								<li class="padding">
-									<fieldset class="material-button">
-										<div>
-											<button class="connect fb">
-												<span>Link Facebook Account</span>
-											</button>
-										</div>
-									</fieldset>
-								</li>
-								<li class="padding">
-									<fieldset class="material-button">
-										<div>
-											<button class="connect li">
-												<span>Link LinkedIn Account</span>
-											</button>
-										</div>
-									</fieldset>
-								</li>
-								 -->
 								<li class="large padding save-button">
 									<fieldset class="material-button center">
 										<div>

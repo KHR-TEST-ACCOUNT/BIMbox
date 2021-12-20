@@ -59,18 +59,41 @@
 						<textarea class="form-control text-dark readonly p-0 auto-resize" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
 					</div>
 					
+					<!-- end -->
+				</form>
 					<!-- post footer -->
 					<div class="bottom-bar-container">
 						<div class="bottom-bar-social">
+						<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
+							th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
 							<!-- like -->
-							<input id="like" type="checkbox" placeholder="" name="socialIcon" />
-							<label class="social" for="like" id="liked-after">
-								<span class="glyphicon glyphicon-thumbs-up">Like</span>
-							</label>
-							<input id="comment" type="checkbox" placeholder="" name="socialIcon" />
+									<div class="d-flex align-items-baseline">
+										<!-- 
+										<input type="hidden" th:text="${rateByUser.rater}">
+										<input type="hidden" th:text="${rateByUser.rater == 0}">
+										 -->
+										<button type="button" class="like-count btn btn-link text-dark ajax-link" 
+												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
+											<th:block th:if="!${rateByUser.rater}">
+												<i class="far fa-star"></i>
+											</th:block>
+											<th:block th:if="${rateByUser.rater}">
+												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
+													<i class="far fa-star"></i>
+												</div>								 
+												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
+													<i class="fas fa-star"></i>
+												</div>	
+											</th:block>							 
+										</button>
+										<span class="like-counter ps-1 pt-1" th:text="${rateByUser.goodRatings.size()}">13</span>
+									</div>
+						</form>
 							<!-- comment -->
 							<label class="social" for="comment">
-								<span class="glyphicon glyphicon-comment">Comment</span>
+								<span class="glyphicon glyphicon-comment">
+									<i class="far fa-comment-alt"></i>
+								</span>
 							</label>
 							<!-- Smooth Drop Down menu -->
 							<label class="social link text-end" th:if="${post.isFirstPost() && topic.posts.size() > 1}">
@@ -83,8 +106,6 @@
 							</div>
 						</div>
 					</div>				
-					<!-- end -->
-				</form>
 			</div>
 		</div>
 		<!-- </article> -->

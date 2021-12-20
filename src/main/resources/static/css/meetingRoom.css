@@ -515,6 +515,7 @@ button:focus {
 	padding: 10px;
 	padding-bottom: 0;
 	position: relative;
+	display: flex;
 }
 
 .bottom-bar-social .social {
@@ -534,6 +535,26 @@ button:focus {
 .bottom-bar-social .social:last-child {
 	margin-right: 0px;
 }
+
+.like-count{
+	padding: .5rem 0 0 0;	
+    font-size: 1.04rem!important;
+}
+
+.fa-comment-alt {
+    font-size: 1.28rem!important;
+    padding: 0.24rem 0 0 0;
+}
+
+.fa-star{
+    color: darkorange;
+}
+
+.like-counter{
+    margin-right: 10px;
+}
+
+
 
 #liked-after:after {
 	content: "1 Like";
