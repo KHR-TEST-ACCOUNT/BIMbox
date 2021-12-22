@@ -42,6 +42,15 @@ $(function() {
 })
 
 
+// コメントとドロップダウンの非表示処理
+$(function() {
+	$(document).ready(function() {
+		var comment_list = $('.comment');
+	});
+	
+});
+	
+
 // tooltip
 $(function() {
 	$('[data-toggle="tooltip"]').tooltip();

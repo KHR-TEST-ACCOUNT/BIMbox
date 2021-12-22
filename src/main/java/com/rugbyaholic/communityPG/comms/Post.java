@@ -21,10 +21,22 @@ public class Post {
 
 	private List<PostRating> ratings;
 
+	
 	public boolean isFirstPost() {
 		return postNo == 1;
 	}
 
+	
+	public boolean isLastPost(List<Post> posts) {
+		return postNo == posts.size();
+	}
+	
+	
+	public boolean is1OrMore(List<Post> posts) {
+		return posts.size() > 1;
+	}
+	
+	
 	// ラムダでPostRatingの中に格納されているBeanの中から、Rantigを検索して返す。
 	public PostRating getRateByUser(AuthenticatedUser user) {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getId(), user.getId()))

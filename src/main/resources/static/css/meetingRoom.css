@@ -73,6 +73,11 @@ main {
   height: 1.25rem;
 }
 
+.link {
+	position: absolute;
+	right: 0;
+}
+
 .my-skeleton-at-mark {
   background-color: var(--gray);
   width: 100px;
@@ -369,7 +374,8 @@ button:focus {
 }
 
 .post-container #toggle-info,
-.profile-title #toggle-info {
+.profile-title #toggle-info,
+.profile-title #postEdit {
 	position: absolute;
 	right: 10px;
 	top: 50%;
@@ -377,8 +383,10 @@ button:focus {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
+	/*
 	border: 1px solid black;
 	border-radius: 100%;
+	*/
 	transition: 0.4s;
 }
 
@@ -519,7 +527,6 @@ button:focus {
 }
 
 .bottom-bar-social .social {
-	position: relative;
 	background: transparent;
 	cursor: pointer;
 	padding: 10px;
@@ -553,7 +560,6 @@ button:focus {
 .like-counter{
     margin-right: 10px;
 }
-
 
 
 #liked-after:after {
@@ -651,7 +657,17 @@ button:focus {
 	padding: 20px;
 }
 
-.column {
+.page-content  {
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.page-content::-webkit-scrollbar {
+	display: none;
+}
+
+.column  {
 	position: relative;
 }
 
