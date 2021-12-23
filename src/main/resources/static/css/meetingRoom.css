@@ -374,7 +374,8 @@ button:focus {
 }
 
 .post-container #toggle-info,
-.profile-title #toggle-info {
+.profile-title #toggle-info,
+.profile-title #postEdit {
 	position: absolute;
 	right: 10px;
 	top: 50%;
@@ -382,8 +383,10 @@ button:focus {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
+	/*
 	border: 1px solid black;
 	border-radius: 100%;
+	*/
 	transition: 0.4s;
 }
 
