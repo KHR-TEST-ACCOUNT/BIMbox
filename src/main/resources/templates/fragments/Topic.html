@@ -8,17 +8,17 @@
 		<!-- post header -->
 		<div class="post-top-bar row">
 			<h4 class="name col-10" th:text="${topic.subject}">topic</h4> 
+			
 			<form id="deleteForm" class="col-2 text-end" th:action="@{/comms/deleteTopic.do}" 
 				  method="post" th:object="${ topicSearchForm }">
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 				<div th:if="${topic.isOwnedBy(user)}">
 					<button id="topoicDelete" class="btn btn-link p-0 text-dark fs-5" title="トピック削除">
-						<i class="fas fa-cog"></i>
+						<i class="bi bi-trash"></i>
 					</button>
 				</div>
 			</form>
-			<!--
-			 -->		
+
  		</div>
 		
 		<!-- posts -->
@@ -47,16 +47,6 @@
 							<i class="bi bi-pencil-square"></i>
 						</button>
 						
-						<!-- 
-			 			<input class="toggle" type="checkbox" id="toggleFor" /> 
-						<label id="toggle-info" for="toggleFor"></label>
-						<aside class="toggle-options">
-							<h3>Copy link to post</h3>
-							<h3>Hide this post</h3>
-							<h3>Unfollow Michael</h3>
-							<h3>Report this post</h3>
-						</aside>
-						 -->
 					</div>
 					
 					<!-- content -->
@@ -82,31 +72,31 @@
 					<!-- post footer -->
 					<div class="bottom-bar-container">
 						<div class="bottom-bar-social">
-						<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
-							th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
-							<!-- like -->
-									<div class="d-flex align-items-baseline">
-										<!-- 
-										<input type="hidden" th:text="${rateByUser.rater}">
-										<input type="hidden" th:text="${rateByUser.rater == 0}">
-										 -->
-										<button type="button" class="like-count btn btn-link text-dark ajax-link" 
-												th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
-											<th:block th:if="!${rateByUser.rater}">
+							<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
+								th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
+								<!-- like -->
+								<div class="d-flex align-items-baseline">
+									<!-- 
+									<input type="hidden" th:text="${rateByUser.rater}">
+									<input type="hidden" th:text="${rateByUser.rater == 0}">
+									 -->
+									<button type="button" class="like-count btn btn-link text-dark ajax-link" 
+											th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
+										<th:block th:if="!${rateByUser.rater}">
+											<i class="far fa-star"></i>
+										</th:block>
+										<th:block th:if="${rateByUser.rater}">
+											<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
 												<i class="far fa-star"></i>
-											</th:block>
-											<th:block th:if="${rateByUser.rater}">
-												<div th:unless="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
-													<i class="far fa-star"></i>
-												</div>								 
-												<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
-													<i class="fas fa-star"></i>
-												</div>	
-											</th:block>							 
-										</button>
-										<span class="like-counter ps-1 pt-1" th:text="${rateByUser.goodRatings.size()}">13</span>
-									</div>
-						</form>
+											</div> 
+											<div th:if="${rateByUser.rater.id == user.id && rateByUser.rating gt 0 }">
+												<i class="fas fa-star"></i>
+											</div>
+										</th:block>							 
+									</button>
+									<span class="like-counter ps-1 pt-1" th:text="${rateByUser.goodRatings.size()}">13</span>
+								</div>
+							</form>
 							<!-- comment -->
 							<label class="social comment" for="comment" th:if="${ post.isFirstPost() || post.isLastPost(topic.posts) }">
 								<span class="glyphicon glyphicon-comment">
