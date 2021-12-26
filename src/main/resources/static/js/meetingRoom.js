@@ -51,6 +51,24 @@ $(function() {
 });
 	
 
+// コメントボックスの開閉
+/**
+ */
+$(function() {
+	// 開く
+	$('.comment').on('click', function(){
+		var comment_box = $(this).parent().nextAll('.comment-box');
+		if(comment_box.hasClass('open')){
+			comment_box.css('display', 'none');
+			comment_box.removeClass('open');
+		} else {
+			comment_box.css('display', 'block');
+			comment_box.addClass('open');
+		}
+	});
+});
+	
+	
 // tooltip
 $(function() {
 	$('[data-toggle="tooltip"]').tooltip();
