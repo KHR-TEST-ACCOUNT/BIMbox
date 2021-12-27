@@ -72,7 +72,29 @@ $('.image-upload-wrap').bind('dragleave', function() {
 	$('.image-upload-wrap').removeClass('image-dropping');
 });
 	
-
+	
+// 検索ボックスのグリッドレイアウト
+$(function() {
+	// ロード時の window size に合わせてSideNaviを表示
+	$(window).on('load', function() {
+		inLinefeed($(".search-container"));
+	});
+	// window size に合わせてSideNaviを非表示
+	$(window).on('resize', function() {
+		inLinefeed($(".search-container"));
+	});
+	// 要素の横幅によって改行を入れる
+	function inLinefeed(element) {
+		var element_width = element.innerWidth();
+		var input_title = element.find('strong');
+		if(element_width < 912){
+			
+			
+		}
+		/**
+		 */
+	}
+});
 
 
 

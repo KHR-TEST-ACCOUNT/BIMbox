@@ -39,6 +39,26 @@ main {
 	margin: 0
 }
 
+.inputArea{
+	
+}
+
+.inputArea strong {
+	margin: auto 10px;
+}
+
+.inputArea input {
+	display: block;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
 /*
 */
 
@@ -257,12 +277,16 @@ body {
 	height: 1px;
 }
 
-.two .moodle-container input {
-	border: none;
-	width: 100%;
-	padding: 30px 0px;
-	font-size: 19px;
-	color: #555;
+.two .moodle-container textarea {
+    border: none;
+    width: 100%;
+    padding: 6px 0px;
+    font-size: 14px;
+}
+
+.two .moodle-container #subject {
+	font-weight: 700;
+    font-size: 15px;    
 }
 
 .two .moodle-container input:focus {
@@ -640,6 +664,7 @@ button:focus {
 	width: 100%;
 	font-size: 16.5px;
 	text-indent: 10px;
+    padding: 6px 0px;
 }
 
 .comment-box input:focus {
@@ -795,6 +820,11 @@ button:focus {
     margin: 8px auto 0;	
 }
 
+.action-container .file-upload {
+	width: 80%;
+	margin-bottom: 9.5px;
+}
+
 .file-upload-btn {
 	width: 100%;
 	margin: 0;
@@ -839,7 +869,7 @@ button:focus {
 }
 
 .image-upload-wrap {
-	margin-top: 20px;
+	margin-top: 20px 0;
 	border: 4px dashed #1FB264;
 	position: relative;
 }
