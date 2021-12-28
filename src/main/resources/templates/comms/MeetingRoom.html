@@ -32,11 +32,11 @@
 							</h6>
 						</div>
 						<div id="searchCondition" class="collapse ac-child">
-							<div class="border p-3 rounded">
+							<div class="p-3">
 								<div class="row">
-									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
-										<strong style="width: 7rem;">トピック</strong> <input type="text"
-											class="form-control form-control-sm" style="width: 11rem;"
+									<div class="inputArea d-flex align-items-top">
+										<strong>トピック</strong> <input type="text"
+											
 											th:field="*{topicSearchForm.subjectContent}" />
 										<div
 											th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
@@ -44,15 +44,14 @@
 												th:errors="*{topicSearchForm.subjectContent}"></span>
 										</div>
 									</div>
-									<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
-										<strong style="width: 7rem;">投稿内容</strong> <input type="text"
-											class="form-control form-control-sm" style="width: 11rem;"
+									<div class="inputArea d-flex align-items-top">
+										<strong>投稿内容</strong> <input type="text"
+											
 											th:field="*{topicSearchForm.postContent}" />
 									</div>
-									<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
-										<strong style="width: 7rem;">投稿ユーザー</strong> <input
-											type="text" class="form-control form-control-sm"
-											style="width: 11rem;"
+									<div class="inputArea d-flex align-items-top">
+										<strong>投稿ユーザー</strong> <input
+											type="text" 
 											th:field="*{topicSearchForm.createByUser}" />
 									</div>
 								</div>
