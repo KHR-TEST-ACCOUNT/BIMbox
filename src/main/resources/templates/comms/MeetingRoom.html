@@ -32,28 +32,26 @@
 							</h6>
 						</div>
 						<div id="searchCondition" class="collapse ac-child">
-							<div class="p-3">
-								<div class="row">
-									<div class="inputArea d-flex align-items-top">
-										<strong>トピック</strong> <input type="text"
-											
-											th:field="*{topicSearchForm.subjectContent}" />
-										<div
-											th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
-											<span class="text-danger"
-												th:errors="*{topicSearchForm.subjectContent}"></span>
-										</div>
+							<div class="row py-3">
+								<div class="inputArea d-flex align-items-top">
+									<strong>トピック</strong> <input type="text"
+										
+										th:field="*{topicSearchForm.subjectContent}" />
+									<div
+										th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+										<span class="text-danger"
+											th:errors="*{topicSearchForm.subjectContent}"></span>
 									</div>
-									<div class="inputArea d-flex align-items-top">
-										<strong>投稿内容</strong> <input type="text"
-											
-											th:field="*{topicSearchForm.postContent}" />
-									</div>
-									<div class="inputArea d-flex align-items-top">
-										<strong>投稿ユーザー</strong> <input
-											type="text" 
-											th:field="*{topicSearchForm.createByUser}" />
-									</div>
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿ユーザー</strong> <input
+										type="text" 
+										th:field="*{topicSearchForm.createByUser}" />
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿内容</strong> <input type="text"
+										
+										th:field="*{topicSearchForm.postContent}" />
 								</div>
 							</div>
 							<div class="py-2">

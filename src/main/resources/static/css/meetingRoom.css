@@ -39,16 +39,22 @@ main {
 	margin: 0
 }
 
+#searchCondition{
+	margin-right: 80px;
+}
+
 .inputArea{
-	
+	margin: 5px 0;
 }
 
 .inputArea strong {
-	margin: auto 10px;
+	margin: auto 0;
+    width: 8.2rem;
 }
 
 .inputArea input {
 	display: block;
+	width: 100%;
 	font-weight: 400;
 	line-height: 1.5;
 	border: 1px solid #ced4da;
