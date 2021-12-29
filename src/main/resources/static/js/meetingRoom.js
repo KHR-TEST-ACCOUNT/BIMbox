@@ -88,7 +88,6 @@ $(function() {
 		var element_width = element.innerWidth();
 		var inputArea = element.find('.inputArea');
 		
-		
 		if (element_width >= 744 && element_width < 1072) {
 			inputArea.each(function() {
 				$(this).css('width', '50%');
@@ -102,8 +101,6 @@ $(function() {
 				$(this).css('width', '33.333%');
 			});
 		}
-		/**
-		 */
 	}
 });
 

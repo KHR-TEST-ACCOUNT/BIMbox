@@ -14,13 +14,13 @@
 		
 
 			<!-- Content -->
-			<nav class="page-header navbar navbar-light bg-dark search-container">
-				<div class="center d-flex justify-content-center">
-					<a  th:href="@{/manage/users/UserList.html}" class="navbar-brand btn" style="color: white;">User List</a> 
+			<nav class="page-header navbar navbar-light shadow-sm search-container">
+				<div class="center d-flex justify-content-center w-100 mx-4">
+					<a  th:href="@{/manage/users/UserList.html}" class="navbar-brand btn" style="color: #51515a;">User List</a> 
 					<form class="foge" th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
 							<!-- ユーザー登録・検索 -->
 						<div class="input-group">
-							<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名">
+							<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名、趣味、自己紹介文 を検索できます。">
 							<div class="input-group-append">
 								<button type="submit" class="btn btn-secondary" >
 									<i class="fa fa-search"></i>
@@ -29,14 +29,6 @@
 						</div>
 					</form>
 				</div>
-					<!-- 
-					<a href="#" id="condition-toggler" 
-					   data-bs-toggle="collapse" data-bs-target="#searchCondition">
-						<span class="d-none">[隠す]</span>
-						<span>[表示]</span>
-					</a>
-					 -->
-				
 				
 				<!-- ユーザー登録・検索 -->
 				<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
@@ -44,7 +36,6 @@
 						<!-- ユーザー登録・検索 -->
 						<div class="border p-3 rounded">
 							<div class="row">
-
 								<!-- Actual search box -->
 								<div class="d-flex align-items-top input-group col-12">
 									<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名">
@@ -63,74 +54,9 @@
 					</div>
 				</form>
 			</nav>
-								<!-- 
-								<div class="d-flex align-items-top input-group col-12">
-									<input type="text" class="form-control" th:field="*{empNo}" placeholder="趣味">
-									<div class="input-group-append">
-										<button class="btn btn-secondary" type="button">
-											<i class="fa fa-search"></i>
-										</button>
-									</div>
-								</div>
-								 -->
-
-								<!-- 
-										<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
-											<strong style="width: 7rem;">ユーザー番号</strong> <input
-												type="text" class="form-control form-control-sm"
-												style="width: 11rem;" th:field="*{empNo}"
-												placeholder="Search by name..." />
-										</div>
-										<div class="d-flex align-items-top mb-2  col-md-5 col-lg-4">
-											<strong style="width: 7rem;">ユーザー名</strong>
-											<input type="text" class="form-control form-control-sm" style="width: 11rem;"
-												   th:field="*{name}" placeholder="Search by name..." />
-										</div>
-										<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
-											<strong style="width: 7rem;">趣味</strong> 
-												<select class="form-select form-select-sm" style="width: 11rem;" th:field="*{hobbys}">
-												<option value="">-- 選択してください</option>
-												<option value="プログラミング">プログラミング</option>
-												<option value="アウトドア">アウトドア</option>
-												<option value="ファッション">ファッション</option>
-												<option value="筋トレ">筋トレ</option>
-												<option value="映画">映画</option>
-												<option value="漫画・アニメ">漫画・アニメ</option>
-												<option value="ペット">ペット</option>
-											</select>
-										</div>
-											 -->
-
-								<!-- 
-												<select name="" th:field="*{hobbys}">
-													<option value="">-- 選択してください</option>
-													<option value="プログラミング">プログラミング</option>
-													<option value="アウトドア">アウトドア</option>
-													<option value="ファッション">ファッション</option>
-													<option value="筋トレ">筋トレ</option>
-													<option value="映画">映画</option>
-													<option value="漫画・アニメ">漫画・アニメ</option>
-													<option value="ペット">ペット</option>
-												</select> 
-												
-												 -->
-						<!-- 
-								<div class="text-end newRegist">
-									<a  th:if="${#authentication.principal.roles.get(0).code == '01'}"
-										id="disabled_do" class="btn btn-outline-primary btn-sm shadow-sm">
-										<span>ユーザー新規登録</span>
-									</a>
-									<a  th:unless="${#authentication.principal.roles.get(0).code == '01'}"
-										th:href="@{/manage/users/UserRegistration.html}" class="btn btn-outline-primary btn-sm shadow-sm py-2">
-										<span>ユーザー新規登録</span>
-									</a>
-								</div>
-								 -->
-			
-			
 			
 			<!-- data-panel -->
-			<div class="container topics">
+			<div class="container topics shadow-sm">
 				<th:block th:if="${searchResult}">
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
@@ -142,7 +68,9 @@
 										th:data-target="'#show-user-modal' + ${user.id}" >
 								</div>
 								<div class="card-body">
-									<input type="hidden" name="userId" id="userId" th:text="${ user.id }">
+									<!-- 
+									 -->
+									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
 									<h5 class="card-text username" th:text="${user.username}">
 										<i class="fa fa-male"></i> user name
 									</h5>
@@ -165,7 +93,6 @@
 								
 									<div class="modal-content">
 										<div class="modal-header">
-											<input type="hidden" id="userId" th:text="${ user.id }">
 											<h3 class="modal-title" id="show-user-name" th:text="${user.username}"></h3>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
@@ -180,15 +107,6 @@
 												</div>
 												<div class="col-sm-8" id="show-user-details">
 													<p id="show-user-age">Age: 25</p>
-													<p id="show-user-region">access level: 
-														<th:block th:switch="${user.roles.get(0).code}">
-															<span th:case=01 th:text="User" class="user-role">user-role</span>
-															<span th:case=02 th:text="Manager" class="user-role">user-role</span>
-															<span th:case=03 th:text="Administer" class="user-role">user-role</span>
-															<span th:case=* th:text="Unknown" class="user-role">user-role</span>
-														</th:block>
-													</p>
-													
 													<p id="show-user-birthday">
 														<i class="fa fa-birthday-cake"></i> 1995-05-05
 													</p>
@@ -196,7 +114,12 @@
 														<i class="fa fa-envelope"></i>
 														<span th:text="${user.email}"></span>
 													</p>
-				
+													<p id="show-user-detail">
+														<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|" class="user-detail">
+															<i class="fas fa-sign-in-alt"></i>
+															<span th:text="プロフィールへ"></span>
+														</a>
+													</p>
 												</div>
 											</div>
 										</div>
@@ -204,7 +127,6 @@
 											<div class="col-12" id="user-update">
 												<p id="show-user-update">
 													<small class="text-muted">Created at:
-														2020-04-01T09:37:57.270Z<br>Updated at:
 														2020-04-01T09:37:57.270Z
 													</small>
 												</p>

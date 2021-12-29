@@ -546,14 +546,7 @@ html {
 .chats {
   overflow-y: auto;
   scrollbar-width: thin;
-  /*-webkit-overflow-scrolling:touch;*/
   background-color: var(--white);
-}
-
-.chats-item {
-  /* layout grid */
-  /*** end grid ***/
-  /*overrides last item*/
 }
 
 .chats-item-button {
@@ -591,10 +584,6 @@ html {
 }
 
 .chats-item-header {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
   display: flex;
   padding-top: 10px;
 }
