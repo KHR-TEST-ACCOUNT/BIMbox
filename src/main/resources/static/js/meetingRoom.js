@@ -86,10 +86,21 @@ $(function() {
 	// 要素の横幅によって改行を入れる
 	function inLinefeed(element) {
 		var element_width = element.innerWidth();
-		var input_title = element.find('strong');
-		if(element_width < 912){
-			
-			
+		var inputArea = element.find('.inputArea');
+		
+		
+		if (element_width >= 744 && element_width < 1072) {
+			inputArea.each(function() {
+				$(this).css('width', '50%');
+			});
+		} else if (element_width < 744) {
+			inputArea.each(function() {
+				$(this).css('width', '100%');
+			});
+		} else {
+			inputArea.each(function() {
+				$(this).css('width', '33.333%');
+			});
 		}
 		/**
 		 */
