@@ -12,46 +12,58 @@
 	<div class="page-wrapper chiller-theme toggled">
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
 		<main class="page-content animsition">
-			<!-- Content -->
-			<div class="column two">
-			
-			
-				<!-- 投稿検索 -->
-				<form th:action="@{/manage/users/UserSearch.do}" method="post" class="search-container container-fluid">
-					<div class="p-1 searchBlock">
+			<form th:action="@{/manage/users/UserSearch.do}" method="post">
+				<nav class="page-header navbar navbar-light shadow-sm search-container">
+					<!-- 投稿検索 -->
+					<div class="center d-flex justify-content-center w-100" style="margin: 0 40px;">
+						<a th:href="@{/comms/MeetingRoom.html}" class="navbar-brand btn"
+							style="color: #51515a;">Search</a>
 						<!-- 検索条件 -->
+						<div class="input-group">
+							<input type="text" class="form-control search-content"
+								placeholder="ユーザー名、トピック名、投稿内容 を検索できます。"
+								th:field="*{topicSearchForm.subjectContent}" />
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-secondary h-100">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+							<!-- error message -->
+							<div
+								th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+								<span class="text-danger"
+									th:errors="*{topicSearchForm.subjectContent}"></span>
+							</div>
+						</div>
+					</div>
+				</nav>				
+			</form>
+					
+					<!-- 
+					<div class="p-1 searchBlock">
 						<div class="d-flex align-items-between ac-parent">
 							<h6 class="search-criteria">検索条件</h6>
-							<h6 class="link" >
-							<!-- 
-								data-bs-toggle="collapse" data-bs-target="#topicCreation"> 
-								<span>[表示]</span>
-								<span class="d-none">[隠す]</span>
-							 -->
+							<h6 class="link">
 								<i class="fa fa-chevron-down"></i>
 							</h6>
 						</div>
 						<div id="searchCondition" class="collapse ac-child">
 							<div class="row py-3">
 								<div class="inputArea d-flex align-items-top">
-									<strong>トピック</strong> <input type="text"
-										
-										th:field="*{topicSearchForm.subjectContent}" />
-									<div
-										th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
-										<span class="text-danger"
-											th:errors="*{topicSearchForm.subjectContent}"></span>
+									<strong>トピック</strong>
+									<input type="text" th:field="*{topicSearchForm.subjectContent}">
+									<div th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+										<span class="text-danger" th:errors="*{topicSearchForm.subjectContent}">
+										</span>
 									</div>
 								</div>
 								<div class="inputArea d-flex align-items-top">
-									<strong>投稿ユーザー</strong> <input
-										type="text" 
-										th:field="*{topicSearchForm.createByUser}" />
+									<strong>投稿ユーザー</strong>
+									<input type="text" th:field="*{topicSearchForm.createByUser}">
 								</div>
 								<div class="inputArea d-flex align-items-top">
-									<strong>投稿内容</strong> <input type="text"
-										
-										th:field="*{topicSearchForm.postContent}" />
+									<strong>投稿内容</strong>
+									<input type="text" th:field="*{topicSearchForm.postContent}">
 								</div>
 							</div>
 							<div class="py-2">
@@ -60,9 +72,13 @@
 								</button>
 							</div>
 						</div>
-					</div>
-				</form>
+					</div>				
+					 -->
+					
 
+			<!-- Content -->
+			<div class="column two">
+			
 				<!-- トピック情報 -->
 				<div class="topics">
 					<div th:each="topic : ${topics}">
@@ -92,6 +108,9 @@
 								<div th:if="${#fields.hasErrors('subject')}">
 									<span class="text-danger" th:errors="*{subject}"></span>
 								</div>
+								
+								<button class="post-button shadow">Post</button>
+								
 							</div>
 							<!-- post content -->
 							<div class="share-container">
@@ -118,7 +137,7 @@
 							<input class="file-upload-input" type='file'
 								onchange="readURL(this);" accept="image/*" />
 							<div class="drag-text">
-								<h3>Drag and drop a file or select add Image</h3>
+								<h3>Drag and drop or click to add image.</h3>
 							</div>
 						</div>
 						<div class="file-upload-content">

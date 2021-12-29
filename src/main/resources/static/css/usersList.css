@@ -16,17 +16,19 @@ main {
 	background: #e5ddd5
 }
 
-.topics {
+.topics  {
 	overflow: auto;
 	transition-duration: 1s;
-	border-radius: 0.5rem !important;
-	padding-top: 1rem !important;
-	margin-top: 1.2rem !important;
-	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+	margin-top: 1.5rem !important;
+ 	transition-duration: .5s;
 }
 
 .page-content .navbar{
 	min-height: 58px;	
+}
+
+.card-body {
+    padding: 1rem;
 }
 
 #home:hover {
@@ -87,8 +89,17 @@ main {
     transform: translate(-50%, -50%)
 }
 
-#show-user-update{
-	text-align: center!important;
+#show-user-update {
+	text-align: center !important;
+}
+
+.user-detail {
+	color: rgb(0 0 0/ 90%);
+	text-decoration: none !important;
+}
+
+.user-detail:hover {
+	color: rgb(63, 111, 177);
 }
 
 .btn-favorite {

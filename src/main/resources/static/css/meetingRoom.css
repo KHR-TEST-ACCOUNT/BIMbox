@@ -230,10 +230,10 @@ body {
 	flex-direction: column;
 	grid-column: 2/4;
 	grid-row: 2/3;
-	padding: 20px;
+    padding: 20px;	
 }
 
-.search-container, .moodle-container, .post-container {
+.moodle-container, .post-container {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -891,7 +891,6 @@ button:focus {
 
 .drag-text h3 {
 	font-weight: 100;
-	text-transform: uppercase;
 	color: #15824B;
 	padding: 60px 0;
 }

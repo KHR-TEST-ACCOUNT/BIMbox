@@ -700,13 +700,19 @@ section.upcoming h1 {
 }
 
 .card-body {
-	padding: 0 1rem 1rem;
+	padding: 1rem;
 }
 
 .card-body a {
 	color: #525b64;
     font-size: 15px;	
+    text-decoration: none!important;
 }
+
+.card-body a:hover {
+	color: rgb(63, 111, 177);
+}
+
 
 @keyframes rotateIn {
   0% {

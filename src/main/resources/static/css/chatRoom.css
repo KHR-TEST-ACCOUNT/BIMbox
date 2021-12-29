@@ -100,6 +100,7 @@ html {
 
 .u-margin-end {
   margin-right: 10px !important;
+  margin-left: 10px !important;
 }
 
 .u-hide {
@@ -164,15 +165,12 @@ html {
 /* Grid Layout */
 .main-grid {
   --private-block-margins:0;
-  /* private variables are for local componenet use */
   position: relative;
   left: 0;
   right: 0;
   top: var(--private-block-margins);
   bottom: var(--private-block-margins);
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  /*logic styles*/
 }
 
 @media (max-width: 885px), (min-width: 886px) and (max-width: 1023px), (min-width: 1024px) and (max-width: 1439px) {
