@@ -18,6 +18,24 @@
 			
 				<!-- 投稿検索 -->
 				<form th:action="@{/manage/users/UserSearch.do}" method="post" class="search-container container-fluid">
+				
+			<nav class="page-header navbar navbar-light shadow-sm search-container">
+				<div class="center d-flex justify-content-center w-100 mx-4">
+					<a href="/manage/users/UserList.html" class="navbar-brand btn" style="color: #51515a;">User List</a> 
+					<!-- ユーザー登録・検索 -->
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="ユーザー名、趣味、自己紹介文 を検索できます。" id="name" name="name" value="">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-secondary">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</nav>				
+				
+				
+				
 					<div class="p-1 searchBlock">
 						<!-- 検索条件 -->
 						<div class="d-flex align-items-between ac-parent">
