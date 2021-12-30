@@ -31,31 +31,34 @@ main {
     padding: 1rem;
 }
 
+#home {
+	transition: all 0.5s ease;
+}
+
 #home:hover {
-	transform: scale(1.1)
+	transform: scale(1.1);
 }
 
 .zooming:hover img {
-	transform: scale(1.2)
-/*
-  --scale-ratio: 2.0;
-  --width-length: 32px;
-  --height-length: 32px;
-  position: absolute;
-  width: var(--width-length);
-  height: var(--height-length);
-  left: calc( ((var(--scale-ratio) - 1) * var(--width-length) ) / 2);
-  top: calc( ((var(--scale-ratio) - 1) * var(--height-length) ) / 2);
-  border: 1px solid #ff6a00;
-  position: absolute;
-  transform: scale(var(--scale-ratio),var(--scale-ratio));
-*/
+	transform: scale(.8);
+	position: relative;
+    top: 0;
 }
 
 .zooming {
-	overflow: hidden;
+    overflow: hidden;
     height: 200px;
-    position: relative
+    margin: auto;
+}
+
+.card-image  {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	max-width: 240px;
+	max-height: 190px;
+	border-radius: 0.3rem;
+	transition: all 0.5s ease;
 }
 
 .foge{
@@ -74,19 +77,6 @@ main {
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.7rem;
-}
-
-.card-image {
-	transition: all 0.5s ease;
-    max-width: 240px;
-    border-top-left-radius: calc(0.25rem - 1px);
-    border-top-right-radius: calc(0.25rem - 1px);
-	max-height: 190px;
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
 }
 
 #show-user-update {
