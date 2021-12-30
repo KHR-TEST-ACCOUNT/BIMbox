@@ -2,11 +2,13 @@ $(function() {
 	// ロード時の window size に合わせてSideNaviを表示
 	$(window).on('load', function() {
 		rePages();
+		reRows();
 		inLinefeed($("#privacy"));
 	});
 	// window size に合わせてSideNaviを非表示
 	$(window).on('resize', function() {
 		rePages();
+		reRows();
 		inLinefeed($("#privacy"));
 	});
 	
@@ -19,18 +21,33 @@ $(function() {
 		settings.css('top', contentTop);
 	}
 	
+	// function
+	function reRows() {
+		const target = $("#aboutMe");
+		const maxLineHeight = 8;
+		let lineHeight = Number(target.attr("rows"));
+		while (lineHeight < maxLineHeight) {
+			lineHeight++;
+			target.attr("rows", lineHeight);
+		}
+	}
+	
 	// 要素の横幅によって改行を入れる
 	function inLinefeed(element) {
 		var element_width = element.innerWidth();
 		var user_card = element.find('.user-card');
 		
-		if (element_width >= 642 && element_width < 956) {
+		if (642 <= element_width && element_width < 956) {
 			user_card.each(function() {
 				$(this).css('width', '33.333%');
 			});
-		} else if (element_width < 642) {
+		} else if (397 <= element_width && element_width < 642) {
 			user_card.each(function() {
 				$(this).css('width', '50%');
+			});
+		} else if (element_width < 397) {
+			user_card.each(function() {
+				$(this).css('width', '100%');
 			});
 		} else {
 			user_card.each(function() {

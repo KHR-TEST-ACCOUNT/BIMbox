@@ -36,10 +36,11 @@ ul {
     opacity: 1;
 }
 
-.save-button{
-    position: fixed;
-    bottom: 50px;
-    left: -12px;
+.save-button {
+	position: fixed;
+	bottom: 50px;
+	left: 0%;
+	margin: auto;
 }
 
 a, button, input[type=submit] {
@@ -188,6 +189,7 @@ input.nav:nth-of-type(3):checked ~ main section:nth-of-type(3) {
 	transform: translateY(0) translateZ(0);
 	opacity: 1;
 	z-index: 10;
+    overflow: scroll;
 }
 
 input.nav:nth-of-type(4) {
@@ -397,6 +399,8 @@ section.upcoming h1 {
 .material textarea {
     line-height: normal;
     display: inline-block;
+    max-height: 166px;
+    overflow: scroll;    
  }
  
 .material .textarea-label {

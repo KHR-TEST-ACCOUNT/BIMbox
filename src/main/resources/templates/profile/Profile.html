@@ -91,7 +91,7 @@
 									<fieldset class="material">
 										<div>
 											<label class="textarea-label">About me</label>
-											<textarea th:field="*{aboutMe}" required placeholder=""
+											<textarea th:field="*{aboutMe}" placeholder="" rows="1"
 												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" ></textarea>
 											<hr>
 										</div>

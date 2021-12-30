@@ -169,6 +169,7 @@ html {
 /* Grid Layout */
 .main-grid {
   --private-block-margins:0;
+  height: 100vh;
   position: relative;
   left: 0;
   right: 0;
@@ -459,7 +460,8 @@ html {
   background-color: var(--white);
   width: -moz-fit-content;
   width: fit-content;
-  max-width: 500px;
+  max-width: 80vh;
+  overflow-wrap: break-word;
   padding: 8px;
   border-radius: 8px;
   box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
@@ -587,6 +589,14 @@ html {
   grid-area: image;
 }
 
+.chat-reception{
+	color: black;
+}
+
+.chat-reception:hover{
+	color: #0d6efd;
+}
+
 .chats-item-header {
   grid-area: header;
 }
@@ -606,6 +616,7 @@ html {
 .chats-item-header {
   display: flex;
   padding-top: 10px;
+  height: 36px;
 }
 
 .chats-item-title {
