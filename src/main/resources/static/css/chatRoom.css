@@ -94,12 +94,17 @@ html {
   display: flex !important;
 }
 
+.u-header {
+	margin-left: 17px;
+}
+
 .u-flex-column {
   flex-direction: column !important;
 }
 
 .u-margin-end {
   margin-right: 10px !important;
+  margin-left: 10px !important;
 }
 
 .u-hide {
@@ -164,15 +169,12 @@ html {
 /* Grid Layout */
 .main-grid {
   --private-block-margins:0;
-  /* private variables are for local componenet use */
   position: relative;
   left: 0;
   right: 0;
   top: var(--private-block-margins);
   bottom: var(--private-block-margins);
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  /*logic styles*/
 }
 
 @media (max-width: 885px), (min-width: 886px) and (max-width: 1023px), (min-width: 1024px) and (max-width: 1439px) {
@@ -300,12 +302,12 @@ html {
   transition: 0.2s;
 }
 
-.common-search::before {
-  content: "🔎";
-  position: absolute;
-  left: 30px;
-  top: 15px;
-  filter: grayscale(1) opacity(0.5);
+.common-search::before  {
+	content: "🔎";
+	position: absolute;
+	left: 36px; top : 18px;
+	filter: grayscale(1) opacity(0.5);
+	top: 18px;
 }
 
 .common-search:focus-within {
@@ -356,6 +358,10 @@ html {
   text-align: center;
   filter: grayscale(1) opacity(0.5);
   transition: 0.2s;
+}
+
+.common-button .fa-paper-plane {
+	margin-top: 6px;
 }
 
 .twitter {
@@ -460,11 +466,25 @@ html {
   margin-bottom: 10px;
 }
 
-.common-message time {
-  font-size: 11rem;
-  color: rgba(0, 0, 0, 0.45);
-  float: right;
-  margin-top: 8px;
+.common-message .massage-footer {
+	margin-top: 9px;
+}
+
+.massage-footer time {
+	font-size: 11rem;
+	color: rgba(0, 0, 0, 0.45);
+	float: left;
+	margin-right: 10px;
+}
+
+.massage-footer a {
+	float: right;
+}
+
+.common-message i {
+	font-size: 15rem;
+	color: rgba(0, 0, 0, 0.45);
+	float: right;
 }
 
 .common-message .status {

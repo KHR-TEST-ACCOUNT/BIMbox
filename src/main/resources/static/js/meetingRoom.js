@@ -34,9 +34,33 @@ $(function() {
 		var column_height = $(window).height() - 40;
 		var sc_height = $('.search-container').outerHeight(true);
 		var mc_height = $('.moodle-container').outerHeight(true);
+		var search_box = $('.search-content');
+		var addImgBox_text = $('.drag-text');
 		
 		var topics_height = column_height - (sc_height + mc_height)
 		$('.topics').outerHeight(topics_height);
+		
+		if(search_box.innerWidth() < 398){
+			search_box.attr('placeholder', 'by topic, user, post.');
+		} else {
+			search_box.attr('placeholder', 'ユーザー名、トピック名、投稿内容 を検索できます。');
+		}
+		
+		/**
+		if(addImgBox_text.innerWidth() < 434){
+			addImgBox_text.each(function() {
+				$(this);
+				$(this).html('<h3>Drag and drop or click.</h3>');
+			});
+		} else {
+			addImgBox_text.each(function() {
+				$(this);
+				$(this).html('<h3>Drag and drop or click to add image.</h3>');
+			});
+			// addImgBox_text.html('<h3>Drag and drop or click to add image.</h3>');
+		}
+		 */
+		
 	}
 	
 })
@@ -73,6 +97,7 @@ $('.image-upload-wrap').bind('dragleave', function() {
 });
 	
 	
+/**
 // 検索ボックスのグリッドレイアウト
 $(function() {
 	// ロード時の window size に合わせてSideNaviを表示
@@ -103,13 +128,7 @@ $(function() {
 		}
 	}
 });
-
-
-
-
-
-
-
+ */
 
 
 // コメントとドロップダウンの非表示処理
