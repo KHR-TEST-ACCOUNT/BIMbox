@@ -360,7 +360,7 @@ html {
   transition: 0.2s;
 }
 
-.common-button .fa-paper-plane {
+.common-button .fas, .common-button .far {
 	margin-top: 6px;
 }
 
@@ -482,7 +482,7 @@ html {
 }
 
 .common-message i {
-	font-size: 15rem;
+	font-size: 14rem;
 	color: rgba(0, 0, 0, 0.45);
 	float: right;
 }
