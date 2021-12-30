@@ -19,7 +19,10 @@
 				<aside class="main-side">
 					<header class="common-header" th:with="user=${#authentication.principal}">
 						<div class="common-header-start">
-							<button class="u-flex js-user-nav">
+						
+						
+						
+							<button class="u-flex js-user-nav u-header">
 								<img class="profile-image" th:src="${user.profileImage.encodedString}" />
 								<div class="common-header-content">
 									<h1 class="common-header-title" th:text="${user.username}">username</h1>
@@ -115,36 +118,38 @@
 								<!-- ログインUserの送信したメッセージは消去可能 -->
 								<li class="common-message" th:classappend="${isMessagedBy} ? is-you : is-other" >
 									<p class="common-message-content" th:text="${chatMsg.content}"></p> 
-									<time datetime th:text="${chatMsg.AVF}">14:11</time>
-									<!-- 削除 -->
-									 <th:block th:if="${isMessagedBy}">
-										<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
-										class="text-decoration-none text-end" onclick="deleterMsg(event,this)"> 
-											<i class="fas fa-trash"></i>
-											<input type="hidden" th:value="${chatMsg.msgId}" />
-										</a> 
-										<!-- 復元 --> 
-										<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
-										class="text-decoration-none text-end" onclick="updateMsgData(event,this)"> 
-											<small>復元</small> 
-											<input type="hidden" th:value="${chatMsg.msgId}" />
-										</a>
-									</th:block>
+									<div class="massage-footer">
+										<time datetime th:text="${chatMsg.AVF}">14:11</time>
+										<!-- 削除 -->
+										 <th:block th:if="${isMessagedBy}">
+											<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
+											class="text-decoration-none text-end" onclick="deleterMsg(event,this)"> 
+												<i class="fas fa-trash"></i>
+												<input type="hidden" th:value="${chatMsg.msgId}" />
+											</a> 
+											<!-- 復元 --> 
+											<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
+											class="text-decoration-none text-end" onclick="updateMsgData(event,this)"> 
+												<small>復元</small> 
+												<i class="fas fa-trash-restore"></i>
+												<input type="hidden" th:value="${chatMsg.msgId}" />
+											</a>
+										</th:block>
+									</div>
 								</li>
 							</th:block>
 						</ol>
 					</div>
 					<div class="message-box">
-						<button class="common-button">
-							<span class="icon">😃</span>
-						</button>
-						<div class="text-input" id="message-box"
-							placeholder="Type a message" contenteditable></div>
 						<button id="voice-button" class="common-button">
-							<span class="icon">🎤</span>
+							<i class="fas fa-images icon"></i>
+						</button>
+						<div class="text-input" id="message-box" placeholder="Type a message" contenteditable></div>
+						<button id="voice-button" class="common-button">
+							<i class="fas fa-pen icon"></i>
 						</button>
 						<button id="submit-button" class="common-button">
-							<span class="icon">➤</span>
+							<i class="far fa-paper-plane icon"></i>
 						</button>
 					</div>
 				</main>

@@ -94,6 +94,10 @@ html {
   display: flex !important;
 }
 
+.u-header {
+	margin-left: 17px;
+}
+
 .u-flex-column {
   flex-direction: column !important;
 }
@@ -298,12 +302,12 @@ html {
   transition: 0.2s;
 }
 
-.common-search::before {
-  content: "🔎";
-  position: absolute;
-  left: 30px;
-  top: 15px;
-  filter: grayscale(1) opacity(0.5);
+.common-search::before  {
+	content: "🔎";
+	position: absolute;
+	left: 36px; top : 18px;
+	filter: grayscale(1) opacity(0.5);
+	top: 18px;
 }
 
 .common-search:focus-within {
@@ -354,6 +358,10 @@ html {
   text-align: center;
   filter: grayscale(1) opacity(0.5);
   transition: 0.2s;
+}
+
+.common-button .fas, .common-button .far {
+	margin-top: 6px;
 }
 
 .twitter {
@@ -458,11 +466,25 @@ html {
   margin-bottom: 10px;
 }
 
-.common-message time {
-  font-size: 11rem;
-  color: rgba(0, 0, 0, 0.45);
-  float: right;
-  margin-top: 8px;
+.common-message .massage-footer {
+	margin-top: 9px;
+}
+
+.massage-footer time {
+	font-size: 11rem;
+	color: rgba(0, 0, 0, 0.45);
+	float: left;
+	margin-right: 10px;
+}
+
+.massage-footer a {
+	float: right;
+}
+
+.common-message i {
+	font-size: 14rem;
+	color: rgba(0, 0, 0, 0.45);
+	float: right;
 }
 
 .common-message .status {
