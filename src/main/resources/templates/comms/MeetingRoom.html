@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
-	<!-- 
-	<link rel="stylesheet" th:href="@{/css/post.css}">
-	 -->
 	<link rel="stylesheet" th:href="@{/css/meetingRoom.css}">
 	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
 </head>
@@ -16,8 +13,7 @@
 				<nav class="page-header navbar navbar-light shadow-sm search-container">
 					<!-- 投稿検索 -->
 					<div class="center d-flex justify-content-center w-100" style="margin: 0 40px;">
-						<a th:href="@{/comms/MeetingRoom.html}" class="navbar-brand btn"
-							style="color: #51515a;">Search</a>
+						<a th:href="@{/comms/MeetingRoom.html}" id="home" class="navbar-brand btn">Search</a>
 						<!-- 検索条件 -->
 						<div class="input-group">
 							<input type="text" class="form-control search-content"

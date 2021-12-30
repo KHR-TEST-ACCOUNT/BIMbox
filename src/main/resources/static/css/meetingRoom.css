@@ -145,6 +145,15 @@ body {
 	padding: 20px;
 }
 
+#home {
+	transition: all 0.5s ease;
+	color: #51515a;
+}
+
+#home:hover {
+	transform: scale(1.1);
+}
+
 .user-profile-container {
 	position: relative;
 	width: 100%;

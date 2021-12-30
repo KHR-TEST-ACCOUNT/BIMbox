@@ -24,13 +24,17 @@ $(function() {
 		var element_width = element.innerWidth();
 		var user_card = element.find('.user-card');
 		
-		if (element_width >= 642 && element_width < 956) {
+		if (642 <= element_width && element_width < 956) {
 			user_card.each(function() {
 				$(this).css('width', '33.333%');
 			});
-		} else if (element_width < 642) {
+		} else if (397 <= element_width && element_width < 642) {
 			user_card.each(function() {
 				$(this).css('width', '50%');
+			});
+		} else if (element_width < 397) {
+			user_card.each(function() {
+				$(this).css('width', '100%');
 			});
 		} else {
 			user_card.each(function() {
