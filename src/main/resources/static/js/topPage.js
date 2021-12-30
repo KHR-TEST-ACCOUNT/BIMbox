@@ -2,27 +2,25 @@
 
 $(function() {
 	
-	// 読み込み時にPostの高さを決定する
+	// 読み込み時にヘッダーの横幅を決定する
 	$(document).ready(function() {
 		decide_topics_width();
 	});
-	
 	$(window).on('resize', function() {
 		decide_topics_width();
 	});
-	
 	$('.fa-bars').on("click", function() {
 		decide_topics_width();
 	});
-	
 	$('.fa-times').on("click", function() {
 		$('.page-header').innerWidth($(window).width());
 	});
 	
-	//　Postの高さを決定する
-	function decide_topics_width(){
+	//　ヘッダーの横幅を決定する
+	function decide_topics_width() {
 		var $window = $(window).width();
 		var header_width = $window - $('#sidebar').outerWidth(true);
+		if ($window < 768) header_width = $window;
 		$('.page-header').innerWidth(header_width);
 	}
 })
