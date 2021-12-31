@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head
-	th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
-<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
-<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
+	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
 	<!-- サイドバー -->
@@ -19,9 +15,6 @@
 				<aside class="main-side">
 					<header class="common-header" th:with="user=${#authentication.principal}">
 						<div class="common-header-start">
-						
-						
-						
 							<button class="u-flex js-user-nav u-header">
 								<img class="profile-image" th:src="${user.profileImage.encodedString}" />
 								<div class="common-header-content">
@@ -43,34 +36,29 @@
 						<section class="chats">
 							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
 								<li class="chats-item">
-									<div class="chats-item-button js-chat-button" role="button"
-										tabindex="0">
+									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
 										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
 											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 										</a>
-										<header class="chats-item-header">
-											<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
-											<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
-										</header>
-										<div class="chats-item-content">
-											<p class="chats-item-last" th:text="${chatUser.content}">message content</p>
-											<ul class="chats-item-info">
-												<li class="chats-item-info-item u-hide">
-													<span class="icon-silent">🔇</span>
-												</li>
-											</ul>
-										</div>
-										<!-- 
-				            <footer class="chats-item-header">
-				              <time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
-				            </footer>
-				             -->
+										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" class="chat-reception text-decoration-none"> 
+											<div class="chats-item-header">
+												<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
+												<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
+											</div>
+											<div class="chats-item-content">
+												<p class="chats-item-last" th:text="${chatUser.content}">message content</p>
+											</div>
+										</a>
 									</div>
 								</li>
 							</ul>
 						</section>
 					</form>
 				</aside>
+				
+				
 				<main class="main-content">
 					<header class="common-header">
 						<div class="common-header-start">
@@ -80,27 +68,13 @@
 							<button class="u-flex js-side-info-button">
 								<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
 								<div class="common-header-content">
-								<!-- 
-									<h2 class="common-header-title" th:text="${toUsersInfo.empNo}">empNo</h2>
-								 -->
-									<p class="common-header-status" th:text="${toUsersInfo.username}">username</p>
+									<p class="common-header-status" th:text="${ toUsersInfo.username }">username</p>
 								</div>
 							</button>
+							<input type="hidden" id="display-id" th:value="${ toUsersInfo.id }" >
 						</div>
 						<nav class="common-nav">
 							<ul class="common-nav-list">
-							<!-- 
-								<li class="common-nav-item">
-									<button class="common-button">
-										<span class="icon">🔎</span>
-									</button>
-								</li>
-								<li class="common-nav-item">
-									<button class="common-button">
-										<span class="icon icon-attach">📎</span>
-									</button>
-								</li>
-							 -->
 								<li class="common-nav-item">
 									<button class="common-button u-animation-click js-side-info-button">
 										<span class="icon icon-menu" aria-label="menu"></span>
@@ -140,6 +114,7 @@
 							</th:block>
 						</ol>
 					</div>
+					<!-- message send -->
 					<div class="message-box">
 						<button id="voice-button" class="common-button">
 							<i class="fas fa-images icon"></i>
@@ -152,7 +127,9 @@
 							<i class="far fa-paper-plane icon"></i>
 						</button>
 					</div>
+					<!-- message send end -->
 				</main>
+				<!-- user detail -->
 				<aside class="main-info u-hide">
 					<header class="common-header">
 						<button class="common-button js-close-main-info">
