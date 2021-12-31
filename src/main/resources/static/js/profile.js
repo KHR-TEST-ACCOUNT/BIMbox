@@ -2,11 +2,13 @@ $(function() {
 	// ロード時の window size に合わせてSideNaviを表示
 	$(window).on('load', function() {
 		rePages();
+		reRows();
 		inLinefeed($("#privacy"));
 	});
 	// window size に合わせてSideNaviを非表示
 	$(window).on('resize', function() {
 		rePages();
+		reRows();
 		inLinefeed($("#privacy"));
 	});
 	
@@ -17,6 +19,17 @@ $(function() {
 		var settingHeight = contentHeight - settings.height();
 		var contentTop = settingHeight / 2;
 		settings.css('top', contentTop);
+	}
+	
+	// function
+	function reRows() {
+		const target = $("#aboutMe");
+		const maxLineHeight = 8;
+		let lineHeight = Number(target.attr("rows"));
+		while (lineHeight < maxLineHeight) {
+			lineHeight++;
+			target.attr("rows", lineHeight);
+		}
 	}
 	
 	// 要素の横幅によって改行を入れる

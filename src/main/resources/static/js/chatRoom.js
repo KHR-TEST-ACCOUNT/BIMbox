@@ -1,3 +1,12 @@
+/** */
+
+
+
+
+
+
+
+
 /*JS isnt my experty 😉*/
 $(document).ready(function() {
   $(".js-chat-button, .js-back").on("click", function(){
@@ -29,3 +38,6 @@ $(function() {
 		$(".page-wrapper").removeClass("toggled");
 	});
 });
+
+
+

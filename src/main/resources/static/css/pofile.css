@@ -399,6 +399,8 @@ section.upcoming h1 {
 .material textarea {
     line-height: normal;
     display: inline-block;
+    max-height: 166px;
+    overflow: scroll;    
  }
  
 .material .textarea-label {

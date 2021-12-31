@@ -1,5 +1,7 @@
 package com.rugbyaholic.communityPG.websocket;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -26,9 +28,10 @@ public class ChatController {
 	
 	// サジェストされたユーザーを追加。
 	@GetMapping("/conversationTo/ChatRoom.html")
-	public String conversationDo(Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+	public String conversationDo(@RequestParam(value = "id", required = false) Long toUserId, 
+					Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
 		chatRoomService.deleteMessageHistDemo();
-		Long toUserId = chatRoomService.findMostFirst(user);
+		if(Objects.isNull(toUserId)) toUserId = chatRoomService.findMostFirst(user);
 		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
 		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
