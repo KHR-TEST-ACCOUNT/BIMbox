@@ -13,10 +13,11 @@ $(document).ready(function() {
     $(".main-grid").toggleClass("is-message-open");
   });
   
-  $(".js-side-info-button, .js-close-main-info").on("click", function(){
-      $(".main-grid").toggleClass("is-main-info-open");
-      $(".main-info").toggleClass("u-hide");
-  });
+	// 表示切り替えボタンの表示
+	$(".js-side-info-button, .js-close-main-info").on("click", function() {
+		$(".main-grid").toggleClass("is-main-info-open");
+		$(".main-info").toggleClass("u-hide");
+	});
 });
 
 
@@ -45,7 +46,7 @@ $(function() {
 	
 	//ChatMessageの横幅を指定
 	function decide_msg_width(){
-		if($(window).width() < 886) {
+		if($(window).width() < 955) {
 			var msg_width = $('.messanger-list').innerWidth() * 0.7;
 			$('.common-message').css('max-width', msg_width);
 		}

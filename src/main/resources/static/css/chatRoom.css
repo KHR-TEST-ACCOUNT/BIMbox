@@ -462,9 +462,9 @@ html {
   position: relative;
   background-color: var(--white);
   /*
+  */
   width: -moz-fit-content;
   width: fit-content;
-  */
   max-width: 80vh;
   overflow-wrap: break-word;
   padding: 8px;
