@@ -36,13 +36,12 @@
 						<section class="chats">
 							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
 								<li class="chats-item">
-									<div class="chats-item-button js-chat-button" role="button"
-										tabindex="0">
+									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
 										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
 											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 										</a>
 										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
-										<input type="hidden" id="hoge" th:value="${ chatUser.toUserId }" >
 										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" class="chat-reception text-decoration-none"> 
 											<div class="chats-item-header">
 												<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
@@ -69,9 +68,10 @@
 							<button class="u-flex js-side-info-button">
 								<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
 								<div class="common-header-content">
-									<p class="common-header-status" th:text="${toUsersInfo.username}">username</p>
+									<p class="common-header-status" th:text="${ toUsersInfo.username }">username</p>
 								</div>
 							</button>
+							<input type="hidden" id="display-id" th:value="${ toUsersInfo.id }" >
 						</div>
 						<nav class="common-nav">
 							<ul class="common-nav-list">
