@@ -49,9 +49,11 @@
 								<div th:if="${ post.postImg }">
 									<img class="postImg" th:src="${ post.postImg.encodedString }" />
 								</div>
-								<textarea class="form-control text-dark readonly p-0" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
+								<textarea class="form-control text-dark readonly p-0" readonly 
+										  th:text="${post.postText}" name="postText" id="postText"></textarea>
 								
-								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
+								<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" 
+									 th:id="${(topic.topicNo) + (post.postNo)}">
 									<!-- update -->
 									<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
 									<!-- 投稿削除 NG-->
