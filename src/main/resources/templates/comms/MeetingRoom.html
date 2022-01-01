@@ -97,57 +97,44 @@
 					<!-- 新規投稿内容 -->
 					<div id="topicCreation" class="collapse mt-3 ac-child" th:object="${topicCreationForm}"
 						 th:classappend="${topicCreationForm.isError ? '' : ''}">
-						<form th:action="@{/comms/CreateTopic.do}" method="POST" class="border px-3 form-content" autocomplete="off">
-							<!-- topic content  collapse -->
-							<div class="share-container">
-								<textarea th:field="*{subject}" rows="1" placeholder="Enter a title for the topic."></textarea>
-								<div th:if="${#fields.hasErrors('subject')}">
-									<span class="text-danger" th:errors="*{subject}"></span>
+						<form th:action="@{/comms/CreateTopic.do}" method="POST" 
+							  class="border px-3 form-content" autocomplete="off">
+							<div style="display: flex;">
+								<div class="post-content">
+									<!-- topic content  collapse -->
+									<div class="share-container py-2">
+										<textarea th:field="*{subject}" rows="1" placeholder="Enter a title for the topic."></textarea>
+										<div th:if="${#fields.hasErrors('subject')}">
+											<span class="text-danger" th:errors="*{subject}"></span>
+										</div>
+									</div>
+									<!-- post content -->
+									<div th:if="${#fields.hasErrors('primaryPost')}">
+										<span class="text-danger" th:errors="*{primaryPost}"></span>
+									</div>
+									<div class="share-container">
+										<textarea th:field="*{primaryPost}" rows="1"
+											placeholder="Share an article, photo or idea."></textarea>
+									</div>
 								</div>
-								
 								<button class="post-button shadow">Post</button>
-								
 							</div>
-							<!-- post content -->
-							<div class="share-container">
-								<textarea th:field="*{primaryPost}" rows="1" placeholder="Share an article, photo, video, or idea"></textarea>
-								<div th:if="${#fields.hasErrors('primaryPost')}">
-									<span class="text-danger" th:errors="*{primaryPost}"></span>
+							<div class="file-upload">
+								<div class="image-upload-wrap">
+									<input class="file-upload-input" type='file'
+										onchange="readURL(this);" accept="image/*" />
+									<div class="drag-text">
+										<h3>Drag and drop or click to add image.</h3>
+									</div>
 								</div>
-							</div>
-							<!-- buttons -->
-							<div class="action-container">
-							
-							
-								<!-- img できてない。-->
-								<!-- 
-								<label for="photo-file" class="media-button">Image</label> 
-								<input type="file" id="photo-file" class="d-none" accept="image/*" />
-								<div class="p-1 d-inline-block" id="dragandrophandler">
-									<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+								<div class="file-upload-content">
+									<img class="file-upload-image" src="#" alt="your image" />
+									<div class="image-title-wrap">
+										<button type="button" onclick="removeUpload()" class="remove-image">
+											Remove <span class="image-title">Uploaded Image</span>
+										</button>
+									</div>
 								</div>
-								 -->
-								
-					<div class="file-upload">
-						<div class="image-upload-wrap">
-							<input class="file-upload-input" type='file'
-								onchange="readURL(this);" accept="image/*" />
-							<div class="drag-text">
-								<h3>Drag and drop or click to add image.</h3>
-							</div>
-						</div>
-						<div class="file-upload-content">
-							<img class="file-upload-image" src="#" alt="your image" />
-							<div class="image-title-wrap">
-								<button type="button" onclick="removeUpload()" class="remove-image">
-									Remove <span class="image-title">Uploaded Image</span>
-								</button>
-							</div>
-						</div>
-					</div>
-								
-								
-								<button class="post-button shadow">Post</button>
 							</div>
 						</form>
 					</div>
@@ -160,5 +147,10 @@
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->
+	
+
+
+<script>
+</script>
 </body>
 </html>

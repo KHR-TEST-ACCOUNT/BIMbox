@@ -5,10 +5,12 @@ $(function() {
 	// 読み込み時にPostの高さを決定する
 	$(document).ready(function() {
 		decide_topics_height();
+		change_addImg_text();
 	});
 	
 	$(window).on('resize', function() {
 		decide_topics_height();
+		change_addImg_text();
 	});
 	
 	// accordion
@@ -21,6 +23,7 @@ $(function() {
 		);		
 	});
 	
+	// Accodeionの開閉ロジック
 	function accodion_do(e){
 		var parent = e.closest('.ac-parent');
 		parent.nextAll('.ac-child').slideToggle();
@@ -29,45 +32,40 @@ $(function() {
 		$('.ac-parent').not(parent).nextAll('.ac-child').slideUp();
 	}
 	
+	// 画像投稿エリアの文字を変更する
+	function change_addImg_text(){
+		var content_width = $('.two').innerWidth();
+		var addImgBox_text = $('.drag-text');
+		if(content_width < 664){
+			addImgBox_text.each(function (){
+				$(this).html('<h3>Drag and drop or Click.</h3>');
+			})
+		} else {
+			addImgBox_text.each(function (){
+				$(this).html('<h3>Drag and drop or Click to add image.</h3>');
+			})
+		}
+	}
+	
 	//　Postの高さを決定する
 	function decide_topics_height(){
 		var column_height = $(window).height() - 40;
 		var sc_height = $('.search-container').outerHeight(true);
 		var mc_height = $('.moodle-container').outerHeight(true);
 		var search_box = $('.search-content');
-		var addImgBox_text = $('.drag-text');
-		
 		var topics_height = column_height - (sc_height + mc_height)
 		$('.topics').outerHeight(topics_height);
-		
 		if(search_box.innerWidth() < 398){
 			search_box.attr('placeholder', 'by topic, user, post.');
 		} else {
 			search_box.attr('placeholder', 'ユーザー名、トピック名、投稿内容 を検索できます。');
 		}
-		
-		/**
-		if(addImgBox_text.innerWidth() < 434){
-			addImgBox_text.each(function() {
-				$(this);
-				$(this).html('<h3>Drag and drop or click.</h3>');
-			});
-		} else {
-			addImgBox_text.each(function() {
-				$(this);
-				$(this).html('<h3>Drag and drop or click to add image.</h3>');
-			});
-			// addImgBox_text.html('<h3>Drag and drop or click to add image.</h3>');
-		}
-		 */
-		
 	}
 	
 })
 
 
-
-
+// ファイルのUPLOAD
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -83,66 +81,32 @@ function readURL(input) {
 	}
 }
 
+// ファイル削除
 function removeUpload() {
 	$('.file-upload-content').hide();
 	$('.image-upload-wrap').show();
 }
 
+// ドラッグ時処理
 $('.image-upload-wrap').bind('dragover', function() {
 	$('.image-upload-wrap').addClass('image-dropping');
 });
 
+// ドロップ時処理
 $('.image-upload-wrap').bind('dragleave', function() {
 	$('.image-upload-wrap').removeClass('image-dropping');
 });
 	
 	
-/**
-// 検索ボックスのグリッドレイアウト
-$(function() {
-	// ロード時の window size に合わせてSideNaviを表示
-	$(window).on('load', function() {
-		inLinefeed($(".search-container"));
-	});
-	// window size に合わせてSideNaviを非表示
-	$(window).on('resize', function() {
-		inLinefeed($(".search-container"));
-	});
-	// 要素の横幅によって改行を入れる
-	function inLinefeed(element) {
-		var element_width = element.innerWidth();
-		var inputArea = element.find('.inputArea');
-		
-		if (element_width >= 744 && element_width < 1072) {
-			inputArea.each(function() {
-				$(this).css('width', '50%');
-			});
-		} else if (element_width < 744) {
-			inputArea.each(function() {
-				$(this).css('width', '100%');
-			});
-		} else {
-			inputArea.each(function() {
-				$(this).css('width', '33.333%');
-			});
-		}
-	}
-});
- */
-
-
 // コメントとドロップダウンの非表示処理
 $(function() {
 	$(document).ready(function() {
 		var comment_list = $('.comment');
 	});
-	
 });
 	
 
 // コメントボックスの開閉
-/**
- */
 $(function() {
 	// 開く
 	$('.comment').on('click', function(){
@@ -164,22 +128,8 @@ $(function() {
 });
 	
 	
-/**
-//textareaの高さを自動で合わせる
-$(function() {
-	$('#textarea').on('input', function() {
-		if ($(this).outerHeight() > this.scrollHeight) {
-			$(this).height(1)
-		}
-		while ($(this).outerHeight() < this.scrollHeight) {
-			$(this).height($(this).height() + 1)
-		}
-	});
-});
- */
-
-
-//send options
+	
+// 非同期通信処理
 $(function() {
 
 	$(document).ajaxSend(function(e, xhr, options) {
@@ -188,6 +138,8 @@ $(function() {
 		xhr.setRequestHeader(header, token);
 	});
 
+	
+	// コメント投稿時の非同期通信処理
 	$(document).on('click', '#ajaxForm button', function() {
 
 		let ajaxForm = $(this).parents("#ajaxForm");
@@ -212,6 +164,7 @@ $(function() {
 		});
 	});
 
+	// Post評価時の非同期通信処理
 	$(document).on('click', 'button.ajax-link', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
@@ -232,6 +185,8 @@ $(function() {
 		});
 	});
 
+
+	// Post編集時の非同期通信処理
 	$(document).on('click', '#postEdit', function() {
 		let target = $(this).data('ts-target');
 		let postText = $(this).parents('#ratingForm').find('textarea[name="postText"]');
@@ -244,7 +199,8 @@ $(function() {
 		}
 	});
 
-// Imageを追加する。
+
+	// Post編集時の非同期通信処理
 	$(document).on('click', '#textEdit', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramPostText = parent.find('#postText').val();
@@ -261,10 +217,19 @@ $(function() {
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
+			console.log(data);
 			$(targetId).html(data);
+			/**
+			let targetId = '#' + paramTopicNo + paramPostNo;
+			let hoge = $(targetId).prev().find('textarea');
+			hoge.html(paramPostText);
+			hoge.addClass('readonly p-0');
+			 */
 		});
 	});
+	
 
+	// Post削除時の非同期通信処理
 	$(document).on('click', '#textDelete', function() {
 		if (!confirm('本当にこの投稿を削除しますか？')) {
 			return false;
@@ -288,6 +253,8 @@ $(function() {
 		}
 	});
 
+
+	// Topic削除時の非同期通信処理
 	$(document).on('click', '#deleteForm button', function() {
 		if (!confirm('本当にこのトピックを削除しますか？')) {
 			return false;
@@ -308,44 +275,4 @@ $(function() {
 		}
 	});
 
-});
-
-
-// 画像のアップロード
-$(document).ready(function() {
-	var view_box = $('.view_box');
-
-	$(".file").on('change', function() {
-		var fileprop = $(this).prop('files')[0],
-			find_img = $(this).next('img'),
-			fileRdr = new FileReader();
-
-		if (find_img.length) {
-			find_img.nextAll().remove();
-			find_img.remove();
-		}
-
-		var img = '<img width="200" alt="" id="paramPostImg"><a href="#" class="img_del">画像を削除する</a>';
-
-		view_box.append(img);
-
-		fileRdr.onload = function() {
-			view_box.find('img').attr('src', fileRdr.result);
-			img_del(view_box);
-		}
-		fileRdr.readAsDataURL(fileprop);
-	});
-
-	function img_del(target) {
-		target.find("a.img_del").on('click', function() {
-
-			if (window.confirm('サーバーから画像を削除します。\nよろしいですか？')) {
-				$(this).parent().find('input[type=file]').val('');
-				$(this).parent().find('.img_view, br').remove();
-				$(this).remove();
-			}
-
-			return false;
-		});
-	}
 });

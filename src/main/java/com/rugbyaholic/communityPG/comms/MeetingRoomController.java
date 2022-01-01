@@ -97,6 +97,7 @@ public class MeetingRoomController {
 				@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo, Model model) {
 		service.editPost(postText, new ImageFile(), topicNo, postNo);
 		return "fragments/Topic :: topic";
+//		return "fragments/Topic :: topic";
 	}
 
 	// 投稿削除

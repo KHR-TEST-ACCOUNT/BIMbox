@@ -678,7 +678,7 @@ section.upcoming h1 {
 
 .card-image {
     transition: all 0.5s ease;
-    max-width: 240px;
+    max-width: 230px;
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
     max-height: 190px;
