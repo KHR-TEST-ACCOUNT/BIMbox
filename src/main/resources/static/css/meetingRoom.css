@@ -281,6 +281,11 @@ body {
 	padding: 0px 20px;
 }
 
+.post-content {
+    width: 100%;
+    margin-right: 77px;
+}
+
 .two .moodle-container .share-container:after {
 	content: "";
 	position: absolute;
@@ -356,14 +361,14 @@ button:focus {
 }
 
 .post-button {
-	position: absolute;
-	right: 20px;
-	top: 50%;
-	transform: translateY(-50%);
-	border: none;
-	color: white;
-	background: #0084BF;
-	border-radius: 40px;
+    position: absolute;
+    right: 19px;
+    top: 66px;
+    border: none;
+    color: white;
+    background: #0084BF;
+    border-radius: 5px;
+    padding: 14px;       
 }
 
 .post-button:hover {
@@ -826,13 +831,9 @@ button:focus {
 }
 
 
-
-
-
-
 .file-upload {
-	width: 100%;
-    margin: 8px auto 0;	
+	width: 70%;
+    margin: 20px auto;    
 }
 
 .action-container .file-upload {

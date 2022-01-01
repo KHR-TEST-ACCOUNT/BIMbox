@@ -41,8 +41,8 @@
 					</div>
 	
 					<!-- info -->
-					<button th:if="${post.isPostedBy(user)}"
-							id="postEdit" type="button" title="投稿編集" class="btn btn-link p-0 text-dark fs-5"
+					<button th:if="${post.isPostedBy(user)}" class="btn btn-link p-0 text-dark fs-5"
+							id="postEdit" type="button" title="投稿編集" 
 							th:data-ts-target="|#${topic.topicNo + post.postNo}|">
 						<i class="bi bi-pencil-square"></i>
 					</button>
@@ -51,21 +51,25 @@
 				
 				<!-- content -->
 				<div class="user-text">
+				<!-- 
 					<div th:if="${ post.postImg }">
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
-					<textarea class="form-control text-dark readonly p-0 auto-resize" readonly th:text="${post.postText}" name="postText" id="postText"></textarea>
+				 -->
+					<textarea class="form-control text-dark readonly p-0 auto-resize" readonly 
+							  th:text="${post.postText}" name="postText" id="postText">
+					</textarea>
 				</div>
 				
-							<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
-								<!-- update -->
-								<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
-								<!-- 投稿削除 NG-->
-								<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
-							</div>
-							
-							<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
-							<input type="hidden" name="postNo" th:value="${post.postNo}" />
+				<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
+					<!-- update -->
+					<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
+					<!-- 投稿削除 NG-->
+					<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
+				</div>
+				
+				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
+				<input type="hidden" name="postNo" th:value="${post.postNo}" />
 				
 				<!-- end -->
 			</form>
