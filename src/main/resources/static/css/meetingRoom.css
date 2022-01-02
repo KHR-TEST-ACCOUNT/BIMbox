@@ -363,7 +363,7 @@ button:focus {
 .post-button {
     position: absolute;
     right: 19px;
-    top: 66px;
+    top: 109px;
     border: none;
     color: white;
     background: #0084BF;
@@ -857,7 +857,7 @@ button:focus {
 }
 
 .file-upload-btn:hover {
-	background: #1AA059;
+	background: rgba(155, 214, 151, 0.2); 
 	color: #ffffff;
 	transition: all .2s ease;
 	cursor: pointer;
@@ -891,8 +891,8 @@ button:focus {
 }
 
 .image-dropping, .image-upload-wrap:hover {
-	background-color: #1FB264;
-	border: 4px dashed #ffffff;
+	background-color: rgba(155, 214, 151, 0.2); 
+/* 	border: 4px dashed #ffffff; */
 }
 
 .drag-text {
