@@ -56,6 +56,7 @@ $(function() {
 });
 
 
+/**
 //textareaの高さを自動で合わせる
 $(function() {
 	$('textarea').on('input', function() {
@@ -67,6 +68,7 @@ $(function() {
 		}
 	});
 });
+ */
 
 /**
 $(document).ready(function() {

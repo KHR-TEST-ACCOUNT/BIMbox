@@ -40,8 +40,8 @@ public class MeetingRoomService {
 	public void registerNewTopic(TopicCreationForm form, AuthenticatedUser user) {
 		// トピック番号の発番
 		String availYear = new SimpleDateFormat("yyyy").format(new Date());
-		form.setTopicNo(
-				availYear + numberingRepository.issueNumber(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear));
+		String issueNum = numberingRepository.issueNumber(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear);
+		form.setTopicNo(availYear + issueNum);
 		// 番号管理台帳の更新
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear, user);
 		// トピックテーブルへの新規登録
