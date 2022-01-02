@@ -360,6 +360,15 @@ button:focus {
 	transform: scale(0.8);
 }
 
+.comment-button {
+    border: none;
+    color: white;
+    background: #0084BF;
+    border-radius: 20px;
+    height: 41px;
+	margin-left: 12px;	
+}
+
 .post-button {
     position: absolute;
     right: 19px;
@@ -684,7 +693,8 @@ button:focus {
 	width: 100%;
 	font-size: 16.5px;
 	text-indent: 10px;
-    padding: 6px 0px;
+    padding: 7px;
+    border-radius: 20px;
 }
 
 .comment-box input:focus {

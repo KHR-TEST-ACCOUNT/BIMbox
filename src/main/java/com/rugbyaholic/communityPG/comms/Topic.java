@@ -19,6 +19,9 @@ public class Topic {
 	private List<Post> posts;
 
 	public boolean isOwnedBy(AuthenticatedUser user) {
+		if(Objects.isNull(owner.getEmpNo())) {
+			return false;
+		}
 		return Objects.equals(user.getEmpNo(), owner.getEmpNo()) || Objects.equals(user.getRoles().get(0).getName(), "ROLE_ADMIN");
 	}
 
