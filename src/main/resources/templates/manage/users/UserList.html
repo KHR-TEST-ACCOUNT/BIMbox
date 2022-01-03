@@ -12,7 +12,6 @@
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
 		<main class="page-content ">
 		
-
 			<!-- Content -->
 			<nav class="page-header navbar navbar-light shadow-sm search-container">
 				<div class="center d-flex justify-content-center w-100 mx-4">
@@ -68,11 +67,10 @@
 										th:data-target="'#show-user-modal' + ${user.id}" >
 								</div>
 								<div class="card-body">
-									<!-- 
-									 -->
 									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
 									<h5 class="card-text username" th:text="${user.username}">
-										<i class="fa fa-male"></i> user name
+										<i class="fa fa-male"></i> 
+										user name
 									</h5>
 									<p class="card-text">
 										<i class="fas fa-podcast" style="color: gray"></i>
@@ -91,6 +89,7 @@
 								 tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-lg modal-height" role="document">
 									<div class="modal-content">
+										<!-- modal-header -->
 										<div class="modal-header">
 											<h3 class="modal-title" id="show-user-name" th:text="${user.username}"></h3>
 											<button type="button" class="close" data-dismiss="modal"
@@ -98,6 +97,7 @@
 												<span aria-hidden="true">×</span>
 											</button>
 										</div>
+										<!-- modal-body -->
 										<div class="modal-body" id="show-user-body">
 											<div class="row">
 												<div class="col-sm-4" id="show-user-image">
@@ -105,9 +105,10 @@
 														class="img-fluid" alt="Responsive image">
 												</div>
 												<div class="col-sm-8 pt-3" id="show-user-details">
-													<p id="show-user-age">Age: 25</p>
+													<p id="show-user-age" th:text="${ user.age } != null ? ${ 'Age : ' + user.age }: 'Age : 登録されていません。'">Age</p>
 													<p id="show-user-birthday">
-														<i class="fa fa-birthday-cake"></i> 1995-05-05
+														<i class="fa fa-birthday-cake"></i>
+														<span id="show-user-age" th:text="${ user.birthday } != null ? ${ user.birthday }: '登録されていません。'"></span>
 													</p>
 													<p id="show-user-email">
 														<i class="fa fa-envelope"></i>
@@ -129,7 +130,7 @@
 										<div class="modal-footer row mx-3">
 											<div class="col-12" id="user-update">
 												<p id="show-user-update">
-													<small class="text-muted">Created at:
+													<small class="text-muted" th:text="${ 'Created at : ' + user.avf }">Created At:
 														2020-04-01T09:37:57.270Z
 													</small>
 												</p>

@@ -1,6 +1,5 @@
 package com.rugbyaholic.communityPG.manage.users;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ public class UserRegistrationForm {
 	private String email;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date avf;
+	private String avf;
 	
 	@Size(min = 8, max = 20)
 	private String password;
@@ -121,11 +120,11 @@ public class UserRegistrationForm {
 		this.email = email;
 	}
 
-	public Date getAvf() {
+	public String getAvf() {
 		return avf;
 	}
 
-	public void setAvf(Date avf) {
+	public void setAvf(String avf) {
 		this.avf = avf;
 	}
 

@@ -29,7 +29,7 @@ public class ProfileController {
 	@Autowired
 	private NotificationMessage notificationMessage;
 
-	// プロフィール表示（ここにサジェスト機能を追加する。）
+	// プロフィール表示
 	@GetMapping("/profile/UserProfile.html")
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
@@ -50,7 +50,9 @@ public class ProfileController {
 	@PostMapping("/profile/ProfileEdit.do")
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
-		if (bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
+			model.addAttribute("targetUser", user);
+			model.addAttribute("profileEditForm", profileEditForm);
 			return "profile/Profile.html";
 		}
 		try {
@@ -62,8 +64,9 @@ public class ProfileController {
 		model.addAttribute("notificationMessage",
 				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 						.messageCode("communityPG.web.message.proc.success").build());
+		
 		converProfilesModel(model, profileService.provideUserInfo(profileEditForm.getUserId()));
-		return "profile/UserProfile.html";
+		return "profile/Profile.html";
 	}
 
 	/**
