@@ -52,7 +52,7 @@ public class ProfileController {
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
 		if (!bindingResult.hasErrors()) {
 			model.addAttribute("targetUser", user);
-			// model.addAttribute("profileEditForm", profileEditForm);
+			model.addAttribute("profileEditForm", profileEditForm);
 			return "profile/Profile.html";
 		}
 		try {

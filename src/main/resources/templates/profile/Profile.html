@@ -166,7 +166,11 @@
 							</ul>
 							<!-- ユーザー情報更新項目 -->
 							<input type="hidden" th:field="*{userId}">
-							<input type="hidden" th:field="*{empNo}">
+							<input type="hidden" th:field="*{aboutMe}">
+							<input type="hidden" th:field="*{zipcode}">
+							<input type="hidden" th:field="*{pref}">
+							<input type="file" id="photo-file" class="d-none hidden" 
+								   accept="image/*" th:field="*{uploadFile}" />
 						</form>
 					</section>
 					
