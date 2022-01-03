@@ -1,8 +1,10 @@
 package com.rugbyaholic.communityPG.auth;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -19,9 +21,13 @@ public class AuthenticatedUser implements UserDetails {
 	private long id;
 
 	private String email;
+	
+	private String age;
 
-	private Date avf;
+	private String birthday;
 
+	private String avf;
+	
 	private String username;
 
 	private String password;
@@ -83,6 +89,19 @@ public class AuthenticatedUser implements UserDetails {
 		return !locked;
 	}
 
+	// Date型をStringに変換する
+	public String getDateFormat(Date content) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年M月d日");
+		return dateFormat.format(content);
+	}
+	
+  // 年齢を計算するメソッド（第１引数：誕生日、第2引数：現在日）
+	public static String calcAge(Date birthday, Date now) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	    int calcResult = (Integer.parseInt(sdf.format(now)) - Integer.parseInt(sdf.format(birthday))) / 10000;
+        return String.valueOf(calcResult);
+	}	
+	
 	public long getId() {
 		return id;
 	}
@@ -99,12 +118,27 @@ public class AuthenticatedUser implements UserDetails {
 		this.email = email;
 	}
 
-	public Date getAvf() {
+	public String getAge() {
+		return age;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+	
+	public void setBirthday(Date birthday) {
+		if(!Objects.isNull(birthday)) {
+			this.birthday = getDateFormat(birthday);
+			this.age = calcAge(birthday , new Date());
+		}
+	}
+
+	public String getAvf() {
 		return avf;
 	}
 
 	public void setAvf(Date avf) {
-		this.avf = avf;
+		this.avf = getDateFormat(avf);
 	}
 
 	public List<Option> getRoles() {

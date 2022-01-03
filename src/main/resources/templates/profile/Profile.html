@@ -52,8 +52,7 @@
 								<li>
 									<fieldset class="material">
 										<div>
-											<input id="zipcode" type="text"
-												class="" th:field="*{zipcode}" placeholder="郵便番号"
+											<input id="zipcode" type="text" class="" th:field="*{zipcode}" placeholder="郵便番号"
 												th:classappend="${#fields.hasErrors('zipcode') ? 'is-invalid bg-light' : ''}" />
 											<label>Zipcode</label>
 											<hr>
@@ -72,8 +71,7 @@
 								<li>
 									<fieldset class="material">
 										<div>
-											<input id="pref" type="text" class=""
-												th:field="*{pref}" placeholder="住所"
+											<input id="pref" type="text" class="" th:field="*{pref}" placeholder="住所"
 												th:classappend="${#fields.hasErrors('pref') ? 'is-invalid bg-light' : ''}" />
 											<label>Address</label>
 											<hr>
@@ -85,7 +83,8 @@
 										<div>
 											<label class="textarea-label">About me</label>
 											<textarea th:field="*{aboutMe}" placeholder="" rows="1"
-												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" ></textarea>
+												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" >
+											</textarea>
 											<hr>
 										</div>
 									</fieldset>

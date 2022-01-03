@@ -24,6 +24,7 @@ CREATE TABLE `USER_ROLES` (
 CREATE TABLE `PERSONAL_INFO` (
   `USER_ID` bigint(9) unsigned zerofill NOT NULL,
   `ABOUT_ME` varchar(256) DEFAULT NULL,
+  `BIRTHDAY` date,
   `ZIPCODE` char(7) DEFAULT NULL,
   `PREF` varchar(16) DEFAULT NULL,
   `CITY` varchar(128) DEFAULT NULL,

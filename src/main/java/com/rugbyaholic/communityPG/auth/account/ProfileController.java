@@ -50,7 +50,9 @@ public class ProfileController {
 	@PostMapping("/profile/ProfileEdit.do")
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
-		if (bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
+			model.addAttribute("targetUser", user);
+			// model.addAttribute("profileEditForm", profileEditForm);
 			return "profile/Profile.html";
 		}
 		try {
@@ -62,8 +64,9 @@ public class ProfileController {
 		model.addAttribute("notificationMessage",
 				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 						.messageCode("communityPG.web.message.proc.success").build());
+		
 		converProfilesModel(model, profileService.provideUserInfo(profileEditForm.getUserId()));
-		return "profile/UserProfile.html";
+		return "profile/Profile.html";
 	}
 
 	/**
