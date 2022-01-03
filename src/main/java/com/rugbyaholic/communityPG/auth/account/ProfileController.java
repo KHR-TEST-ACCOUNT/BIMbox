@@ -29,7 +29,7 @@ public class ProfileController {
 	@Autowired
 	private NotificationMessage notificationMessage;
 
-	// プロフィール表示（ここにサジェスト機能を追加する。）
+	// プロフィール表示
 	@GetMapping("/profile/UserProfile.html")
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
