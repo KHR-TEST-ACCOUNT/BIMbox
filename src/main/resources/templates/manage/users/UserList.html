@@ -89,8 +89,7 @@
 							<!-- Modal インタラクティブウィンドウからの飛び出し-->
 							<div class="modal fade"th:id="'show-user-modal' + ${user.id}"
 								 tabindex="-1" role="dialog" aria-hidden="true">
-								<div class="modal-dialog modal-lg" role="document">
-								
+								<div class="modal-dialog modal-lg modal-height" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
 											<h3 class="modal-title" id="show-user-name" th:text="${user.username}"></h3>
@@ -105,7 +104,7 @@
 													<img th:src="${ user.profileImage.encodedString}"
 														class="img-fluid" alt="Responsive image">
 												</div>
-												<div class="col-sm-8" id="show-user-details">
+												<div class="col-sm-8 pt-3" id="show-user-details">
 													<p id="show-user-age">Age: 25</p>
 													<p id="show-user-birthday">
 														<i class="fa fa-birthday-cake"></i> 1995-05-05
@@ -114,7 +113,11 @@
 														<i class="fa fa-envelope"></i>
 														<span th:text="${user.email}"></span>
 													</p>
-													<p id="show-user-detail">
+													<p id="show-user-about">
+														<i class="fas fa-address-card"></i>
+														<span class="text-break" th:text="${user.aboutMe}"></span>
+													</p>
+													<p id="show-user-detail" class="mt-5">
 														<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|" class="user-detail">
 															<i class="fas fa-sign-in-alt"></i>
 															<span th:text="プロフィールへ"></span>

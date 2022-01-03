@@ -46,6 +46,8 @@ public class AuthenticatedUser implements UserDetails {
 
 	private ImageFile profileImage = new ImageFile();
 
+	private String aboutMe;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream().map((o) -> new SimpleGrantedAuthority(o.getName())).collect(Collectors.toList());
@@ -159,6 +161,14 @@ public class AuthenticatedUser implements UserDetails {
 
 	public void setProfileImage(ImageFile profileImage) {
 		this.profileImage = profileImage;
+	}
+	
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
 	}
 
 	public String getDeptCd() {
