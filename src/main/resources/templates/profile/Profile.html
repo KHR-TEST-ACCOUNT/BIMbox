@@ -10,7 +10,6 @@
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
 		<main class="page-content animsition">
 
-
 			<div id="settings">
 				<!-- tag title -->
 				<input checked class="nav" name="nav" type="radio">
@@ -24,13 +23,7 @@
 				
 				<!-- profile content -->
 				<main class="content">
-					<!-- 
-						<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off" class="animsition"
-							enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
-					 -->
 					<section id="profile">
-						<!-- 
-						 -->
 						<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off" class="animsition"
 							enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
 							<ul>
@@ -108,9 +101,6 @@
 							<!-- ユーザー情報更新項目 -->
 							<input type="hidden" th:field="*{userId}">
 							<input type="hidden" th:field="*{empNo}">
-						<!-- 
-						</div>
-						 -->
 						</form>
 					</section>
 					
@@ -208,7 +198,7 @@
 													</a>
 												</h5>
 												<div>
-													<a th:href="|@{/ChatRoom.html}?id=${ user.key }|" class="text-decoration-none">
+													<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ user.key }|" class="text-decoration-none"> 
 														<i class="fas fa-sign-in-alt"></i>
 									                	<span th:text="${ 'Chat Roomへ' }"></span>
 													</a>
@@ -225,10 +215,6 @@
 					<section class="upcoming" id="privacies">
 						<h1>Coming soon!</h1>
 					</section>
-					
-						<!-- 
-						</form>
-						 -->
 					<!-- section end -->
 				</main>
 			</div>

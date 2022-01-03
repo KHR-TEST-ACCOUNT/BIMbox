@@ -94,6 +94,7 @@ public class UserManagementController {
 		return "manage/users/UserList.html";
 	}
 	
+	
 	// ユーザー登録画面に遷移
 	@GetMapping("/manage/users/UserRegistration.html")
 	public String onUserRegistrationRequested(@RequestParam(value = "id", required = false) Long id, Model model,
@@ -109,6 +110,8 @@ public class UserManagementController {
 		return "manage/users/UserRegistration.html";
 	}
 
+	
+	// ページネーション処理
 	@GetMapping("/manage/users/UserPageView.do")
 	public String onPageViewRequested(@RequestParam("p") int pageNo, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
@@ -125,6 +128,7 @@ public class UserManagementController {
 		return "manage/users/UserList.html";
 	}
 
+	// 検索時処理
 	@GetMapping("/manage/users/UserSearch.do")
 	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
 		this.form = form;
