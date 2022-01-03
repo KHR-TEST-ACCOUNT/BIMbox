@@ -134,7 +134,7 @@ public class UserManagementService {
 		return "01";
 	}
 	
-	// ユーザーリストをロードする。（Hobbyの格納先がないので解決する。）
+	// ユーザーリストをロードする。
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd()); 
@@ -162,8 +162,13 @@ public class UserManagementService {
 		userRepository.deleterUser(id);
 	}
 	
+	/**
+	 * 検索結果をModelに格納するメソッド
+	 * 
+	 * @param form
+	 * @param model
+	 */
 	public void convertSerchForm(UserSearchForm form, Model model) {
-		// ページネーションの設定
 		form.setPageFrom(0);
 		form.setCount(PAGE_LIMIT);
 		// 検索結果を取得

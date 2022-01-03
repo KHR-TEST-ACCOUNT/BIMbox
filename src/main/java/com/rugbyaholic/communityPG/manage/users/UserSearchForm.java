@@ -16,6 +16,8 @@ public class UserSearchForm {
 	
 	private String hobbys;
 
+	private String aboutMe;
+	
 	private List<Option> deptOptions;
 
 	private List<Option> posOptions;
@@ -62,6 +64,14 @@ public class UserSearchForm {
 
 	public void setHobbys(String hobbys) {
 		this.hobbys = hobbys;
+	}
+	
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
 	}
 
 	public List<Option> getDeptOptions() {

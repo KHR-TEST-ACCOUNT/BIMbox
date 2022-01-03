@@ -88,6 +88,7 @@ public class MeetingRoomController {
 		} else {
 			service.appendPost(form, user);
 		}
+		//if(form.getTopicNo() == null)  return "redirect:/comms/MeetingRoom.html";
 		return "fragments/Topic :: topic";
 	}
 
