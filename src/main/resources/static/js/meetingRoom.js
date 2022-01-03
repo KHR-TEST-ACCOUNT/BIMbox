@@ -148,20 +148,25 @@ $(function() {
 		let paramPostText = ajaxForm.find('#postText').val();
 		let paramPostImg = ajaxForm.find('#paramPostImg');
 
-		$.ajax({
-			type: ajaxForm.attr('method'),
-			url: ajaxForm.attr('action'),
-			dataType: 'html',
-			data: {
-				topicNo: paramTopicNo,
-				subject: paramSubject,
-				primaryPost: paramPostText,
-				primaryPostImg: paramPostImg.attr('src')
-			}
-		}).done((data) => {
-			let targetId = '#' + paramTopicNo;
-			$(targetId).html(data);
-		});
+		if(paramTopicNo){
+			$.ajax({
+				type: ajaxForm.attr('method'),
+				url: ajaxForm.attr('action'),
+				dataType: 'html',
+				data: {
+					topicNo: paramTopicNo,
+					subject: paramSubject,
+					primaryPost: paramPostText,
+					primaryPostImg: paramPostImg.attr('src')
+					/**
+					 */
+				}
+			}).done((data) => {
+				console.log(data);
+				let targetId = '#' + paramTopicNo;
+				$(targetId).html(data);
+			});
+		}
 	});
 
 	// Post評価時の非同期通信処理
@@ -180,6 +185,7 @@ $(function() {
 				rating: paramRating
 			}
 		}).done((data) => {
+			
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
 		});

@@ -102,26 +102,41 @@
 				</div>
 				<!-- comment contents -->
 				<div class="comment-box">
-					<textarea placeholder="Add a comment..." rows="1" ></textarea>
-					 <!-- image content -->
-					<div class="file-upload">
-						<div class="image-upload-wrap">
-							<input class="file-upload-input" type='file'
-								onchange="readURL(this);" accept="image/*" />
-							<div class="drag-text">
-								<h3 class="">Drag and drop or click to add image.</h3>
+					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}"
+						  enctype="multipart/form-data" method="post" th:object="${ topicSearchForm }">
+						<!-- message content -->
+						<div class="d-flex">
+							<textarea placeholder="Add a comment..." rows="1" id="postText"></textarea>
+							<button class="comment-button shadow">Post</button>
+						</div>
+						 <!-- image content -->
+						<div class="file-upload">
+							<div class="image-upload-wrap">
+								<input class="file-upload-input" type='file'
+									onchange="readURL(this);" accept="image/*" />
+								<div class="drag-text">
+									<h3 class="">Drag and drop or click to add image.</h3>
+								</div>
+							</div>
+							<div class="file-upload-content">
+								<img id="postImg paramPostImg" class="file file-upload-image" src="#" alt="your image" />
+<!-- 								<img id="postImg" class="file file-upload-image" src="#" alt="your image" /> -->
+								<div class="image-title-wrap">
+									<button type="button" onclick="removeUpload()" class="remove-image">
+										Remove <span class="image-title">Uploaded Image</span>
+									</button>
+								</div>
 							</div>
 						</div>
-						<div class="file-upload-content">
-							<img class="file-upload-image" src="#" alt="your image" />
-							<div class="image-title-wrap">
-								<button type="button" onclick="removeUpload()" class="remove-image">
-									Remove <span class="image-title">Uploaded Image</span>
-								</button>
-							</div>
+						 <!-- error message -->
+						<div th:if="${validationMessage}">
+							<span class="text-danger" th:text="${validationMessage}"></span>
 						</div>
-					</div>
-					 <!-- image content end -->
+						 <!-- hidden 
+						 -->
+						<input type="hidden" th:value="${topic.topicNo}" id="topicNo" />
+						<input type="hidden" th:value="${topic.subject}" id="subject" />
+					</form>
 				</div>
 			</div>		
 		</div>
