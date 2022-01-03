@@ -62,9 +62,9 @@ public class ProfileService {
 		// USERSテーブル更新
 		updateCount += repository.changeProfile(user);
 		// PERSONAL_INFOテーブル更新
-		form.setUserId(user.getId());
+		// form.setUserId(user.getId());
 		updateCount += repository.updatePersonalInfo(form);
-		// USER_HOBBYSテーブルの更新
+		// USER_HOBBYSテーブルの更新。Emptyの場合は処理されない。
 		for(String hobby : form.getHobbys()) {
 			form.setHobby(hobby);
 			repository.registerUserHobbys(form);
