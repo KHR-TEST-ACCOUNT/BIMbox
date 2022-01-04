@@ -97,6 +97,11 @@ public class UserManagementService {
 		});
 	}
 
+	
+	/**
+	 * 各コード値を初期化する
+	 * @param form
+	 */
 	public void restoreRegistrationForm(UserRegistrationForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd());

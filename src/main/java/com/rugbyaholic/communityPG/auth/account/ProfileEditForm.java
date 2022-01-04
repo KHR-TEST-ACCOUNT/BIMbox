@@ -2,6 +2,7 @@ package com.rugbyaholic.communityPG.auth.account;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -40,6 +41,8 @@ public class ProfileEditForm implements Serializable {
 	@Size(max = 256)
 	private String aboutMe;
 
+	private Date birthday;
+	
 	@Size(min = 7, max = 7)
 	private String zipcode;
 
@@ -153,6 +156,14 @@ public class ProfileEditForm implements Serializable {
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getZipcode() {

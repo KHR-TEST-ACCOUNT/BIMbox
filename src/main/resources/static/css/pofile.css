@@ -38,7 +38,7 @@ ul {
 
 .save-button {
 	position: fixed;
-	bottom: 50px;
+	bottom: 30px;
 	left: 0%;
 	margin: auto;
 }
@@ -403,7 +403,7 @@ section.upcoming h1 {
     overflow: scroll;    
  }
  
-.material .textarea-label {
+.material .textarea-label, .label-birthday {
     position: absolute;
     top: 0;
     font-size: 12px;

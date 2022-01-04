@@ -50,9 +50,8 @@ public class ProfileController {
 	@PostMapping("/profile/ProfileEdit.do")
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
-		if (!bindingResult.hasErrors()) {
-			model.addAttribute("targetUser", user);
-			model.addAttribute("profileEditForm", profileEditForm);
+		if (bindingResult.hasErrors()) {
+			converProfilesModel(model, profileService.provideUserInfo(user.getId()));
 			return "profile/Profile.html";
 		}
 		try {
@@ -69,6 +68,7 @@ public class ProfileController {
 		return "profile/Profile.html";
 	}
 
+	
 	/**
 	 * Model格納用メソッド
 	 * 
@@ -80,6 +80,7 @@ public class ProfileController {
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
 	}
 		
+	
    /**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 
