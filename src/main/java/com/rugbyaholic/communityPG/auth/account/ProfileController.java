@@ -50,9 +50,8 @@ public class ProfileController {
 	@PostMapping("/profile/ProfileEdit.do")
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
-		if (!bindingResult.hasErrors()) {
-			model.addAttribute("targetUser", user);
-			model.addAttribute("profileEditForm", profileEditForm);
+		if (bindingResult.hasErrors()) {
+			converProfilesModel(model, profileService.provideUserInfo(user.getId()));
 			return "profile/Profile.html";
 		}
 		try {
@@ -70,7 +69,7 @@ public class ProfileController {
 	}
 
 	/**
-	 * Model格納用メソッド
+	 * Modelの格納用メソッド
 	 * 
 	 * @param model
 	 * @param targetUser
