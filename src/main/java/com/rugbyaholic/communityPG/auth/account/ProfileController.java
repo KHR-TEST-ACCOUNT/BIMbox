@@ -69,7 +69,7 @@ public class ProfileController {
 	}
 
 	/**
-	 * Model格納用メソッド
+	 * Modelの格納用メソッド
 	 * 
 	 * @param model
 	 * @param targetUser
