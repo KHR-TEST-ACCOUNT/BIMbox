@@ -68,8 +68,9 @@ public class ProfileController {
 		return "profile/Profile.html";
 	}
 
+	
 	/**
-	 * Modelの格納用メソッド
+	 * Model格納用メソッド
 	 * 
 	 * @param model
 	 * @param targetUser
@@ -79,6 +80,7 @@ public class ProfileController {
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(targetUser));
 	}
 		
+	
    /**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 
