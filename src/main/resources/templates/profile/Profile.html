@@ -3,6 +3,18 @@
 <head th:replace="fragments/head :: head_fragment(title = 'User List', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/pofile.css}">
 	<script type="text/javascript" th:src="@{/js/profile.js}"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+
+<script
+ src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="http://css-tricks.com/examples/TextareaTricks/js/autoresize.jquery.min.js"></script>
+
+
+
 </head>
 <body>
 	<!-- サイドバー -->
@@ -81,8 +93,27 @@
 								<li class="large">
 									<fieldset class="material">
 										<div>
+											<label class="textarea-label">Hobby</label>
+											<!-- id='wkSelect' multiple="multiple" -->
+										    <select class="js-select2" multiple="multiple" th:field="*{hobbys}">
+												<option value="">-- 選択してください</option>
+												<option value="プログラミング">プログラミング</option>
+												<option value="アウトドア">アウトドア</option>
+												<option value="ファッション">ファッション</option>
+												<option value="筋トレ">筋トレ</option>
+												<option value="映画">映画</option>
+												<option value="漫画・アニメ">漫画・アニメ</option>
+												<option value="ペット">ペット</option>
+										    </select>
+											<hr>
+										</div>
+									</fieldset>
+								</li>
+								<li class="large">
+									<fieldset class="material">
+										<div>
 											<label class="textarea-label">About me</label>
-											<textarea th:field="*{aboutMe}" placeholder="" rows="1"
+											<textarea th:field="*{aboutMe}" placeholder=""
 												th:classappend="${#fields.hasErrors('aboutMe') ? 'is-invalid bg-light' : ''}" >
 											</textarea>
 											<hr>
@@ -115,22 +146,20 @@
 								<li>
 									<fieldset class="material">
 										<div>
+											<label class="label-birthday">Birthday</label>
+											<input type="date" th:field="*{birthday}" required="required" />
+											<hr>
+										</div>
+									</fieldset>
+								</li>
+								<li class="large">
+									<fieldset class="material">
+										<div>
 											<input type="email" placeholder="change your email" th:field="*{email}"
 												th:classappend="${#fields.hasErrors('email') ? 'is-invalid bg-light' : ''}" />
 											<span th:text="${email}"></span>
 											<label>Email</label>
 											<hr>
-										</div>
-									</fieldset>
-								</li>
-								<li>
-									<fieldset class="material">
-										<div>
-											<!-- 
-											<input type="text" th:field="*{name}" placeholder="ユーザー名">
-											<label>Name</label>
-											<hr>
-											 -->
 										</div>
 									</fieldset>
 								</li>
@@ -177,7 +206,7 @@
 					<!-- sujest users -->
 					<section id="privacy">
 						<div class="tab-content">
-							<form th:object="${profileEditForm}" class="animsition">
+							<form th:object="${profileEditForm}" class="animsition sujest-users">
 								<ul class="row">
 									<!-- title -->
 									<li class="large padding avatar">

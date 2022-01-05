@@ -249,6 +249,7 @@
 				DP.DEPT_NM					  AS deptName,
 				POS.POS_NM					  AS posName,
 				PI.ABOUT_ME      			  AS aboutMe,
+				PI.BIRTHDAY      			  AS birthday,
 				PI.ZIPCODE  			      AS zipcode,
 		        PI.PREF           			  AS pref,
 		        PI.CITY      			      AS city,
@@ -290,6 +291,7 @@
 		<result property="deptName" column="deptName" />
 		<result property="posName" column="posName" />
 		<result property="aboutMe" column="aboutMe" />
+		<result property="birthday" column="birthday" />
 		<result property="zipcode" column="zipcode" />
 		<result property="pref" column="pref" />
 		<result property="city" column="city" />
@@ -400,10 +402,11 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, BIRTHDAY, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{birthday}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
+				BIRTHDAY	 =	#{birthday},
 				ABOUT_ME	 =	#{aboutMe},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
