@@ -402,10 +402,11 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, BIRTHDAY, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{birthday}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
+				BIRTHDAY	 =	#{birthday},
 				ABOUT_ME	 =	#{aboutMe},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},

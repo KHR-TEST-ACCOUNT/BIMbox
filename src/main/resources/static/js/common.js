@@ -56,19 +56,12 @@ $(function() {
 });
 
 
-/**
 //textareaの高さを自動で合わせる
-$(function() {
-	$('textarea').on('input', function() {
-		if ($(this).outerHeight() > this.scrollHeight) {
-			$(this).height(1)
-		}
-		while ($(this).outerHeight() < this.scrollHeight) {
-			$(this).height($(this).height() + 1)
-		}
-	});
+$(document).on("change", "textarea", function(evt) {
+	var min_height = 28; //テキストエリアの最小の高さをお好みで設定
+	$(evt.target).height(min_height); //一旦最小サイズにする
+	$(evt.target).height(evt.target.scrollHeight); //スクロールなしでテキストが収まる最小の高さに上書き
 });
- */
 
 /**
 $(document).ready(function() {
