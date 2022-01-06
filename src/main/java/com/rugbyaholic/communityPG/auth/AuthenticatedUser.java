@@ -96,7 +96,7 @@ public class AuthenticatedUser implements UserDetails {
 	}
 	
   // 年齢を計算するメソッド（第１引数：誕生日、第2引数：現在日）
-	public static String calcAge(Date birthday, Date now) {
+	public String calcAge(Date birthday, Date now) {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	    int calcResult = (Integer.parseInt(sdf.format(now)) - Integer.parseInt(sdf.format(birthday))) / 10000;
         return String.valueOf(calcResult);

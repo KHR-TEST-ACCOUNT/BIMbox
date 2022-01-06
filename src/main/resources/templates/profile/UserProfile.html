@@ -3,6 +3,10 @@
 <head th:replace="fragments/head :: head_fragment(title = 'User List', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/pofile.css}">
 	<script type="text/javascript" th:src="@{/js/profile.js}"></script>
+	<!-- select2 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 </head>
 <body>
 	<!-- サイドバー -->
@@ -24,17 +28,26 @@
 				<!-- profile content -->
 				<main class="content">
 					<section id="profile">
-						<form autocomplete="off" class="animsition"  th:object="${profileEditForm}"
-							enctype="multipart/form-data" method="post">
-							<ul th:with="pf = ${profileEditForm}, user = ${targetUser}" class="profile-list" >
+						<form th:action="@{/profile/ProfileEdit.do}" autocomplete="off" class="animsition"
+							enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
+							<ul th:with="pf = ${profileEditForm}" class="profile-list" >
 								<li class="large padding avatar">
-									<img th:src="${user.profileImage.encodedString}"
+									<img th:src="${targetUser.profileImage.encodedString}"
 										 alt="" class="profile-photo" id="thumbnail" />
+									<div>
+										<fieldset class="material-button">
+											<div>
+												<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">Select File</label>
+												<input type="file" id="photo-file" class="d-none" accept="image/*"
+													th:field="*{uploadFile}" />
+											</div>
+										</fieldset>
+									</div>
 								</li>
 								<li>
 									<fieldset class="material">
 										<div>
-											<span th:text="${user.username}"></span>
+											<span th:text="${targetUser.username}"></span>
 											<label>Name</label>
 											<hr>
 										</div>
@@ -52,7 +65,7 @@
 								<li>
 									<fieldset class="material">
 										<div>
-											<span th:text="${user.empNo}"></span>
+											<span th:text="${targetUser.empNo}"></span>
 											<label>User number</label>
 											<hr>
 										</div>
@@ -70,10 +83,27 @@
 								<li class="large">
 									<fieldset class="material">
 										<div>
+											<label class="textarea-label">Hobby</label>
+										    <select class="js-select2" multiple="multiple" th:field="*{hobbys}" disabled>
+												<option value="プログラミング">プログラミング</option>
+												<option value="アウトドア">アウトドア</option>
+												<option value="ファッション">ファッション</option>
+												<option value="筋トレ">筋トレ</option>
+												<option value="映画">映画</option>
+												<option value="漫画・アニメ">漫画・アニメ</option>
+												<option value="ペット">ペット</option>
+										    </select>
+											<hr>
+										</div>
+									</fieldset>
+								</li>
+								<li class="large">
+									<fieldset class="material">
+										<div>
 											<label class="textarea-label">About me</label>
-											<span class="text-break" 
-												  th:text="${ pf.aboutMe } != null ? ${ pf.aboutMe }: '登録されていません。'">
-											</span>
+											<textarea class="text-break" id="aboutMe" readonly
+													  th:text="${ pf.aboutMe } != null ? ${ pf.aboutMe }: '登録されていません。'">
+											</textarea>
 											<hr>
 										</div>
 									</fieldset>
@@ -84,23 +114,41 @@
 					
 					<!-- account setting -->
 					<section id="account">
-						<form autocomplete="off" class="animsition" th:object="${profileEditForm}"
-							enctype="multipart/form-data" method="post">
-							<ul th:with="pf = ${profileEditForm}, user = ${targetUser}" class="profile-list">
+						<form autocomplete="off" class="animsition"
+							  enctype="multipart/form-data" method="post" th:object="${profileEditForm}">
+							<ul th:with="pf = ${profileEditForm}" class="profile-list">
 								<li class="large padding avatar">
-									<img th:src="${user.profileImage.encodedString}"
+									<img th:src="${targetUser.profileImage.encodedString}"
 										 alt="" class="profile-photo" id="thumbnail" />
 								</li>
-								<li>
+								<li class="large">
 									<fieldset class="material">
 										<div>
-											<span th:text="${ user.email }"></span>
+											<label class="label-birthday">age</label>
+											<span th:text="${ targetUser.age } != null ? ${ targetUser.age }: '登録されていません。'"></span>
+											<hr>
+										</div>
+									</fieldset>
+								</li>
+								<li class="large">
+									<fieldset class="material">
+										<div>
+											<label class="label-birthday">Birthday</label>
+											<span th:text="${ targetUser.birthday } != null ? ${ targetUser.birthday }: '登録されていません。'"></span>
+											<hr>
+										</div>
+									</fieldset>
+								</li>
+								<li class="large">
+									<fieldset class="material">
+										<div>
+											<span th:text="${ targetUser.email }"></span>
 											<label>Email</label>
 											<hr>
 										</div>
 									</fieldset>
 								</li>
-								<li>
+								<li class="large">
 									<fieldset class="material">
 										<div>
 											<span th:text="${ '********' }"></span>
@@ -109,6 +157,18 @@
 										</div>
 									</fieldset>
 								</li>
+								<th:block th:with="userRole = ${#authentication.principal.roles.get(0).code}">
+									<li class="large padding save-button" 
+										th:if="${userRole.equals('03') || targetUser.id == #authentication.principal.id}">
+										<fieldset class="material-button center">
+											<div>
+												<a th:href="|@{/profile/Profile.html}?id=${targetUser.id}|">
+													<button class="save" type="button">編集（Admin権限）</button>
+												</a>
+											</div>
+										</fieldset>
+									</li>
+								</th:block>
 							</ul>
 						</form>
 					</section>
@@ -116,8 +176,8 @@
 					<!-- sujest users -->
 					<section id="privacy">
 						<div class="tab-content">
-							<form th:object="${profileEditForm}" class="animsition">
-								<ul class="row profile-list">
+							<form th:object="${profileEditForm}" class="animsition sujest-users">
+								<ul class="row">
 									<!-- title -->
 									<li class="large padding avatar">
 										<div class="w-100">
@@ -160,6 +220,9 @@
 					<!-- section end -->
 				</main>
 			</div>
+
+
+
 
 			<div th:replace="fragments/Toast :: toast"></div>
 		</main>

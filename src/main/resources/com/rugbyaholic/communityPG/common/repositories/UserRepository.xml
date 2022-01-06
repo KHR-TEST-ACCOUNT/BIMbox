@@ -43,21 +43,27 @@
 	]]>
 	</insert>
 
-	<insert id="registerUserHobbys" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
-	<![CDATA[
+	<insert id="registerHobbys" parameterType="java.util.List">
 		INSERT INTO USER_HOBBYS (
 		    USER_ID,
-		    EMP_NO,
 		    HOBBY
-		) VALUES (
-		    #{userId},
-		    #{empNo},
-		    #{hobby}
-		) ON DUPLICATE KEY UPDATE 
-		    USER_ID       =  #{userId},
-		    EMP_NO        =  #{empNo},
-		    HOBBY         =  #{hobby}
-	]]>
+		) VALUES 
+	    <foreach collection="hobbys" item="hobby" separator=","> 
+			(
+			    #{id},
+			    #{hobby}
+			) 
+	    </foreach>
+	</insert>
+
+	<insert id="deleterUserHobbys">
+	<![CDATA[
+		DELETE
+	    FROM
+	        USER_HOBBYS
+	    WHERE
+	        USER_ID 	= 	#{id}
+  	]]>
 	</insert>
 
 	<select id="getSuggestUsers" resultMap="userPersonalInfo">
