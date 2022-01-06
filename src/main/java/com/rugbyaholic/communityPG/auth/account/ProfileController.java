@@ -51,7 +51,7 @@ public class ProfileController {
 	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
 //		if (!bindingResult.hasErrors()) {
-		if (bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
 			converProfilesModel(model, profileService.provideUserInfo(user.getId()));
 			return "profile/Profile.html";
 		}
