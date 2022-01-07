@@ -40,9 +40,8 @@ main {
 }
 
 .zooming:hover img {
-	transform: scale(.8);
+	transform: scale(.9);
 	position: relative;
-    top: 0;
 }
 
 .zooming {

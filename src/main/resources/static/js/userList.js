@@ -14,5 +14,17 @@ $(function() {
 		}
 	}
 	
+	//マウスカーソルが重なった時の処理
+	$('.zooming').hover(
+		function() {
+			var img = $(this).children('img');
+			var img_height = ($(this).innerHeight() - img.innerHeight()) / 2;
+			img.css('top', img_height);
+		},
+		function() {
+			$(this).children('img').css('top', '50%');
+		}
+);
+	
 });
 
