@@ -60,11 +60,10 @@
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
 							<div class="card-content card-rounded-7 mb-3 p-1">
-								<div class="zooming">
-									<img class="card-image" id="show-user-modal"
-										th:src="${ user.profileImage.encodedString}"
-										alt="Card image cap" data-id="601" data-toggle="modal"
-										th:data-target="'#show-user-modal' + ${user.id}" >
+								<div class="zooming" id="show-user-modal" data-id="601" data-toggle="modal"
+									 th:data-target="'#show-user-modal' + ${user.id}">
+									<img class="card-image" alt="Card image cap"
+										 th:src="${ user.profileImage.encodedString}">
 								</div>
 								<div class="card-body">
 									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
