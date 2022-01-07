@@ -32,7 +32,9 @@ public interface UserRepository {
 	
 	public int updatePersonalInfo(ProfileEditForm profileEditForm);
 	
-	public int registerUserHobbys(ProfileEditForm form);
+	public int registerHobbys(@Param("id")Long id, @Param("hobbys")List<String> hobbys);
+	
+	public int deleterUserHobbys(Long id);
 	
 	public List<String> findUserHobbys(Long userId);
 	

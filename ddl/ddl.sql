@@ -36,7 +36,6 @@ CREATE TABLE `PERSONAL_INFO` (
 
 CREATE TABLE `USER_HOBBYS` (
   `USER_ID` bigint(9) unsigned zerofill NOT NULL COMMENT 'ユーザーマスタのユーザーIDを参照',
-  `EMP_NO` char(8) DEFAULT NULL,
   `HOBBY` varchar(30) DEFAULT NULL COMMENT 'ユーザーの趣味情報を保持する。',
    PRIMARY KEY(`USER_ID`, `HOBBY`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

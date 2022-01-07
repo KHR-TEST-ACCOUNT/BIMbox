@@ -9,22 +9,34 @@ $(function() {
 		tags: false
 	});
 
-
-	// ロード時の window size に合わせてSideNaviを表示
+	// ロード時処理
 	$(window).on('load', function() {
 		rePages();
 		// 画面読み込み時にテキストエリアの高さを更新
-		autoResizeHeightForTextArea($('#aboutMe'), 1);
+		var $textarea = $('#aboutMe');
+		if($textarea) autoResizeHeightForTextArea($textarea, 1);
 		inLinefeed($("#privacy"));
 		// multiselect
-		$('.select2-selection--multiple').css('border', '0');
+		var props = {
+		    border:0,
+			background: 'none'
+		}
+		$('.select2-selection--multiple').css(props);
 	});
+	
 	// window size に合わせてSideNaviを非表示
 	$(window).on('resize', function() {
 		rePages();
 		// 画面読み込み時にテキストエリアの高さを更新
-		autoResizeHeightForTextArea($('#aboutMe'), 1);
+		var $textarea = $('#aboutMe');
+		if(!$textarea) autoResizeHeightForTextArea($textarea, 1);
 		inLinefeed($("#privacy"));
+		var props = {
+		    border:0,
+			background: 'none'
+		}
+		$('.select2-selection--multiple').css(props);
+		
 	});
 
 

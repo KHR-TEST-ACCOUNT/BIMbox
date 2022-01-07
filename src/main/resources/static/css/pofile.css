@@ -397,11 +397,6 @@ section.upcoming h1 {
 	font-size: 12px;
 }
 
-.material #wkSelect {
-	position: relative;
-	z-index: 1;
-}
-
 .material textarea  {
 	line-height: 1.2;
 	display: inline-block;
@@ -506,7 +501,9 @@ section.upcoming h1 {
 	width: 100%;
 }
 
-.material-button input[type=file], .material-button input[type=submit] {
+.material-button input[type=file],
+.material-button input[type=submit], 
+.material-button button {
 	margin: 0;
 	border: 0;
 	border-radius: 2px;
@@ -580,9 +577,10 @@ section.upcoming h1 {
 	color: #343434;
 }
 
-.material-button button.gh.connected:hover, .material-button button.gh.connected:focus,
-	.material-button input[type=submit].gh.connected:hover,
-	.material-button input[type=submit].gh.connected:focus {
+.material-button button.gh.connected:hover,
+.material-button button.gh.connected:focus,
+.material-button input[type=submit].gh.connected:hover,
+.material-button input[type=submit].gh.connected:focus {
 	background: #4183c4;
 	color: white;
 }
@@ -760,7 +758,7 @@ form:not(.sujest-users) {
     background-color: white;
     border: 0;
     border-radius: 4px;
-    cursor: text;
+    cursor: pointer;
 }
 
 .select2-container {
@@ -796,7 +794,7 @@ form:not(.sujest-users) {
 	vertical-align: middle;
 }
 
-.select2-results__option[aria-selected=true]:before {
+.select2-results__option[aria-selected=true]:before { /*  */
 	font-family: fontAwesome;
 	content: "\f00c";
 	color: #fff;

@@ -34,8 +34,10 @@ public class ProfileController {
 	public String onProfileRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
 		if(!Objects.isNull(id)) user = profileService.provideUserInfo(id);
+		ProfileEditForm pirsonalInfo = profileService.providePersonalInfo(user);
+		user.setBirthday(pirsonalInfo.getBirthday());
 		model.addAttribute("targetUser", user);
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		model.addAttribute("profileEditForm", pirsonalInfo);
 		return "profile/UserProfile.html";
 	}
 
@@ -48,15 +50,15 @@ public class ProfileController {
 
 	// プロフィールの更新処理
 	@PostMapping("/profile/ProfileEdit.do")
-	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm profileEditForm,
+	public String onProfileEditRequested(@Valid @ModelAttribute ProfileEditForm form,
 			BindingResult bindingResult, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
 //		if (!bindingResult.hasErrors()) {
-		if (!bindingResult.hasErrors()) {
-			converProfilesModel(model, profileService.provideUserInfo(user.getId()));
+		if (bindingResult.hasErrors()) {
+			converProfilesModel(model, profileService.provideUserInfo(form.getUserId()));
 			return "profile/Profile.html";
 		}
 		try {
-			profileService.editProfile(profileEditForm, user);
+			profileService.editProfile(form, user);
 		} catch (Exception e) {
 			System.out.print(e);
 			return "errorPage.html";
@@ -65,7 +67,7 @@ public class ProfileController {
 				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 						.messageCode("communityPG.web.message.proc.success").build());
 		
-		converProfilesModel(model, profileService.provideUserInfo(profileEditForm.getUserId()));
+		converProfilesModel(model, profileService.provideUserInfo(form.getUserId()));
 		return "profile/Profile.html";
 	}
 

@@ -32,7 +32,7 @@ public class ProfileEditForm implements Serializable {
 	
 	private String posName;
 	
-	private String hobby;
+	private String hobby = "";
 	
 	private List<String> hobbys = new ArrayList<String>();
 	

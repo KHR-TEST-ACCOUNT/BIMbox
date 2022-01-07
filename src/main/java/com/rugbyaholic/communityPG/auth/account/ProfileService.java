@@ -52,7 +52,6 @@ public class ProfileService {
 		if(!Objects.isNull(form.getPassword())) {
 			user.setPassword(passwordEncoder.encode(form.getPassword()));
 		}
-		
 		// (共通)ファイルアップロード時の処理
 		if (!uploadFile.isEmpty()) {
 			ImageFile imageFile = new ImageFile();
@@ -62,13 +61,10 @@ public class ProfileService {
 		// USERSテーブル更新
 		updateCount += repository.changeProfile(user);
 		// PERSONAL_INFOテーブル更新
-		// form.setUserId(user.getId());
 		updateCount += repository.updatePersonalInfo(form);
 		// USER_HOBBYSテーブルの更新。Emptyの場合は処理されない。
-		for(String hobby : form.getHobbys()) {
-			form.setHobby(hobby);
-			repository.registerUserHobbys(form);
-		}
+		repository.deleterUserHobbys(form.getUserId());
+		if(!form.getHobbys().isEmpty()) repository.registerHobbys(form.getUserId(), form.getHobbys());
 		// USERS、PERSONAL_INFOの一方が更新されなかった場合の例外処理
 		if (updateCount < 2) throw new Exception();
 	}

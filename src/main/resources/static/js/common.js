@@ -138,41 +138,15 @@ var callbackFunction = function(data) {
 
 
 $(function() {
-	if(!$("#wkSelect")){
-		$("#wkSelect").multiselect();
-	}
-});
-	
-	
-
-$(function() {
 	
 	// HTMLを読み込んだ際の処理
 	$(document).ready(function() {
-
-		// UserProfileの読み込み時
-		if(window.location.href.match("UserProfile.html")){
-			setProfileDefault();
-		}
 		// UserRegistrationの読み込み時
 		if(window.location.href.match("UserRegistration.html")){
 			isProfEdPermission();
 		}
 	});
 	
-	
-	// UserProfileのデフォルトの画面表示を設定する。
-	function setProfileDefault() {
-		$('#wkSelect').multiselect({
-			checkAllText: '全て選択',
-			uncheckAllText: '全て選択解除',
-			noneSelectedText: '選択してください',
-			selectedText: '# 個選択',
-		});
-		// $("#wkSelect").multiselect();
-		// $("#id").dropdownchecklist( {width: 200 } );
-	}
-
 	// UserRegistrationのデフォルトの画面表示を設定する。
 	function isProfEdPermission() {
 		fadeinAnimation();
