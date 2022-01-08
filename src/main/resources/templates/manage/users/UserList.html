@@ -62,8 +62,7 @@
 							<div class="card-content card-rounded-7 mb-3 p-1">
 								<div class="zooming" id="show-user-modal" data-id="601" data-toggle="modal"
 									 th:data-target="'#show-user-modal' + ${user.id}">
-									<img class="card-image" alt="Card image cap"
-										 th:src="${ user.profileImage.encodedString}">
+									<img class="card-image"　th:src="${ user.profileImage.encodedString}">
 								</div>
 								<div class="card-body">
 									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
