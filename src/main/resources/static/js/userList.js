@@ -4,16 +4,14 @@ $(function() {
 	$(window).on('load', function() {
 		toggled_userList();
 		deside_img_width();
-		inLinefeed($(".topics"));
-		$("#loading").delay(1500).fadeOut('slow');
-		$("#loading_box").delay(1200).fadeOut('slow');
-		/**
-		 */
+		inLinefeed($('.topics'));
+		$('#loading').delay(1000).fadeOut('slow');
+		$('#loading_box').delay(700).fadeOut('slow');
 	});
 	
 	$(window).on('resize', function() {
 		deside_img_width();
-		inLinefeed($(".topics"));
+		inLinefeed($('.topics'));
 	});
 	
 	// responsive card topics
@@ -44,10 +42,11 @@ $(function() {
 	function toggled_userList() {
 		var windowSize = $(window).width();
 		if (windowSize < 1300) {
-			$(".page-wrapper").removeClass("toggled");
-		}
-		if (windowSize >= 1300) {
-			$(".page-wrapper").addClass("toggled");
+			$('.page-wrapper').removeClass('toggled');
+			$('#loading').css('width', '100%');
+		} else {
+			$('.page-wrapper').addClass('toggled');
+			$('#loading').css('width', windowSize - 260);
 		}
 	}
 	
