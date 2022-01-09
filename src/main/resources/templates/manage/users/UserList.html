@@ -53,16 +53,24 @@
 					</div>
 				</form>
 			</nav>
-			
+
+			<div id="loading">
+				<div id="loading_box">
+					<div class="loading-one animation_loading">
+						<p class="loading-txt">Loading</p>
+					</div>
+				</div>
+			</div>
+
 			<!-- data-panel -->
 			<div class="container topics shadow-sm">
 				<th:block th:if="${searchResult}">
 					<div class="row">
-						<div class="col-sm-6 col-md-4 col-lg-3"  th:each="user : ${searchResult.entities}">
+						<div class="user-card"  th:each="user : ${searchResult.entities}">
 							<div class="card-content card-rounded-7 mb-3 p-1">
 								<div class="zooming" id="show-user-modal" data-id="601" data-toggle="modal"
 									 th:data-target="'#show-user-modal' + ${user.id}">
-									<img class="card-image"　th:src="${ user.profileImage.encodedString}">
+									<img class="card-image" th:src="${ user.profileImage.encodedString}">
 								</div>
 								<div class="card-body">
 									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
@@ -159,7 +167,6 @@
 	</div>
 	<script type="text/javascript" th:src="@{https://unpkg.com/axios/dist/axios.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js}"></script>
