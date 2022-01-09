@@ -135,6 +135,90 @@ main {
 	bottom: 0;
 }
 
-.moodle-container ul{
+.moodle-container ul {
 	margin: 0;
 }
+
+
+
+
+
+/*==================
+#loading
+==================*/
+
+#loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    width: calc(100% - 260px);
+    height: 100%;
+    background: #999;	
+}
+
+#loading_box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	text-align: center;
+}
+
+.loading-one {
+	display: inline-block;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+.loading-one p.loading-txt {
+	color: #fff;
+	font-size: 20px;
+	letter-spacing: 0.25em;
+	line-height: 2.0;
+	padding: 2em 0;
+}
+
+.animation_loading {
+	animation: equalizer_loading 7000ms infinite;
+	animation-iteration-count: 10;
+}
+
+@keyframes equalizer_loading {
+  0% {
+    width: 70%;
+  }
+  10% {
+    width: 50%;
+  }
+  20% {
+    width: 95%;
+  }
+  30% {
+    width: 10%;
+  }
+  40% {
+    width: 50%;
+  }
+  50% {
+    width: 70%;
+  }
+  60% {
+    width: 50%;
+  }
+  70% {
+    width: 10%;
+  }
+  80% {
+    width: 95%;
+  }
+  90% {
+    width: 10%;
+  }
+  100% {
+    width: 70%;
+  }
+}
+
