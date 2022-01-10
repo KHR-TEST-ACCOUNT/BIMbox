@@ -238,60 +238,62 @@ html {
     transform: translateX(-100%);
   }
 }
-.main-side {
-  grid-area: side-a;
+.main-side  {
+	grid-area: side-a;
 }
 
 .main-content {
-  grid-area: main;
+	grid-area: main;
 }
 
 .main-info {
-  grid-area: side-b;
+	grid-area: side-b;
 }
 
 /* elements */
+.profile-image-div {
+    max-width: 48px; 
+}
+
 .profile-image {
-  flex-shrink: 0;
-  display: block;
-  height: 40px;
-  border-radius: 50%;
+	height: 48px;
+	border-radius: 50%;
 }
 
 .big-title {
-  margin: 5px 0;
-  font-size: 19rem;
+	margin: 5px 0;
+	font-size: 19rem;
 }
 
 .section-title {
-  color: var(--dark-green);
-  font-size: 14rem;
-  margin-bottom: 10px;
+	color: var(- -dark-green);
+	font-size: 14rem;
+	margin-bottom: 10px;
 }
 
 .info-text {
-  font-size: 14rem;
-  color: rgba(0, 0, 0, 0.45);
+	font-size: 14rem;
+	color: rgba(0, 0, 0, 0.45);
 }
 
 .status {
-  letter-spacing: -14px;
-  filter: grayscale(1);
+	letter-spacing: -14px;
+	filter: grayscale(1);
 }
 
 .status.is-seen {
-  filter: grayscale(0);
+	filter: grayscale(0);
 }
 
 .text-input {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: var(--white);
-  padding: 10px;
-  margin: 5px 10px;
-  border-radius: 20px;
-  border-width: 0;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: var(--white);
+	padding: 10px;
+	margin: 5px 10px;
+	border-radius: 20px;
+	border-width: 0;
 }
 
 .text-input:focus {
@@ -387,7 +389,7 @@ html {
   display: flex;
   background-color: var(--main-gray);
   height: 60px;
-  padding: 10px 16px;
+  padding: 6px 16px;
   flex-shrink: 0;
 }
 
@@ -610,18 +612,19 @@ html {
   grid-area: content;
 }
 
-.chats-item .profile-image , .user-profile{
-  position: relative;
-  top: 6px;
-  flex-shrink: 0;
-  height: 50px;
-  margin: auto;
+.chats-item .profile-image-link {
+	margin: auto;
+}
+
+.chats-item .profile-image, .user-profile {
+	height: 48px;
+	margin: 5px auto auto;
 }
 
 .chats-item-header {
-  display: flex;
-  padding-top: 10px;
-  height: 36px;
+	display: flex;
+	padding-top: 10px;
+	height: 36px;
 }
 
 .chats-item-title {
