@@ -37,7 +37,7 @@
 							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
 								<li class="chats-item">
 									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
-										<input type="hidden" id="selection-id" class="selection-id hidden" th:value="${ chatUser.toUserId }" >
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
 										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|" class="profile-image-link pt-1">
 											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 										</a>
@@ -118,18 +118,47 @@
 						</ol>
 					</div>
 					<!-- message send -->
-					<div class="message-box">
-						<button id="voice-button" class="common-button">
-							<i class="fas fa-images icon"></i>
-						</button>
-						<div class="text-input" id="message-box" placeholder="Type a message" contenteditable></div>
-						<button id="voice-button" class="common-button">
-							<i class="fas fa-pen icon"></i>
-						</button>
-						<button id="submit-button" class="common-button">
-							<i class="far fa-paper-plane icon"></i>
-						</button>
-					</div>
+					<form th:object="${chatMessage}">
+						<div class="message-box">
+						
+							<div class="file-upload">
+								<div class="image-upload-wrap">
+									<input class="file-upload-input" type='file'
+										onchange="readURL(this);" accept="image/*" />
+									<div class="drag-text">
+										<h3>add image</h3>
+									</div>
+								</div>
+								<div class="file-upload-content">
+									<img class="file-upload-image" src="#" alt="your image" />
+									<div class="image-title-wrap">
+										<button type="button" onclick="removeUpload()" class="remove-image">
+											Remove <span class="image-title">Uploaded Image</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						
+						<!-- 
+							<label for="photo-file" class="common-button">
+								<i class="fas fa-images icon"></i>
+							</label>
+							<input type="file" id="photo-file" class="d-none" accept="image/*"
+								th:field="*{uploadFile}" />
+								
+							<button id="voice-button" class="common-button">
+								<i class="fas fa-images icon"></i>
+							</button>
+						 -->
+							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
+							<button id="voice-button" class="common-button">
+								<i class="fas fa-pen icon"></i>
+							</button>
+							<button id="submit-button" class="common-button">
+								<i class="far fa-paper-plane icon"></i>
+							</button>
+						</div>
+					</form>
 					<!-- message send end -->
 				</main>
 				<!-- user detail -->
@@ -144,9 +173,13 @@
 					</header>
 					<div class="main-info-content">
 						<section class="common-box">
-							<img class="main-info-image" th:src="${toUsersInfo.profileImage.encodedString}">
-							<h4 class="big-title" th:text="${ 'UserName : ' + toUsersInfo.username }">username</h4>
-							<p class="info-text" th:text="${ 'Birthday : ' + toUsersInfo.birthday }">birthday</p>
+							<a th:href="|@{/profile/UserProfile.html}?id=${ toUsersInfo.id }|" >
+								<img class="main-info-image" th:src="${toUsersInfo.profileImage.encodedString}">
+							</a>
+							<h4 class="big-title" th:text="${ 'Name : ' + toUsersInfo.username }">username</h4>
+							<p class="info-text"th:text="${ toUsersInfo.birthday } != null ?
+							   ${ 'Birthday : ' + toUsersInfo.birthday }: 'Birthday : 登録されていません。'">
+							</p>
 						</section>
 						<section class="common-box">
 							<h5 class="section-title">Hobby</h5>
