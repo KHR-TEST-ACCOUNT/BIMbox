@@ -37,12 +37,13 @@
 							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
 								<li class="chats-item">
 									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
-										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
-										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
+										<input type="hidden" id="selection-id" class="selection-id hidden" th:value="${ chatUser.toUserId }" >
+										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|" class="profile-image-link pt-1">
 											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 										</a>
 										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
-										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" class="chat-reception text-decoration-none"> 
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" 
+										   class="chat-reception text-decoration-none"> 
 											<div class="chats-item-header">
 												<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
 												<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
@@ -66,7 +67,9 @@
 								<span class="icon icon-back">⬅</span>
 							</button>
 							<button class="u-flex js-side-info-button">
-								<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
+								<div class="profile-image-div">
+									<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
+								</div>
 								<div class="common-header-content">
 									<p class="common-header-status" th:text="${ toUsersInfo.username }">username</p>
 								</div>
@@ -141,26 +144,17 @@
 					</header>
 					<div class="main-info-content">
 						<section class="common-box">
-							<img class="main-info-image"
-								src="https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-1/p100x100/10325799_276849335820343_269039155920934591_n.png?_nc_cat=101&_nc_sid=dbb9e7&_nc_ohc=fxci6qYcSvoAX-bZfj2&_nc_ht=scontent.fhfa1-2.fna&oh=ad1c246e7e4a52c607aafd99ed7217a2&oe=5EEAF8B0"
-								alt="CSS Masters Israel">
-							<h4 class="big-title">CSS Masters Israel</h4>
-							<p class="info-text">Created 6/11/2013 at 22:45</p>
+							<img class="main-info-image" th:src="${toUsersInfo.profileImage.encodedString}">
+							<h4 class="big-title" th:text="${ 'UserName : ' + toUsersInfo.username }">username</h4>
+							<p class="info-text" th:text="${ 'Birthday : ' + toUsersInfo.birthday }">birthday</p>
 						</section>
 						<section class="common-box">
-							<h5 class="section-title">Description</h5>
-							<p>
-								Out main channel of the comunity is on Fecbook: <a
-									href="https://www.facebook.com/groups/css.masters.israel/">
-									http://bit.ly/2Up8On5 </a>
-							</p>
+							<h5 class="section-title">Hobby</h5>
+							<p th:text="${ toUsersInfo.hobby } != null ? ${ toUsersInfo.hobby }: '登録されていません。'">Hobbys</p>
 						</section>
 						<section class="common-box">
-							<h5 class="section-title">Other content</h5>
-							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-								Architecto odit voluptatem magnam sequi dolorem soluta assumenda
-								ipsum iusto culpa velit repudiandae vitae minus minima corporis
-								labore sit, molestias, a ut!</p>
+							<h5 class="section-title">About Me</h5>
+							<p th:text="${ toUsersInfo.aboutMe } != null ? ${ toUsersInfo.aboutMe }: '登録されていません。'">aboutMe</p>
 						</section>
 					</div>
 				</aside>

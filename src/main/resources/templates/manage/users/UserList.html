@@ -120,14 +120,24 @@
 														<i class="fa fa-envelope"></i>
 														<span th:text="${user.email}"></span>
 													</p>
+													<p id="show-user-hobby">
+														<i class="fas fa-icons"></i>
+														<span id="show-user-age" th:text="${ user.hobby } != null ? ${ user.hobby }: '登録されていません。'"></span>
+													</p>
 													<p id="show-user-about">
 														<i class="fas fa-address-card"></i>
 														<span class="text-break" th:text="${user.aboutMe}"></span>
 													</p>
 													<p id="show-user-detail" class="mt-5">
-														<a th:href="|@{/profile/UserProfile.html}?id=${user.id}|" class="user-detail">
+														<a th:href="|@{/conversationTo/ChatRoom.html}?id=${user.id}|" class="user-detail text-decoration-none"> 
 															<i class="fas fa-sign-in-alt"></i>
-															<span th:text="プロフィールへ"></span>
+															<span>Chat Roomへ</span>
+														</a>
+													</p>
+													<p id="show-user-detail">
+														<a th:href="|@{/profile/UserProfile.html}?id=${ user.id }|" class="user-detail">
+															<i class="fas fa-sign-in-alt"></i>
+															<span>プロフィールへ</span>
 														</a>
 													</p>
 												</div>

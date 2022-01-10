@@ -744,12 +744,7 @@ section.upcoming h1 {
 
 
 
-
-
-
-
-
-form:not(.sujest-users) {
+.content form:not(.sujest-users) {
 	max-height: 82%;
     overflow: scroll;
 }
