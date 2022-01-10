@@ -37,12 +37,13 @@
 							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
 								<li class="chats-item">
 									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
-										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
-										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|">
+										<input type="hidden" id="selection-id" class="selection-id hidden" th:value="${ chatUser.toUserId }" >
+										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|" class="profile-image-link pt-1">
 											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
 										</a>
 										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
-										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" class="chat-reception text-decoration-none"> 
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" 
+										   class="chat-reception text-decoration-none"> 
 											<div class="chats-item-header">
 												<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
 												<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
@@ -66,7 +67,9 @@
 								<span class="icon icon-back">⬅</span>
 							</button>
 							<button class="u-flex js-side-info-button">
-								<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
+								<div class="profile-image-div">
+									<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
+								</div>
 								<div class="common-header-content">
 									<p class="common-header-status" th:text="${ toUsersInfo.username }">username</p>
 								</div>

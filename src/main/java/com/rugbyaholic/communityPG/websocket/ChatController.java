@@ -40,6 +40,20 @@ public class ChatController {
 	}
 
 	
+	// Chat中のユーザーを検索
+	@GetMapping("/userSearchDo/ChatRoom.html")
+	public String userSearchDo(@RequestParam(value = "id", required = true) Long toUserId, 
+			@RequestParam(value = "content", required = true) String content, Model model, 
+			@AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		chatRoomService.deleteMessageHistDemo();
+		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
+		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
+		return "websocket/UserSugest.html";
+	}
+	
+	
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
 	@GetMapping("/ChatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,

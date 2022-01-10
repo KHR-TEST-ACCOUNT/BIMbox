@@ -12,7 +12,7 @@
 		FROM    MESSAGE_HIST MSG
 		WHERE	FROM_USER_ID = #{fromUserId}
 		ORDER BY
-		        MSG.SENT_AVF
+		        MSG.SENT_AVF DESC
 		        LIMIT 	1;
 	]]>
 	</select>
