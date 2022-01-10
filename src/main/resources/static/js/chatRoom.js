@@ -1,33 +1,17 @@
-/** */
-
-
-
-
-
-
-
-
-/*JS isnt my experty 😉*/
 $(document).ready(function() {
-  $(".js-chat-button, .js-back").on("click", function(){
-    $(".main-grid").toggleClass("is-message-open");
-  });
-  
+	$(".js-chat-button, .js-back").on("click", function() {
+		var selection_id = $(this).children('.selection-id').val();
+		var display_id = $('#display-id').val()
+		if ( selection_id == display_id || $(this).hasClass('js-back')) {
+			$(".main-grid").toggleClass("is-message-open");
+		}
+	});
+
 	// 表示切り替えボタンの表示
 	$(".js-side-info-button, .js-close-main-info").on("click", function() {
 		$(".main-grid").toggleClass("is-main-info-open");
 		$(".main-info").toggleClass("u-hide");
 	});
-});
-
-
-/* image empty error replace with emoji */
-document.addEventListener("DOMContentLoaded", function(event) {
-	document.querySelectorAll('img').forEach(function(img) {
-		img.onerror = function() { 
-			this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='50' height='50' viewport='0 0 100 100' style='fill:black;font-size:50px;opacity:0.5;filter:grayscale(1)'><filter id='grayscale'><feColorMatrix type='saturate' values='0.10'/></filter><text y='85%'>👶</text></svg>";
-		};
-	})
 });
 
 
@@ -51,8 +35,6 @@ $(function() {
 			$('.common-message').css('max-width', msg_width);
 		}
 	}
-	/**
-	 */
 	
 	//　ChatUserのハイパーリンクを削除
 	function hyperlink_deletion(){
@@ -63,7 +45,7 @@ $(function() {
 				var chats_content = $(this).parents('.chats-list');
 				var link = $(this).nextAll('.chat-reception');
 				chats_content.css('background-color','#e9e9e9')
-				link.contents().unwrap();
+				link.css('pointer-events', 'none');
 			}
 		});
 	}
