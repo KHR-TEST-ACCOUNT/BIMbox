@@ -374,6 +374,7 @@
 		<result property="id" column="ID" />
 		<result property="email" column="EMAIL" />
 		<result property="birthday" column="BIRTHDAY" />
+		<result property="hobby" column="HOBBY" />
 		<result property="avf" column="AVF" />
 		<result property="username" column="NAME" />
 		<result property="password" column="PASSWORD" />
@@ -408,11 +409,12 @@
 	<update id="updatePersonalInfo" parameterType="com.rugbyaholic.communityPG.auth.account.ProfileEditForm">
 	<![CDATA[
 		INSERT INTO PERSONAL_INFO
-		(USER_ID, BIRTHDAY, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
+		(USER_ID, BIRTHDAY, HOBBY, ABOUT_ME, ZIPCODE, PREF, CITY, BLDG, TELNO, MOBILE_NO)
 		VALUES
-		(#{userId}, #{birthday}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
+		(#{userId}, #{birthday}, #{hobby}, #{aboutMe}, #{zipcode}, #{pref}, #{city}, #{bldg}, #{phoneNo}, #{mobilePhoneNo})
 		ON DUPLICATE KEY UPDATE 
 				BIRTHDAY	 =	#{birthday},
+				HOBBY		 =	#{hobby},
 				ABOUT_ME	 =	#{aboutMe},
 		        ZIPCODE      =  #{zipcode},
 		        PREF         =  #{pref},
@@ -432,6 +434,7 @@
 		        U.EMP_NO,
 		        U.NAME,
 		        U.PROFILE_IMG,
+		        PI.HOBBY,
 				PI.BIRTHDAY,
 				coalesce(PI.ABOUT_ME, '登録されていません。') as ABOUT_ME,
 		        DP.DEPT_NM,
@@ -466,14 +469,13 @@
 		ON      PI.USER_ID       =  U.ID
 	]]>
 	<where>
-		<if test="empNo != null">
-		<![CDATA[
-			AND    U.EMP_NO		LIKE	CONCAT('%', #{empNo}, '%')
-		]]>
-		</if>
 		<if test="name != null">
 		<![CDATA[
-			AND    U.NAME		LIKE	CONCAT('%', #{name}, '%')
+			AND    (
+						U.NAME			LIKE	CONCAT('%', #{name}, '%')
+					OR	PI.HOBBY		LIKE	CONCAT('%', #{name}, '%')
+					OR	PI.ABOUT_ME		LIKE	CONCAT('%', #{name}, '%')
+					)
 		]]>
 		</if>
 	</where>
@@ -482,10 +484,6 @@
 		LIMIT  #{pageFrom}, #{count}
 	]]>
 	</select>
-	
-	
-	
-	
 	
 	<insert id="registerInitialUser" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[

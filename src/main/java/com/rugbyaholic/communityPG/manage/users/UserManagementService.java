@@ -166,7 +166,7 @@ public class UserManagementService {
 	public void userDeleteForm(Long id) {
 		userRepository.deleterUser(id);
 	}
-	
+
 	/**
 	 * 検索結果をModelに格納するメソッド
 	 * 
@@ -180,7 +180,7 @@ public class UserManagementService {
 		SearchResult<AuthenticatedUser> searchResult = new SearchResult<>(countUser(form), PAGE_LIMIT);
 		searchResult.moveTo(1);
 		searchResult.setEntities(loadUserList(form));
-		
+		// 検索結果を格納
 		model.addAttribute("searchResult", searchResult);
 		model.addAttribute("userSearchForm", form);
 	}
