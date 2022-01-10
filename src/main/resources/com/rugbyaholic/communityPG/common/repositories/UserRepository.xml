@@ -103,6 +103,9 @@
 				USERS.LOCKED,
 				USERS.EXPIRED,
 				USER_ROLES.ROLE,
+		        PI.HOBBY,
+				PI.BIRTHDAY,
+		        PI.ABOUT_ME,
 				CODEMST.CODE_NM,
 				USERS.EMP_NO,
         		USERS.PROFILE_IMG,
@@ -136,6 +139,8 @@
 		            AND     POSITIONS.AVF       <=  CURDATE()
 		            AND     POSITIONS.AVF        >  POS.AVF
 		        )
+		LEFT JOIN PERSONAL_INFO PI
+		ON      PI.USER_ID       =  USERS.ID
 		WHERE  USERS.ID           = #{id}
 	]]>
 	</select>

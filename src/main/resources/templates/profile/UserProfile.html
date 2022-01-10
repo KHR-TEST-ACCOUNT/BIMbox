@@ -108,6 +108,16 @@
 										</div>
 									</fieldset>
 								</li>
+								<li class="large padding save-button" 
+									th:if="${targetUser.id != #authentication.principal.id}">
+									<fieldset class="material-button center">
+										<div>
+											<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ targetUser.id }|" > 
+												<button class="save" type="button">Chat Roomへ</button>
+											</a>
+										</div>
+									</fieldset>
+								</li>
 							</ul>
 						</form>
 					</section>
