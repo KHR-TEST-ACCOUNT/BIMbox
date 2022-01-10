@@ -2,6 +2,7 @@ package com.rugbyaholic.communityPG.auth.account;
 
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,11 +61,15 @@ public class ProfileService {
 		}
 		// USERSテーブル更新
 		updateCount += repository.changeProfile(user);
-		// PERSONAL_INFOテーブル更新
-		updateCount += repository.updatePersonalInfo(form);
 		// USER_HOBBYSテーブルの更新。Emptyの場合は処理されない。
 		repository.deleterUserHobbys(form.getUserId());
-		if(!form.getHobbys().isEmpty()) repository.registerHobbys(form.getUserId(), form.getHobbys());
+		if(!form.getHobbys().isEmpty()) {
+		    String userHobbys= form.getHobbys().stream().collect(Collectors.joining(", "));
+			form.setHobby(userHobbys);
+			repository.registerHobbys(form.getUserId(), form.getHobbys());
+		}
+		// PERSONAL_INFOテーブル更新
+		updateCount += repository.updatePersonalInfo(form);
 		// USERS、PERSONAL_INFOの一方が更新されなかった場合の例外処理
 		if (updateCount < 2) throw new Exception();
 	}

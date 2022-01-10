@@ -25,6 +25,8 @@ public class AuthenticatedUser implements UserDetails {
 	private String age;
 
 	private String birthday;
+	
+	private String hobby;
 
 	private String avf;
 	
@@ -99,7 +101,7 @@ public class AuthenticatedUser implements UserDetails {
 	public String calcAge(Date birthday, Date now) {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	    int calcResult = (Integer.parseInt(sdf.format(now)) - Integer.parseInt(sdf.format(birthday))) / 10000;
-        return String.valueOf(calcResult);
+	    return String.valueOf(calcResult);
 	}	
 	
 	public long getId() {
@@ -131,6 +133,14 @@ public class AuthenticatedUser implements UserDetails {
 			this.birthday = getDateFormat(birthday);
 			this.age = calcAge(birthday , new Date());
 		}
+	}
+
+	public String getHobby() {
+		return hobby;
+	}
+
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
 	}
 
 	public String getAvf() {
