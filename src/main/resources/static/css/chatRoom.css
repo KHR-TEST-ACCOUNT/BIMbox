@@ -677,26 +677,26 @@ html {
   border-left: solid 1px var(--common-header-border-color);
 }
 
-.main-info-content {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  /*-webkit-overflow-scrolling:touch;*/
-  background-color: var(--light-gray);
+.main-info-content  {
+	overflow-y: auto;
+	scrollbar-width: thin;
+	background-color: var(--light-gray);
 }
 
 .main-info-image {
-  display: block;
-  max-width: 200px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  border-radius: 50%;
+	display: block;
+	max-width: 200px;
+	max-height: 150px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	border-radius: 3%;
 }
 
 .common-box {
-  background-color: var(--white);
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-bottom: 10px;
+	background-color: var(--white);
+	padding: 20px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	margin-bottom: 10px;
 }
 
 .common-box p {
