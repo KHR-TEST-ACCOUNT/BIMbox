@@ -822,8 +822,6 @@ html {
 .file-upload-image {
 	border-radius: 1.5%;
 	margin-bottom: 10px;
-	max-height: 330px;
-	max-width: 600px;
 	margin: 10px auto;
 }
 
