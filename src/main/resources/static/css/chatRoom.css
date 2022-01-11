@@ -290,40 +290,53 @@ html {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: var(--white);
-    margin: 5px 10px;
     border-radius: 10px;
     border-width: 0;
     overflow-y: scroll;
 }
 
 .common-search .text-input {
+    margin: 5px 10px;
     border-radius: 20px;
 	padding: 10px;
 }
 
 .message-box .text-input {
-    border-radius: 10px;
-    padding: 5px;
-    min-height: 143px;
-    max-height: 143px;
+	border-radius: 10px;
+	margin: 0 10px;
+	padding: 5px;
+	min-height: 143px;
+	max-height: 143px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.message-box .text-input::-webkit-scrollbar {
+	display: none;
 }
 
 .text-input:focus {
-  outline: none;
+	outline: none;
+}
+
+#submit-button {
+	background: rgb(124 98 98/ 17%);
+	border-radius: 6px;
 }
 
 .common-search {
-  display: flex;
-  flex-shrink: 0;
-  background: var(--light-gray);
-  position: relative;
-  transition: 0.2s;
+	display: flex;
+	flex-shrink: 0;
+	background: var(- -light-gray);
+	position: relative;
+	transition: 0.2s;
 }
 
-.common-search::before  {
+.common-search::before {
 	content: "🔎";
 	position: absolute;
-	left: 36px; top : 18px;
+	left: 36px;
+	top: 18px;
 	filter: grayscale(1) opacity(0.5);
 	top: 18px;
 }
@@ -564,7 +577,7 @@ html {
 	display: flex;
 	flex-shrink: 0;
 	background-color: #f0f0f0;
-	padding: 5px 10px;
+	padding: 10px;
 	height: 158px;
 }
 
@@ -717,27 +730,6 @@ html {
   color: #4a4a4a;
 }
 
-/* CSS Logilcs */
-#message-box {
-  /*when textbox empty show microhpone*/
-  /*when textbox with texy show submit button*/
-}
-
-#message-box:empty ~ #submit-button {
-  display: none;
-}
-
-#message-box:not(:empty) ~ #voice-button {
-  display: none;
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -746,7 +738,7 @@ html {
 
 .file-upload {
 	width: 20%;
-	margin: 9px auto;    
+	margin: 3px auto;    
 	min-width: 130px;
 }
 
