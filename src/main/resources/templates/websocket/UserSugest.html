@@ -117,10 +117,11 @@
 							</th:block>
 						</ol>
 					</div>
+					
 					<!-- message send -->
-					<form th:object="${chatMessage}">
+			        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
+			        	  enctype="multipart/form-data" method="post" th:object="${chatMessage}">
 						<div class="message-box">
-						
 							<div class="file-upload">
 								<div class="image-upload-wrap">
 									<input class="file-upload-input" type='file'
@@ -131,42 +132,21 @@
 								</div>
 								<div class="file-upload-content">
 									<div class="image-title-wrap d-flex">
-										<img class="file-upload-image" src="#" alt="your image" />
+										<img class="file-upload-image" src="" alt="your image" />
 										<i class="fas fa-times remove-image" onclick="removeUpload()"></i>
 									</div>
 								</div>
-										<!-- 
-										<button type="button" onclick="removeUpload()" class="remove-image">
-											Remove <span class="image-title">Uploaded Image</span>
-										</button>
-										<button type="button" onclick="removeUpload()" class="remove-image">
-											Remove <span class="image-title">Uploaded Image</span>
-										</button>
-										 -->
 							</div>
-						
-						<!-- 
-							<label for="photo-file" class="common-button">
-								<i class="fas fa-images icon"></i>
-							</label>
-							<input type="file" id="photo-file" class="d-none" accept="image/*"
-								th:field="*{uploadFile}" />
-								
-							<button id="voice-button" class="common-button">
-								<i class="fas fa-images icon"></i>
-							</button>
-						 -->
 							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
-							<button id="voice-button" class="common-button">
-								<i class="fas fa-pen icon"></i>
-							</button>
 							<button id="submit-button" class="common-button">
 								<i class="far fa-paper-plane icon"></i>
 							</button>
 						</div>
 					</form>
 					<!-- message send end -->
+					
 				</main>
+				
 				<!-- user detail -->
 				<aside class="main-info u-hide">
 					<header class="common-header">

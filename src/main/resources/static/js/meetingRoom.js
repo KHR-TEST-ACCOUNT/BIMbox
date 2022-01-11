@@ -69,17 +69,19 @@ $(function() {
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
+		var this_file = input.closest('.file-upload');
 		reader.onload = function(e) {
-			$('.image-upload-wrap').hide();
-			$('.file-upload-image').attr('src', e.target.result);
-			$('.file-upload-content').show();
-			$('.image-title').html(input.files[0].name);
+			this_file.querySelectorAll('.image-upload-wrap')[0].style.display = "none";
+			this_file.querySelectorAll('.file-upload-image')[0].setAttribute('src', e.target.result);
+			this_file.querySelectorAll('.file-upload-content')[0].style.display = "block";
+			this_file.querySelectorAll('.image-title').innerHTML = input.files[0].name;
 		};
 		reader.readAsDataURL(input.files[0]);
 	} else {
 		removeUpload();
 	}
 }
+
 
 // ファイル削除
 function removeUpload() {

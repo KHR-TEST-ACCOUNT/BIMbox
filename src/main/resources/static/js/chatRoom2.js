@@ -284,37 +284,6 @@ function getNowDateWithString(date){
 }
 
 
-/**
-$(function() {
-	// アップロードするファイルを選択
-	$('input[type=file]').change(function() {
-		
-		var imgContent = $('.imgContent');
-		if(imgContent) imgContent.remove();
-		
-		$('.userfile').after('<img class="imgContent">');
-		var file = $(this).prop('files')[0];
-		imgContent = $('.imgContent');
-		
-		// 画像以外は処理を停止
-		if (!file.type.match('image.*')) {
-			// クリア
-			$(this).val('');
-			$('img').html('');
-			return;
-		}
-		// 画像表示
-		var reader = new FileReader();
-		reader.onload = function() {
-			var img_src = imgContent.attr('src', reader.result);
-			imgContent.html(img_src);
-		}
-		reader.readAsDataURL(file);
-	});
-});
- */
-
-
 //エラー時処理
 function onError(error) {
     connectingElement.textContent = '予期せぬエラーが発生しました。';
