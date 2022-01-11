@@ -35,7 +35,8 @@ public class ChatController {
 		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
 		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
+		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user));
+		model.addAttribute("chatMessage", new ChatMessage()); 
 		return "websocket/UserSugest.html";
 	}
 
@@ -50,6 +51,7 @@ public class ChatController {
 		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
+		model.addAttribute("chatMessage", new ChatMessage()); 
 		return "websocket/UserSugest.html";
 	}
 	

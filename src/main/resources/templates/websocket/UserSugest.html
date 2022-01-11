@@ -118,18 +118,47 @@
 						</ol>
 					</div>
 					<!-- message send -->
-					<div class="message-box">
-						<button id="voice-button" class="common-button">
-							<i class="fas fa-images icon"></i>
-						</button>
-						<div class="text-input" id="message-box" placeholder="Type a message" contenteditable></div>
-						<button id="voice-button" class="common-button">
-							<i class="fas fa-pen icon"></i>
-						</button>
-						<button id="submit-button" class="common-button">
-							<i class="far fa-paper-plane icon"></i>
-						</button>
-					</div>
+					<form th:object="${chatMessage}">
+						<div class="message-box">
+						
+							<div class="file-upload">
+								<div class="image-upload-wrap">
+									<input class="file-upload-input" type='file'
+										onchange="readURL(this);" accept="image/*" />
+									<div class="drag-text">
+										<h3>add image</h3>
+									</div>
+								</div>
+								<div class="file-upload-content">
+									<img class="file-upload-image" src="#" alt="your image" />
+									<div class="image-title-wrap">
+										<button type="button" onclick="removeUpload()" class="remove-image">
+											Remove <span class="image-title">Uploaded Image</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						
+						<!-- 
+							<label for="photo-file" class="common-button">
+								<i class="fas fa-images icon"></i>
+							</label>
+							<input type="file" id="photo-file" class="d-none" accept="image/*"
+								th:field="*{uploadFile}" />
+								
+							<button id="voice-button" class="common-button">
+								<i class="fas fa-images icon"></i>
+							</button>
+						 -->
+							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
+							<button id="voice-button" class="common-button">
+								<i class="fas fa-pen icon"></i>
+							</button>
+							<button id="submit-button" class="common-button">
+								<i class="far fa-paper-plane icon"></i>
+							</button>
+						</div>
+					</form>
 					<!-- message send end -->
 				</main>
 				<!-- user detail -->

@@ -20,18 +20,28 @@ $(function() {
 	$(window).on('load', function() {
 		$(".page-wrapper").removeClass("toggled");
 		decide_msg_width();
+		decide_msgBox_width();
 		hyperlink_deletion();
 	});
 	// window size に合わせてSideNaviを非表示
 	$(window).on('resize', function() {
 		$(".page-wrapper").removeClass("toggled");
 		decide_msg_width();
+		decide_msgBox_width();
 	});
 	
 	//ChatMessageの横幅を指定
 	function decide_msg_width(){
 		if($(window).width() < 955) {
 			var msg_width = $('.messanger-list').innerWidth() * 0.7;
+			$('.common-message').css('max-width', msg_width);
+		}
+	}
+	
+	//MessageBoxの横幅を指定
+	function decide_msgBox_width(){
+		if($(window).width() < 955) {
+			var msg_width = $('.message-box').outerWidth() -  $('.file-upload').outerWidth();
 			$('.common-message').css('max-width', msg_width);
 		}
 	}
@@ -53,4 +63,38 @@ $(function() {
 });
 
 
+
+
+// ファイルのUPLOAD
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('.image-upload-wrap').hide();
+			$('.file-upload-image').attr('src', e.target.result);
+			$('.file-upload-content').show();
+			$('.image-title').html(input.files[0].name);
+		};
+		reader.readAsDataURL(input.files[0]);
+	} else {
+		removeUpload();
+	}
+}
+
+// ファイル削除
+function removeUpload() {
+	$('.file-upload-content').hide();
+	$('.image-upload-wrap').show();
+}
+
+// ドラッグ時処理
+$('.image-upload-wrap').bind('dragover', function() {
+	$('.image-upload-wrap').addClass('image-dropping');
+});
+
+// ドロップ時処理
+$('.image-upload-wrap').bind('dragleave', function() {
+	$('.image-upload-wrap').removeClass('image-dropping');
+});
+	
 
