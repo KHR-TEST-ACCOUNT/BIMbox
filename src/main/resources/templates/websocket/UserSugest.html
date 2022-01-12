@@ -3,8 +3,10 @@
 <head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
 	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
+	<script type="text/javascript" th:src="@{/js/chatWebkit.js}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<!-- サイドバー -->
@@ -89,6 +91,9 @@
 					
 					<!-- Chat欄 -->
 					<div class="messanger">
+				        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
+					        <div class="connecting mt-1 mb-2">Let's start...</div>
+				        </div>
 						<ol class="messanger-list" >
 							<th:block  th:each="chatMsg : ${messageHist}" th:if="${chatMsg.isHistories(messageHist)}"
 										th:with="isMessagedBy=${chatMsg.isUsersMessage(chatMsg.fromUserId, #authentication.principal)}" >
@@ -100,17 +105,17 @@
 										<!-- 削除 -->
 										 <th:block th:if="${isMessagedBy}">
 											<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
-											class="text-decoration-none text-end" onclick="deleterMsg(event,this)"> 
-												<i class="fas fa-trash"></i>
-												<input type="hidden" th:value="${chatMsg.msgId}" />
+											class="text-decoration-none text-end deleterMsg" onclick="deleterMsg(event,this)"> 
+												<i class="fas fa-trash isDelete"></i>
+												<input type="hidden" class="msgId" th:value="${chatMsg.msgId}" />
 											</a> 
-											<!-- 復元 --> 
+											<!-- 復元 
 											<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
-											class="text-decoration-none text-end" onclick="updateMsgData(event,this)"> 
-												<small>復元</small> 
+											class="text-decoration-none text-end updateMsg" onclick="updateMsgData(event,this)"> 
 												<i class="fas fa-trash-restore"></i>
 												<input type="hidden" th:value="${chatMsg.msgId}" />
 											</a>
+											--> 
 										</th:block>
 									</div>
 								</li>
@@ -120,7 +125,7 @@
 					
 					<!-- message send -->
 			        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
-			        	  enctype="multipart/form-data" method="post" th:object="${chatMessage}">
+			        	  enctype="multipart/form-data" method="post">
 						<div class="message-box">
 							<div class="file-upload">
 								<div class="image-upload-wrap">
@@ -138,10 +143,14 @@
 								</div>
 							</div>
 							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
-							<button id="submit-button" class="common-button">
+							<button type="submit" id="submit-button" class="common-button">
 								<i class="far fa-paper-plane icon"></i>
 							</button>
 						</div>
+		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
+		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
+	              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
+	              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
 					</form>
 					<!-- message send end -->
 					

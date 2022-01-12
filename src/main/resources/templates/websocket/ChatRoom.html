@@ -69,8 +69,7 @@
 					<input type="file" id="photo-file" class="d-none" accept="image/*"
 						th:field="*{chatMessage.uploadFile}" />
 						
-					<div class="p-1 d-inline-block" id="dragandrophandler">
-					</div>
+					<div class="p-1 d-inline-block" id="dragandrophandler"></div>
 		            
 	                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
 	                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>

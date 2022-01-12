@@ -65,7 +65,52 @@ $(function() {
 })
 
 
-// ファイルのUPLOAD
+$(function() {
+	
+	// ファイルのUPLOAD
+	$(".file-upload-input").on("change", function() {
+		var input = $(this);
+		var this_file = input.parents('.file-upload');
+		if (input.prop('files') && input.prop('files')[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				this_file.find('.image-upload-wrap').hide();
+				this_file.find('.file-upload-image').attr('src', e.target.result);
+				this_file.find('.file-upload-content').show();
+				this_file.find('.image-title').html(input.prop('files')[0].name);
+			};
+			reader.readAsDataURL(input.prop('files')[0]);
+		} else {
+			this_file.find('.remove-image').trigger('click');
+			this_file.find('.image-upload-wrap').trigger('dragleave'); 
+		}
+	});
+	
+	// ファイル削除
+	$(".remove-image").on("click", function() {
+		var this_img = $(this).parents('.file-upload');
+		this_img.find('.file-upload-content').hide();
+		this_img.find('.image-upload-wrap').show();
+		this_img.find('.file-upload-image').attr('src', '');
+		this_img.find('.image-upload-wrap').trigger('dragleave'); 
+	});
+	
+	// ドラッグ時処理
+	$('.image-upload-wrap').bind('dragover', function() {
+		$(this).addClass('image-dropping');
+	});
+	
+	// ドロップ時処理
+	$('.image-upload-wrap').bind('dragleave', function() {
+		$(this).removeClass('image-dropping');
+	});
+	
+});
+
+	
+
+/**
+
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -83,22 +128,15 @@ function readURL(input) {
 }
 
 
-// ファイル削除
-function removeUpload() {
-	$('.file-upload-content').hide();
-	$('.image-upload-wrap').show();
+function removeUpload(img) {
+	console.log(img);
+	var this_img = img.closest('.file-upload');
+	this_img.querySelectorAll('.file-upload-content')[0].style.display = "none";
+	this_img.querySelectorAll('.image-upload-wrap')[0].style.display = "block";
+	this_img.querySelectorAll('.file-upload-image')[0].setAttribute('src', '');
 }
+ */
 
-// ドラッグ時処理
-$('.image-upload-wrap').bind('dragover', function() {
-	$('.image-upload-wrap').addClass('image-dropping');
-});
-
-// ドロップ時処理
-$('.image-upload-wrap').bind('dragleave', function() {
-	$('.image-upload-wrap').removeClass('image-dropping');
-});
-	
 	
 // コメントとドロップダウンの非表示処理
 $(function() {
@@ -142,7 +180,7 @@ $(function() {
 
 	
 	// コメント投稿時の非同期通信処理
-	$(document).on('click', '#ajaxForm button', function() {
+	$(document).on('click', '#ajaxForm .comment-button', function() {
 
 		let ajaxForm = $(this).parents("#ajaxForm");
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
