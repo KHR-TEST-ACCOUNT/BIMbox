@@ -1,19 +1,3 @@
-$(document).ready(function() {
-	$(".js-chat-button, .js-back").on("click", function() {
-		var selection_id = $(this).children('.selection-id').val();
-		var display_id = $('#display-id').val()
-		if ( selection_id == display_id || $(this).hasClass('js-back')) {
-			$(".main-grid").toggleClass("is-message-open");
-		}
-	});
-
-	// 表示切り替えボタンの表示
-	$(".js-side-info-button, .js-close-main-info").on("click", function() {
-		$(".main-grid").toggleClass("is-main-info-open");
-		$(".main-info").toggleClass("u-hide");
-	});
-});
-
 
 $(function() {
 	// ロード時の window size に合わせてSideNaviを表示
@@ -29,7 +13,6 @@ $(function() {
 		decide_msg_width();
 		decide_msgBox_width();
 	});
-	
 	//ChatMessageの横幅を指定
 	function decide_msg_width(){
 		if($(window).width() < 955) {
@@ -37,7 +20,6 @@ $(function() {
 			$('.common-message').css('max-width', msg_width);
 		}
 	}
-	
 	//MessageBoxの横幅を指定
 	function decide_msgBox_width(){
 		if($(window).width() < 955) {
@@ -45,7 +27,6 @@ $(function() {
 			$('.common-message').css('max-width', msg_width);
 		}
 	}
-	
 	//　ChatUserのハイパーリンクを削除
 	function hyperlink_deletion(){
 		var selectio_id = $('.selection-id');
@@ -59,10 +40,23 @@ $(function() {
 			}
 		});
 	}
-	
 });
 
 
+// 表示切り替えボタンの表示
+$(document).ready(function() {
+	$(".js-chat-button, .js-back").on("click", function() {
+		var selection_id = $(this).children('.selection-id').val();
+		var display_id = $('#display-id').val()
+		if ( selection_id == display_id || $(this).hasClass('js-back')) {
+			$(".main-grid").toggleClass("is-message-open");
+		}
+	});
+	$(".js-side-info-button, .js-close-main-info").on("click", function() {
+		$(".main-grid").toggleClass("is-main-info-open");
+		$(".main-info").toggleClass("u-hide");
+	});
+});
 
 
 // ファイルのUPLOAD
@@ -80,19 +74,16 @@ function readURL(input) {
 		removeUpload();
 	}
 }
-
 // ファイル削除
 function removeUpload() {
 	$('.file-upload-content').hide();
 	$('.image-upload-wrap').show();
 	$('.file-upload-image').attr('src', '');
 }
-
 // ドラッグ時処理
 $('.image-upload-wrap').bind('dragover', function() {
 	$('.image-upload-wrap').addClass('image-dropping');
 });
-
 // ドロップ時処理
 $('.image-upload-wrap').bind('dragleave', function() {
 	$('.image-upload-wrap').removeClass('image-dropping');

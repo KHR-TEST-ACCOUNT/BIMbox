@@ -10,16 +10,33 @@
 	height: 100vh;
 }
 
+/****** font *******/
+
 html {
-  font-size: 0.9px;
+	font-size: .95px;
 }
 
 body, .sidebar-brand a, .sidebar-menu li {
-    font-size: 16rem;
+	font-size: 16rem;
 }
 
-ul, li{
-  list-style: none;
+.swal2-popup {
+	font-size: 12rem !important;
+}
+
+.swal2-actions .btn {
+    font-size: 16rem;
+    padding: 5px 7px;
+    margin: 20px;
+    border-radius: 4px;
+    box-shadow: 2px 2px #1c181836;
+}
+
+
+/****** other *******/
+
+ul, li {
+	list-style: none;
 }
 
 .sidebar-footer .btn {
@@ -689,6 +706,7 @@ html {
 
 .chats-item:last-child .chats-item-content {
   border-bottom-width: 0;
+  padding-right: 10rem;
 }
 
 /*side (chat info)*/

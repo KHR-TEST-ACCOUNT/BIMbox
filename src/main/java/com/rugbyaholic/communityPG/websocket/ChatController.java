@@ -37,6 +37,7 @@ public class ChatController {
 		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
 		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user));
 		model.addAttribute("chatMessage", new ChatMessage()); 
+		model.addAttribute("idSet", new ChatMessage(user.getId(), toUserId)); 
 		return "websocket/UserSugest.html";
 	}
 
