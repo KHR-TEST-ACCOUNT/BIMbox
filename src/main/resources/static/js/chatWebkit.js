@@ -1,13 +1,8 @@
-'use strict';
 
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
-var usernameForm = document.querySelector('#usernameForm');
-var messageForm = document.querySelector('#messageForm');
-var deleteMsgForm = document.querySelector('#deleteMsgForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
+var messageForm = $('#messageForm');
+var messageArea = $('#messanger-list');
+var connectingElement = $('.connecting');
+// var deleteMsgForm = $('#deleteMsgForm');
 
 var stompClient = null;
 var userId = null;
@@ -22,29 +17,43 @@ var toUserId = null;
 var msgId = null;
 var a = null;
 
+// 特に影響がなければ削除
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-/**----------- message Send -------------- */
+$(function() {
+	// Mesage send
+	$('#messageForm').submit(function() {
+		send();
+	});
+	// deleter Mesage
+	$('.deleterMsg').on('click', function(event) {
+		deleterMsg(event, $(this));
+	});
+});
 
+
+/**----------- message Send -------------- */
 function send(event) {
-    userId = document.querySelector('#userId').value.trim();
-    username = document.querySelector('#name').value.trim();
-    fromUserId = document.querySelector('#fromUserId').value.trim();
-    fromUserIcon = document.querySelector('.profile-photo');
-    content = messageInput.value.trim();
-//    messageImg = document.querySelector('.imgContent');
-    messageImg = document.querySelector('.thumbnail');
+	var messageInput = $('#message-box');
+    userId = $('#userId').val();
+    username = $('#name').val();
+    fromUserId = $('#fromUserId').val();
+    // fromUserIcon = $('.profile-photo');
+    content = messageInput.val();
+    messageImg = $('.file-upload-image');
+    // messageImg = $('.thumbnail');
 	// console.log(messageImg.getAttribute('src'));
     sentAvf = new Date();
     avf = getNowDateWithString(sentAvf);
-    toUserId = document.querySelector('#toUserId').value.trim();
-	
+    toUserId = $('#toUserId').val();
 
+	// テキストか画像があれば実行
     if(username && (content || messageImg)) {
 		if (stompClient) {
+			// クライアントがあればリアルタイム通信を行う
 	        var chatMessage = {
 				fromUserId: fromUserId,
 				fromUser: username,
@@ -59,15 +68,19 @@ function send(event) {
 	        };
 	        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
 		}else{
+			// Soketをクラアントに入れて onConnected() を呼び出す。
 	        var socket = new SockJS('/websocket');
 	        stompClient = Stomp.over(socket);
-			// Soketをクラアントに入れて onConnected() を呼び出す。
 			stompClient.connect({}, onConnected, onError);
 		}
-		messageInput.value = '';
+		messageInput.val('');
 	}
 	// キャンセル可能ならキャンセル
 	event.preventDefault();
+	/**
+	event.stopPropagation();
+	var hoge = 1;
+	 */
 }
 
 
@@ -108,7 +121,7 @@ function onMessageReceived(payload) {
 	// TypeがChatのときの処理 
     } else {
 		// 送信ユーザーのアイコンを設定
-        messageElement.classList.add('chat-message');
+        messageElement.classList.add('common-message ');
 		var avatarElement = document.createElement('img');
 		avatarElement.src = message.fromUserIcon.encodedString;
 		if (userId == message.fromUserId) {
@@ -152,103 +165,76 @@ function onMessageReceived(payload) {
 
 
 /**----------- delete -------------- */
-
-function deleterMsg(event, atag) {
-	// 復元を押下したとき
-	if (atag.children[0].innerHTML == '復元') {
-		updateMsgData(event, atag);
-	} else {
-		// メッセージ削除を押下したとき
-		const swalWithBootstrapButtons = Swal.mixin({
-			customClass: {
-				confirmButton: 'btn btn-success',
-				cancelButton: 'btn btn-danger'
-			},
-			buttonsStyling: false
-		})
-		swalWithBootstrapButtons.fire({
-			title: '本当にこのメッセージを削除しますか?',
-			text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: '削除します',
-			cancelButtonText: 'キャンセル',
-			reverseButtons: true
-		}).then((result) => {
-			// 削除実行
-			if (result.isConfirmed) {
-				swalWithBootstrapButtons.fire(
-					'削除しました',
-					'7日経過後に自動削除されます（現在は3分後に設定）',
-					'success'
-				)
-				if (event && atag) updateMsgData(event, atag);
-			} else if (result.dismiss === Swal.DismissReason.cancel) {
-				// キャンセル処理
-				swalWithBootstrapButtons.fire(
-					'キャンセルしました',
-					'',
-					'error'
-				)
-			}
-		})
-	}
+function deleterMsg(event, deleterMsg_a) {
+	// メッセージ削除を押下したとき
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-success',
+			cancelButton: 'btn btn-danger'
+		},
+		buttonsStyling: false
+	})
+	swalWithBootstrapButtons.fire({
+		title: '本当に削除しますか?',
+		text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: '削除します',
+		cancelButtonText: 'キャンセル',
+		reverseButtons: true,
+		width : '350rem',
+		padding : '10rem'
+	}).then((result) => {
+		// 削除実行
+		if (result.isConfirmed) {
+			swalWithBootstrapButtons.fire(
+				'削除しました',
+				'7日経過後に自動削除されます（現在は3分後に設定）',
+				'success'
+			)
+			if (event && deleterMsg_a) updateMsgData(event, deleterMsg_a);
+		} else if (result.dismiss === Swal.DismissReason.cancel) {
+			// キャンセル処理
+			swalWithBootstrapButtons.fire(
+				'キャンセルしました',
+				'',
+				'error'
+			)
+		}
+	})
 }
 
 
 
-function updateMsgData(event, atag) {
-	a = atag;
-	msgId = a.children[1].value.trim();
-	fromUserId = document.querySelector('#fromUserId').value.trim();
-	if(msgId){
+function updateMsgData(event, data_a) {
+	msgId = data_a.find('.msgId').val();
+	fromUserId = $('#fromUserId').val();
+	a = data_a;
+	if (msgId) {
 		if (stompClient) {
-	        var chatMessage = {
-	            msgId: msgId,
-	            fromUserId: fromUserId,
-	            type: 'CHAT'
-	        };
-			changeP();
-			
-			if(a.children[0].innerHTML != '復元'){
-	       		stompClient.send("/app/chat.restore", {}, JSON.stringify(chatMessage));
-			}
-			if(a.children[0].innerHTML != 'メッセージ削除'){
-	       		stompClient.send("/app/chat.delete", {}, JSON.stringify(chatMessage));
-			}
-		}else{
-	        var socket = new SockJS('/websocket');
-	        stompClient = Stomp.over(socket);
-		    stompClient.connect({}, onDeleterConnected, onError);
+			var deleterTarget = {
+				msgId: msgId,
+				fromUserId: fromUserId,
+				type: 'CHAT'
+			};
+			changeContent();
+			stompClient.send("/app/chat.delete", {}, JSON.stringify(deleterTarget));
+		} else {
+			var socket = new SockJS('/websocket');
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, onDeleterConnected, onError);
 		}
 	}
 	// キャンセル可能ならキャンセル
-    event.preventDefault();
+	event.preventDefault();
 }
 
 
-function changeP() {
-	var li = a.parentNode;
-	if (a.children[0].innerHTML == '復元') {
-		a.children[0].innerHTML = 'メッセージ削除';
-		li.children[2].innerHTML = '復元しました。反映するには更新してください。（※デモ）';
-	} else {
-		// if(a.children[0].innerHTML == 'メッセージ削除'){
-		a.children[0].innerHTML = '復元';
-		li.children[2].innerHTML = '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。';
-	}
-}
-
-
-// サーバーに情報を送信する。
+// サーバーに削除対象の情報を送信する。
 function onDeleterConnected() {
+	changeContent();
+	var url = "/app/chat.delete";
 	stompClient.subscribe('/topic/public');
-	if (a.children[0].innerHTML == '復元') {
-		var url = "/app/chat.restore";
-	}
-	if (a.children[0].innerHTML == 'メッセージ削除') {
-		var url = "/app/chat.delete";
-	}
 	stompClient.send(url,
 		{},
 		JSON.stringify({
@@ -257,7 +243,16 @@ function onDeleterConnected() {
 			type: 'JOIN'
 		})
 	)
-	changeP();
+}
+
+
+// JSで表示内容を変更
+function changeContent() {
+	var common_message = a.parents('.common-message');
+	var msgText = common_message.find('.common-message-content');
+	console.log(msgText);
+	msgText.html('削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。');
+	a.find('.fa-trash').hide();
 }
 
 
@@ -275,12 +270,12 @@ function getAvatarColor(messageSender) {
 /**----------- 日付の変換処理 -------------- */
 function getNowDateWithString(date){
 	var yyMMddHmm = new Intl.DateTimeFormat('ja-JP', {
-						year: 'numeric',
-						month: 'narrow',
-						day: 'numeric',
-						hour: 'numeric',
-						minute: 'numeric'					
-					}).format(date);
+		year: 'numeric',
+		month: 'narrow',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric'					
+	}).format(date);
 	return yyMMddHmm;
 }
 
@@ -290,6 +285,3 @@ function onError(error) {
     connectingElement.textContent = '予期せぬエラーが発生しました。';
     connectingElement.style.color = 'red';
 }
-
-
-messageForm.addEventListener('submit', send, true);

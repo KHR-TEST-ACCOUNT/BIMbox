@@ -10,16 +10,33 @@
 	height: 100vh;
 }
 
+/****** font *******/
+
 html {
-  font-size: 0.9px;
+	font-size: .95px;
 }
 
 body, .sidebar-brand a, .sidebar-menu li {
-    font-size: 16rem;
+	font-size: 16rem;
 }
 
-ul, li{
-  list-style: none;
+.swal2-popup {
+	font-size: 12rem !important;
+}
+
+.swal2-actions .btn {
+    font-size: 16rem;
+    padding: 5px 7px;
+    margin: 20px;
+    border-radius: 4px;
+    box-shadow: 2px 2px #1c181836;
+}
+
+
+/****** other *******/
+
+ul, li {
+	list-style: none;
 }
 
 .sidebar-footer .btn {
@@ -305,8 +322,8 @@ html {
 	border-radius: 10px;
 	margin: 0 10px;
 	padding: 5px;
-	min-height: 143px;
-	max-height: 143px;
+	min-height: 140px;
+	max-height: 140px;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
@@ -689,6 +706,7 @@ html {
 
 .chats-item:last-child .chats-item-content {
   border-bottom-width: 0;
+  padding-right: 10rem;
 }
 
 /*side (chat info)*/
@@ -791,9 +809,9 @@ html {
 }
 
 .image-upload-wrap {
-	margin-top: 20px 0;
 	border: 4px dashed #1FB264;
 	position: relative;
+	height: 103%;
 }
 
 .image-dropping, .image-upload-wrap:hover {
