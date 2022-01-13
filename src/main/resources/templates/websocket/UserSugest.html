@@ -104,18 +104,10 @@
 										<time datetime th:text="${chatMsg.AVF}">14:11</time>
 										<!-- 削除 -->
 										 <th:block th:if="${isMessagedBy}">
-											<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
-											class="text-decoration-none text-end deleterMsg" onclick="deleterMsg(event,this)"> 
+											<a th:if="${chatMsg.deleteFlg == 0}" class="text-decoration-none text-end deleterMsg"> 
 												<i class="fas fa-trash isDelete"></i>
 												<input type="hidden" class="msgId" th:value="${chatMsg.msgId}" />
 											</a> 
-											<!-- 復元 
-											<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
-											class="text-decoration-none text-end updateMsg" onclick="updateMsgData(event,this)"> 
-												<i class="fas fa-trash-restore"></i>
-												<input type="hidden" th:value="${chatMsg.msgId}" />
-											</a>
-											--> 
 										</th:block>
 									</div>
 								</li>
