@@ -322,8 +322,8 @@ html {
 	border-radius: 10px;
 	margin: 0 10px;
 	padding: 5px;
-	min-height: 143px;
-	max-height: 143px;
+	min-height: 140px;
+	max-height: 140px;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
@@ -809,9 +809,9 @@ html {
 }
 
 .image-upload-wrap {
-	margin-top: 20px 0;
 	border: 4px dashed #1FB264;
 	position: relative;
+	height: 103%;
 }
 
 .image-dropping, .image-upload-wrap:hover {

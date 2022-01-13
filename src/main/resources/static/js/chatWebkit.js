@@ -248,8 +248,10 @@ function onDeleterConnected() {
 
 // JSで表示内容を変更
 function changeContent() {
-	var msgText = a.parents('.common-message-content');
-	msgText.val('削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。');
+	var common_message = a.parents('.common-message');
+	var msgText = common_message.find('.common-message-content');
+	console.log(msgText);
+	msgText.html('削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。');
 	a.find('.fa-trash').hide();
 }
 
