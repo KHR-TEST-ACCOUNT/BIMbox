@@ -26,7 +26,7 @@ var colors = [
 $(function() {
 	// Mesage send
 	$('#messageForm').submit(function() {
-		send();
+		send(event);
 	});
 	// deleter Mesage
 	$('.deleterMsg').on('click', function(event) {
@@ -43,7 +43,7 @@ function send(event) {
     fromUserId = $('#fromUserId').val();
     // fromUserIcon = $('.profile-photo');
     content = messageInput.val();
-    messageImg = $('.file-upload-image');
+    // messageImg = $('.file-upload-image');
     // messageImg = $('.thumbnail');
 	// console.log(messageImg.getAttribute('src'));
     sentAvf = new Date();
@@ -57,7 +57,7 @@ function send(event) {
 	        var chatMessage = {
 				fromUserId: fromUserId,
 				fromUser: username,
-				fromUserIcon: fromUserIcon,
+				// fromUserIcon: fromUserIcon,
 				content: content,
 				// uploadFile: messageImg,
 				// messageImg: messageImg,
@@ -77,10 +77,6 @@ function send(event) {
 	}
 	// キャンセル可能ならキャンセル
 	event.preventDefault();
-	/**
-	event.stopPropagation();
-	var hoge = 1;
-	 */
 }
 
 
@@ -92,7 +88,7 @@ function onConnected() {
 		JSON.stringify({
 			fromUserId: fromUserId,
 			fromUser: username,
-			fromUserIcon: fromUserIcon,
+			// fromUserIcon: fromUserIcon,
 			content: content,
 			// uploadFile: messageImg,
 				//messageImg: messageImg,
@@ -102,8 +98,9 @@ function onConnected() {
 			type: 'JOIN'
 		})
 	)
+	// Let's start... を非表示にする
 	if (connectingElement) {
-		connectingElement.classList.add('hidden');
+		connectingElement.addClass('hidden');
 	}
 }
 
@@ -112,99 +109,43 @@ function onConnected() {
 
 function onMessageReceived(payload) {
 	//送信された情報をMessageに格納する。
-    var message = JSON.parse(payload.body);
-    var messageElement = document.createElement('li');
-	// TypeがLEAVEのときの処理
-    if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.fromUser + ' left!';
-	// TypeがChatのときの処理 
-    } else {
-		// 送信ユーザーのアイコンを設定
-        messageElement.classList.add('common-message ');
-		var avatarElement = document.createElement('img');
-		avatarElement.src = message.fromUserIcon.encodedString;
-		if (userId == message.fromUserId) {
-			avatarElement.classList.add('fromUserImg');
-			messageElement.classList.add('text-end');
-		} else {
-			avatarElement.classList.add('toUserImg');
-		}
-		messageElement.appendChild(avatarElement);
-		// ユーザーの名前を追加する。
-		var usernameElement = document.createElement('span');
-		var usernameText = document.createTextNode(message.fromUser);
-		usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
-    }
-	// 上記の条件分岐に応じたメッセージを追加する
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
-    messageElement.appendChild(textElement);
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
-	// 上記の条件分岐に応じたメッセージを追加する
-    var imgElement = document.createElement('img');
-	imgElement.src = messageImg.getAttribute('src');
-	imgElement.classList.add('imgContent');
-	imgElement.classList.add('text-end');
-    messageElement.appendChild(imgElement);
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
-	// 上記の条件分岐に応じたメッセージを追加する
-    var dateElement = document.createElement('small');
-    var dateText = document.createTextNode(avf);
-    dateElement.appendChild(dateText);
-    messageElement.appendChild(dateElement);
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
+	var message = JSON.parse(payload.body);
+	// message List を取得
+	var listElement = $('.messanger-list');
+	// li を 最後の li 配下に追加
+	var messageElement = $("<li>");
+	messageElement.addClass('common-message is-you');
+	listElement.append(messageElement);
+	// messeage を li 配下に追加
+	var textElement =  $("<p>").text(message.content);
+	textElement.addClass('common-message-content');
+	messageElement.append(textElement);
+	// message footer を li 配下に追加
+	var footerElement =  $("<div>");
+	footerElement.addClass('massage-footer');
+	messageElement.append(footerElement);
+	// time を message footer 配下に追加
+	console.log(typeof message.sentAvf);
+	console.log(typeof avf);
+	// var hoge = getNowDateWithString(message.sentAvf);
+	var timeElement =  $("<time>").text(avf);
+	footerElement.append(timeElement)
+	// a を message footer 配下に追加
+	var aElement = $("<a>");	
+	aElement.addClass('text-decoration-none text-end deleterMsg');
+	footerElement.append(aElement);
+	// icon を a 配下に追加
+	var iconsElement = $("<i>");	
+	iconsElement.addClass('fas fa-trash isDelete');
+	footerElement.append(iconsElement);
+	// input を message footer 配下に追加
+	var inputElement = aElement.append('<input type="hidden" />');
+	inputElement.addClass('text-decoration-none text-end deleterMsg');
+	inputElement.val(message.fromUserId);
 }
-
-
 
 
 /**----------- delete -------------- */
-function deleterMsg(event, deleterMsg_a) {
-	// メッセージ削除を押下したとき
-	const swalWithBootstrapButtons = Swal.mixin({
-		customClass: {
-			confirmButton: 'btn btn-success',
-			cancelButton: 'btn btn-danger'
-		},
-		buttonsStyling: false
-	})
-	swalWithBootstrapButtons.fire({
-		title: '本当に削除しますか?',
-		text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonText: '削除します',
-		cancelButtonText: 'キャンセル',
-		reverseButtons: true,
-		width : '350rem',
-		padding : '10rem'
-	}).then((result) => {
-		// 削除実行
-		if (result.isConfirmed) {
-			swalWithBootstrapButtons.fire(
-				'削除しました',
-				'7日経過後に自動削除されます（現在は3分後に設定）',
-				'success'
-			)
-			if (event && deleterMsg_a) updateMsgData(event, deleterMsg_a);
-		} else if (result.dismiss === Swal.DismissReason.cancel) {
-			// キャンセル処理
-			swalWithBootstrapButtons.fire(
-				'キャンセルしました',
-				'',
-				'error'
-			)
-		}
-	})
-}
-
-
 
 function updateMsgData(event, data_a) {
 	msgId = data_a.find('.msgId').val();
@@ -248,10 +189,55 @@ function onDeleterConnected() {
 
 // JSで表示内容を変更
 function changeContent() {
-	var msgText = a.parents('.common-message-content');
-	msgText.val('削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。');
+	var common_message = a.parents('.common-message');
+	var msgText = common_message.find('.common-message-content');
+	console.log(msgText);
+	msgText.html('削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。');
 	a.find('.fa-trash').hide();
 }
+
+
+// メッセージ削除を押下したときの処理
+function deleterMsg(event, deleterMsg_a) {
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-success',
+			cancelButton: 'btn btn-danger'
+		},
+		buttonsStyling: false
+	})
+	swalWithBootstrapButtons.fire({
+		title: '本当に削除しますか?',
+		text: "削除されたメッセージは 7日経過後（現在は3分後に設定）に自動削除されます。",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: '削除します',
+		cancelButtonText: 'キャンセル',
+		reverseButtons: true,
+		width : '350rem',
+		padding : '10rem'
+	}).then((result) => {
+		// 削除実行
+		if (result.isConfirmed) {
+			swalWithBootstrapButtons.fire(
+				'削除しました',
+				'7日経過後に自動削除されます（現在は3分後に設定）',
+				'success'
+			)
+			if (event && deleterMsg_a) updateMsgData(event, deleterMsg_a);
+		} else if (result.dismiss === Swal.DismissReason.cancel) {
+			// キャンセル処理
+			swalWithBootstrapButtons.fire(
+				'キャンセルしました',
+				'',
+				'error'
+			)
+		}
+	})
+}
+
+
+
 
 
 /**----------- バックグラウンドのスタイル変更処理 -------------- */
@@ -268,7 +254,6 @@ function getAvatarColor(messageSender) {
 /**----------- 日付の変換処理 -------------- */
 function getNowDateWithString(date){
 	var yyMMddHmm = new Intl.DateTimeFormat('ja-JP', {
-		year: 'numeric',
 		month: 'narrow',
 		day: 'numeric',
 		hour: 'numeric',
