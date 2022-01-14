@@ -44,7 +44,6 @@
 								<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
 									<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
 								</a> 
-								
 								<span th:text="${chatMsg.fromUser}"></span>
 								<p th:text="${chatMsg.content}"></p>
 								<div th:if="${ chatMsg. messageImg }">
