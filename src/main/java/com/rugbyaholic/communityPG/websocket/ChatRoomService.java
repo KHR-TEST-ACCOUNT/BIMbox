@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
+import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository;
 
 
@@ -60,6 +62,14 @@ public class ChatRoomService {
 	 */
 	@Transactional(rollbackFor = Throwable.class)
 	public void registMessageInfo(ChatMessage chatMessage) throws Exception {
+		// DB登録用の画像ファイル名を生成
+		MultipartFile uploadFile = chatMessage.getUploadFile();
+		// (共通)ファイルアップロード時の処理
+		if (!uploadFile.isEmpty()) {
+			ImageFile imageFile = new ImageFile();
+			imageFile.encode(uploadFile);
+			chatMessage.setMessageImg(imageFile);
+		}
 		repository.registerMessage(chatMessage);
 	}
 
