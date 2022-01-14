@@ -17,8 +17,10 @@
 				<aside class="main-side">
 					<header class="common-header" th:with="user=${#authentication.principal}">
 						<div class="common-header-start">
-							<button class="u-flex js-user-nav u-header">
-								<img class="profile-image" th:src="${user.profileImage.encodedString}" />
+							<button type="button" class="u-flex js-user-nav u-header" th:onclick="|@{/profile/UserProfile.html}?id=${ user.id }|">
+								<a  th:href="|@{/profile/UserProfile.html}?id=${ user.id }|">
+									<img class="profile-image" th:src="${user.profileImage.encodedString}" />
+								</a>
 								<div class="common-header-content">
 									<h1 class="common-header-title" th:text="${user.username}">username</h1>
 								</div>
@@ -26,8 +28,8 @@
 						</div>
 					</header>
 
+					<!-- alert message -->
 					<section class="common-alerts">
-						<!-- optional alert message -->
 					</section>
 
 					<section class="common-search">
