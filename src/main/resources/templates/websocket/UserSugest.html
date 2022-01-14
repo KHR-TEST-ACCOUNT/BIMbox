@@ -38,7 +38,7 @@
 						<section class="chats">
 							<ul class="chats-list">
 								<!-- チャット履歴がなければ表示 -->
-								<li class="chats-item"><!--  th:if="chatUser : ${}" -->
+								<li class="chats-item" th:if="${chatMessage.isForFirstTime(conversationalUsers, toUsersInfo.id)}">
 									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
 										<input type="hidden" id="selection-id" class="selection-id" th:value="${ toUsersInfo.id }" >
 										<a  th:href="|@{/profile/UserProfile.html}?id=${ toUsersInfo.id }|" class="profile-image-link pt-1">
@@ -49,7 +49,7 @@
 										   class="chat-reception text-decoration-none"> 
 											<div class="chats-item-header">
 												<h3 class="chats-item-title" th:text="${ toUsersInfo.username }">toUser name</h3>
-												<time class="chats-item-time"><!--  th:text="${ }" -->send time</time>
+												<time class="chats-item-time"><!--  th:text="${ }" --></time>
 											</div>
 											<div class="chats-item-content">
 												<p class="chats-item-last">Let's start...</p>
