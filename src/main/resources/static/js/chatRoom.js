@@ -33,10 +33,11 @@ $(function() {
 		var display_id = $('#display-id').val();
 		selectio_id.each(function() {
 			if($(this).val() == display_id) {
-				var chats_content = $(this).parents('.chats-list');
+				var chats_content = $(this).parents('.chats-item');
 				var link = $(this).nextAll('.chat-reception');
 				chats_content.css('background-color','#e9e9e9')
-				link.css('pointer-events', 'none');
+				// if($(window).width() < 885) 
+					link.css('pointer-events', 'none');
 			}
 		});
 	}

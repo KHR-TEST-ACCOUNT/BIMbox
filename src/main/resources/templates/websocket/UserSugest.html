@@ -36,8 +36,28 @@
 					
 					<form th:object="${conversationalUsers}">
 						<section class="chats">
-							<ul class="chats-list" th:each="chatUser : ${conversationalUsers}">
-								<li class="chats-item">
+							<ul class="chats-list">
+								<!-- チャット履歴がなければ表示 -->
+								<li class="chats-item" th:if="${chatMessage.isForFirstTime(conversationalUsers, toUsersInfo.id)}">
+									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ toUsersInfo.id }" >
+										<a  th:href="|@{/profile/UserProfile.html}?id=${ toUsersInfo.id }|" class="profile-image-link pt-1">
+											<img class="profile-image toUserImg" th:src="${toUsersInfo.profileImage.encodedString}" />
+										</a>
+										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ toUsersInfo.id }|" 
+										   class="chat-reception text-decoration-none"> 
+											<div class="chats-item-header">
+												<h3 class="chats-item-title" th:text="${ toUsersInfo.username }">toUser name</h3>
+												<time class="chats-item-time"><!--  th:text="${ }" --></time>
+											</div>
+											<div class="chats-item-content">
+												<p class="chats-item-last">Let's start...</p>
+											</div>
+										</a>
+									</div>
+								</li>
+								<li class="chats-item" th:each="chatUser : ${conversationalUsers}">
 									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
 										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
 										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|" class="profile-image-link pt-1">
@@ -91,10 +111,10 @@
 					
 					<!-- Chat欄 -->
 					<div class="messanger">
-				        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
-					        <div class="connecting mt-1 mb-2">Let's start...</div>
-				        </div>
 						<ol class="messanger-list" >
+					        <th:block th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
+						        <div class="connecting">Let's start...</div>
+					        </th:block>
 							<th:block  th:each="chatMsg : ${messageHist}" th:if="${chatMsg.isHistories(messageHist)}"
 										th:with="isMessagedBy=${chatMsg.isUsersMessage(chatMsg.fromUserId, #authentication.principal)}" >
 								<!-- ログインUserの送信したメッセージは消去可能 -->

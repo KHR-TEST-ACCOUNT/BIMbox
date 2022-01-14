@@ -238,19 +238,6 @@ function deleterMsg(event, deleterMsg_a) {
 
 
 
-
-
-/**----------- バックグラウンドのスタイル変更処理 -------------- */
-function getAvatarColor(messageSender) {
-	var hash = 0;
-	for (var i = 0; i < messageSender.length; i++) {
-        hash = 31 * hash + messageSender.charCodeAt(i);
-    }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
-}
-
-
 /**----------- 日付の変換処理 -------------- */
 function getNowDateWithString(date){
 	var yyMMddHmm = new Intl.DateTimeFormat('ja-JP', {
