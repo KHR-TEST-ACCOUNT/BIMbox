@@ -28,8 +28,7 @@ public class ChatRoomService {
 	 */
 	@Transactional(rollbackFor = Throwable.class)
 	public List<ChatMessage> getConversationalUsers(AuthenticatedUser user) throws Exception {
-		List<ChatMessage> conversationalUsers = repository.findConversationalUser(user.getId());
-		return conversationalUsers;
+		return repository.findConversationalUser(user.getId());
 	}
 
 	

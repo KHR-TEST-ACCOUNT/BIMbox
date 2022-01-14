@@ -36,8 +36,7 @@ $(function() {
 				var chats_content = $(this).parents('.chats-item');
 				var link = $(this).nextAll('.chat-reception');
 				chats_content.css('background-color','#e9e9e9')
-				// if($(window).width() < 885) 
-					link.css('pointer-events', 'none');
+				link.css('pointer-events', 'none');
 			}
 		});
 	}

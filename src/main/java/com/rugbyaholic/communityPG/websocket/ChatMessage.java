@@ -37,6 +37,15 @@ public class ChatMessage {
 		return true;
 	}
 	
+	// 初チャットかどうかを判別する
+	public Boolean isForFirstTime(List<ChatMessage> messageHist, Long id) {
+		for(ChatMessage chatUser : messageHist) {
+			// Chatの履歴があれば非表示（False）
+			if(chatUser.getToUserId() == id)  return false;
+		}
+		return true;
+	}
+	
 	// FromUser, toUser を判別する
 	public Boolean isUsersMessage(Long fromUserId, AuthenticatedUser user) {
 		if(fromUserId != user.getId()) return false;
