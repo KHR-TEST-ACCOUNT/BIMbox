@@ -127,7 +127,6 @@ function onMessageReceived(payload) {
 	// time を message footer 配下に追加
 	console.log(typeof message.sentAvf);
 	console.log(typeof avf);
-	// var hoge = getNowDateWithString(message.sentAvf);
 	var timeElement =  $("<time>").text(avf);
 	footerElement.append(timeElement)
 	// a を message footer 配下に追加
