@@ -744,15 +744,20 @@ html {
 }
 
 .common-box p {
-  font-size: 14rem;
-  color: #4a4a4a;
+	font-size: 14rem;
+	color: #4a4a4a;
 }
 
 
 
 
-
-
+.connecting {
+	padding-top: 5px;
+	text-align: center;
+	color: #777;
+	top: 65px;
+	width: 100%;
+}
 
 .file-upload {
 	width: 20%;
