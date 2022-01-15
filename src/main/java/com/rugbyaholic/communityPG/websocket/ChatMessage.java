@@ -19,7 +19,10 @@ public class ChatMessage {
 	private ImageFile messageImg;
 	// Demo
 	private String encodedString;
+	
+	// @JsonTypeInfo(use = Id.CLASS)
 	private MultipartFile uploadFile;
+	
 	private Timestamp sentAvf;
 	private String AVF;
 	private long toUserId;

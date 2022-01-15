@@ -6,6 +6,18 @@
 <mapper namespace="com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository">
 	
 	
+	<select id="getMsgId" resultType="Long">
+	<![CDATA[
+		SELECT	MSG.MESSAGE_ID
+		FROM    MESSAGE_HIST MSG
+		WHERE	FROM_USER_ID = #{fromUserId}
+		AND		TO_USER_ID	 = #{toUserId}
+		ORDER BY
+		        MSG.MESSAGE_ID DESC
+		        LIMIT 	1;
+	]]>
+	</select>
+	
 	<select id="findMostFirstOfUser" resultType="Long">
 	<![CDATA[
 		SELECT	MSG.TO_USER_ID
@@ -25,7 +37,7 @@
 		        FROM_USER.FROM_USER_NAME	 AS fromUser,
     			CASE
 	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。'
-	    			WHEN	 LENGTH(MSG.MESSAGE) >= 50	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 50),'...')
+	    			WHEN	 LENGTH(MSG.MESSAGE) >= 15	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 15),'...')
 					ELSE	 MSG.MESSAGE	        
 		        END							 AS message,
 		        MSG.MESSAGE_IMG        		 AS messageImg,

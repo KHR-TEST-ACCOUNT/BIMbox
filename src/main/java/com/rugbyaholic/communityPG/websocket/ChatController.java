@@ -41,22 +41,6 @@ public class ChatController {
 		return "websocket/UserSugest.html";
 	}
 
-	
-	// Chat中のユーザーを検索
-	@GetMapping("/userSearchDo/ChatRoom.html")
-	public String userSearchDo(@RequestParam(value = "id", required = true) Long toUserId, 
-			@RequestParam(value = "content", required = true) String content, Model model, 
-			@AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		chatRoomService.deleteMessageHistDemo();
-		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
-		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
-		model.addAttribute("chatMessage", new ChatMessage()); 
-		return "websocket/UserSugest.html";
-	}
-	
-	
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
 	@GetMapping("/ChatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
@@ -77,7 +61,9 @@ public class ChatController {
 //    	ImageFile messageImg = chatMessage.getMessageImg();
 //    	if(messageImg != null) messageImg.setEncodeImgFile(messageImg);
     	chatRoomService.registMessageInfo(chatMessage);
+    	Long msgId = chatRoomService.getLastMsgId(chatMessage);
 		user = profileService.provideUserInfo(chatMessage.getFromUserId());
+		chatMessage.setMsgId(msgId);
 		chatMessage.setFromUserIcon(user.getProfileImage());
         return chatMessage;
     }
@@ -92,6 +78,7 @@ public class ChatController {
     }
     
     
+	/*
     // メッセージを復元する
     @MessageMapping("/chat.restore")
     @SendTo("/topic/public")
@@ -100,4 +87,20 @@ public class ChatController {
     	return chatMessage;
     }
 
+    
+	// Chat中のユーザーを検索
+	@GetMapping("/userSearchDo/ChatRoom.html")
+	public String userSearchDo(@RequestParam(value = "id", required = true) Long toUserId, 
+			@RequestParam(value = "content", required = true) String content, Model model, 
+			@AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		chatRoomService.deleteMessageHistDemo();
+		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
+		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
+		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
+		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user)); 
+		model.addAttribute("chatMessage", new ChatMessage()); 
+		return "websocket/UserSugest.html";
+	}
+	 */
+	
 }
