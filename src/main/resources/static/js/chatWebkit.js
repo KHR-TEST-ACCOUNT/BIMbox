@@ -25,11 +25,11 @@ var colors = [
 
 $(function() {
 	// Mesage send
-	$('#messageForm').submit(function() {
+	$('#messageForm').submit(function(event) {
 		send(event);
 	});
 	// deleter Mesage
-	$('.deleterMsg').on('click', function(event) {
+	$(document).on("click", ".deleterMsg", function(event) {
 		deleterMsg(event, $(this));
 	});
 });
