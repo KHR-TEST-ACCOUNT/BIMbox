@@ -29,11 +29,19 @@ public class ChatMessage {
 	private String toUser;
 	private ImageFile toUserIcon = new ImageFile();
 	private int deleteFlg;
-
+	
+	// search Word
+	private String searchWord;
+	
 	// JSONの情報を格納する際に使用するコンストラクター
 	public ChatMessage() {
 	}
 
+	// JSONの情報を格納する際に使用するコンストラクター
+	public ChatMessage(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	
 	// 初チャットかどうかを判別する
 	public Boolean isHistories(List<ChatMessage> messageHist) {
 		if(messageHist.isEmpty() || messageHist.get(0).fromUserId == 0) return false;
@@ -185,4 +193,13 @@ public class ChatMessage {
 	public void setDeleteFlg(int deleteFlg) {
 		this.deleteFlg = deleteFlg;
 	}
+	
+	public String getSearchWord() {
+		return searchWord;
+	}
+
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+
 }

@@ -68,6 +68,23 @@ header, navHeader {
 	background: #fff;
 }
 
+/* toast */
+#toast {
+	width: 360px;
+	padding: 0 8px;
+    border-radius: 10px;
+}
+
+#toast-header, #toast-message {
+	padding: 8px 0;
+}
+
+#toast-color {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
 
 @media ( min-width: 1200px) {
 	.main {

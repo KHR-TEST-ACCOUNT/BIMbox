@@ -119,5 +119,5 @@ public class ProfileService {
 	public AuthenticatedUser provideUserInfo(long id) {
 		return repository.findUserById(id).orElse(new AuthenticatedUser());
 	}
-
+	
 }

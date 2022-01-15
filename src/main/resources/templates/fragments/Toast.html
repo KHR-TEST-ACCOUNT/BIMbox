@@ -3,17 +3,17 @@
 <body>
 	<div th:fragment="toast" th:remove="tag">
 		<!-- Toast -->
-		<div id="toast" class="bg-white shadow-lg top-50 start-50 border px-2 translate-middle" 
-			style="width: 360px;" th:if="${notificationMessage}" th:object="${notificationMessage}">
-			<div class="py-2 d-flex border-bottom align-items-center">
-				<div class="me-2" style="width: 1rem; height: 1rem;" 
+		<div id="toast" class="bg-white shadow-lg top-50 start-50 border translate-middle" 
+			 th:if="${notificationMessage}" th:object="${notificationMessage}">
+			<div id="toast-header" class="d-flex border-bottom align-items-center">
+				<div id="toast-color"
 					 th:classappend="*{(success ? 'bg-primary' : '') + (info ? 'bg-info' : '') +
 									   (warning ? 'bg-warning' : '') + (error ? 'bg-danger' : '')}" >
 				</div>
 				<strong class="flex-grow-1">Information</strong>
 				<button id="toast-close" type="button" class="btn-close"></button>
 			</div>
-			<div class="py-2">
+			<div id="toast-message">
 				<span th:text="*{message}"></span>
 			</div>
 		</div>
