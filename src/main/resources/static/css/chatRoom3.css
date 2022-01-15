@@ -322,7 +322,7 @@ html {
 	border-radius: 10px;
 	margin: 0 10px;
 	padding: 5px;
-	min-height: 72px;
+	min-height: 62px;
 	max-height: 147px;
  	-ms-overflow-style: none;
 	scrollbar-width: none;
@@ -536,7 +536,6 @@ html {
 	font-size: 14rem;
 	color: rgba(0, 0, 0, 0.45);
 	float: right;
-    cursor: pointer;
 }
 
 .common-message .status {
@@ -761,9 +760,9 @@ html {
 }
 
 .file-upload {
-    width: 30%;
-    margin: 12px 0 0 auto;
-    min-width: 260px;
+	width: 20%;
+	margin: 3px auto;    
+	min-width: 130px;
 }
 
 .action-container .file-upload {
@@ -803,12 +802,6 @@ html {
 	text-align: center;
 }
 
-.image-title-wrap {
-    background: #816c6c29;
-    border-radius: 5px;
-    width: calc(100% + 16px);
-}
-
 .file-upload-input {
 	position: absolute;
 	margin: 0;
@@ -844,8 +837,8 @@ html {
 .file-upload-image {
     border-radius: 4%;
     margin: auto;
-    max-height: 300px;
-    max-width: 250px;
+    max-height: 130px;
+    max-width: calc(100% - 20px);
 }
 
 .remove-image {

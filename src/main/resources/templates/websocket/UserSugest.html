@@ -141,10 +141,11 @@
 			        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
 			        	  enctype="multipart/form-data" method="post">
 						<div class="message-box">
+						<!-- 
 							<div class="file-upload">
 								<div class="image-upload-wrap">
-									<input class="file-upload-input" type='file'
-										onchange="readURL(this);" accept="image/*" />
+									<input type='file' class="file-upload-input" accept="image/*"
+										   th:field="*{chatMessage.uploadFile}" onchange="readURL(this);" />
 									<div class="drag-text">
 										<h3>add image</h3>
 									</div>
@@ -156,6 +157,13 @@
 									</div>
 								</div>
 							</div>
+							
+							<label for="file-upload-input" id="img-send-button" class="common-button btn">
+								<i class="far fa-paper-plane icon"></i>
+							</label>
+							<input type='file' class="file-upload-input" accept="image/*"
+								   th:field="*{chatMessage.uploadFile}" onchange="readURL(this);" />
+						 -->
 							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
 							<button type="submit" id="submit-button" class="common-button">
 								<i class="far fa-paper-plane icon"></i>

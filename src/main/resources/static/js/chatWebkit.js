@@ -10,7 +10,7 @@ var username = null;
 var fromUserId = null;
 var fromUserIcon = null;
 var content = null;
-var messageImg = null;
+var uploadFile = null;
 var sentAvf = null;
 var avf = null;
 var toUserId = null;
@@ -25,11 +25,11 @@ var colors = [
 
 $(function() {
 	// Mesage send
-	$('#messageForm').submit(function() {
+	$('#messageForm').submit(function(event) {
 		send(event);
 	});
 	// deleter Mesage
-	$('.deleterMsg').on('click', function(event) {
+	$(document).on("click", ".deleterMsg", function(event) {
 		deleterMsg(event, $(this));
 	});
 });
@@ -43,15 +43,15 @@ function send(event) {
     fromUserId = $('#fromUserId').val();
     // fromUserIcon = $('.profile-photo');
     content = messageInput.val();
-    // messageImg = $('.file-upload-image');
-    // messageImg = $('.thumbnail');
-	// console.log(messageImg.getAttribute('src'));
+    // uploadFile = $('.file-upload-input');
+	console.log(uploadFile);
+	console.log(typeof(uploadFile));
     sentAvf = new Date();
     avf = getNowDateWithString(sentAvf);
     toUserId = $('#toUserId').val();
 
 	// テキストか画像があれば実行
-    if(username && (content || messageImg)) {
+    if(username && (content || uploadFile)) {
 		if (stompClient) {
 			// クライアントがあればリアルタイム通信を行う
 	        var chatMessage = {
@@ -59,9 +59,7 @@ function send(event) {
 				fromUser: username,
 				// fromUserIcon: fromUserIcon,
 				content: content,
-				// uploadFile: messageImg,
-				// messageImg: messageImg,
-				// encodedString: messageImg.getAttribute('src'),
+				// uploadFile: uploadFile,
 				sentAvf: sentAvf,
 				toUserId: toUserId,
 				type: 'CHAT'
@@ -74,6 +72,7 @@ function send(event) {
 			stompClient.connect({}, onConnected, onError);
 		}
 		messageInput.val('');
+		removeUpload();
 	}
 	// キャンセル可能ならキャンセル
 	event.preventDefault();
@@ -90,9 +89,7 @@ function onConnected() {
 			fromUser: username,
 			// fromUserIcon: fromUserIcon,
 			content: content,
-			// uploadFile: messageImg,
-				//messageImg: messageImg,
-			// encodedString: messageImg.getAttribute('src'),
+			// uploadFile: uploadFile,
 			sentAvf: sentAvf,
 			toUserId: toUserId,
 			type: 'JOIN'
@@ -116,17 +113,25 @@ function onMessageReceived(payload) {
 	var messageElement = $("<li>");
 	messageElement.addClass('common-message is-you');
 	listElement.append(messageElement);
-	// messeage を li 配下に追加
-	var textElement =  $("<p>").text(message.content);
-	textElement.addClass('common-message-content');
-	messageElement.append(textElement);
+	// messeage があれば li 配下に追加
+	if(message.content){
+		var textElement =  $("<p>").text(message.content);
+		textElement.addClass('common-message-content');
+		messageElement.append(textElement);
+	}
+	/**
+	// uploadFile があれば li 配下に追加
+	if(message.uploadFile){
+		var imageElement =  $("<img>").attr('src', message.uploadFile.encodedString);
+		imageElement.addClass('file-upload');
+		messageElement.append(imageElement);
+	}
+	 */
 	// message footer を li 配下に追加
 	var footerElement =  $("<div>");
 	footerElement.addClass('massage-footer');
 	messageElement.append(footerElement);
 	// time を message footer 配下に追加
-	console.log(typeof message.sentAvf);
-	console.log(typeof avf);
 	var timeElement =  $("<time>").text(avf);
 	footerElement.append(timeElement)
 	// a を message footer 配下に追加
@@ -136,11 +141,22 @@ function onMessageReceived(payload) {
 	// icon を a 配下に追加
 	var iconsElement = $("<i>");	
 	iconsElement.addClass('fas fa-trash isDelete');
-	footerElement.append(iconsElement);
-	// input を message footer 配下に追加
-	var inputElement = aElement.append('<input type="hidden" />');
-	inputElement.addClass('text-decoration-none text-end deleterMsg');
-	inputElement.val(message.fromUserId);
+	aElement.append(iconsElement);
+	// input を a 配下に追加
+	var inputElement = $('<input type="hidden" />');
+	inputElement.addClass('msgId');
+	inputElement.attr('value', message.msgId);
+	aElement.append(inputElement)
+	
+	var selectio_id = $('.selection-id');
+	selectio_id.each(function() {
+		if($(this).val() == message.toUserId) {
+			var chats_content = $(this).parents('.chats-item');
+			chats_content.find('.chats-item-time').text(avf);
+			chats_content.find('.chats-item-last').text(message.content);
+		}
+	});
+	
 }
 
 
