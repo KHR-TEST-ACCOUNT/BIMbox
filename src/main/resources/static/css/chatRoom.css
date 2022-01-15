@@ -536,6 +536,7 @@ html {
 	font-size: 14rem;
 	color: rgba(0, 0, 0, 0.45);
 	float: right;
+    cursor: pointer;
 }
 
 .common-message .status {
