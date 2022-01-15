@@ -141,11 +141,22 @@ function onMessageReceived(payload) {
 	// icon を a 配下に追加
 	var iconsElement = $("<i>");	
 	iconsElement.addClass('fas fa-trash isDelete');
-	footerElement.append(iconsElement);
-	// input を message footer 配下に追加
-	var inputElement = aElement.append('<input type="hidden" />');
-	inputElement.addClass('text-decoration-none text-end deleterMsg');
-	inputElement.val(message.fromUserId);
+	aElement.append(iconsElement);
+	// input を a 配下に追加
+	var inputElement = $('<input type="hidden" />');
+	inputElement.addClass('msgId');
+	inputElement.attr('value', message.msgId);
+	aElement.append(inputElement)
+	
+	var selectio_id = $('.selection-id');
+	selectio_id.each(function() {
+		if($(this).val() == message.toUserId) {
+			var chats_content = $(this).parents('.chats-item');
+			chats_content.find('.chats-item-time').text(avf);
+			chats_content.find('.chats-item-last').text(message.content);
+		}
+	});
+	
 }
 
 

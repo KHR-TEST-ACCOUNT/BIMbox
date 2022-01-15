@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.common.ImageFile;
 
@@ -22,7 +20,7 @@ public class ChatMessage {
 	// Demo
 	private String encodedString;
 	
-	@JsonTypeInfo(use = Id.CLASS)
+	// @JsonTypeInfo(use = Id.CLASS)
 	private MultipartFile uploadFile;
 	
 	private Timestamp sentAvf;

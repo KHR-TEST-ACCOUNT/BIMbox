@@ -61,7 +61,9 @@ public class ChatController {
 //    	ImageFile messageImg = chatMessage.getMessageImg();
 //    	if(messageImg != null) messageImg.setEncodeImgFile(messageImg);
     	chatRoomService.registMessageInfo(chatMessage);
+    	Long msgId = chatRoomService.getLastMsgId(chatMessage);
 		user = profileService.provideUserInfo(chatMessage.getFromUserId());
+		chatMessage.setMsgId(msgId);
 		chatMessage.setFromUserIcon(user.getProfileImage());
         return chatMessage;
     }

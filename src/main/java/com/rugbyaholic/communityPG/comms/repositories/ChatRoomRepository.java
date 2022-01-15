@@ -12,6 +12,8 @@ public interface ChatRoomRepository {
 	
 	public Long findMostFirstOfUser(@Param("fromUserId") Long fromUserId);
 	
+	public Long getMsgId(@Param("fromUserId")long fromUserId, @Param("toUserId")Long toUserId);
+	
 	public List<ChatMessage> findMessages(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	
 	public List<ChatMessage> findConversationalUser(@Param("userId") Long userId);
@@ -25,5 +27,6 @@ public interface ChatRoomRepository {
 	public void restoreMessageHist(@Param("msgId") Long msgId,@Param("fromUserId") long fromUserId);
 	
 	public void closerChatRoom(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
+
 	
 }
