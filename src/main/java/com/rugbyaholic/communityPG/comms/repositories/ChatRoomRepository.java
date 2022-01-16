@@ -16,7 +16,7 @@ public interface ChatRoomRepository {
 	
 	public List<ChatMessage> findMessages(@Param("fromUserId") Long fromUserId, @Param("toUserId") Long toUserId);
 	
-	public List<ChatMessage> findConversationalUser(@Param("userId") Long userId);
+	public List<ChatMessage> findConversationalUser(@Param("userId") Long userId, @Param("searchword") String searchword);
 		
 	public void registerMessage(@Param("msgInfo") ChatMessage msgInfo);
 	
