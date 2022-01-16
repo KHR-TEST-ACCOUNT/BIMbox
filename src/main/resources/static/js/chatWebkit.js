@@ -73,6 +73,7 @@ function send(event) {
 			stompClient.connect({}, onConnected, onError);
 		}
 		messageInput.val('');
+		messageInput.innerHeight(62);
 		removeUpload();
 	}
 	// キャンセル可能ならキャンセル

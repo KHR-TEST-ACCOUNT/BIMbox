@@ -34,9 +34,47 @@
 					</div>
 				</nav>				
 			</form>
-			
+					
+					<!-- 
+					<div class="p-1 searchBlock">
+						<div class="d-flex align-items-between ac-parent">
+							<h6 class="search-criteria">検索条件</h6>
+							<h6 class="link">
+								<i class="fa fa-chevron-down"></i>
+							</h6>
+						</div>
+						<div id="searchCondition" class="collapse ac-child">
+							<div class="row py-3">
+								<div class="inputArea d-flex align-items-top">
+									<strong>トピック</strong>
+									<input type="text" th:field="*{topicSearchForm.subjectContent}">
+									<div th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+										<span class="text-danger" th:errors="*{topicSearchForm.subjectContent}">
+										</span>
+									</div>
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿ユーザー</strong>
+									<input type="text" th:field="*{topicSearchForm.createByUser}">
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿内容</strong>
+									<input type="text" th:field="*{topicSearchForm.postContent}">
+								</div>
+							</div>
+							<div class="py-2">
+								<button class="btn btn-success btn-sm shadow-sm px-3">
+									<span>検索実行</span>
+								</button>
+							</div>
+						</div>
+					</div>				
+					 -->
+					
+
 			<!-- Content -->
 			<div class="column two">
+			
 				<!-- トピック情報 -->
 				<div class="topics">
 					<div th:each="topic : ${topics}">
@@ -47,6 +85,7 @@
 						</article>
 					</div>
 				</div>
+				
 				<!-- トピック新規登録 -->
 				<article class="moodle-container">
 					<!-- Formの表示非表示 -->
@@ -58,8 +97,8 @@
 					<!-- 新規投稿内容 -->
 					<div id="topicCreation" class="collapse mt-3 ac-child" th:object="${topicCreationForm}"
 						 th:classappend="${topicCreationForm.isError ? '' : ''}">
-						<form th:action="@{/comms/CreateTopic.do}"  class="border px-3 form-content"
-							  method="post" autocomplete="off" enctype="multipart/form-data" >
+						<form th:action="@{/comms/CreateTopic.do}" method="POST" 
+							  class="border px-3 form-content" autocomplete="off">
 							<div class="d-flex">
 								<div class="post-content">
 									<!-- topic content  collapse -->
@@ -82,7 +121,7 @@
 							</div>
 							<div class="file-upload">
 								<div class="image-upload-wrap">
-									<input class="file-upload-input" type='file' accept="image/*" th:field="*{uploadFile}" />
+									<input class="file-upload-input" type='file' accept="image/*" />
 									<div class="drag-text">
 										<h3>Drag and drop or click to add image.</h3>
 									</div>
@@ -107,5 +146,10 @@
 		<!-- page-content" -->
 	</div>
 	<!-- page-wrapper -->
+	
+
+
+<script>
+</script>
 </body>
 </html>

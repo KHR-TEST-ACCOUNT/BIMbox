@@ -1,5 +1,6 @@
 package com.rugbyaholic.communityPG.comms;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -69,7 +70,7 @@ public class MeetingRoomController {
 	// トピック新規作成
 	@PostMapping("/comms/CreateTopic.do")
 	public String onTopicRegistrationRequested(@Valid TopicCreationForm form, BindingResult bindingResult, Model model,
-			@AuthenticationPrincipal AuthenticatedUser user) {
+			@AuthenticationPrincipal AuthenticatedUser user) throws IllegalStateException, IOException {
 		if (bindingResult.hasErrors()) {
 			form.setError(true);
 			return "comms/MeetingRoom.html";

@@ -66,7 +66,8 @@ $(function() {
 
 
 $(function() {
-	
+	/**
+	 */
 	// ファイルのUPLOAD
 	$(".file-upload-input").on("change", function() {
 		var input = $(this);
@@ -106,36 +107,6 @@ $(function() {
 	});
 	
 });
-
-	
-
-/**
-
-function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		var this_file = input.closest('.file-upload');
-		reader.onload = function(e) {
-			this_file.querySelectorAll('.image-upload-wrap')[0].style.display = "none";
-			this_file.querySelectorAll('.file-upload-image')[0].setAttribute('src', e.target.result);
-			this_file.querySelectorAll('.file-upload-content')[0].style.display = "block";
-			this_file.querySelectorAll('.image-title').innerHTML = input.files[0].name;
-		};
-		reader.readAsDataURL(input.files[0]);
-	} else {
-		removeUpload();
-	}
-}
-
-
-function removeUpload(img) {
-	console.log(img);
-	var this_img = img.closest('.file-upload');
-	this_img.querySelectorAll('.file-upload-content')[0].style.display = "none";
-	this_img.querySelectorAll('.image-upload-wrap')[0].style.display = "block";
-	this_img.querySelectorAll('.file-upload-image')[0].setAttribute('src', '');
-}
- */
 
 	
 // コメントとドロップダウンの非表示処理

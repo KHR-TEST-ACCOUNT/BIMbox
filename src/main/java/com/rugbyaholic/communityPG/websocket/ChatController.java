@@ -1,5 +1,6 @@
 package com.rugbyaholic.communityPG.websocket;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.auth.account.ProfileService;
+import com.rugbyaholic.communityPG.common.util.NotificationMessage;
 
 @Controller
 public class ChatController {
@@ -25,22 +29,43 @@ public class ChatController {
 	@Autowired
 	private ProfileService profileService;
 	
+	@Autowired
+	private NotificationMessage notificationMessage;
 	
 	// サジェストされたユーザーを追加。
 	@GetMapping("/conversationTo/ChatRoom.html")
 	public String conversationDo(@RequestParam(value = "id", required = false) Long toUserId, 
 					Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		chatRoomService.deleteMessageHistDemo();
 		if(Objects.isNull(toUserId)) toUserId = chatRoomService.findMostFirst(user);
-		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
-		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
-		model.addAttribute("profileEditForm", profileService.providePersonalInfo(user));
-		model.addAttribute("conversationalUsers", chatRoomService.getConversationalUsers(user));
-		model.addAttribute("chatMessage", new ChatMessage()); 
-		model.addAttribute("idSet", new ChatMessage(user.getId(), toUserId)); 
+		List<ChatMessage> conversationalUsers = chatRoomService.getConversationalUsers(user, null);
+		convertModelInit(user, toUserId, model, new ChatMessage(), conversationalUsers);
 		return "websocket/UserSugest.html";
 	}
 
+	// 検索されたユーザーを追加。
+	@PostMapping("/searchConversationDo/ChatRoom.html")
+	public String searchConversationDo(@ModelAttribute ChatMessage chatMessage, Model model,
+					@AuthenticationPrincipal AuthenticatedUser user) throws Exception {
+		// ユーザーを検索（時間で昇順）
+		String searchWord = chatMessage.getSearchWord();
+		List<ChatMessage> conversationalUsers = chatRoomService.getConversationalUsers(user, searchWord);
+		
+		if(conversationalUsers.isEmpty()) {
+			// 検索結果がない場合はアラートでメセージを送信する。
+			model.addAttribute("notificationMessage",
+					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
+							.messageCode("communityPG.web.message.proc.notFind").build());
+			Long toUserId = chatRoomService.findMostFirst(user);
+			conversationalUsers = chatRoomService.getConversationalUsers(user, null);
+			convertModelInit(user, toUserId, model, new ChatMessage(), conversationalUsers);
+		} else {
+			Long toUserId = conversationalUsers.get(0).getToUserId();
+			convertModelInit(user, toUserId, model, chatMessage, conversationalUsers);
+			model.addAttribute("chatMessage", new ChatMessage(searchWord)); 
+		}
+		return "websocket/UserSugest.html";
+	}
+	
 	// Ajaxの非同期通信で実装。最初の画面はHiddenで非表示にする。
 	@GetMapping("/ChatRoom.html")
 	public String toEnterToChatRoom(@RequestParam(value = "id", required = true) Long id,
@@ -75,6 +100,18 @@ public class ChatController {
     public ChatMessage deleteMessage(@Payload ChatMessage chatMessage) throws Exception {
     	chatRoomService.deleteMessageHist(chatMessage);
     	return chatMessage;
+    }
+    
+    
+    // 後で実装
+    public void convertModelInit(AuthenticatedUser user, Long toUserId, Model model,
+				ChatMessage chatMessage, List<ChatMessage> conversationalUsers) throws Exception {
+		chatRoomService.deleteMessageHistDemo();
+		model.addAttribute("toUsersInfo", profileService.provideUserInfo(toUserId)); 
+		model.addAttribute("messageHist", chatRoomService.getMessageHist(user, toUserId)); 
+		model.addAttribute("conversationalUsers", conversationalUsers);
+		model.addAttribute("chatMessage", new ChatMessage()); 
+		model.addAttribute("idSet", new ChatMessage(user.getId(), toUserId)); 
     }
     
     

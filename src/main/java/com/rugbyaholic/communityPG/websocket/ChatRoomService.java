@@ -23,12 +23,13 @@ public class ChatRoomService {
 	 * チャット中のユーザーを取得
 	 * 
 	 * @param user
+	 * @param searchword 
 	 * @return
 	 * @throws Exception
 	 */
 	@Transactional(rollbackFor = Throwable.class)
-	public List<ChatMessage> getConversationalUsers(AuthenticatedUser user) throws Exception {
-		return repository.findConversationalUser(user.getId());
+	public List<ChatMessage> getConversationalUsers(AuthenticatedUser user, String searchword) throws Exception {
+		return repository.findConversationalUser(user.getId(), searchword);
 	}
 
 	
@@ -121,4 +122,5 @@ public class ChatRoomService {
 	public Long getLastMsgId(ChatMessage chatMessage) {
 		return repository.getMsgId(chatMessage.getFromUserId(), chatMessage.getToUserId());
 	}
+	
 }

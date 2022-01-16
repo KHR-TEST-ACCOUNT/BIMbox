@@ -28,13 +28,14 @@
 						</div>
 					</header>
 
-					<!-- alert message -->
-					<section class="common-alerts">
-					</section>
-
-					<section class="common-search">
-						<input type="search" class="text-input" placeholder="Search or start new chat">
-					</section>
+					<form th:action="@{/searchConversationDo/ChatRoom.html}" method="post" th:object="${chatMessage}" >
+						<section class="common-search d-flex">
+							<button type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+							<input type="search" class="text-input" th:field="*{searchWord}" placeholder="Search or start new chat">
+						</section>
+					</form>
 					
 					<form th:object="${conversationalUsers}">
 						<section class="chats">

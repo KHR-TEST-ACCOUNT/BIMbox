@@ -65,13 +65,26 @@
  		           ) 
  		        AS TO_USER
 		ON      TO_USER.ID        	 =  MSG.TO_USER_ID
-		WHERE   MSG.SENT_AVF		>=	FROM_USER.AVF
+	]]>
+	<where>
+			    MSG.SENT_AVF		>=	FROM_USER.AVF
 		AND		MSG.SENT_AVF 		IN  (
 										SELECT 	MAX(SENT_AVF) 
 										FROM 	MESSAGE_HIST 
 										GROUP BY TO_USER_ID
 									)
 		AND	    MSG.FROM_USER_ID	 =	#{userId}
+		<if test="searchword != null">
+		<![CDATA[
+		AND    (
+					TO_USER.TO_USER_NAME	LIKE	CONCAT('%', #{searchword}, '%')
+				OR	MSG.SENT_AVF			LIKE	CONCAT('%', #{searchword}, '%')	
+				OR	MSG.MESSAGE				LIKE	CONCAT('%', #{searchword}, '%')
+				)
+		]]>
+		</if>
+	</where>
+	<![CDATA[
 		ORDER BY
 				MSG.SENT_AVF
 				DESC

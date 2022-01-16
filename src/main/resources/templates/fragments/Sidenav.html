@@ -97,7 +97,10 @@
 					<i class="fa fa-envelope"></i>
 					<span class="badge badge-pill badge-success notification"></span>
 				</a>
+				<!-- 
 				<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
+				 -->
+				<a th:href="|@{/profile/Profile.html}?id=${user.id}|">
 					<i class="fa fa-cog"></i>
 				</a>
 				<form th:action="@{/Logout.do}" method="post">
