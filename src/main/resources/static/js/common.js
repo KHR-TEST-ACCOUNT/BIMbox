@@ -59,6 +59,7 @@ $(function() {
 //textareaの高さを自動で合わせる
 $(document).on("change", "textarea", function(event) {
 	var min_height = 28; //テキストエリアの最小の高さをお好みで設定
+	// if($(this).hasClass('h-100')) $(this).removeClass('h-100');
 	$(evt.target).height(min_height); //一旦最小サイズにする
 	$(evt.target).height(event.target.scrollHeight - 10); //スクロールなしでテキストが収まる最小の高さに上書き
 });

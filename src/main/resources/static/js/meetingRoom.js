@@ -14,7 +14,7 @@ $(function() {
 	});
 	
 	// accordion
-	$('.link').on('click', function() {
+	$(document).on("click", ".link", function() {
 		accodion_do($(this))
 		setTimeout(function() {
 			decide_topics_height()
@@ -66,7 +66,8 @@ $(function() {
 
 
 $(function() {
-	
+	/**
+	 */
 	// ファイルのUPLOAD
 	$(".file-upload-input").on("change", function() {
 		var input = $(this);
@@ -106,36 +107,6 @@ $(function() {
 	});
 	
 });
-
-	
-
-/**
-
-function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		var this_file = input.closest('.file-upload');
-		reader.onload = function(e) {
-			this_file.querySelectorAll('.image-upload-wrap')[0].style.display = "none";
-			this_file.querySelectorAll('.file-upload-image')[0].setAttribute('src', e.target.result);
-			this_file.querySelectorAll('.file-upload-content')[0].style.display = "block";
-			this_file.querySelectorAll('.image-title').innerHTML = input.files[0].name;
-		};
-		reader.readAsDataURL(input.files[0]);
-	} else {
-		removeUpload();
-	}
-}
-
-
-function removeUpload(img) {
-	console.log(img);
-	var this_img = img.closest('.file-upload');
-	this_img.querySelectorAll('.file-upload-content')[0].style.display = "none";
-	this_img.querySelectorAll('.image-upload-wrap')[0].style.display = "block";
-	this_img.querySelectorAll('.file-upload-image')[0].setAttribute('src', '');
-}
- */
 
 	
 // コメントとドロップダウンの非表示処理
@@ -186,7 +157,11 @@ $(function() {
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
-		let paramPostImg = ajaxForm.find('#paramPostImg');
+		let uploadFile = ajaxForm.find('#uploadFile');
+		/**
+		let uploadFile = ajaxForm.find('#uploadFile').val();
+		let paramPostImg = ajaxForm.find('#paramPostImg').attr('src');
+		 */
 
 		if(paramTopicNo){
 			$.ajax({
@@ -197,8 +172,9 @@ $(function() {
 					topicNo: paramTopicNo,
 					subject: paramSubject,
 					primaryPost: paramPostText,
-					primaryPostImg: paramPostImg.attr('src')
+					// uploadFile: uploadFile
 					/**
+					primaryPostImg: paramPostImg
 					 */
 				}
 			}).done((data) => {
@@ -237,7 +213,7 @@ $(function() {
 		let target = $(this).data('ts-target');
 		let postText = $(this).parents('#ratingForm').find('textarea[name="postText"]');
 		$(target).toggleClass('d-none');
-		postText.toggleClass('readonly').toggleClass('p-0');
+		postText.toggleClass('readonly').toggleClass('p-0 h-100');
 		if (postText.attr('readonly')) {
 			postText.removeAttr('readonly');
 		} else {

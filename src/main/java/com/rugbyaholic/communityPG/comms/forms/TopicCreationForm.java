@@ -1,10 +1,18 @@
 package com.rugbyaholic.communityPG.comms.forms;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class TopicCreationForm {
+import org.springframework.web.multipart.MultipartFile;
 
+import com.rugbyaholic.communityPG.common.ImageFile;
+
+public class TopicCreationForm implements Serializable {
+
+	private static final long serialVersionUID = -7763715831163230164L;
+		
 	@NotBlank
 	@Size(max = 64)
 	private String subject;
@@ -13,11 +21,13 @@ public class TopicCreationForm {
 	@Size(max = 640)
 	private String primaryPost;
 
-	private String primaryPostImg;
-//	private ImageFile primaryPostImg;
+	private MultipartFile uploadFile;
+	
+	private ImageFile primaryPostImg = new ImageFile();
 	
 	private String topicNo;
 
+	
 	private boolean error;
 
 	public String getSubject() {
@@ -32,14 +42,22 @@ public class TopicCreationForm {
 		return primaryPost;
 	}
 
-	public void setPrimaryPostImg(String primaryPostImg) {
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
+	public ImageFile getPrimaryPostImg() {
+		return primaryPostImg;
+	}
+
+	public void setPrimaryPostImg(ImageFile primaryPostImg) {
 		this.primaryPostImg = primaryPostImg;
 	}
 
-	public String getPrimaryPostImg() {
-		return primaryPostImg;
-	}
-	
 	public void setPrimaryPost(String primaryPost) {
 		this.primaryPost = primaryPost;
 	}

@@ -124,8 +124,9 @@
 							<img class="userImg" th:src="${user.profileImage.encodedString}"/>
 						</a>
 					</div>
-					<form id="ajaxForm" class="flex-grow-1" th:action="@{/comms/AppendPost.do}"
-						  enctype="multipart/form-data" method="post" th:object="${ topicSearchForm }">
+					
+					<form id="ajaxForm" class="flex-grow-1" enctype="multipart/form-data" 
+						  th:action="@{/comms/AppendPost.do}" method="post">
 						<p class="fw-bold mb-2" th:text="${user.username}">ログインユーザーの名前</p>
 						<input type="hidden" th:value="${topic.topicNo}" id="topicNo" />
 						<input type="hidden" th:value="${topic.subject}" id="subject" />
