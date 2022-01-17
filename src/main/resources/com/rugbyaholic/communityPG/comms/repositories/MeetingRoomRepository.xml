@@ -204,7 +204,7 @@
 		        ) TMP
 		    ),
 		    #{form.primaryPost},
-		    #{form.primaryPostImg},
+		    #{form.primaryPostImg.encodedString},
 		    #{user.id},
 		    CURDATE()
 		)

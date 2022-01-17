@@ -1,5 +1,6 @@
 package com.rugbyaholic.communityPG.comms;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
 import com.rugbyaholic.communityPG.common.ImageFile;
@@ -34,14 +36,25 @@ public class MeetingRoomService {
 	 * 
 	 * @param form
 	 * @param user
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
-	public void registerNewTopic(TopicCreationForm form, AuthenticatedUser user) {
+	public void registerNewTopic(TopicCreationForm form, AuthenticatedUser user) throws IllegalStateException, IOException {
 		// トピック番号の発番
 		String availYear = new SimpleDateFormat("yyyy").format(new Date());
 		String issueNum = numberingRepository.issueNumber(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear);
 		form.setTopicNo(availYear + issueNum);
+		
+		MultipartFile uploadFile = form.getUploadFile();
+		
+		//　画像を保存
+		if (!uploadFile.isEmpty()) {
+			ImageFile primaryPostImg = new ImageFile();
+			primaryPostImg.encode(uploadFile);
+			form.setPrimaryPostImg(primaryPostImg);
+		}
 		// 番号管理台帳の更新
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear, user);
 		// トピックテーブルへの新規登録

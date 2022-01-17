@@ -300,7 +300,7 @@ body {
 .two .moodle-container textarea {
     border: none;
     width: 100%;
-    padding: 6px 0px;
+    padding: 6px 6px 0;
     font-size: 14px;
 }
 
