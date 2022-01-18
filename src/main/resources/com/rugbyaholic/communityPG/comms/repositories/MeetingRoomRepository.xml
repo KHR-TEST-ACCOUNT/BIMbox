@@ -113,19 +113,14 @@
 		<![CDATA[
 			U.AVF           <=  CURDATE()
 		]]>
-		<if test="subjectContent != null">
+		<if test="searchContent != null">
 		<![CDATA[
-			AND    TOPICS.SUBJECT		LIKE	CONCAT('%', #{subjectContent}, '%')
-		]]>
-		</if>
-		<if test="postContent != null">
-		<![CDATA[
-			AND    POSTS.POST			LIKE	CONCAT('%', #{postContent}, '%')
-		]]>
-		</if>
-		<if test="createByUser != null">
-		<![CDATA[
-			AND    U.NAME  				LIKE	CONCAT('%', #{createByUser}, '%')
+			AND    (
+				    	TOPICS.SUBJECT		LIKE	CONCAT('%', #{searchContent}, '%')
+				    OR	POSTS.POST			LIKE	CONCAT('%', #{searchContent}, '%')
+				    OR	U.NAME  			LIKE	CONCAT('%', #{searchContent}, '%')
+					)
+					
 		]]>
 		</if>
 	</where>
@@ -204,7 +199,7 @@
 		        ) TMP
 		    ),
 		    #{form.primaryPost},
-		    #{form.primaryPostImg.encodedString},
+		    #{form.postImgEncodeString},
 		    #{user.id},
 		    CURDATE()
 		)

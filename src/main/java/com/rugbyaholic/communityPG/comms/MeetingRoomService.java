@@ -53,7 +53,7 @@ public class MeetingRoomService {
 		if (!uploadFile.isEmpty()) {
 			ImageFile primaryPostImg = new ImageFile();
 			primaryPostImg.encode(uploadFile);
-			form.setPrimaryPostImg(primaryPostImg);
+			form.setPostImgEncodeString(primaryPostImg.getEncodedString());
 		}
 		// 番号管理台帳の更新
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_TOPICNO, availYear, user);
@@ -73,6 +73,8 @@ public class MeetingRoomService {
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void appendPost(TopicCreationForm form, AuthenticatedUser user) {
+//		if(!Objects.isNull(form.getUploadFile()))
+//			form.setPostImgEncodeString(form.getPrimaryPostImg().getEncodedString());
 		meetingRoomRepository.registerPost(form, user);
 	}
 
