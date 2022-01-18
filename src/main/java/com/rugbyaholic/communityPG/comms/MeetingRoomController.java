@@ -59,7 +59,8 @@ public class MeetingRoomController {
 
 	// 検索結果を表示
 	@PostMapping("/manage/users/UserSearch.do")
-	public String onSerchMeetingRoomRequested(@Valid TopicSearchForm form, BindingResult bindingResult, Model model) {
+	public String onSerchMeetingRoomRequested(@Valid TopicSearchForm form, 
+											  BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "comms/MeetingRoom.html";
 		} else {
@@ -69,8 +70,10 @@ public class MeetingRoomController {
 	
 	// トピック新規作成
 	@PostMapping("/comms/CreateTopic.do")
-	public String onTopicRegistrationRequested(@Valid TopicCreationForm form, BindingResult bindingResult, Model model,
-			@AuthenticationPrincipal AuthenticatedUser user) throws IllegalStateException, IOException {
+	public String onTopicRegistrationRequested(@Valid TopicCreationForm form, 
+											   BindingResult bindingResult, Model model,
+											   @AuthenticationPrincipal AuthenticatedUser user) 
+													   throws IllegalStateException, IOException {
 		if (bindingResult.hasErrors()) {
 			form.setError(true);
 			return "comms/MeetingRoom.html";
@@ -80,47 +83,51 @@ public class MeetingRoomController {
 		}
 	}
 
-	// 投稿追加
+	// コメントの追加
 	@PostMapping("/comms/AppendPost.do")
-	public String onAppendPostRequested(@Valid TopicCreationForm form, BindingResult bindingResult, Model model,
-			@AuthenticationPrincipal AuthenticatedUser user) {
+	public String onAppendPostRequested(@Valid TopicCreationForm form, 
+										BindingResult bindingResult, Model model,
+										@AuthenticationPrincipal AuthenticatedUser user) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("validationMessage", bindingResult.getFieldError().getDefaultMessage());
 		} else {
 			service.appendPost(form, user);
 		}
-		//if(form.getTopicNo() == null)  return "redirect:/comms/MeetingRoom.html";
+		model.addAttribute("topic", service.reloadTopic(form.getTopicNo()));
 		return "fragments/Topic :: topic";
 	}
 
 	// 投稿編集  @RequestParam("postImg") ImageFile postImg,
 	@PostMapping("/comms/EditPost.do")
 	public String onEditPostRequested(@RequestParam("postText") String postText,
-				@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo, Model model) {
+									  @RequestParam("topicNo") String topicNo,
+									  @RequestParam("postNo") int postNo, Model model) {
 		service.editPost(postText, new ImageFile(), topicNo, postNo);
 		return "fragments/Topic :: topic";
-//		return "fragments/Topic :: topic";
 	}
 
 	// 投稿削除
 	@PostMapping("/comms/DeletePost.do")
 	public String onDeletePostRequested(@RequestParam("topicNo") String topicNo,
-				@RequestParam("postNo") int postNo, Model model) {
+										@RequestParam("postNo") int postNo, Model model) {
 		service.deletePost(topicNo, postNo);
 		return "fragments/Topic :: topic";
 	}
 	
 	// TOPIC削除
 	@PostMapping("/comms/deleteTopic.do")
-	public String onDeleteTopicRequested(@RequestParam("topicNo") String topicNo, TopicSearchForm form, Model model) {
+	public String onDeleteTopicRequested(@RequestParam("topicNo") String topicNo, 
+										 TopicSearchForm form, Model model) {
 		service.deleteTopic(topicNo);
 		return  "redirect:/comms/MeetingRoom.html";
 	}
 	
 	// 投稿評価
 	@PostMapping("/comms/PostRating.do")
-	public String onPostRatingRequested(@RequestParam("topicNo") String topicNo, @RequestParam("postNo") int postNo,
-			@RequestParam("rating") int rating, Model model, @AuthenticationPrincipal AuthenticatedUser user) {
+	public String onPostRatingRequested(@RequestParam("topicNo") String topicNo, 
+										@RequestParam("postNo") int postNo,
+										@RequestParam("rating") int rating, Model model, 
+										@AuthenticationPrincipal AuthenticatedUser user) {
 		service.postRating(topicNo, postNo, rating, user);
 		return "fragments/Topic :: topic";
 	}

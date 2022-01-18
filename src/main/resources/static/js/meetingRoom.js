@@ -14,7 +14,7 @@ $(function() {
 	});
 	
 	// accordion
-	$('.link').on('click', function() {
+	$(document).on("click", ".link", function() {
 		accodion_do($(this))
 		setTimeout(function() {
 			decide_topics_height()
@@ -157,7 +157,11 @@ $(function() {
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
-		let paramPostImg = ajaxForm.find('#paramPostImg');
+		let uploadFile = ajaxForm.find('#uploadFile');
+		/**
+		let uploadFile = ajaxForm.find('#uploadFile').val();
+		let paramPostImg = ajaxForm.find('#paramPostImg').attr('src');
+		 */
 
 		if(paramTopicNo){
 			$.ajax({
@@ -168,8 +172,9 @@ $(function() {
 					topicNo: paramTopicNo,
 					subject: paramSubject,
 					primaryPost: paramPostText,
-					primaryPostImg: paramPostImg.attr('src')
+					// uploadFile: uploadFile
 					/**
+					primaryPostImg: paramPostImg
 					 */
 				}
 			}).done((data) => {
@@ -208,7 +213,7 @@ $(function() {
 		let target = $(this).data('ts-target');
 		let postText = $(this).parents('#ratingForm').find('textarea[name="postText"]');
 		$(target).toggleClass('d-none');
-		postText.toggleClass('readonly').toggleClass('p-0');
+		postText.toggleClass('readonly').toggleClass('p-0 h-100');
 		if (postText.attr('readonly')) {
 			postText.removeAttr('readonly');
 		} else {
