@@ -25,6 +25,8 @@ public class TopicCreationForm implements Serializable {
 	
 	private ImageFile primaryPostImg = new ImageFile();
 	
+	private String postImgEncodeString;
+	
 	private String topicNo;
 
 	
@@ -60,6 +62,14 @@ public class TopicCreationForm implements Serializable {
 
 	public void setPrimaryPost(String primaryPost) {
 		this.primaryPost = primaryPost;
+	}
+	
+	public String getPostImgEncodeString() {
+		return postImgEncodeString;
+	}
+	
+	public void setPostImgEncodeString(String postImgEncodeString) {
+		this.postImgEncodeString = postImgEncodeString;
 	}
 	
 	public String getTopicNo() {

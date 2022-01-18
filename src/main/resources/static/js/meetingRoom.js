@@ -69,7 +69,7 @@ $(function() {
 	/**
 	 */
 	// ファイルのUPLOAD
-	$(".file-upload-input").on("change", function() {
+	$(document).on("change", ".file-upload-input", function() {
 		var input = $(this);
 		var this_file = input.parents('.file-upload');
 		if (input.prop('files') && input.prop('files')[0]) {
@@ -88,7 +88,7 @@ $(function() {
 	});
 	
 	// ファイル削除
-	$(".remove-image").on("click", function() {
+	$(document).on("click", ".remove-image", function() {
 		var this_img = $(this).parents('.file-upload');
 		this_img.find('.file-upload-content').hide();
 		this_img.find('.image-upload-wrap').show();
@@ -120,7 +120,7 @@ $(function() {
 // コメントボックスの開閉
 $(function() {
 	// 開く
-	$('.comment').on('click', function(){
+	$(document).on("click", ".comment", function() {
 		var comment_box = $(this).parent().nextAll('.comment-box');
 		if(comment_box.hasClass('open')){
 			comment_box.css('display', 'none');
@@ -157,10 +157,10 @@ $(function() {
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
-		let uploadFile = ajaxForm.find('#uploadFile');
+		let paramPostImg = ajaxForm.find('img').attr('src');
 		/**
+		let uploadFile = ajaxForm.find('#uploadFile');
 		let uploadFile = ajaxForm.find('#uploadFile').val();
-		let paramPostImg = ajaxForm.find('#paramPostImg').attr('src');
 		 */
 
 		if(paramTopicNo){
@@ -172,8 +172,9 @@ $(function() {
 					topicNo: paramTopicNo,
 					subject: paramSubject,
 					primaryPost: paramPostText,
-					// uploadFile: uploadFile
+					postImgEncodeString: paramPostImg
 					/**
+					uploadFile: uploadFile
 					primaryPostImg: paramPostImg
 					 */
 				}
