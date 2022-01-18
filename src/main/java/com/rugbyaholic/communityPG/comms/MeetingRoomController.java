@@ -22,7 +22,7 @@ import com.rugbyaholic.communityPG.comms.forms.TopicCreationForm;
 @Controller
 public class MeetingRoomController {
 
-	@Autowired
+	@Autowired 
 	private MeetingRoomService service;
 
 //	@ModelAttribute

@@ -325,8 +325,8 @@ body {
 }
 
 .action-container img, .postImg {
-    max-width: 500px;
-    max-height: 350px;
+    max-height: 300px;
+    max-width: 600px;
     margin: 30px 0 15px;
 	position: relative;
     left: 50%;
