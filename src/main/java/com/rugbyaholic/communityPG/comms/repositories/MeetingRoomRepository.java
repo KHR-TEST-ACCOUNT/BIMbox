@@ -18,10 +18,10 @@ public interface MeetingRoomRepository {
 	public List<Topic> searchAllTopics(TopicSearchForm form);
 	
 	public void registerTopic(@Param("form") TopicCreationForm form,
-								@Param("user") AuthenticatedUser user);
+							  @Param("user") AuthenticatedUser user);
 	
 	public void registerPost(@Param("form") TopicCreationForm form, 
-								@Param("user") AuthenticatedUser user);
+							 @Param("user") AuthenticatedUser user);
 	
 	/**
 	 * @メソッド説明：		取得したトピック番号の投稿内容を変更します。

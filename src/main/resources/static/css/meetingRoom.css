@@ -325,8 +325,13 @@ body {
 }
 
 .action-container img, .postImg {
-	max-width: 250px;
-	max-height: 250px;
+    max-height: 300px;
+    max-width: 600px;
+    margin: 30px 0 15px;
+	position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 10px;
 }
 
 .action-container label, button {
@@ -396,6 +401,7 @@ button:focus {
 
 #postText{
 	max-height: 200px;
+    height: 100%;
 }
 
 .post-container {
