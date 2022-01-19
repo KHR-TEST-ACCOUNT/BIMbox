@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 public class TopicSearchForm {
 
 	@Size(max = 64)
-	private String subjectContent;
+	private String searchContent;
 	
 	@Size(max = 640)
 	private String postContent;
@@ -19,14 +19,13 @@ public class TopicSearchForm {
 	private Date postDate_until;
 
 	//Getter, Setter
-	public String getSubjectContent() {
-		return subjectContent;
+	public String getSearchContent() {
+		return searchContent;
 	}
 
-	public void setSubjectContent(String subjectContent) {
-		this.subjectContent = subjectContent;
-		if(subjectContent.isBlank()) this.subjectContent = null;
-		
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+		if(searchContent.isBlank()) this.searchContent = null;
 	}
 
 	public String getPostContent() {
