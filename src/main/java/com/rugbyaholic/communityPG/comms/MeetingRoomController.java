@@ -35,10 +35,10 @@ public class MeetingRoomController {
 		return service.loadTopics(form);
 	}
 
-	@ModelAttribute
-	public Topic topic(TopicCreationForm form) {
-		return service.reloadTopic(form.getTopicNo());
-	}
+//	@ModelAttribute
+//	public Topic topic(TopicCreationForm form) {
+//		return service.reloadTopic(form.getTopicNo());
+//	}
 
 	@ModelAttribute("user")
 	public AuthenticatedUser user(@AuthenticationPrincipal AuthenticatedUser user) {
@@ -98,6 +98,7 @@ public class MeetingRoomController {
 									  @RequestParam("topicNo") String topicNo,
 									  @RequestParam("postNo") int postNo, Model model) {
 		service.editPost(postText, new ImageFile(), topicNo, postNo);
+		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
 
@@ -106,6 +107,7 @@ public class MeetingRoomController {
 	public String onDeletePostRequested(@RequestParam("topicNo") String topicNo,
 										@RequestParam("postNo") int postNo, Model model) {
 		service.deletePost(topicNo, postNo);
+		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
 	
@@ -124,6 +126,7 @@ public class MeetingRoomController {
 										@RequestParam("rating") int rating, Model model, 
 										@AuthenticationPrincipal AuthenticatedUser user) {
 		service.postRating(topicNo, postNo, rating, user);
+		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
 
