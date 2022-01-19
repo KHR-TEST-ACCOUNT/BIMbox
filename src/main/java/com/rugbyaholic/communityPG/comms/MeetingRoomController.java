@@ -35,10 +35,10 @@ public class MeetingRoomController {
 		return service.loadTopics(form);
 	}
 
-//	@ModelAttribute
-//	public Topic topic(TopicCreationForm form) {
-//		return service.reloadTopic(form.getTopicNo());
-//	}
+	@ModelAttribute
+	public Topic topic(TopicCreationForm form) {
+		return service.reloadTopic(form.getTopicNo());
+	}
 
 	@ModelAttribute("user")
 	public AuthenticatedUser user(@AuthenticationPrincipal AuthenticatedUser user) {
