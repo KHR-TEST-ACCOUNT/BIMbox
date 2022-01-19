@@ -25,11 +25,6 @@ public class MeetingRoomController {
 	@Autowired 
 	private MeetingRoomService service;
 
-//	@ModelAttribute
-//	public TopicSearchForm topicSearchForm() {
-//		return new TopicSearchForm();
-//	}
-
 	@ModelAttribute
 	public TopicCreationForm topicCreationForm() {
 		return new TopicCreationForm();

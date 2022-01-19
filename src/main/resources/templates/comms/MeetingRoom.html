@@ -18,7 +18,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control search-content"
 								placeholder="ユーザー名、トピック名、投稿内容 を検索できます。"
-								th:field="*{topicSearchForm.subjectContent}" />
+								th:field="*{topicSearchForm.searchContent}" />
 							<div class="input-group-append">
 								<button type="submit" class="btn btn-secondary h-100">
 									<i class="fa fa-search"></i>
@@ -26,9 +26,9 @@
 							</div>
 							<!-- error message -->
 							<div
-								th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+								th:if="${#fields.hasErrors('topicSearchForm.searchContent')}">
 								<span class="text-danger"
-									th:errors="*{topicSearchForm.subjectContent}"></span>
+									th:errors="*{topicSearchForm.searchContent}"></span>
 							</div>
 						</div>
 					</div>
