@@ -35,10 +35,10 @@ public class MeetingRoomController {
 		return service.loadTopics(form);
 	}
 
-//	@ModelAttribute
-//	public Topic topic(TopicCreationForm form) {
-//		return service.reloadTopic(form.getTopicNo());
-//	}
+	@ModelAttribute
+	public Topic topic(TopicCreationForm form) {
+		return service.reloadTopic(form.getTopicNo());
+	}
 
 	@ModelAttribute("user")
 	public AuthenticatedUser user(@AuthenticationPrincipal AuthenticatedUser user) {
@@ -90,6 +90,7 @@ public class MeetingRoomController {
 		}
 		model.addAttribute("topic", service.reloadTopic(form.getTopicNo()));
 		return "fragments/Topic :: topic";
+		
 	}
 
 	// 投稿編集  @RequestParam("postImg") ImageFile postImg,
