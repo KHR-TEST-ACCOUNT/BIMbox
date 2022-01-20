@@ -39,8 +39,8 @@
 					</div>
 					<!-- info -->
 					<button th:if="${post.isPostedBy(user)}" class="btn btn-link p-0 text-dark fs-5"
-							id="postEdit" type="button" title="投稿編集" 
-							th:data-ts-target="|#${topic.topicNo + post.postNo}|">
+							id="postEdit" type="button" title="投稿編集" th:data-ts-target="|#${topic.topicNo + post.postNo}|">
+							<!-- -->
 						<i class="bi bi-pencil-square"></i>
 					</button>
 				</div>
@@ -52,8 +52,32 @@
 					<div th:if="${ post.postImg }" style="min-width: 263px;">
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
+					
+					
+						 <!-- image content -->
+						<div class="file-upload d-none edit-image" th:id="${(topic.topicNo) + (post.postNo)}">
+							<div class="image-upload-wrap">
+								<!-- 
+								<input class="file-upload-input" type='file' id="*{uploadFile}" accept="image/*" />
+								 -->
+								<input class="file-upload-input" type='file' id="uploadFile" accept="image/*" />
+								<div class="drag-text">
+									<h3 class="">Drag and drop or click to add image.</h3>
+								</div>
+							</div>
+							<div class="file-upload-content">
+								<img id="postImg paramPostImg" class="file file-upload-image" src="" alt="your image" />
+								<div class="image-title-wrap">
+									<button type="button" class="remove-image">
+										Remove <span class="image-title">Uploaded Image</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						
+						
 				</div>
-				<div class="py-2 d-flex justify-content-end d-none" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
+				<div class="py-2 d-flex justify-content-end d-none edit-buttons" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
 					<!-- update -->
 					<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
 					<!-- 投稿削除 NG-->
