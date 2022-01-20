@@ -140,6 +140,7 @@ $(function() {
 	
 	
 	
+	
 // 非同期通信処理
 $(function() {
 
@@ -180,9 +181,13 @@ $(function() {
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
+			let accordion = $(targetId).find('.ac-parent');
+			accordion.addClass('open');
+			accordion.nextAll('.ac-child').css('display', 'block');
 		});
 		event.preventDefault();
 	});
+
 
 	// Post評価時の非同期通信処理
 	$(document).on('click', 'button.ajax-link', function() {
@@ -200,19 +205,33 @@ $(function() {
 				rating: paramRating
 			}
 		}).done((data) => {
-			
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
 		});
 	});
 
 
-	// Post編集時の非同期通信処理
+	// コメント編集を押下した際の表示・非表示処理
 	$(document).on('click', '#postEdit', function() {
 		let target = $(this).data('ts-target');
-		let postText = $(this).parents('#ratingForm').find('textarea[name="postText"]');
-		$(target).toggleClass('d-none');
+		let parent = $(this).parents('#ratingForm');
+		let postText = parent.find('textarea[name="postText"]');
+		let postUpLoadArea = parent.find(target + '.edit-image');
+		let postButtons = parent.find(target + '.edit-buttons');
+		// 表示・非表示 を切り替え
 		postText.toggleClass('readonly').toggleClass('p-0 h-100');
+		postUpLoadArea.toggleClass('d-none');
+		postButtons.toggleClass('d-none');
+		// 画像の表示・非表示 を切り替え
+		var postImg = postText.next().find('img');
+		if(postImg.attr('src') != '') {
+			postImg.closest('.postImgArea').hide();
+			postUpLoadArea.find('.image-upload-wrap').hide();
+			postUpLoadArea.find('.file-upload-image').attr('src', postImg.attr('src'));
+			postUpLoadArea.find('.file-upload-content').show();
+			postUpLoadArea.find('.image-title').html(' 画像を削除');
+		}
+		// readonly を切り替え
 		if (postText.attr('readonly')) {
 			postText.removeAttr('readonly');
 		} else {
@@ -224,23 +243,30 @@ $(function() {
 	// Post編集時の非同期通信処理
 	$(document).on('click', '#textEdit', function() {
 		let parent = $(this).parents('#ratingForm');
+		let paramPostImg = parent.find('.file-upload').find('img').attr('src')
 		let paramPostText = parent.find('#postText').val();
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
+		
 		$.ajax({
 			type: parent.attr('method'),
 			url: '/comms/EditPost.do',
 			dataType: 'html',
 			data: {
 				postText: paramPostText,
+				postImg: paramPostImg,
 				topicNo: paramTopicNo,
 				postNo: paramPostNo
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
-			console.log(data);
 			$(targetId).html(data);
+			let accordion = $(targetId).find('.ac-parent');
+			accordion.addClass('open');
+			accordion.nextAll('.ac-child').css('display', 'block');
 			/**
+			$('.ac-parent').not(accordion).nextAll('.ac-child').css('display', 'block');
+			$('.ac-parent').not(accordion).nextAll('.ac-child').slideUp();
 			let targetId = '#' + paramTopicNo + paramPostNo;
 			let hoge = $(targetId).prev().find('textarea');
 			hoge.html(paramPostText);
