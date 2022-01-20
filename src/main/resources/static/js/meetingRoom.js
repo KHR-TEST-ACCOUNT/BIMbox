@@ -151,7 +151,7 @@ $(function() {
 
 	
 	// コメント投稿時の非同期通信処理
-	$(document).on('click', '#ajaxForm .comment-button', function() {
+	$(document).on('click', '#ajaxForm .comment-button', function(event) {
 
 		let ajaxForm = $(this).parents("#ajaxForm");
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
@@ -163,27 +163,25 @@ $(function() {
 		let uploadFile = ajaxForm.find('#uploadFile').val();
 		 */
 
-		if(paramTopicNo){
-			$.ajax({
-				type: ajaxForm.attr('method'),
-				url: ajaxForm.attr('action'),
-				dataType: 'html',
-				data: {
-					topicNo: paramTopicNo,
-					subject: paramSubject,
-					primaryPost: paramPostText,
-					postImgEncodeString: paramPostImg
-					/**
-					uploadFile: uploadFile
-					primaryPostImg: paramPostImg
-					 */
-				}
-			}).done((data) => {
-				console.log(data);
-				let targetId = '#' + paramTopicNo;
-				$(targetId).html(data);
-			});
-		}
+		$.ajax({
+			type: ajaxForm.attr('method'),
+			url: ajaxForm.attr('action'),
+			dataType: 'html',
+			data: {
+				topicNo: paramTopicNo,
+				subject: paramSubject,
+				primaryPost: paramPostText,
+				postImgEncodeString: paramPostImg
+				/**
+				uploadFile: uploadFile
+				primaryPostImg: paramPostImg
+				 */
+			}
+		}).done((data) => {
+			let targetId = '#' + paramTopicNo;
+			$(targetId).html(data);
+		});
+		event.preventDefault();
 	});
 
 	// Post評価時の非同期通信処理

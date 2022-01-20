@@ -73,8 +73,7 @@ public class MeetingRoomService {
 	@Transactional(rollbackFor = Throwable.class)
 	@LogRequired
 	public void appendPost(TopicCreationForm form, AuthenticatedUser user) {
-//		if(!Objects.isNull(form.getUploadFile()))
-//			form.setPostImgEncodeString(form.getPrimaryPostImg().getEncodedString());
+		if(form.getPostImgEncodeString().isBlank()) form.setPostImgEncodeString(null);
 		meetingRoomRepository.registerPost(form, user);
 	}
 
