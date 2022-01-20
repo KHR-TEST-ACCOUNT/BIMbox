@@ -90,6 +90,7 @@ public class MeetingRoomController {
 		}
 		model.addAttribute("topic", service.reloadTopic(form.getTopicNo()));
 		return "fragments/Topic :: topic";
+		
 	}
 
 	// 投稿編集  @RequestParam("postImg") ImageFile postImg,
