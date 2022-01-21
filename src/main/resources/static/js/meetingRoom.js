@@ -139,8 +139,6 @@ $(function() {
 });
 	
 	
-	
-	
 // 非同期通信処理
 $(function() {
 
@@ -153,16 +151,11 @@ $(function() {
 	
 	// コメント投稿時の非同期通信処理
 	$(document).on('click', '#ajaxForm .comment-button', function(event) {
-
 		let ajaxForm = $(this).parents("#ajaxForm");
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
 		let paramPostImg = ajaxForm.find('img').attr('src');
-		/**
-		let uploadFile = ajaxForm.find('#uploadFile');
-		let uploadFile = ajaxForm.find('#uploadFile').val();
-		 */
 
 		$.ajax({
 			type: ajaxForm.attr('method'),
@@ -173,17 +166,23 @@ $(function() {
 				subject: paramSubject,
 				primaryPost: paramPostText,
 				postImgEncodeString: paramPostImg
-				/**
-				uploadFile: uploadFile
-				primaryPostImg: paramPostImg
-				 */
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
+			reloadTopic(targetId);
 		});
 		event.preventDefault();
 	});
+
+	
+	// トピックのリロード時に更新した箇所を表示する
+	function reloadTopic(targetTopicId) {
+		let accordion = $(targetTopicId).find('.ac-parent');
+		accordion.addClass('open');
+		accordion.nextAll('.ac-child').css('display', 'block');
+	}
+
 
 	// Post評価時の非同期通信処理
 	$(document).on('click', 'button.ajax-link', function() {
@@ -201,9 +200,9 @@ $(function() {
 				rating: paramRating
 			}
 		}).done((data) => {
-			
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
+			reloadTopic(targetId);
 		});
 	});
 
@@ -213,12 +212,22 @@ $(function() {
 		let target = $(this).data('ts-target');
 		let parent = $(this).parents('#ratingForm');
 		let postText = parent.find('textarea[name="postText"]');
-		let postImage = parent.find(target + '.edit-image');
+		let postUpLoadArea = parent.find(target + '.edit-image');
 		let postButtons = parent.find(target + '.edit-buttons');
-		// 表示・非表示・readonly を切り替え
+		// 表示・非表示 を切り替え
 		postText.toggleClass('readonly').toggleClass('p-0 h-100');
-		postImage.toggleClass('d-none');
+		postUpLoadArea.toggleClass('d-none');
 		postButtons.toggleClass('d-none');
+		// 画像の表示・非表示 を切り替え
+		var postImg = postText.next().find('img');
+		if(postImg.attr('src') != '') {
+			postImg.closest('.postImgArea').hide();
+			postUpLoadArea.find('.image-upload-wrap').hide();
+			postUpLoadArea.find('.file-upload-image').attr('src', postImg.attr('src'));
+			postUpLoadArea.find('.file-upload-content').show();
+			// postUpLoadArea.find('.image-title').html(' 画像を削除');
+		}
+		// readonly を切り替え
 		if (postText.attr('readonly')) {
 			postText.removeAttr('readonly');
 		} else {
@@ -226,46 +235,29 @@ $(function() {
 		}
 	});
 
-/**
-$(function() {
-	$(document).on("click", "#postEdit", function() {
-		if(is_shown_image.hasClass('d-none') && is_shown_buttons.hasClass('d-none')) {
-			is_shown_image.removeClass('d-none');
-			is_shown_buttons.removeClass('d-none');
-		} else {
-			is_shown_image.addClass('d-none');
-			is_shown_buttons.addClass('d-none');
-		}
-	});
-});
- */
-
 
 	// Post編集時の非同期通信処理
 	$(document).on('click', '#textEdit', function() {
 		let parent = $(this).parents('#ratingForm');
+		let paramPostImg = parent.find('.file-upload').find('img').attr('src')
 		let paramPostText = parent.find('#postText').val();
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
+		
 		$.ajax({
 			type: parent.attr('method'),
 			url: '/comms/EditPost.do',
 			dataType: 'html',
 			data: {
 				postText: paramPostText,
+				postImg: paramPostImg,
 				topicNo: paramTopicNo,
 				postNo: paramPostNo
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
-			console.log(data);
 			$(targetId).html(data);
-			/**
-			let targetId = '#' + paramTopicNo + paramPostNo;
-			let hoge = $(targetId).prev().find('textarea');
-			hoge.html(paramPostText);
-			hoge.addClass('readonly p-0');
-			 */
+			reloadTopic(targetId);
 		});
 	});
 	
@@ -290,6 +282,7 @@ $(function() {
 			}).done((data) => {
 				let targetId = '#' + paramTopicNo;
 				$(targetId).html(data);
+				reloadTopic(targetId);
 			});
 		}
 	});

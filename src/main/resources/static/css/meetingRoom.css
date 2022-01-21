@@ -465,6 +465,12 @@ button:focus {
 	transition: 0.4s;
 }
 
+#postEdit i {
+    position: relative;
+    right: 1px;
+    bottom: 7px;
+}
+ 
 .post-container #toggle-info:before,
 .profile-title #toggle-info:before {
 	content: "i";
@@ -863,6 +869,10 @@ button:focus {
     margin: 20px auto;    
 }
 
+.postImgArea {
+	 min-width: 263px
+ }
+ 
 .action-container .file-upload {
 	width: 80%;
 	margin-bottom: 9.5px;

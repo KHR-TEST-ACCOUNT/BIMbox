@@ -49,7 +49,7 @@
 					<textarea class="form-control text-dark readonly p-0 auto-resize" readonly 
 							  th:text="${post.postText}" name="postText" id="postText">
 					</textarea>
-					<div th:if="${ post.postImg }" style="min-width: 263px;">
+					<div th:if="${ post.postImg }" class="postImgArea">
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
 					

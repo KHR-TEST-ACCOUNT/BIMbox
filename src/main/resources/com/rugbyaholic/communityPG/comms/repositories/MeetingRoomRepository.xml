@@ -210,7 +210,7 @@
 	<![CDATA[
 		UPDATE  POSTS
 		SET		POST		=	#{postText},
-				POST_IMG	=	#{postImg.encodedString}
+				POST_IMG	=	#{postImg}
 		WHERE 	TOPICNO		=	#{topicNo}
 		AND 	POSTNO 		=	#{postNo}
 	]]>
