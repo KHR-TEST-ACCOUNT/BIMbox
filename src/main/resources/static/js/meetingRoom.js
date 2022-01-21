@@ -140,6 +140,7 @@ $(function() {
 	
 	
 	
+	
 // 非同期通信処理
 $(function() {
 
@@ -207,18 +208,37 @@ $(function() {
 	});
 
 
-	// Post編集時の非同期通信処理
+	// コメント編集を押下した際の表示・非表示処理
 	$(document).on('click', '#postEdit', function() {
 		let target = $(this).data('ts-target');
-		let postText = $(this).parents('#ratingForm').find('textarea[name="postText"]');
-		$(target).toggleClass('d-none');
+		let parent = $(this).parents('#ratingForm');
+		let postText = parent.find('textarea[name="postText"]');
+		let postImage = parent.find(target + '.edit-image');
+		let postButtons = parent.find(target + '.edit-buttons');
+		// 表示・非表示・readonly を切り替え
 		postText.toggleClass('readonly').toggleClass('p-0 h-100');
+		postImage.toggleClass('d-none');
+		postButtons.toggleClass('d-none');
 		if (postText.attr('readonly')) {
 			postText.removeAttr('readonly');
 		} else {
 			postText.attr('readonly', 'readonly');
 		}
 	});
+
+/**
+$(function() {
+	$(document).on("click", "#postEdit", function() {
+		if(is_shown_image.hasClass('d-none') && is_shown_buttons.hasClass('d-none')) {
+			is_shown_image.removeClass('d-none');
+			is_shown_buttons.removeClass('d-none');
+		} else {
+			is_shown_image.addClass('d-none');
+			is_shown_buttons.addClass('d-none');
+		}
+	});
+});
+ */
 
 
 	// Post編集時の非同期通信処理
