@@ -465,6 +465,12 @@ button:focus {
 	transition: 0.4s;
 }
 
+#postEdit i {
+    position: relative;
+    right: 1px;
+    bottom: 7px;
+}
+ 
 .post-container #toggle-info:before,
 .profile-title #toggle-info:before {
 	content: "i";
