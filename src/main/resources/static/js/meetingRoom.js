@@ -139,8 +139,6 @@ $(function() {
 });
 	
 	
-	
-	
 // 非同期通信処理
 $(function() {
 
@@ -153,16 +151,11 @@ $(function() {
 	
 	// コメント投稿時の非同期通信処理
 	$(document).on('click', '#ajaxForm .comment-button', function(event) {
-
 		let ajaxForm = $(this).parents("#ajaxForm");
 		let paramTopicNo = ajaxForm.find('#topicNo').val();
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
 		let paramPostImg = ajaxForm.find('img').attr('src');
-		/**
-		let uploadFile = ajaxForm.find('#uploadFile');
-		let uploadFile = ajaxForm.find('#uploadFile').val();
-		 */
 
 		$.ajax({
 			type: ajaxForm.attr('method'),
@@ -173,28 +166,34 @@ $(function() {
 				subject: paramSubject,
 				primaryPost: paramPostText,
 				postImgEncodeString: paramPostImg
-				/**
-				uploadFile: uploadFile
-				primaryPostImg: paramPostImg
-				 */
 			}
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
-			let accordion = $(targetId).find('.ac-parent');
-			accordion.addClass('open');
-			accordion.nextAll('.ac-child').css('display', 'block');
+			reloadTopic(targetId);
 		});
 		event.preventDefault();
 	});
 
+	
+	// トピックのリロード時に更新した箇所を表示する
+	function reloadTopic(targetTopicId) {
+		let accordion = $(targetTopicId).find('.ac-parent');
+		accordion.addClass('open');
+		accordion.nextAll('.ac-child').css('display', 'block');
+		/**
+		accordion.parent('.topics').not(accordion).nextAll('.ac-parent').removeClass('open');
+		accordion.parent('.topics').not(accordion).nextAll('.ac-child').css('display', 'none');
+		 */
+	}
+
 
 	// Post評価時の非同期通信処理
-	$(document).on('click', 'button.ajax-link', function() {
+	$(document).on('click', '.like-count', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
-		let paramRating = $(this).data('ts-param');
+		let paramRating = $(this).find('button').data('ts-param');
 		$.ajax({
 			type: parent.attr('method'),
 			url: parent.attr('action'),
@@ -207,6 +206,7 @@ $(function() {
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
+			reloadTopic(targetId);
 		});
 	});
 
@@ -224,12 +224,12 @@ $(function() {
 		postButtons.toggleClass('d-none');
 		// 画像の表示・非表示 を切り替え
 		var postImg = postText.next().find('img');
+		postImg.toggleClass('d-none');
 		if(postImg.attr('src') != '') {
-			postImg.closest('.postImgArea').hide();
 			postUpLoadArea.find('.image-upload-wrap').hide();
 			postUpLoadArea.find('.file-upload-image').attr('src', postImg.attr('src'));
 			postUpLoadArea.find('.file-upload-content').show();
-			postUpLoadArea.find('.image-title').html(' 画像を削除');
+			// postUpLoadArea.find('.image-title').html(' 画像を削除');
 		}
 		// readonly を切り替え
 		if (postText.attr('readonly')) {
@@ -261,17 +261,7 @@ $(function() {
 		}).done((data) => {
 			let targetId = '#' + paramTopicNo;
 			$(targetId).html(data);
-			let accordion = $(targetId).find('.ac-parent');
-			accordion.addClass('open');
-			accordion.nextAll('.ac-child').css('display', 'block');
-			/**
-			$('.ac-parent').not(accordion).nextAll('.ac-child').css('display', 'block');
-			$('.ac-parent').not(accordion).nextAll('.ac-child').slideUp();
-			let targetId = '#' + paramTopicNo + paramPostNo;
-			let hoge = $(targetId).prev().find('textarea');
-			hoge.html(paramPostText);
-			hoge.addClass('readonly p-0');
-			 */
+			reloadTopic(targetId);
 		});
 	});
 	
@@ -296,6 +286,7 @@ $(function() {
 			}).done((data) => {
 				let targetId = '#' + paramTopicNo;
 				$(targetId).html(data);
+				reloadTopic(targetId);
 			});
 		}
 	});
