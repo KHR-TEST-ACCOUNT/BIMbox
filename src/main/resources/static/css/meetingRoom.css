@@ -863,6 +863,10 @@ button:focus {
     margin: 20px auto;    
 }
 
+.postImgArea {
+	 min-width: 263px
+ }
+ 
 .action-container .file-upload {
 	width: 80%;
 	margin-bottom: 9.5px;

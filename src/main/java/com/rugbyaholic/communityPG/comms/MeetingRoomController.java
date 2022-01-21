@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rugbyaholic.communityPG.auth.AuthenticatedUser;
-import com.rugbyaholic.communityPG.common.ImageFile;
 import com.rugbyaholic.communityPG.comms.forms.TopicCreationForm;
 
 @Controller
@@ -96,9 +95,10 @@ public class MeetingRoomController {
 	// 投稿編集  @RequestParam("postImg") ImageFile postImg,
 	@PostMapping("/comms/EditPost.do")
 	public String onEditPostRequested(@RequestParam("postText") String postText,
+									  @RequestParam("postImg") String postImg,
 									  @RequestParam("topicNo") String topicNo,
 									  @RequestParam("postNo") int postNo, Model model) {
-		service.editPost(postText, new ImageFile(), topicNo, postNo);
+		service.editPost(postText, postImg, topicNo, postNo);
 		model.addAttribute("topic", service.reloadTopic(topicNo));
 		return "fragments/Topic :: topic";
 	}
