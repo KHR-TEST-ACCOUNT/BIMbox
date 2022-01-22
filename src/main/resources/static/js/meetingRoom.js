@@ -1,4 +1,3 @@
-
 // layout
 $(function() {
 	
@@ -8,12 +7,13 @@ $(function() {
 		change_addImg_text();
 	});
 	
+	// 画面のリサイズ時にPostの高さを決定する
 	$(window).on('resize', function() {
 		decide_topics_height();
 		change_addImg_text();
 	});
 	
-	// accordion
+	// accordion Menu
 	$(document).on("click", ".link", function() {
 		accodion_do($(this))
 		setTimeout(function() {
@@ -47,7 +47,7 @@ $(function() {
 		}
 	}
 	
-	//　Postの高さを決定する
+	//　Postの高さを決定するメソッド
 	function decide_topics_height(){
 		var column_height = $(window).height() - 40;
 		var sc_height = $('.search-container').outerHeight(true);
@@ -66,8 +66,7 @@ $(function() {
 
 
 $(function() {
-	/**
-	 */
+	
 	// ファイルのUPLOAD
 	$(document).on("change", ".file-upload-input", function() {
 		var input = $(this);
@@ -106,20 +105,12 @@ $(function() {
 		$(this).removeClass('image-dropping');
 	});
 	
-});
-
-	
-// コメントとドロップダウンの非表示処理
-$(function() {
+	// コメントとドロップダウンの非表示処理
 	$(document).ready(function() {
 		var comment_list = $('.comment');
 	});
-});
 	
-
-// コメントボックスの開閉
-$(function() {
-	// 開く
+	// コメントボックスの開閉
 	$(document).on("click", ".comment", function() {
 		var comment_box = $(this).parent().nextAll('.comment-box');
 		if(comment_box.hasClass('open')){
@@ -130,8 +121,9 @@ $(function() {
 			comment_box.addClass('open');
 		}
 	});
-});
 	
+});
+
 	
 // tooltip
 $(function() {
@@ -141,14 +133,23 @@ $(function() {
 	
 // 非同期通信処理
 $(function() {
-
+	
+	// HTTPのリクエストヘッダー値を設定
 	$(document).ajaxSend(function(e, xhr, options) {
 		let token = $("meta[name='_csrf']").attr("content");
 		let header = $("meta[name='_csrf_header']").attr("content");
 		xhr.setRequestHeader(header, token);
 	});
 
-	
+	// トピックのリロード時に更新した箇所を表示する
+	function reloadTopic(targetTopicId) {
+		let parent = $(targetTopicId).find('.ac-parent');
+		parent.toggleClass('open');
+		parent.nextAll('.ac-child').css('display', 'block');
+		$('.ac-parent').not(parent).removeClass('open');
+		$('.ac-parent').not(parent).nextAll('.ac-child').slideUp();
+	}
+
 	// コメント投稿時の非同期通信処理
 	$(document).on('click', '#ajaxForm .comment-button', function(event) {
 		let ajaxForm = $(this).parents("#ajaxForm");
@@ -156,7 +157,6 @@ $(function() {
 		let paramSubject = ajaxForm.find('#subject').val();
 		let paramPostText = ajaxForm.find('#postText').val();
 		let paramPostImg = ajaxForm.find('img').attr('src');
-
 		$.ajax({
 			type: ajaxForm.attr('method'),
 			url: ajaxForm.attr('action'),
@@ -175,21 +175,12 @@ $(function() {
 		event.preventDefault();
 	});
 
-	
-	// トピックのリロード時に更新した箇所を表示する
-	function reloadTopic(targetTopicId) {
-		let accordion = $(targetTopicId).find('.ac-parent');
-		accordion.addClass('open');
-		accordion.nextAll('.ac-child').css('display', 'block');
-	}
-
-
 	// Post評価時の非同期通信処理
-	$(document).on('click', 'button.ajax-link', function() {
+	$(document).on('click', '.like-count', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
-		let paramRating = $(this).data('ts-param');
+		let paramRating = $(this).find('button').data('ts-param');
 		$.ajax({
 			type: parent.attr('method'),
 			url: parent.attr('action'),
@@ -206,7 +197,6 @@ $(function() {
 		});
 	});
 
-
 	// コメント編集を押下した際の表示・非表示処理
 	$(document).on('click', '#postEdit', function() {
 		let target = $(this).data('ts-target');
@@ -220,8 +210,8 @@ $(function() {
 		postButtons.toggleClass('d-none');
 		// 画像の表示・非表示 を切り替え
 		var postImg = postText.next().find('img');
+		postImg.toggleClass('d-none');
 		if(postImg.attr('src') != '') {
-			postImg.closest('.postImgArea').hide();
 			postUpLoadArea.find('.image-upload-wrap').hide();
 			postUpLoadArea.find('.file-upload-image').attr('src', postImg.attr('src'));
 			postUpLoadArea.find('.file-upload-content').show();
@@ -235,7 +225,6 @@ $(function() {
 		}
 	});
 
-
 	// Post編集時の非同期通信処理
 	$(document).on('click', '#textEdit', function() {
 		let parent = $(this).parents('#ratingForm');
@@ -243,7 +232,6 @@ $(function() {
 		let paramPostText = parent.find('#postText').val();
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
-		
 		$.ajax({
 			type: parent.attr('method'),
 			url: '/comms/EditPost.do',
@@ -261,7 +249,6 @@ $(function() {
 		});
 	});
 	
-
 	// Post削除時の非同期通信処理
 	$(document).on('click', '#textDelete', function() {
 		if (!confirm('本当にこの投稿を削除しますか？')) {
@@ -286,7 +273,6 @@ $(function() {
 			});
 		}
 	});
-
 
 	// Topic削除時の非同期通信処理
 	$(document).on('click', '#deleteForm button', function() {

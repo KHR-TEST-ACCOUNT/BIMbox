@@ -40,11 +40,10 @@
 					<!-- info -->
 					<button th:if="${post.isPostedBy(user)}" class="btn btn-link p-0 text-dark fs-5"
 							id="postEdit" type="button" title="投稿編集" th:data-ts-target="|#${topic.topicNo + post.postNo}|">
-							<!-- -->
 						<i class="bi bi-pencil-square"></i>
 					</button>
 				</div>
-				<!-- content -->
+				<!-- post content -->
 				<div class="user-text">
 					<textarea class="form-control text-dark readonly p-0 auto-resize" readonly 
 							  th:text="${post.postText}" name="postText" id="postText">
@@ -52,37 +51,33 @@
 					<div th:if="${ post.postImg }" class="postImgArea">
 						<img class="postImg" th:src="${ post.postImg.encodedString }" />
 					</div>
-					
-					
-						 <!-- image content -->
-						<div class="file-upload d-none edit-image" th:id="${(topic.topicNo) + (post.postNo)}">
-							<div class="image-upload-wrap">
-								<!-- 
-								<input class="file-upload-input" type='file' id="*{uploadFile}" accept="image/*" />
-								 -->
-								<input class="file-upload-input" type='file' id="uploadFile" accept="image/*" />
-								<div class="drag-text">
-									<h3 class="">Drag and drop or click to add image.</h3>
-								</div>
-							</div>
-							<div class="file-upload-content">
-								<img id="postImg paramPostImg" class="file file-upload-image" src="" alt="your image" />
-								<div class="image-title-wrap">
-									<button type="button" class="remove-image">
-										Remove <span class="image-title">Uploaded Image</span>
-									</button>
-								</div>
+					 <!-- image content -->
+					<div class="file-upload d-none edit-image" th:id="${(topic.topicNo) + (post.postNo)}">
+						<div class="image-upload-wrap">
+							<input class="file-upload-input" type='file' id="uploadFile" accept="image/*" />
+							<div class="drag-text">
+								<h3 class="">Drag and drop or click to add image.</h3>
 							</div>
 						</div>
-						
-						
+						<div class="file-upload-content">
+							<img id="postImg paramPostImg" class="file file-upload-image" src="" alt="your image" />
+							<div class="image-title-wrap">
+								<button type="button" class="remove-image">
+									Remove <span class="image-title">Uploaded Image</span>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
+				<!-- post content END -->
+				<!-- edit button area -->
 				<div class="py-2 d-flex justify-content-end d-none edit-buttons" th:if="${post.isPostedBy(user)}" th:id="${(topic.topicNo) + (post.postNo)}">
 					<!-- update -->
 					<button id="textEdit" type="button" class="btn btn-success btn-sm me-2 shadow-sm">編集</button>
 					<!-- 投稿削除 NG-->
 					<button th:if="${topic.posts.size() > 1}" id="textDelete" type="button" class="btn btn-secondary btn-sm me-2 shadow-sm">削除</button>
 				</div>
+				<!-- edit button area end -->
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 				<input type="hidden" name="postNo" th:value="${post.postNo}" />
 				<!-- end -->
@@ -93,8 +88,8 @@
 					<form id="ratingForm" th:action="@{/comms/PostRating.do}" method="post" 
 						  th:with="rateByUser=${post.getRateByUser(user)}" th:object="${ topicSearchForm }">
 						<!-- like -->
-						<div class="d-flex align-items-baseline">
-							<button type="button" class="like-count btn btn-link text-dark ajax-link" 
+						<div class="d-flex align-items-baseline like-count">
+							<button type="button" class="like-button btn btn-link text-dark ajax-link" 
 									th:data-ts-param="1" th:disabled="${post.isPostedBy(user)}">
 								<th:block th:if="!${rateByUser.rater}">
 									<i class="far fa-star"></i>
@@ -110,6 +105,8 @@
 							</button>
 							<span class="like-counter ps-1 pt-1" th:text="${rateByUser.goodRatings.size()}">13</span>
 						</div>
+						<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
+						<input type="hidden" name="postNo" th:value="${post.postNo}" />
 					</form>
 					<!-- comment -->
 					<label class="social comment" for="comment" 
