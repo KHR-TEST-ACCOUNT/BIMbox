@@ -181,15 +181,19 @@ $(function() {
 		let accordion = $(targetTopicId).find('.ac-parent');
 		accordion.addClass('open');
 		accordion.nextAll('.ac-child').css('display', 'block');
+		/**
+		accordion.parent('.topics').not(accordion).nextAll('.ac-parent').removeClass('open');
+		accordion.parent('.topics').not(accordion).nextAll('.ac-child').css('display', 'none');
+		 */
 	}
 
 
 	// Post評価時の非同期通信処理
-	$(document).on('click', 'button.ajax-link', function() {
+	$(document).on('click', '.like-count', function() {
 		let parent = $(this).parents('#ratingForm');
 		let paramTopicNo = parent.find('input[name="topicNo"]').val();
 		let paramPostNo = parent.find('input[name="postNo"]').val();
-		let paramRating = $(this).data('ts-param');
+		let paramRating = $(this).find('button').data('ts-param');
 		$.ajax({
 			type: parent.attr('method'),
 			url: parent.attr('action'),
@@ -220,8 +224,8 @@ $(function() {
 		postButtons.toggleClass('d-none');
 		// 画像の表示・非表示 を切り替え
 		var postImg = postText.next().find('img');
+		postImg.toggleClass('d-none');
 		if(postImg.attr('src') != '') {
-			postImg.closest('.postImgArea').hide();
 			postUpLoadArea.find('.image-upload-wrap').hide();
 			postUpLoadArea.find('.file-upload-image').attr('src', postImg.attr('src'));
 			postUpLoadArea.find('.file-upload-content').show();

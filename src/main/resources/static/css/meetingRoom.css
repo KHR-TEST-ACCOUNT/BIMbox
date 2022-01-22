@@ -34,16 +34,17 @@ main {
   transform: rotate(180deg);
 }
 
-.ac-child{
+.ac-child {
+	padding-top: 10px;
 	display: none;
 	margin: 0
 }
 
-#searchCondition{
+#searchCondition {
 	margin-right: 80px;
 }
 
-.inputArea{
+.inputArea {
 	margin: 5px 0;
 }
 
@@ -625,8 +626,16 @@ button:focus {
 }
 
 .like-count{
-	padding: .5rem 0 0 0;	
     font-size: 1.04rem!important;
+}
+
+.like-button {
+    background: transparent;
+    cursor: pointer;
+    padding: 10px;
+    padding-right: 0;
+    border: none;
+    transition: 0.4s;
 }
 
 .fa-comment-alt {
@@ -639,7 +648,7 @@ button:focus {
 }
 
 .like-counter{
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 

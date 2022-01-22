@@ -42,7 +42,7 @@ public class Post {
 		PostRating postRating = ratings.stream().filter(p -> Objects.equals(p.getRater().getId(), user.getId()))
 				.findFirst().orElse(new PostRating());
 		postRating.setGoodRatings(ratings);
-		postRating.setBadRatings(ratings);
+		// postRating.setBadRatings(ratings);
 		return postRating;
 	}
 
