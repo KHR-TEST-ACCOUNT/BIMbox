@@ -1,7 +1,5 @@
 $(function() {
 
-/**
- */
 	var WelcomPage = $(".WelcomPage");
 	var SignUpPage = $(".SignUpPage");
 	var signInBtn = $(".signIn");
