@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/post.css}">
+	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		
+		<main class="page-content animsition">
+
+			<form th:action="@{/manage/users/UserSearch.do}" method="post" class="container-fluid">
+				<div class="p-3">
+					<h4>ユーザー情報一覧</h4>
+				</div>
+				<div class="p-3 searchBlock">
+					<!-- 検索条件 -->
+					<div class="d-flex align-items-between">
+						<h5 class="me-2">検索条件</h5>
+						<a href="#" id="condition-toggler" data-bs-toggle="collapse" data-bs-target="#searchCondition">
+							<span class="d-none">[表示]</span>
+							<span>[隠す]</span>
+						</a>
+					</div>
+					<div id="searchCondition" class="collapse show">
+						<div class="border p-3 rounded">
+							<div class="row">
+								<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+									<strong style="width: 7rem;">トピック</strong>
+									<input type="text" class="form-control form-control-sm" style="width: 11rem;"
+											th:field="*{topicSearchForm.subjectContent}" />
+									<div th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+										<span class="text-danger" th:errors="*{topicSearchForm.subjectContent}"></span>
+									</div>
+								</div>
+								<div class="d-flex align-items-top mb-2 col-md-5 col-lg-4">
+									<strong style="width: 7rem;">投稿内容</strong>
+									<input type="text" class="form-control form-control-sm" style="width: 11rem;"
+											th:field="*{topicSearchForm.postContent}" />
+								</div>
+								<div class="d-flex align-items-top mb-2 col-md-11 col-lg-4">
+									<strong style="width: 7rem;">投稿ユーザー</strong>
+									<input  type="text" class="form-control form-control-sm" style="width: 11rem;"
+											th:field="*{topicSearchForm.createByUser}" />
+								</div>
+							</div>
+						</div>
+						<div class="py-2">
+							<button class="btn btn-success btn-sm shadow-sm px-3">
+								<span>検索実行</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- 検索条件 END -->
+			
+			
+			
+			
+			<div class="container-fluid postsBlock" th:with="user=${#authentication.principal}">
+				<!-- トピック新規登録 -->
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-secondary btn-sm shadow-sm" data-bs-toggle="collapse"
+							data-bs-target="#topicCreation">
+							<span>トピック作成フォームを表示</span>
+							<span class="d-none">トピック作成フォームを隠す</span>
+					</button>
+				</div>
+				
+				<div id="topicCreation" class="collapse mt-3" th:object="${topicCreationForm}"
+					th:classappend="${topicCreationForm.isError ? 'show' : ''}">
+					
+					
+					<form th:action="@{/comms/CreateTopic.do}" method="POST"
+						class="border px-3 bg-light" autocomplete="off">
+						<h5 class="my-3">トピック作成フォーム</h5>
+						
+						
+						<div class="my-3">
+							<label for="subject">トピックタイトル</label>
+							<input type="text" class="form-control form-control-sm" style="width: 20rem;" 
+								th:field="*{subject}" id="subject" />
+							<div th:if="${#fields.hasErrors('subject')}">
+								<span class="text-danger" th:errors="*{subject}"></span>
+							</div>
+						</div>
+						
+						<div class="my-3">
+							<label for="primaryPost">投稿内容</label>
+							<textarea id="primaryPost" th:field="*{primaryPost}" class="form-control form-control-sm" style="resize: none;"></textarea>
+							<div th:if="${#fields.hasErrors('primaryPost')}">
+								<span class="text-danger" th:errors="*{primaryPost}"></span>
+							</div>
+						</div>
+						
+						<!-- img できてない。-->
+						<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+						<input  type="file" id="photo-file" class="d-none" accept="image/*" />
+						<div class="p-1 d-inline-block" id="dragandrophandler">
+							<img alt="" class="profile-photo thumbnail" id="thumbnail" />
+						</div>
+						
+						<!-- 作成ボタン -->
+						<div class="my-3 text-end">
+							<button class="btn btn-success btn-sm shadow-sm">トピック作成</button>
+						</div>
+						
+					</form>
+				</div>
+				
+				
+				<!-- トピック情報 -->
+				<div th:each="topic : ${topics}">
+					<div th:id="${topic.topicNo}" class="m-2">
+						<div th:replace="fragments/Topic :: topic(${topic})"></div>
+					</div>
+				</div>
+			</div>		
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>

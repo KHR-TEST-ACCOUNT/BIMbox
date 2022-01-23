@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'チャットルーム', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/chatRoom2.css}">
+	<script type="text/javascript" th:src="@{/js/chatRoom2.js}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<div id="chat-page" class="ccc">
+			    <div class="chat-container mx-4">
+			        <div th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
+				        <div class="connecting mt-1 mb-2">Let's start...</div>
+			        </div>
+			        <ul id="messageArea">
+						<th:block th:each="chatMsg : ${messageHist}" th:if="${chatMsg.isHistories(messageHist)}"  >
+							<!-- fromUser -->
+							<li class="chat-message text-end" th:if="${chatMsg.isUsersMessage(chatMsg.fromUserId, #authentication.principal)}">
+								<img class="fromUserImg" th:src="${chatMsg. fromUserIcon.encodedString}" /> 
+								<span th:text="${chatMsg.fromUser}"></span>
+								<p th:text="${chatMsg.content}"></p>
+								<div th:if="${ chatMsg. messageImg }">
+									<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+								</div> 
+								<small th:text="${chatMsg.AVF}"></small>
+								<br> 
+								<!-- 削除 -->
+								<a th:if="${chatMsg.deleteFlg == 0}" th:value="${chatMsg.msgId}"
+								class="text-decoration-none text-end" onclick="deleterMsg(event,this)"> 
+									<small>メッセージ削除</small> 
+									<input type="hidden" th:value="${chatMsg.msgId}" />
+								</a> 
+								<!-- 復元 --> 
+								<a th:if="${chatMsg.deleteFlg == 1}" th:value="${chatMsg.msgId}"
+								class="text-decoration-none text-end" onclick="updateMsgData(event,this)"> 
+									<small>復元</small> 
+									<input type="hidden" th:value="${chatMsg.msgId}" />
+								</a>
+							</li>
+							<!-- toUser -->
+							<li class="chat-message" th:if="${chatMsg.toUserId == #authentication.principal.id}">
+								<a th:href="|@{/profile/UserProfile.html}?id=${chatMsg.fromUserId}|">
+									<img class="toUserImg" th:src="${chatMsg.fromUserIcon.encodedString}" />
+								</a> 
+								<span th:text="${chatMsg.fromUser}"></span>
+								<p th:text="${chatMsg.content}"></p>
+								<div th:if="${ chatMsg. messageImg }">
+									<img class="messageImg my-2" th:src="${chatMsg. messageImg .encodedString}" />
+								</div> 
+								<small th:text="${chatMsg.AVF}"></small>
+							</li>
+						</th:block>
+			        </ul>
+			    </div>
+		        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
+		        	  enctype="multipart/form-data" method="post">
+		            <div class="form-group">
+		                <div class="input-group clearfix mt-2">
+		                    <input type="text" id="message" placeholder="Digite uma mensagem..."
+		                           autocomplete="off" class="form-control" />
+		                    <button type="submit" class="primary">Enviar</button>
+		                </div>
+		            </div>
+		            <!-- img -->
+					<label for="photo-file" class="btn btn-secondary btn-sm shadow-sm">アップロード</label>
+					<input type="file" id="photo-file" class="d-none" accept="image/*"
+						th:field="*{chatMessage.uploadFile}" />
+						
+					<div class="p-1 d-inline-block" id="dragandrophandler"></div>
+		            
+	                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
+	                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
+              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
+              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
+       	        </form>
+			</div>
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>

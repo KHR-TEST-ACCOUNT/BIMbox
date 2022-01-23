@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="fragments/head :: head_fragment(title = 'ホーム', links = ~{::link}, scripts = ~{::script})">
+	<!-- Top CSS -->
+	<link rel="stylesheet" th:href="@{/css/top.css}">
+	<!-- slider CSS -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Open+Sans|Maven+Pro:500' rel='stylesheet' type='text/css'>
+	<!-- Smooth scroll JS -->
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js}"></script>
+	<!-- slider JS -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<!-- topPage.js -->
+	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
+	<!-- JQuery plugin -->
+	<script th:replace="fragments/Scripts :: scripts"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		
+		<main class="page-content animsition">
+
+				<!-- スライドページ -->
+				<div th:replace="home/Slide :: slide"></div>
+					<!-- Aboutページ -->
+					<div th:replace="home/About :: about"></div>
+					<!-- 機能詳細ページ -->
+					<div th:replace="home/Functions :: functions"></div>
+					
+				<footer class="container">
+					<p class="float-end">
+						<a href="#">
+							<i class="fas fa-chevron-circle-up"></i>
+							<span>TOP</span>
+						</a>
+					</p>
+					<p>
+						&copy; 2017-2021 Company, Inc. &middot; 
+						<a href="#">プライバシー</a>
+						&middot; 
+						<a href="#">利用規約</a>
+					</p>
+				</footer>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>

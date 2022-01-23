@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<div th:fragment="sidenav" th:remove="tag">
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+			<i class="fa fa-bars"></i>
+		</a>
+		<nav id="sidebar" class="sidebar-wrapper" th:with="user=${#authentication.principal}">
+			<img src="https://azouaoui-med.github.io/react-pro-sidebar/static/media/bg2.de0153c5.jpg" alt="sidebar background" class="sidebar-bg">
+			<div class="sidebar-content">
+				<div class="sidebar-brand">
+					<a href="#">BIMbox</a>
+					<div id="close-sidebar">
+						<i class="fas fa-times"></i>
+					</div>
+				</div>
+				<div class="sidebar-header">
+					<div class="user-pic">
+						<img class="img-responsive img-rounded " alt="Profile" th:src="${user.profileImage.encodedString}" />
+					</div>
+					<div class="user-info">
+						<span class="user-name">
+							<strong>
+								<span th:text="${user.username}">Username</span>
+							</strong>
+						</span>
+						<th:block th:switch="${user.roles.get(0).code}">
+							<span class="user-role" th:case=01 th:text="User">user-role</span>
+							<span class="user-role" th:case=02 th:text="Manager">user-role</span>
+							<span class="user-role" th:case=03 th:text="Administer">user-role</span>
+							<span class="user-role" th:case=* th:text="Unknown">user-role</span>
+						</th:block>
+						<span class="user-status">
+							<i class="fa fa-circle"></i>
+							<span>Online</span>
+						</span>
+					</div>
+				</div>
+				<!-- sidebar-header  -->
+				<div class="sidebar-menu">
+					<ul>
+						<li class="header-menu">
+							<span>General</span>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/}">
+								<i class="fas fa-home"></i>
+								<span>Home</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="|@{/profile/Profile.html}?id=${user.id}|">
+								<i class="fas fa-address-card"></i>
+								<span>Profile</span>
+							</a>
+						</li>
+						
+						<li class="header-menu">
+							<span>Function</span>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/manage/users/UserList.html}">
+								<i class="fas fa-list-ul"></i>
+								<span>User List</span>
+							</a>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/comms/MeetingRoom.html}">
+								<i class="fas fa-users"></i>
+								<span>Community SNS</span>
+							</a>
+						</li>
+						<li class="sidebar-dropdown">
+							<a th:href="@{/conversationTo/ChatRoom.html}">
+								<i class="fas fa-comments"></i>
+								<span>Chat Room</span>
+							</a>
+						</li>
+						<!-- 
+						<li class="sidebar-dropdown">
+							<a th:href="@{/manage/sys/fs/DirectoryViewer.html}"> 
+								<i class="fas fa-folder-open"></i>
+								<span>Files</span>
+							</a>
+						</li>
+						 -->
+					</ul>
+				</div>
+				<!-- sidebar-menu  -->
+			</div>
+			<!-- sidebar-content  -->
+			<div class="sidebar-footer">
+				<a th:href="|@{/onError}">
+					<i class="fas fa-exclamation-triangle"></i>
+					<span class="badge badge-pill badge-warning notification"></span>
+				</a>
+				<a th:href="|@{/onError}">
+					<i class="fa fa-envelope"></i>
+					<span class="badge badge-pill badge-success notification"></span>
+				</a>
+				<!-- 
+				<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
+				 -->
+				<a th:href="|@{/profile/Profile.html}?id=${user.id}|">
+					<i class="fa fa-cog"></i>
+				</a>
+				<form th:action="@{/Logout.do}" method="post">
+					<button type="submit" class="btn btn-link">
+						<i class="fa fa-power-off"></i>
+					</button>
+					<span class="badge-sonar"></span>
+				</form>
+			</div>
+		</nav>
+		<!-- sidebar-wrapper  -->
+	</div>
+</body>
+</html>

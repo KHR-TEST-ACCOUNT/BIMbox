@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+main {
+	background: #e5ddd5
+}
+
+a .userImg{
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    left: 40px;
+    color: #fff;
+    border-radius: 50%;
+}
+
+#ratingForm, #ajaxForm {
+	padding-left:54px;
+}
+
+.topic {
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 1em 1em 0 1em;
+	/*
+	opacity: 0;
+	display: none;
+	*/
+}
+
+.posts {
+	border: 1px solid #ccc;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.postImg{
+    width: 30%;
+    margin : 20px auto;
+    text-align: center;
+    display: block;
+}
+
+.newPost {
+	border: 1px solid #ccc;
+	border-top: 0;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	/*
+	opacity: 0;
+	display: none;
+	*/
+}
+
+.post {
+	/* 
+	opacity: 0;
+	display: none;
+	 */
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 12px;
+}
+
+.postsBlock {
+	position: relative;
+	bottom: 17px;
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 12px;
+}

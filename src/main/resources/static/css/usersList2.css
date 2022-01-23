@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+table {
+	overflow-y: auto;
+}
+
+thead {
+	background-color: rgba(130, 130, 130, 0.35);
+}
+
+td a .userProfileImg {
+	width: 40px;
+	height: 40px;
+	color: #fff;
+	border-radius: 50%;
+}
+
+.newRegist {
+	position: relative;
+	bottom: 36px;
+}
+
+.searchBlock {
+	position: relative;
+	bottom: 7px;
+}

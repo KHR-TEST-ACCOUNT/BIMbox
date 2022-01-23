@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'チャットユーザー', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/chatRoom.css}">
+	<script type="text/javascript" th:src="@{/js/chatRoom.js}"></script>
+	<script type="text/javascript" th:src="@{/js/chatWebkit.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<section class="main-grid">
+				<aside class="main-side">
+					<header class="common-header" th:with="user=${#authentication.principal}">
+						<div class="common-header-start">
+							<button type="button" class="u-flex js-user-nav u-header" th:onclick="|@{/profile/UserProfile.html}?id=${ user.id }|">
+								<a  th:href="|@{/profile/UserProfile.html}?id=${ user.id }|">
+									<img class="profile-image" th:src="${user.profileImage.encodedString}" />
+								</a>
+								<div class="common-header-content">
+									<h1 class="common-header-title" th:text="${user.username}">username</h1>
+								</div>
+							</button>
+						</div>
+					</header>
+
+					<form th:action="@{/searchConversationDo/ChatRoom.html}" method="post" th:object="${chatMessage}" >
+						<section class="common-search d-flex">
+							<button type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+							<input type="search" class="text-input" th:field="*{searchWord}" placeholder="Search or start new chat">
+						</section>
+					</form>
+					
+					<form th:object="${conversationalUsers}">
+						<section class="chats">
+							<ul class="chats-list">
+								<!-- チャット履歴がなければ表示 -->
+								<li class="chats-item" th:if="${chatMessage.isForFirstTime(conversationalUsers, toUsersInfo.id)}">
+									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ toUsersInfo.id }" >
+										<a  th:href="|@{/profile/UserProfile.html}?id=${ toUsersInfo.id }|" class="profile-image-link pt-1">
+											<img class="profile-image toUserImg" th:src="${toUsersInfo.profileImage.encodedString}" />
+										</a>
+										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ toUsersInfo.id }|" 
+										   class="chat-reception text-decoration-none"> 
+											<div class="chats-item-header">
+												<h3 class="chats-item-title" th:text="${ toUsersInfo.username }">toUser name</h3>
+												<time class="chats-item-time"><!--  th:text="${ }" --></time>
+											</div>
+											<div class="chats-item-content">
+												<p class="chats-item-last">Let's start...</p>
+											</div>
+										</a>
+									</div>
+								</li>
+								<li class="chats-item" th:each="chatUser : ${conversationalUsers}">
+									<div class="chats-item-button js-chat-button" role="button" tabindex="0">
+										<input type="hidden" id="selection-id" class="selection-id" th:value="${ chatUser.toUserId }" >
+										<a  th:href="|@{/profile/UserProfile.html}?id=${ chatUser.toUserId }|" class="profile-image-link pt-1">
+											<img class="profile-image toUserImg" th:src="${chatUser.toUserIcon.encodedString}" />
+										</a>
+										<!-- 一致するIDのハイパーリンクをOFFに設定する（JS） -->
+										<a th:href="|@{/conversationTo/ChatRoom.html}?id=${ chatUser.toUserId }|" 
+										   class="chat-reception text-decoration-none"> 
+											<div class="chats-item-header">
+												<h3 class="chats-item-title" th:text="${chatUser.toUser}">toUser name</h3>
+												<time class="chats-item-time" th:text="${chatUser.AVF}">send time</time>
+											</div>
+											<div class="chats-item-content">
+												<p class="chats-item-last" th:text="${chatUser.content}">message content</p>
+											</div>
+										</a>
+									</div>
+								</li>
+							</ul>
+						</section>
+					</form>
+				</aside>
+				
+				
+				<main class="main-content">
+					<header class="common-header">
+						<div class="common-header-start">
+							<button class="common-button is-only-mobile u-margin-end js-back">
+								<span class="icon icon-back">⬅</span>
+							</button>
+							<button class="u-flex js-side-info-button">
+								<div class="profile-image-div">
+									<img class="profile-image" th:src="${toUsersInfo.profileImage.encodedString}" />
+								</div>
+								<div class="common-header-content">
+									<p class="common-header-status" th:text="${ toUsersInfo.username }">username</p>
+								</div>
+							</button>
+							<input type="hidden" id="display-id" th:value="${ toUsersInfo.id }" >
+						</div>
+						<nav class="common-nav">
+							<ul class="common-nav-list">
+								<li class="common-nav-item">
+									<button class="common-button u-animation-click js-side-info-button">
+										<span class="icon icon-menu" aria-label="menu"></span>
+									</button>
+								</li>
+							</ul>
+						</nav>
+					</header>
+					
+					<!-- Chat欄 -->
+					<div class="messanger">
+						<ol class="messanger-list" >
+					        <th:block th:if="${messageHist.isEmpty() || messageHist.get(0).fromUserId == 0}">
+						        <div class="connecting">Let's start...</div>
+					        </th:block>
+							<th:block  th:each="chatMsg : ${messageHist}" th:if="${chatMsg.isHistories(messageHist)}"
+										th:with="isMessagedBy=${chatMsg.isUsersMessage(chatMsg.fromUserId, #authentication.principal)}" >
+								<!-- ログインUserの送信したメッセージは消去可能 -->
+								<li class="common-message" th:classappend="${isMessagedBy} ? is-you : is-other" >
+									<p class="common-message-content" th:text="${chatMsg.content}"></p> 
+									<div class="massage-footer">
+										<time datetime th:text="${chatMsg.AVF}">14:11</time>
+										<!-- 削除 -->
+										 <th:block th:if="${isMessagedBy}">
+											<a th:if="${chatMsg.deleteFlg == 0}" class="text-decoration-none text-end deleterMsg"> 
+												<i class="fas fa-trash isDelete"></i>
+												<input type="hidden" class="msgId" th:value="${chatMsg.msgId}" />
+											</a> 
+										</th:block>
+									</div>
+								</li>
+							</th:block>
+						</ol>
+					</div>
+					
+					<!-- message send -->
+			        <form id="messageForm" name="messageForm" class="fff" nameForm="messageForm"
+			        	  enctype="multipart/form-data" method="post">
+						<div class="message-box">
+							<textarea class="text-input" id="message-box" placeholder="Type a message"></textarea>
+							<button type="submit" id="submit-button" class="common-button">
+								<i class="far fa-paper-plane icon"></i>
+							</button>
+						</div>
+		                <input type="hidden" id="userId" th:value="${#authentication.principal.id}"/>
+		                <input type="hidden" id="name" th:value="${#authentication.principal.username}"/>
+	              		<input type="hidden" id="fromUserId" th:value="${idSet.fromUserId}"/> 
+	              		<input type="hidden" id="toUserId" th:value="${idSet.toUserId}"/> 
+					</form>
+					<!-- message send end -->
+				</main>
+				
+				<!-- user detail -->
+				<aside class="main-info u-hide">
+					<header class="common-header">
+						<button class="common-button js-close-main-info">
+							<span class="icon">❌</span>
+						</button>
+						<div class="common-header-content">
+							<h3 class="common-header-title">Info</h3>
+						</div>
+					</header>
+					<div class="main-info-content">
+						<section class="common-box">
+							<a th:href="|@{/profile/UserProfile.html}?id=${ toUsersInfo.id }|" >
+								<img class="main-info-image" th:src="${toUsersInfo.profileImage.encodedString}">
+							</a>
+							<h4 class="big-title" th:text="${ 'Name : ' + toUsersInfo.username }">username</h4>
+							<p class="info-text"th:text="${ toUsersInfo.birthday } != null ?
+							   ${ 'Birthday : ' + toUsersInfo.birthday }: 'Birthday : 登録されていません。'">
+							</p>
+						</section>
+						<section class="common-box">
+							<h5 class="section-title">Hobby</h5>
+							<p th:text="${ toUsersInfo.hobby } != null ? ${ toUsersInfo.hobby }: '登録されていません。'">Hobbys</p>
+						</section>
+						<section class="common-box">
+							<h5 class="section-title">About Me</h5>
+							<p th:text="${ toUsersInfo.aboutMe } != null ? ${ toUsersInfo.aboutMe }: '登録されていません。'">aboutMe</p>
+						</section>
+					</div>
+				</aside>
+			</section>
+
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="functions" th:remove="tag" >
+		<!-- Users -->
+		<div class="row featurette fadeUpAnimation">
+			<div class="col-md-7">
+				<div class="fs-6">
+					<h3 class="featurette-heading" id="users">
+						<span class="text-muted">ユーザー情報一覧機能詳細</span>
+					</h3>
+					<div>検索欄が全て空白の場合は全件検索を行い、入力値がある場合はその値であいまい検索を行います。</div>
+					<div>編集を押下するとユーザーのプロフィールが表示されます。</div>
+					<h4 class="featurette-heading">
+						<span class="text-muted">権限</span>
+					</h4>
+					<div>ユーザー情報一覧機能の編集画面では、ログイン中のユーザー権限によって変更・削除処理を制御しています。</div>
+					<dl id="acMenu">
+						<dt>USER権限 ▼</dt>
+						<dd>
+							<table class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分の情報</th>
+										<td>&#9675;</td>
+										<td>&times;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&times;</td>
+										<td>&times;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>MANAGER権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分の情報</th>
+										<td>&#9675;</td>
+										<td>&times;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&times;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>ADMIN権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分の情報</th>
+										<td>&#9675;</td>
+										<td>&times;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+					</dl>
+				</div>
+				<p class="float-end">
+					<a href="#func">
+						<i class="fas fa-chevron-circle-up"></i>
+						<span>機能一覧</span>
+					</a>
+				</p>
+			</div>
+			<div class="col-md-5">
+				<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+					 width="500" height="500" xmlns="http://www.w3.org/2000/svg"
+					 role="img" aria-label="Placeholder: 500x500"
+					 preserveAspectRatio="xMidYMid slice" focusable="false">
+					 <title>Placeholder</title>
+					 <rect width="100%" height="100%"fill="#eee" />
+					 <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+				</svg>
+			</div>
+		</div>
+		<!-- Community -->
+		<div class="data-scroll mb-5"></div>
+		<hr class="featurette-divider">
+		<div class="row featurette">
+			<div class="col-md-7 order-md-2">
+				<div class="fs-6">
+					<h3 class="featurette-heading" id="community">
+						<span class="text-muted">コミュニティ機能詳細</span>
+					</h3>
+					<div>トピックを作成し、作成されたトピックに対してコメントを投稿する事ができます。</div>
+					<div>投稿に対して、1ユーザー、1つの投稿に対し、Like・Bad
+						のいずれか1件までの評価を付けることができます。</div>
+					<h4 class="featurette-heading">
+						<span class="text-muted">権限</span>
+					</h4>
+					<div>コミュニティ機能では、ログイン中のユーザー権限によってトピックや投稿の編集・削除を処理を制御しています。</div>
+					<dl id="acMenu">
+						<dt>USER権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分のトピック・投稿</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&times;</td>
+										<td>&times;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>MANAGER権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分のトピック・投稿</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&times;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>ADMIN権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">変更</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">自分のトピック・投稿</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">全て</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+					</dl>
+				</div>
+				<p class="float-end">
+					<a href="#func">
+						<i class="fas fa-chevron-circle-up"></i>
+						<span>機能一覧</span>
+					</a>
+				</p>
+			</div>
+			<div class="col-md-5 order-md-1">
+				<svg
+					class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+					width="500" height="500" xmlns="http://www.w3.org/2000/svg"
+					role="img" aria-label="Placeholder: 500x500"
+					preserveAspectRatio="xMidYMid slice" focusable="false">
+			<title>Placeholder</title><rect width="100%" height="100%"
+						fill="#eee" />
+			<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+			</div>
+		</div>
+		<!-- Files -->
+		<div class="data-scroll"></div>
+		<hr class="featurette-divider">
+		<div class="row featurette">
+			<div class="col-md-7">
+				<div class="fs-6">
+					<h3 class="featurette-heading" id="fileSharing">
+						<span class="text-muted">ファイル共有機能詳細</span>
+					</h3>
+					<div>フォルダの作成やファイル共有などが行え、共有されたファイルを保存したりできます。</div>
+					<h4 class="featurette-heading">
+						<span class="text-muted">権限</span>
+					</h4>
+					<div>ファイル共有機能では、ログイン中のユーザー権限によってファイルの・フォルダのリネーム・削除処理を制御しています。</div>
+					<dl id="acMenu">
+						<dt>USER権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-3 text-center table table-sm table-striped table-hover table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">リネーム</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">ファイル</th>
+										<td>&#9675;</td>
+										<td>&times;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">フォルダ</th>
+										<td>&#9675;</td>
+										<td>&times;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>MANAGER権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">リネーム</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">ファイル</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">フォルダ</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+						<dt>ADMIN権限 ▼</dt>
+						<dd>
+							<table
+								class="mt-1 mb-4 table table-sm table-striped table-hover text-center table-bordered">
+								<thead>
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">リネーム</th>
+										<th scope="col">削除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row" class="text-start">ファイル</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+									<tr>
+										<th scope="row" class="text-start">フォルダ</th>
+										<td>&#9675;</td>
+										<td>&#9675;</td>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+					</dl>
+				</div>
+				<p class="float-end">
+					<a href="#func">
+						<i class="fas fa-chevron-circle-up"></i>
+						<span>機能一覧</span>
+					</a>
+				</p>
+			</div>
+			<div class="col-md-5">
+				<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+					 width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" 
+					 aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+				 	 <title>Placeholder</title>
+					 <rect width="100%" height="100%" fill="#eee" />
+					 <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>  
+				</svg>
+			</div>
+		</div>
+		<hr class="featurette-divider">
+	</div>
+</body>
+</html>

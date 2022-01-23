@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="slide" th:remove="tag" >
+	
+	
+	
+	
+		<ul class="slider">
+		  <li><img src="https://design-levelup.com/wp-content/uploads/2019/06/slider_1.jpg"></li>
+		  <li><img src="https://design-levelup.com/wp-content/uploads/2019/06/slider_2.jpg"></li>
+		  <li><img src="https://design-levelup.com/wp-content/uploads/2019/06/slider_3.jpg"></li>
+		</ul>	
+	
+		<div id="myCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+				<li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+				<li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+
+				<!-- 1 -->
+				<div class="carousel-item active">
+					<svg class="bd-placeholder-img" width="100%" height="330"
+						xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+						preserveAspectRatio="xMidYMid slice" focusable="false">
+						<rect width="100%" height="100%" fill="#8bc4db" />
+					</svg>
+					<div class="container">
+						<div class="carousel-caption text-start">
+							<h2>ホームページをリニューアルしました。</h2>
+							<p>2021/10/11、ホームページをリニューアルしました。従業員情報の検索の機能、コミュニティ機能、ファイルの共有機能が新たに加わりました。</p>
+							<p>
+								<a class="btn btn-primary" href="#func" role="button">詳細を見る</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- 2 -->
+				<div class="carousel-item">
+					<svg class="bd-placeholder-img" width="100%" height="330"
+						xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+						preserveAspectRatio="xMidYMid slice" focusable="false">
+					<rect width="100%" height="100%" fill="#6ad3c6" /></svg>
+
+					<div class="container">
+						<div class="carousel-caption text-start">
+							<h2>当サイトのソースコードの公開</h2>
+							<p>当サイトのソースコードは、Githubにて公開されています。また、ソースコードをローカル環境で動かす方法も書き加えております。詳しくは"Read.Me"を参照してください。</p>
+							<p>
+								<a class="btn btn-primary"
+									href="https://github.com/Kouya-Ajima/Internal-Community-Web"
+									role="button">Githubへ移動</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- 3 -->
+				<div class="carousel-item">
+					<svg class="bd-placeholder-img" width="100%" height="330"
+						xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+						preserveAspectRatio="xMidYMid slice" focusable="false">
+						<rect width="100%" height="100%" fill="#d3af86" />
+					</svg>
+
+					<div class="container">
+						<div class="carousel-caption text-start">
+							<h2>ドローン開発に成功しました。</h2>
+							<p>顔認証でドローンが人間を追従したり、スマホからの操作で移動したり写真を撮ったりする事もできます。詳しくは下記の動画を御覧ください。</p>
+							<p>
+								<a class="btn btn-primary" href="#" role="button">ドローンの紹介動画をみる</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- カーソル -->
+			<a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev"> 
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+				<span class="visually-hidden">前へ</span>
+			</a> 
+			<a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next"> 
+				<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+				<span class="visually-hidden">次へ</span>
+			</a>
+		</div>
+	</div>
+</body>
+</html>

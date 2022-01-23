@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/meetingRoom.css}">
+	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content animsition">
+			<form th:action="@{/manage/users/UserSearch.do}" method="post">
+				<nav class="page-header navbar navbar-light shadow-sm search-container">
+					<!-- 投稿検索 -->
+					<div class="center d-flex justify-content-center w-100" style="margin: 0 40px;">
+						<a th:href="@{/comms/MeetingRoom.html}" id="home" class="navbar-brand btn">Search</a>
+						<!-- 検索条件 -->
+						<div class="input-group">
+							<input type="text" class="form-control search-content"
+								placeholder="ユーザー名、トピック名、投稿内容 を検索できます。"
+								th:field="*{topicSearchForm.subjectContent}" />
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-secondary h-100">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+							<!-- error message -->
+							<div
+								th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+								<span class="text-danger"
+									th:errors="*{topicSearchForm.subjectContent}"></span>
+							</div>
+						</div>
+					</div>
+				</nav>				
+			</form>
+					
+					<!-- 
+					<div class="p-1 searchBlock">
+						<div class="d-flex align-items-between ac-parent">
+							<h6 class="search-criteria">検索条件</h6>
+							<h6 class="link">
+								<i class="fa fa-chevron-down"></i>
+							</h6>
+						</div>
+						<div id="searchCondition" class="collapse ac-child">
+							<div class="row py-3">
+								<div class="inputArea d-flex align-items-top">
+									<strong>トピック</strong>
+									<input type="text" th:field="*{topicSearchForm.subjectContent}">
+									<div th:if="${#fields.hasErrors('topicSearchForm.subjectContent')}">
+										<span class="text-danger" th:errors="*{topicSearchForm.subjectContent}">
+										</span>
+									</div>
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿ユーザー</strong>
+									<input type="text" th:field="*{topicSearchForm.createByUser}">
+								</div>
+								<div class="inputArea d-flex align-items-top">
+									<strong>投稿内容</strong>
+									<input type="text" th:field="*{topicSearchForm.postContent}">
+								</div>
+							</div>
+							<div class="py-2">
+								<button class="btn btn-success btn-sm shadow-sm px-3">
+									<span>検索実行</span>
+								</button>
+							</div>
+						</div>
+					</div>				
+					 -->
+					
+
+			<!-- Content -->
+			<div class="column two">
+			
+				<!-- トピック情報 -->
+				<div class="topics">
+					<div th:each="topic : ${topics}">
+						<article class="post-container">
+							<div th:id="${topic.topicNo}" class="m-3">
+								<div th:replace="fragments/Topic :: topic(${topic})"></div>
+							</div>	
+						</article>
+					</div>
+				</div>
+				
+				<!-- トピック新規登録 -->
+				<article class="moodle-container">
+					<!-- Formの表示非表示 -->
+					<div class="d-flex justify-content-end p-1 ac-parent">
+						<h6 id="condition-toggler" class="px-3 link" >
+							<i class="fa fa-chevron-down"></i>
+						</h6>
+					</div>
+					<!-- 新規投稿内容 -->
+					<div id="topicCreation" class="collapse mt-3 ac-child" th:object="${topicCreationForm}"
+						 th:classappend="${topicCreationForm.isError ? '' : ''}">
+						<form th:action="@{/comms/CreateTopic.do}" method="POST" 
+							  class="border px-3 form-content" autocomplete="off">
+							<div class="d-flex">
+								<div class="post-content">
+									<!-- topic content  collapse -->
+									<div class="share-container py-2">
+										<textarea th:field="*{subject}" rows="1" placeholder="Enter a title for the topic."></textarea>
+										<div th:if="${#fields.hasErrors('subject')}">
+											<span class="text-danger" th:errors="*{subject}"></span>
+										</div>
+									</div>
+									<!-- post content -->
+									<div th:if="${#fields.hasErrors('primaryPost')}">
+										<span class="text-danger" th:errors="*{primaryPost}"></span>
+									</div>
+									<div class="share-container">
+										<textarea th:field="*{primaryPost}" rows="1"
+											placeholder="Share an article, photo or idea."></textarea>
+									</div>
+								</div>
+								<button class="post-button shadow">Post</button>
+							</div>
+							<div class="file-upload">
+								<div class="image-upload-wrap">
+									<input class="file-upload-input" type='file' accept="image/*" />
+									<div class="drag-text">
+										<h3>Drag and drop or click to add image.</h3>
+									</div>
+								</div>
+								<div class="file-upload-content">
+									<img class="file-upload-image" src="" alt="your image" />
+									<div class="image-title-wrap">
+										<div class="btn remove-image">
+											Remove <span class="image-title">Uploaded Image</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</article>
+				
+			</div>
+			<!-- Message Content -->
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+	
+
+
+<script>
+</script>
+</body>
+</html>

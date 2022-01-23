@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rugbyaholic.communityPG.comms.repositories.ChatRoomRepository">
+	
+	
+	<select id="getMsgId" resultType="Long">
+	<![CDATA[
+		SELECT	MSG.MESSAGE_ID
+		FROM    MESSAGE_HIST MSG
+		WHERE	FROM_USER_ID = #{fromUserId}
+		AND		TO_USER_ID	 = #{toUserId}
+		ORDER BY
+		        MSG.MESSAGE_ID DESC
+		        LIMIT 	1;
+	]]>
+	</select>
+	
+	<select id="findMostFirstOfUser" resultType="Long">
+	<![CDATA[
+		SELECT	MSG.TO_USER_ID
+		FROM    MESSAGE_HIST MSG
+		WHERE	FROM_USER_ID = #{fromUserId}
+		ORDER BY
+		        MSG.SENT_AVF DESC
+		        LIMIT 	1;
+	]]>
+	</select>
+	
+	
+	<select id="findConversationalUser" resultMap="msg_detail">
+	<![CDATA[
+		SELECT  MSG.MESSAGE_ID       		 AS msgId,
+		        MSG.FROM_USER_ID       		 AS fromUserId,
+		        FROM_USER.FROM_USER_NAME	 AS fromUser,
+    			CASE
+	    			WHEN	 MSG.DELETE_FLG		  =  1	 THEN	 '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。'
+	    			WHEN	 LENGTH(MSG.MESSAGE) >= 15	 THEN	 CONCAT(LEFT(MSG.MESSAGE, 15),'...')
+					ELSE	 MSG.MESSAGE	        
+		        END							 AS message,
+		        MSG.MESSAGE_IMG        		 AS messageImg,
+		        MSG.SENT_AVF	       		 AS sentAvf,
+		        MSG.TO_USER_ID         		 AS toUserId,
+		        TO_USER.TO_USER_NAME		 AS toUser,
+		        TO_USER.TO_USER_ICON    	 AS toUserIcon,
+		        MSG.DELETE_FLG				 AS deleteFlg
+		FROM    MESSAGE_HIST MSG
+		INNER JOIN (
+ 		            SELECT  ID,
+ 		            		NAME		 AS FROM_USER_NAME,
+ 		            		AVF
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE()
+ 		           ) 
+ 		        AS FROM_USER
+		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
+		INNER JOIN (
+ 		            SELECT  ID, 
+ 		            		NAME		 AS TO_USER_NAME, 
+ 		            		PROFILE_IMG	 AS TO_USER_ICON
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		           ) 
+ 		        AS TO_USER
+		ON      TO_USER.ID        	 =  MSG.TO_USER_ID
+	]]>
+	<where>
+			    MSG.SENT_AVF		>=	FROM_USER.AVF
+		AND		MSG.SENT_AVF 		IN  (
+										SELECT 	MAX(SENT_AVF) 
+										FROM 	MESSAGE_HIST 
+										GROUP BY TO_USER_ID
+									)
+		AND	    MSG.FROM_USER_ID	 =	#{userId}
+		<if test="searchword != null">
+		<![CDATA[
+		AND    (
+					TO_USER.TO_USER_NAME	LIKE	CONCAT('%', #{searchword}, '%')
+				OR	MSG.SENT_AVF			LIKE	CONCAT('%', #{searchword}, '%')	
+				OR	MSG.MESSAGE				LIKE	CONCAT('%', #{searchword}, '%')
+				)
+		]]>
+		</if>
+	</where>
+	<![CDATA[
+		ORDER BY
+				MSG.SENT_AVF
+				DESC
+	]]>
+	</select>
+	
+	<select id="findMessages" resultMap="msg_detail">
+	<![CDATA[
+		SELECT  MSG.MESSAGE_ID       		 AS msgId,
+				MSG.FROM_USER_ID			 AS fromUserId,
+		        FROM_USER.FROM_USER_NAME	 AS fromUser,
+		        FROM_USER.FROM_USER_ICON	 AS fromUserIcon,
+				IF( 
+					MSG.DELETE_FLG	 = 	1,
+			        '削除されたメッセージです。7日経過後（現在は3分後に設定）に自動削除されます。',
+					MSG.MESSAGE
+		        ) 							 AS message,
+		        MSG.MESSAGE_IMG        		 AS messageImg,
+		        MSG.SENT_AVF           	     AS sentAvf,
+		        MSG.TO_USER_ID         		 AS toUserId,
+		        TO_USER.TO_USER_NAME         AS toUser,
+		        TO_USER.TO_USER_ICON    	 AS toUserIcon,
+		        MSG.DELETE_FLG				 AS deleteFlg
+		FROM    MESSAGE_HIST MSG
+		INNER JOIN (
+ 		            SELECT  ID,
+ 		            		NAME		 AS FROM_USER_NAME,
+ 		            		AVF, 
+ 		            		PROFILE_IMG	 AS FROM_USER_ICON
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE()
+ 		           ) 
+ 		        AS FROM_USER
+		ON      FROM_USER.ID         =  MSG.FROM_USER_ID
+		INNER JOIN (
+ 		            SELECT  ID, 
+ 		            		NAME		 AS TO_USER_NAME, 
+ 		            		PROFILE_IMG	 AS TO_USER_ICON
+ 		            FROM    USERS 
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		           ) 
+ 		        AS TO_USER
+		ON      TO_USER.ID        	 =  MSG.TO_USER_ID
+		WHERE   MSG.SENT_AVF		>=	FROM_USER.AVF
+		AND     (
+					 MSG.FROM_USER_ID    =  #{fromUserId}	AND 
+					 MSG.TO_USER_ID      =  #{toUserId}
+				OR      
+					 MSG.FROM_USER_ID    =  #{toUserId} 	AND
+					 MSG.TO_USER_ID      =  #{fromUserId}
+				)
+		ORDER BY
+		        MSG.SENT_AVF
+ 	]]>
+	</select>
+	
+	<resultMap type="com.rugbyaholic.communityPG.websocket.ChatMessage" id="msg_detail">
+		<result property="msgId" column="msgId" />
+		<result property="fromUserId" column="fromUserId" />
+		<result property="fromUser" column="fromUser" />
+		<result property="content" column="message" />
+		<result property="sentAvf" column="sentAvf" />
+		<result property="toUserId" column="toUserId" />
+		<result property="toUser" column="toUser" />
+		<result property="deleteFlg" column="deleteFlg" />
+		<association property="fromUserIcon" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="fromUserIcon" />
+		</association>
+		<association property="messageImg" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="messageImg" />
+		</association>
+		<association property="toUserIcon" javaType="com.rugbyaholic.communityPG.common.ImageFile">
+			<result property="encodedString" column="toUserIcon" />
+		</association>
+	</resultMap>
+	
+	<insert id="registerMessage">
+	<![CDATA[
+		INSERT INTO MESSAGE_HIST(
+		    FROM_USER_ID,
+		    MESSAGE,
+		    MESSAGE_IMG,
+		    SENT_AVF,
+		    TO_USER_ID
+		) VALUES (
+		    #{msgInfo.fromUserId},
+		    #{msgInfo.content},
+		    #{msgInfo.messageImg.encodedString},
+		    #{msgInfo.sentAvf},
+		    #{msgInfo.toUserId}
+		)
+	]]>
+	</insert>
+	
+	
+	<update id="deleterMessageHist">
+	<![CDATA[
+		UPDATE	MESSAGE_HIST MSG
+			SET	
+				DELETE_FLG	 =	 1,
+				DELETE_AVF	 =	 NOW()
+		WHERE
+			    MESSAGE_ID		 = 		#{msgId}
+		AND	    FROM_USER_ID	 = 		#{fromUserId}
+	]]>
+	</update>
+	
+	<update id="restoreMessageHist">
+	<![CDATA[
+		UPDATE	MESSAGE_HIST MSG
+			SET	
+				DELETE_FLG	 =	 0,
+				DELETE_AVF	 =	 null
+		WHERE
+			    MESSAGE_ID		 = 		#{msgId}
+		AND	    FROM_USER_ID	 = 		#{fromUserId}
+	]]>
+	</update>
+	
+	<update id="deleterMessageHistFor3Minute">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE 	MSG.DELETE_FLG	  =	1
+		AND		MSG.DELETE_AVF	 <= NOW() - INTERVAL 3 MINUTE
+	]]>
+	</update>
+	
+	<update id="deleterMessageHistFor3Minute2">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE 	MSG.DELETE_FLG	  =	1
+		AND		MSG.DELETE_AVF	 <= NOW() - INTERVAL 1 MINUTE
+		AND 	(
+					(FROM_USER_ID	=	#{fromUserId}	AND	  TO_USER_ID	 =  #{toUserId})
+				 OR      
+				 	(FROM_USER_ID	=	#{toUserId}		AND	  TO_USER_ID	 =  #{fromUserId})
+				)
+	]]>
+	</update>
+	
+	
+	<insert id="closerChatRoom">
+	<![CDATA[
+		DELETE 
+		FROM    MESSAGE_HIST MSG
+		WHERE   (
+				 FROM_USER_ID   =  #{fromUserId}	AND 
+				 TO_USER_ID     =  #{toUserId}
+				)
+		OR      (
+				 FROM_USER_ID   =  #{toUserId} 		AND
+				 TO_USER_ID     =  #{fromUserId}
+				)
+		AND		MSG.SENT_AVF   >= (
+		 		    SELECT  AVF 
+ 		            FROM    USERS U
+ 		            WHERE   AVF     <=  CURDATE() 
+ 		            AND     AVF      >  U.AVF 
+ 		            AND 	U.ID     =  MSG.FROM_USER_ID
+				)
+	]]>
+	</insert>
+	
+</mapper>

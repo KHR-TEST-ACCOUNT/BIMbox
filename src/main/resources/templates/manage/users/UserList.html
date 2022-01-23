@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head_fragment(title = 'User List', links = ~{::link}, scripts = ~{::script})">
+	<link rel="stylesheet" th:href="@{/css/usersList.css}">
+	<link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
+</head>
+<body>
+	<!-- サイドバー -->
+	<div class="page-wrapper chiller-theme toggled">
+		<div th:replace="fragments/Sidenav :: sidenav"></div>
+		<main class="page-content ">
+		
+			<!-- Content -->
+			<nav class="page-header navbar navbar-light shadow-sm search-container">
+				<div class="center d-flex justify-content-center w-100 mx-4">
+					<a  th:href="@{/manage/users/UserList.html}" id="home" class="navbar-brand btn" style="color: #51515a;">User List</a> 
+					<form class="search-area" th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
+							<!-- ユーザー登録・検索 -->
+						<div class="input-group">
+							<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名、趣味、自己紹介文 を検索できます。">
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-secondary" >
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<!-- ユーザー登録・検索 -->
+				<form th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
+					<div id="searchCondition" class="collapse p-3 searchBlock">
+						<!-- ユーザー登録・検索 -->
+						<div class="border p-3 rounded">
+							<div class="row">
+								<!-- Actual search box -->
+								<div class="d-flex align-items-top input-group col-12">
+									<input type="text" class="form-control" th:field="*{name}" placeholder="ユーザー名">
+									<div class="input-group-append">
+										<button class="btn btn-secondary" type="button">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<button
+							class="btn btn-outline-success btn-sm shadow-sm px-3 py-2 my-2">
+							<span>Search</span>
+						</button>
+					</div>
+				</form>
+			</nav>
+
+			<div id="loading">
+				<div id="loading_box">
+					<div class="loading-one animation_loading">
+						<p class="loading-txt">Loading</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- data-panel -->
+			<div class="container topics shadow-sm">
+				<th:block th:if="${searchResult}">
+					<div class="row">
+						<div class="user-card"  th:each="user : ${searchResult.entities}">
+							<div class="card-content card-rounded-7 mb-3 p-1">
+								<div class="zooming" id="show-user-modal" data-id="601" data-toggle="modal"
+									 th:data-target="'#show-user-modal' + ${user.id}">
+									<img class="card-image" th:src="${ user.profileImage.encodedString}">
+								</div>
+								<div class="card-body">
+									<input type="hidden" name="userId" id="userId" th:value="${ user.id }">
+									<h5 class="card-text username" th:text="${user.username}">
+										<i class="fa fa-male"></i> 
+										user name
+									</h5>
+									<p class="card-text">
+										<i class="fas fa-podcast" style="color: gray"></i>
+										<th:block th:switch="${user.roles.get(0).code}">
+											<span th:case=01 th:text="User" class="user-role">user-role</span>
+											<span th:case=02 th:text="Manager" class="user-role">user-role</span>
+											<span th:case=03 th:text="Administer" class="user-role">user-role</span>
+											<span th:case=* th:text="Unknown" class="user-role">user-role</span>
+										</th:block>
+									</p>
+								</div>
+							</div>
+							
+							<!-- Modal インタラクティブウィンドウからの飛び出し-->
+							<div class="modal fade"th:id="'show-user-modal' + ${user.id}"
+								 tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-lg modal-height" role="document">
+									<div class="modal-content">
+										<!-- modal-header -->
+										<div class="modal-header">
+											<h3 class="modal-title" id="show-user-name" th:text="${user.username}"></h3>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+										<!-- modal-body -->
+										<div class="modal-body" id="show-user-body">
+											<div class="row">
+												<div class="col-sm-4" id="show-user-image">
+													<img th:src="${ user.profileImage.encodedString}"
+														class="img-fluid" alt="Responsive image">
+												</div>
+												<div class="col-sm-8 pt-3" id="show-user-details">
+													<p id="show-user-age" th:text="${ user.age } != null ? ${ 'Age : ' + user.age }: 'Age : 登録されていません。'">Age</p>
+													<p id="show-user-birthday">
+														<i class="fa fa-birthday-cake"></i>
+														<span id="show-user-age" th:text="${ user.birthday } != null ? ${ user.birthday }: '登録されていません。'"></span>
+													</p>
+													<p id="show-user-email">
+														<i class="fa fa-envelope"></i>
+														<span th:text="${user.email}"></span>
+													</p>
+													<p id="show-user-hobby">
+														<i class="fas fa-icons"></i>
+														<span id="show-user-age" th:text="${ user.hobby } != null ? ${ user.hobby }: '登録されていません。'"></span>
+													</p>
+													<p id="show-user-about">
+														<i class="fas fa-address-card"></i>
+														<span class="text-break" th:text="${user.aboutMe}"></span>
+													</p>
+													<p id="show-user-detail" class="mt-5">
+														<a th:href="|@{/conversationTo/ChatRoom.html}?id=${user.id}|" class="user-detail text-decoration-none"> 
+															<i class="fas fa-sign-in-alt"></i>
+															<span>Chat Roomへ</span>
+														</a>
+													</p>
+													<p id="show-user-detail">
+														<a th:href="|@{/profile/UserProfile.html}?id=${ user.id }|" class="user-detail">
+															<i class="fas fa-sign-in-alt"></i>
+															<span>プロフィールへ</span>
+														</a>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer row mx-3">
+											<div class="col-12" id="user-update">
+												<p id="show-user-update">
+													<small class="text-muted" th:text="${ 'Created at : ' + user.avf }">Created At:
+														2020-04-01T09:37:57.270Z
+													</small>
+												</p>
+											</div>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<!-- Pagenation -->
+			<div th:replace="fragments/Pagination :: pagination(@{/manage/users/UserPageView.do})"></div>
+			<!-- Message -->
+			<div th:replace="fragments/Toast :: toast"></div>
+		</main>
+	</div>
+	<script type="text/javascript" th:src="@{https://unpkg.com/axios/dist/axios.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js}"></script>
+	<script type="text/javascript" th:src="@{https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/userList.js}"></script>
+</body>
+</html>

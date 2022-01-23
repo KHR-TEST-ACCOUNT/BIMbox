@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<div th:fragment="toast" th:remove="tag">
+		<!-- Toast -->
+		<div id="toast" class="bg-white shadow-lg top-50 start-50 border translate-middle" 
+			 th:if="${notificationMessage}" th:object="${notificationMessage}">
+			<div id="toast-header" class="d-flex border-bottom align-items-center">
+				<div id="toast-color"
+					 th:classappend="*{(success ? 'bg-primary' : '') + (info ? 'bg-info' : '') +
+									   (warning ? 'bg-warning' : '') + (error ? 'bg-danger' : '')}" >
+				</div>
+				<strong class="flex-grow-1">Information</strong>
+				<button id="toast-close" type="button" class="btn-close"></button>
+			</div>
+			<div id="toast-message">
+				<span th:text="*{message}"></span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

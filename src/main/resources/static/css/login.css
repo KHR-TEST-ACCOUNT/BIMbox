@@ -1,0 +1,158 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+	margin: 0;
+	height: 100vh;
+    font-family: "Open Sans", sans-serif;
+}
+
+h1, button {
+	font-weight: 300;
+	letter-spacing: 2px;
+	font-size: 48px;
+	font-weight: bold;
+}
+
+h1, .logo {
+    position: relative;
+    top: 80px;
+}
+
+.hidden{
+    display: none;
+}
+
+.signIn, .toWelcom{
+	position: fixed;
+	top: calc(50% - 20px);
+}
+
+.login {
+	height: 180px;
+	width: 271px;
+	padding: 10px;
+}
+
+button {
+	width: 250px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin: 10px auto 0;
+}
+
+p {
+	letter-spacing: 1px;
+	font-size: 14px;
+	color: #333333;
+}
+
+.header {
+	position: relative;
+	text-align: center;
+	background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%,rgba(0, 172, 193, 1) 100%);
+	color: white;
+}
+
+.logo {
+	width: 50px;
+	fill: white;
+	padding-right: 15px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.inner-header {
+	height: 65vh;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.inner-header svg, .inner-header h1 {
+	padding-bottom: 47px;
+}
+
+/*Flexbox*/
+.flex { 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+/*safari では動かない*/
+.waves {
+	position: relative;
+	width: 100%;
+	height: 15vh;
+	margin-bottom: -7px;
+	min-height: 100px;
+	max-height: 150px;
+}
+
+.WelcomPage .content {
+	position: relative;
+	height: 20vh;
+	text-align: center;
+	background-color: white;
+}
+
+/* Animation */
+.parallax>use {
+	animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+	animation-delay: -2s;
+	animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+	animation-delay: -3s;
+	animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+	animation-delay: -4s;
+	animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+	animation-delay: -5s;
+	animation-duration: 20s;
+}
+
+
+@keyframes move-forever {
+	
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
+  
+}
+
+
+/*モバイル端末をシェイクしたら波が動く*/
+@media ( max-width : 768px) {
+	.WelcomPage .waves {
+		height: 40px;
+		min-height: 40px;
+	}
+	.WelcomPage .content {
+		height: 30vh;
+	}
+	.WelcomPage h1 {
+		font-size: 24px;
+	}
+}
