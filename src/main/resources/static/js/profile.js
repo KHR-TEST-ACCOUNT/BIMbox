@@ -39,7 +39,6 @@ $(function() {
 		
 	});
 
-
 	// ページの高さを決定
 	function rePages() {
 		var settings = $('#settings');

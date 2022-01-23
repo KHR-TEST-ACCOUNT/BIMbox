@@ -1,6 +1,5 @@
 
-/* HEADER
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* HEADER */
 .page-header {
 	position: fixed;
 	top: 0;
@@ -91,35 +90,6 @@ main {
 	color: rgb(63, 111, 177);
 }
 
-.btn-favorite {
-	position: absolute;
-	left: 77%;
-	bottom: 1%;
-}
-
-.list-favorite {
-	position: absolute;
-	bottom: 30%;
-	left: 85%;
-}
-
-#favorite:hover {
-	transform: scale(1.2);
-	color: red;
-}
-
-.fa-heart {
-	color: red;
-}
-
-.list-avatar {
-	width: 100px;
-}
-
-.list-name {
-	width: 70%;
-}
-
 .modal-height {
 	max-height: calc(100% - 58px);
 	overflow: scroll;
@@ -140,13 +110,7 @@ main {
 }
 
 
-
-
-
-/*==================
-#loading
-==================*/
-
+/* loading */
 #loading {
     position: absolute;
     top: 0;
