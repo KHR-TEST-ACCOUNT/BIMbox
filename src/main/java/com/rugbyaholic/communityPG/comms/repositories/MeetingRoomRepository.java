@@ -67,4 +67,9 @@ public interface MeetingRoomRepository {
 								@Param("postNo") int postNo, 
 								@Param("user") AuthenticatedUser user,
 								@Param("rating") int rating);
+
+	public void resetThePostNo();
+
+	public void resetTheFirstPostNo(@Param("topicNo") String topicNo);
+
 }

@@ -66,7 +66,7 @@ function send(event) {
 				type: 'CHAT'
 	        };
 	        stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
-		}else{
+		} else {
 			// Soketをクラアントに入れて onConnected() を呼び出す。
 	        var socket = new SockJS('/websocket');
 	        stompClient = Stomp.over(socket);

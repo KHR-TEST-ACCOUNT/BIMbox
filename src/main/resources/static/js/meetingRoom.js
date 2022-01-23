@@ -251,48 +251,110 @@ $(function() {
 	
 	// Post削除時の非同期通信処理
 	$(document).on('click', '#textDelete', function() {
-		if (!confirm('本当にこの投稿を削除しますか？')) {
-			return false;
-		} else {
-			let parent = $(this).parents('#ratingForm');
-			let paramPostText = parent.find('#postText').val();
-			let paramTopicNo = parent.find('input[name="topicNo"]').val();
-			let paramPostNo = parent.find('input[name="postNo"]').val();
-			$.ajax({
-				type: parent.attr('method'),
-				url: '/comms/DeletePost.do',
-				dataType: 'html',
-				data: {
-					topicNo: paramTopicNo,
-					postNo: paramPostNo
-				}
-			}).done((data) => {
-				let targetId = '#' + paramTopicNo;
-				$(targetId).html(data);
-				reloadTopic(targetId);
-			});
-		}
+		// 変数初期化
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+		swalWithBootstrapButtons.fire({
+			title: '本当に削除しますか?',
+			text: "完全にこの投稿が削除されます。",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '削除',
+			cancelButtonText: 'キャンセル',
+			reverseButtons: true
+		}).then((result) => {
+			// 削除完了メッセージ
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire(
+					'投稿を削除しました。',
+					'',
+					'success'
+				)
+				// 削除実行
+				let parent = $(this).parents('#ratingForm');
+				let paramTopicNo = parent.find('input[name="topicNo"]').val();
+				let paramPostNo = parent.find('input[name="postNo"]').val();
+				$.ajax({
+					type: parent.attr('method'),
+					url: '/comms/DeletePost.do',
+					dataType: 'html',
+					data: {
+						topicNo: paramTopicNo,
+						postNo: paramPostNo
+					}
+				}).done((data) => {
+					let targetId = '#' + paramTopicNo;
+					$(targetId).html(data);
+					reloadTopic(targetId);
+				});
+				
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				// キャンセル処理
+				swalWithBootstrapButtons.fire(
+					'キャンセルしました。',
+					'',
+					'error'
+				)
+			}
+		})
 	});
+
+
+
 
 	// Topic削除時の非同期通信処理
 	$(document).on('click', '#deleteForm button', function() {
-		if (!confirm('本当にこのトピックを削除しますか？')) {
-			return false;
-		} else {
-			let parent = $(this).parents('#deleteForm');
-			let paramTopicNo = parent.find('input[name="topicNo"]').val();
-			$.ajax({
-				type: parent.attr('method'),
-				url: parent.attr('action'),
-				dataType: 'html',
-				data: {
-					topicNo: paramTopicNo,
-				}
-			}).done((data) => {
-				let targetId = '#' + paramTopicNo;
-				$(targetId).html(data);
-			});
-		}
+		// 変数初期化
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+		swalWithBootstrapButtons.fire({
+			title: '本当にトピックしますか?',
+			text: "完全にこのトピックが削除されます。",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '削除',
+			cancelButtonText: 'キャンセル',
+			reverseButtons: true
+		}).then((result) => {
+			// 削除完了メッセージ
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire(
+					'トピックを削除しました。',
+					'',
+					'success'
+				)
+				// 削除実行
+				let parent = $(this).parents('#deleteForm');
+				let paramTopicNo = parent.find('input[name="topicNo"]').val();
+				$.ajax({
+					type: parent.attr('method'),
+					url: parent.attr('action'),
+					dataType: 'html',
+					data: {
+						topicNo: paramTopicNo,
+					}
+				}).done((data) => {
+					let targetId = '#' + paramTopicNo;
+					$(targetId).html(data);
+				});
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				// キャンセル処理
+				swalWithBootstrapButtons.fire(
+					'キャンセルしました。',
+					'',
+					'error'
+				)
+			}
+		})
 	});
-
 });

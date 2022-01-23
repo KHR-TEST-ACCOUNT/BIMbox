@@ -42,7 +42,6 @@ $(function() {
 	}
 });
 
-
 // 表示切り替えボタンの表示
 $(document).ready(function() {
 	$(".js-chat-button, .js-back").on("click", function() {
@@ -57,7 +56,6 @@ $(document).ready(function() {
 		$(".main-info").toggleClass("u-hide");
 	});
 });
-
 
 // ファイルのUPLOAD
 function readURL(input) {

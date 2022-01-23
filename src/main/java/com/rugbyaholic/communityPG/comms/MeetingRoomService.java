@@ -104,6 +104,8 @@ public class MeetingRoomService {
 	@LogRequired
 	public void deletePost(String topicNo, int postNo) {
 		meetingRoomRepository.deleterPost(topicNo, postNo);
+		meetingRoomRepository.resetThePostNo();
+		meetingRoomRepository.resetTheFirstPostNo(topicNo);
 	}
 	
 	/**
