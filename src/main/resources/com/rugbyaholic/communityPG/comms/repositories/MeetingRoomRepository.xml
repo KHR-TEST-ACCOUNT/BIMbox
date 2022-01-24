@@ -205,7 +205,7 @@
 		)
 	]]>
 	</insert>
-
+	
 	<insert id="editerPost">
 	<![CDATA[
 		UPDATE  POSTS
@@ -215,6 +215,27 @@
 		AND 	POSTNO 		=	#{postNo}
 	]]>
 	</insert>
+	
+	<update id="resetThePostNo">
+		ALTER TABLE POSTS AUTO_INCREMENT = 1;
+	</update>
+	
+	<insert id="resetTheFirstPostNo">
+	<![CDATA[
+	UPDATE	 POSTS
+	SET		 POSTNO	 = 	1
+	WHERE	 POSTNO IN (
+				SELECT  MIN(POSTNO)
+				FROM    (
+					SELECT POSTNO
+					FROM POSTS
+					WHERE TOPICNO	=	#{topicNo}
+				)
+				 AS MIN_POSTS
+			 )
+	]]>
+	</insert>
+	
 	
 	<insert id="deleterPost">
 	<![CDATA[
