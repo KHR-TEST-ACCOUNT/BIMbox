@@ -358,8 +358,7 @@ section.upcoming h1 {
 	color: #6c757d;
 }
 
-.material hr:after,
-.material textarea:focus+hr:after {
+.material hr:after {
 	transition: all 150ms ease-out;
 	transform: scaleX(0) translateZ(0);
 	transform-origin: left top;
@@ -413,7 +412,9 @@ section.upcoming h1 {
     font-size: 12px;
 }
  
-.material input:focus ~ hr:after {
+.material input:focus ~ hr:after,
+.material .select2-container:focus ~ hr:after,
+.material textarea:focus ~ hr:after {
 	transform: scaleX(1) translateZ(0);
 }
 
@@ -580,7 +581,7 @@ section.upcoming h1 {
     cursor: pointer;
 }
 
-.select2-container {
+li .select2-container {
 	min-width: 100%;
 }
 
