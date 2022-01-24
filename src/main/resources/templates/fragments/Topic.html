@@ -12,7 +12,8 @@
 				  method="post" th:object="${ topicSearchForm }">
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 				<div th:if="${topic.isOwnedBy(user)}">
-					<button type="button" id="topoicDelete" class="btn btn-link p-0 text-dark fs-5" title="トピック削除">
+					<button type="button"  title="トピック削除"
+							id="topoicDelete" class="btn btn-link p-0 text-dark fs-5">
 						<i class="bi bi-trash"></i>
 					</button>
 				</div>

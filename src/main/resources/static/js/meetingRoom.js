@@ -304,9 +304,6 @@ $(function() {
 		})
 	});
 
-
-
-
 	// Topic削除時の非同期通信処理
 	$(document).on('click', '#deleteForm button', function() {
 		// 変数初期化
@@ -335,18 +332,11 @@ $(function() {
 				)
 				// 削除実行
 				let parent = $(this).parents('#deleteForm');
-				let paramTopicNo = parent.find('input[name="topicNo"]').val();
+                parent.submit();
 				$.ajax({
 					type: parent.attr('method'),
 					url: parent.attr('action'),
-					dataType: 'html',
-					data: {
-						topicNo: paramTopicNo,
-					}
-				}).done((data) => {
-					let targetId = '#' + paramTopicNo;
-					$(targetId).html(data);
-				});
+				});                
 			} else if (result.dismiss === Swal.DismissReason.cancel) {
 				// キャンセル処理
 				swalWithBootstrapButtons.fire(
