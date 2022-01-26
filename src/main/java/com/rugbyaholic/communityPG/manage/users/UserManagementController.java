@@ -39,6 +39,14 @@ public class UserManagementController {
 		return "redirect:/manage/users/UserSearch.do";
 	}
 
+	// 検索時処理
+	@GetMapping("/manage/users/UserSearch.do")
+	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
+		this.form = form;
+		service.convertSerchForm(form,model);
+		return "manage/users/UserList.html";
+	}
+	
 	// ユーザー登録・変更処理
 	@PostMapping("/manage/users/UserRegistration.do")
 	public String onUserUpdateRequested(@Valid @ModelAttribute UserRegistrationForm userRegistrationForm,
@@ -128,14 +136,6 @@ public class UserManagementController {
 		return "manage/users/UserList.html";
 	}
 
-	// 検索時処理
-	@GetMapping("/manage/users/UserSearch.do")
-	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
-		this.form = form;
-		service.convertSerchForm(form,model);
-		return "manage/users/UserList.html";
-	}
-	
 	/**
 	 * 未入力項目はバリデーションの対象外とするメソッド
 	 * 

@@ -140,6 +140,7 @@ public class AuthenticatedUser implements UserDetails {
 	}
 
 	public void setHobby(String hobby) {
+		if(hobby.isBlank()) hobby = null;
 		this.hobby = hobby;
 	}
 
