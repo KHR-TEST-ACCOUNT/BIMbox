@@ -31,10 +31,16 @@ public class ChatRoomService {
 	public List<ChatMessage> getConversationalUsers(AuthenticatedUser user, String searchword) throws Exception {
 		return repository.findConversationalUser(user.getId(), searchword);
 	}
-
 	
+	/**
+	 * 直近の会話中のユーザーIDを返す。
+	 * ないときはログインユーザーのIDを返す
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public Long findMostFirst(AuthenticatedUser user) {
-		return repository.findMostFirstOfUser(user.getId());
+		return repository.findMostFirstOfUser(user.getId()).orElse(user.getId());
 	}
 
 	/**

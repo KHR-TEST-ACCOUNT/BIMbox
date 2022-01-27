@@ -25,47 +25,40 @@ public class RootController {
 	
 	@Autowired
 	private NotificationMessage notificationMessage;
+	
 
+	// ログイン成功時のページ遷移
 	@GetMapping("/")
 	public String onActivated(Model model) {
-		
-		
 		return "home/Top.html"; 
 	}
 
+	// ログイン画面遷移
 	@GetMapping("/Login.html")
-	public String onLoginRequested() {
+	public String onLoginRequested(Model model) {
+		model.addAttribute("userRegistrationForm", new UserRegistrationForm());
 		return "Login.html";
 	}
 	
+	// ログインでのエラーメッセージを送信
 	@PostMapping("/Login.err")
 	public String onLoginFailed(@RequestAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) 
-	AuthenticationException ex,
-	Model model) {
-		
-		
-		
+								AuthenticationException ex, Model model) {
 		model.addAttribute("authenticationException", ex);
 		return "Login.html";
 	}
 	
-	
+	// エラーページに遷移
 	@GetMapping("/onError")
 	public String onError() {
-		
 		return "errorPage.html";
 	}
 	
 	
 	// 初期登録時の処理
-	@PostMapping("/UserRegistration.do")
+	@PostMapping("/userRegistrationDo")
 	public String onInitialUserRequested(@Valid @ModelAttribute UserRegistrationForm registrationForm,
 			BindingResult bindingResult, Model model) throws Exception {
-		
-		String inputEmail = registrationForm.getEmail();
-		String inputPass = registrationForm.getPassword();
-		String userPermission = service.isUserPermission();
-		
 		// Emailがあればエラーを表示する
 		if(service.isMail(registrationForm.getEmail())) {
 			model.addAttribute("notificationMessage",
@@ -73,10 +66,13 @@ public class RootController {
 					.messageCode("AbstractUserDetailsAuthenticationProvider.alreadyRegisteredIfEmail").build());
 		} else {
 			// User権限を指定
-			service.registerInitialUser(inputEmail, inputPass, userPermission);
+			registrationForm.setLoginUserRoles(service.isUserPermission());
+			service.registerInitialUser(registrationForm);
+			model.addAttribute("notificationMessage",
+					notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
+					.messageCode("communityPG.web.message.proc.success").build());
 		}
-		return "forward:Login.do";
-		// return "home/Top.html"; 
+		return "Login.html";
 	}
 	
 }

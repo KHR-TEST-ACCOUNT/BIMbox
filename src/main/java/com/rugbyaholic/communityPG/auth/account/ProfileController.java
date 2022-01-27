@@ -66,7 +66,6 @@ public class ProfileController {
 		model.addAttribute("notificationMessage",
 				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
 						.messageCode("communityPG.web.message.proc.success").build());
-		
 		converProfilesModel(model, profileService.provideUserInfo(form.getUserId()));
 		return "profile/Profile.html";
 	}

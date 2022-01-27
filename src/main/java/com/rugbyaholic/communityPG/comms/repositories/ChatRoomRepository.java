@@ -1,6 +1,7 @@
 package com.rugbyaholic.communityPG.comms.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,7 @@ import com.rugbyaholic.communityPG.websocket.ChatMessage;
 @Mapper
 public interface ChatRoomRepository {
 	
-	public Long findMostFirstOfUser(@Param("fromUserId") Long fromUserId);
+	public Optional<Long> findMostFirstOfUser(@Param("fromUserId") Long fromUserId);
 	
 	public Long getMsgId(@Param("fromUserId")long fromUserId, @Param("toUserId")Long toUserId);
 	

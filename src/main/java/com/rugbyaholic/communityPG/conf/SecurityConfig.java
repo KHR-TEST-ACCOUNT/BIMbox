@@ -25,9 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// アクセス制御
+		
+        //会員登録機能実装時に追加
+        http.authorizeRequests()
+            .antMatchers("/userRegistrationDo").permitAll()
+            .antMatchers("/Login.html").permitAll();
+        
+        // アクセス制御
 		http.authorizeRequests()
-			.antMatchers("/css/**", "/js/**", "/img/**", "/UserRegistration.do").permitAll()
+			.antMatchers("/css/**", "/js/**", "/img/**").permitAll() //, "/userRegistration.do"
 			.anyRequest().authenticated()
 		// ログイン
 		.and()
@@ -35,7 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginProcessingUrl("/Login.do")
 			.loginPage("/Login.html")
 			.failureHandler(new ForwardAuthenticationFailureHandler("/Login.err"))
-			.usernameParameter("email").passwordParameter("password").permitAll()
+			.usernameParameter("email")
+			.passwordParameter("password")
+			.permitAll()
 		// ログアウト
 		.and()
 			.logout()
@@ -43,6 +51,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutSuccessUrl("/Login.html")
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID");
+		
+		/*
+		// 会員登録
+		http.authorizeRequests()
+		
+			.antMatchers("/css/**", "/js/**", "/img/**").permitAll() //, "/userRegistration.do"
+			.anyRequest().authenticated()
+			.antMatchers("/userRegistration.do").permitAll()
+			.antMatchers("/Login.html").permitAll()
+			.anyRequest().authenticated();
+		 */
 	}
 	
 	@Bean
