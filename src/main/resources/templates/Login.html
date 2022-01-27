@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head_fragment(title = 'コミュニティー', links = ~{::link}, scripts = ~{::script})">
+<head th:replace="fragments/head :: head_fragment(title = 'Login', links = ~{::link}, scripts = ~{::script})">
 	<link rel="stylesheet" th:href="@{/css/login.css}">
 	<link rel="stylesheet" th:href="@{/css/signUp.css}">
 	<script type="text/javascript" th:src="@{/js/welcom.js}"></script>
@@ -87,6 +87,15 @@
 					</div>
 					<input type="submit" class="btn" value="Sign up" />
 				</form>
+				
+				
+				<form th:action="@{/Login.do}" method="post" autocomplete="off" class="sign-up-form test-users-form">
+					<input type="email" id="email" name="email" class="d-none" value="test@test"/>
+					<input type="password" id="password" name="password" class="d-none" value="test@test"/>
+					<input type="submit" class="btn test-users-btn" value="Test User Login" />
+				</form>
+				
+				
 			</div>
 		</div>
 		<!-- change pages -->
@@ -96,9 +105,9 @@
 				<div class="content">
 					<h3>New here ?</h3>
 					<p>
-						もし登録が済んでいないなら、新規登録しましょう。
+						登録が済んでいないなら、新規登録しましょう。
 						<br>
-						EmailとPasswordだけで簡単に登録できます!
+						Emailとパスワードがあれば簡単に登録できます!
 					</p>
 					<button class="btn transparent" id="sign-up-btn" data-bs-toggle="modal" data-bs-target="#registrationForm">Sign up</button>
 				</div>

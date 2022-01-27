@@ -15,7 +15,8 @@
 			<!-- Content -->
 			<nav class="page-header navbar navbar-light shadow-sm search-container">
 				<div class="center d-flex justify-content-center w-100 mx-4">
-					<a  th:href="@{/manage/users/UserList.html}" id="home" class="navbar-brand btn" style="color: #51515a;">User List</a> 
+					<a  th:href="@{/manage/users/UserList.html}" id="home" class="navbar-brand btn" style="color: #51515a;"
+						><span data-tooltip="検索をリセットします" data-tooltip-location="down">User List</span></a> 
 					<form class="search-area" th:action="@{/manage/users/UserSearch.do}" th:object="${userSearchForm}">
 							<!-- ユーザー登録・検索 -->
 						<div class="input-group">

@@ -53,6 +53,17 @@ form.sign-up-form {
   z-index: 1;
 }
 
+form.test-users-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+form.test-users-form {
+    position: relative;
+    top: 205px;
+    left: 3.5px;
+}
+
 form.sign-in-form {
   z-index: 2;
 }
@@ -64,24 +75,24 @@ form.sign-in-form {
 }
 
 .input-field {
-  max-width: 380px;
-  width: 100%;
-  background-color: #f0f0f0;
-  margin: 10px 0;
-  height: 55px;
-  border-radius: 55px;
-  display: grid;
-  grid-template-columns: 15% 85%;
-  padding: 0 0.4rem;
-  position: relative;
+	max-width: 380px;
+	width: 100%;
+	background-color: #f0f0f0;
+	margin: 10px 0;
+	height: 55px;
+	border-radius: 55px;
+	display: grid;
+	grid-template-columns: 15% 85%;
+	padding: 0 0.4rem;
+	position: relative;
 }
 
 .input-field i {
-  text-align: center;
-  line-height: 55px;
-  color: #acacac;
-  transition: 0.5s;
-  font-size: 1.1rem;
+	text-align: center;
+	line-height: 55px;
+	color: #acacac;
+	transition: 0.5s;
+	font-size: 1.1rem;
 }
 
 input:-webkit-autofill {
@@ -90,21 +101,37 @@ input:-webkit-autofill {
 }
 
 .input-field input {
-  outline: none;
-  border: none;
-  line-height: 1;
-  font-weight: 600;
-  font-size: .97rem;
+	outline: none;
+	border: none;
+	line-height: 1;
+	font-weight: 600;
+	font-size: .97rem;
+	box-shadow: 0 0 0 1000px #f0f0f0 inset;
+	border-radius: 55px;
 }
 
 .input-field input::placeholder {
-  color: #aaa;
-  font-weight: 500;
+	color: #aaa;
+	font-weight: 500;
 }
 
-.btn {
-  width: 150px;
-  background-color: #5995fd;
+.btn:not(.test-users-btn) {
+	width: 150px;
+	background-color: #5995fd;
+	border: none;
+	outline: none;
+	height: 49px;
+	border-radius: 49px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin: 10px 0;
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+.test-users-btn {
+  background-color: #fdb459;
   border: none;
   outline: none;
   height: 49px;
@@ -117,8 +144,13 @@ input:-webkit-autofill {
   transition: 0.5s;
 }
 
-.btn:hover {
+.btn:hover:not(.test-users-btn)  {
   background-color: #4d84e2;
+}
+
+.test-users-btn:hover {
+  background-color: #f1ab54;
+  color: #fff;
 }
 
 .panels-container {
@@ -220,6 +252,11 @@ input:-webkit-autofill {
 
 .loginContainer.sign-up-mode form.sign-up-form {
   opacity: 1;
+  z-index: 3;
+}
+
+.loginContainer.sign-up-mode form.test-users-form {
+  opacity: 1;
   z-index: 2;
 }
 
@@ -266,7 +303,7 @@ input:-webkit-autofill {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 2.5rem 8%;
+    padding: 2.5rem 6%;
     grid-column: 1 / 2;
   }
 
@@ -338,7 +375,7 @@ input:-webkit-autofill {
   }
 
   .loginContainer.sign-up-mode .signin-signup {
-    top: 20%;
+    top: 7%;
     transform: translate(-50%, 0);
   }
 }
