@@ -341,9 +341,6 @@ section.upcoming h1 {
 	line-height: 1.5;
 }
 
-.material label:not(.label-birthday) {
-}
-
 .material .textarea-label, 
 .material .label-birthday {
     position: absolute;
@@ -400,7 +397,7 @@ section.upcoming h1 {
 }
 
 .material input:focus+label:not(.label-birthday), 
-.material input:valid+label,
+.material input:valid+label:not(.label-birthday), 
 .material select+label, 
 .material span+label, 
 .material textarea+label, 
@@ -497,8 +494,8 @@ section.upcoming h1 {
 	background: #0099e6;
 }
 
-.material-button button.li:active, .material-button input[type=submit].li:active
-	{
+.material-button button.li:active, 
+.material-button input[type=submit].li:active {
 	background: #00334d !important;
 }
 
@@ -570,8 +567,6 @@ section.upcoming h1 {
   }
 }
 
-
-
 .content form:not(.sujest-users) {
 	max-height: 82%;
     overflow: scroll;
@@ -627,24 +622,21 @@ li .select2-container {
 	padding-left: 3px;
 }
 
-.select2-container--default .select2-results__option[aria-selected=true]
-	{
+.select2-container--default .select2-results__option[aria-selected=true] {
 	background-color: #fff;
 }
 
-.select2-container--default .select2-results__option--highlighted[aria-selected]
-	{
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
 	background-color: #eaeaeb;
 	color: #272727;
 }
 
-.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple
-	{
+.select2-container--default.select2-container--open.select2-container--below 
+.select2-selection--multiple {
 	border-radius: 4px;
 }
 
-.select2-container--default.select2-container--focus .select2-selection--multiple
-	{
+.select2-container--default.select2-container--focus .select2-selection--multiple {
 	border-color: #f77750;
 	border-width: 2px;
 }
