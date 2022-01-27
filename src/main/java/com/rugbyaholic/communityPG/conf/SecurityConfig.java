@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
         // アクセス制御
 		http.authorizeRequests()
-			.antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+			.antMatchers("/css/**", "/js/**", "/img/**").permitAll() //, "/userRegistration.do"
 			.anyRequest().authenticated()
 		// ログイン
 		.and()
