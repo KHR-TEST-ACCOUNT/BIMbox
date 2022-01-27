@@ -7,7 +7,7 @@
 }
 
 
-.loginContainer {
+.container {
   position: relative;
   width: 100%;
   background-color: #fff;
@@ -131,7 +131,7 @@ input:-webkit-autofill {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.loginContainer:before {
+.container:before {
   content: "";
   position: absolute;
   height: 2000px;
@@ -204,45 +204,45 @@ input:-webkit-autofill {
 
 /* ANIMATION */
 
-.loginContainer.sign-up-mode:before {
+.container.sign-up-mode:before {
   transform: translate(100%, -50%);
   right: 52%;
 }
 
-.loginContainer.sign-up-mode .left-panel .image,
-.loginContainer.sign-up-mode .left-panel .content {
+.container.sign-up-mode .left-panel .image,
+.container.sign-up-mode .left-panel .content {
   transform: translateX(-800px);
 }
 
-.loginContainer.sign-up-mode .signin-signup {
+.container.sign-up-mode .signin-signup {
   left: 25%;
 }
 
-.loginContainer.sign-up-mode form.sign-up-form {
+.container.sign-up-mode form.sign-up-form {
   opacity: 1;
   z-index: 2;
 }
 
-.loginContainer.sign-up-mode form.sign-in-form {
+.container.sign-up-mode form.sign-in-form {
   opacity: 0;
   z-index: 1;
 }
 
-.loginContainer.sign-up-mode .right-panel .image,
-.loginContainer.sign-up-mode .right-panel .content {
+.container.sign-up-mode .right-panel .image,
+.container.sign-up-mode .right-panel .content {
   transform: translateX(0%);
 }
 
-.loginContainer.sign-up-mode .left-panel {
+.container.sign-up-mode .left-panel {
   pointer-events: none;
 }
 
-.loginContainer.sign-up-mode .right-panel {
+.container.sign-up-mode .right-panel {
   pointer-events: all;
 }
 
 @media (max-width: 870px) {
-  .loginContainer {
+  .container {
     height: 100vh;
   }
   .signin-signup {
@@ -253,7 +253,7 @@ input:-webkit-autofill {
   }
 
   .signin-signup,
-  .loginContainer.sign-up-mode .signin-signup {
+  .container.sign-up-mode .signin-signup {
     left: 50%;
   }
 
@@ -305,7 +305,7 @@ input:-webkit-autofill {
     font-size: 0.7rem;
   }
 
-  .loginContainer:before {
+  .container:before {
     width: 1500px;
     height: 1500px;
     transform: translateX(-50%);
@@ -316,19 +316,19 @@ input:-webkit-autofill {
     transition: 2s ease-in-out;
   }
 
-  .loginContainer.sign-up-mode:before {
+  .container.sign-up-mode:before {
     transform: translate(-50%, 100%);
     bottom: 36%;
     right: initial;
   }
 
-  .loginContainer.sign-up-mode .left-panel .image,
-  .loginContainer.sign-up-mode .left-panel .content {
+  .container.sign-up-mode .left-panel .image,
+  .container.sign-up-mode .left-panel .content {
     transform: translateY(-300px);
   }
 
-  .loginContainer.sign-up-mode .right-panel .image,
-  .loginContainer.sign-up-mode .right-panel .content {
+  .container.sign-up-mode .right-panel .image,
+  .container.sign-up-mode .right-panel .content {
     transform: translateY(0px);
   }
 
@@ -337,7 +337,7 @@ input:-webkit-autofill {
     transform: translateY(300px);
   }
 
-  .loginContainer.sign-up-mode .signin-signup {
+  .container.sign-up-mode .signin-signup {
     top: 20%;
     transform: translate(-50%, 0);
   }
@@ -354,16 +354,16 @@ input:-webkit-autofill {
   .panel .content {
     padding: 0.5rem 1rem;
   }
-  .loginContainer {
+  .container {
     padding: 1.5rem;
   }
 
-  .loginContainer:before {
+  .container:before {
     bottom: 72%;
     left: 50%;
   }
 
-  .loginContainer.sign-up-mode:before {
+  .container.sign-up-mode:before {
     bottom: 35%;
     left: 50%;
   }

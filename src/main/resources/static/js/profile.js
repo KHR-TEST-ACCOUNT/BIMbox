@@ -8,6 +8,10 @@ $(function() {
 		allowClear: true,
 		tags: false
 	});
+	
+	if($('#targetUser-id').val() != $('#login-user-id').val()) {
+		$("select").prop("disabled", true); 
+	}
 
 	// ロード時処理
 	$(window).on('load', function() {

@@ -107,7 +107,6 @@ public class UserManagementController {
 	@GetMapping("/manage/users/UserRegistration.html")
 	public String onUserRegistrationRequested(@RequestParam(value = "id", required = false) Long id, Model model,
 			@AuthenticationPrincipal AuthenticatedUser user) {
-		
 		try {
 			UserRegistrationForm form = service.initializeRegistrationForm(id, user);
 			model.addAttribute("userRegistrationForm", form);

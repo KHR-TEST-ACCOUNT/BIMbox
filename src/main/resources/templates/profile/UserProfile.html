@@ -110,6 +110,8 @@
 									</fieldset>
 								</li>
 							</ul>
+							<input type="hidden" id="targetUser-id" th:value="${ targetUser.id }">
+							<input type="hidden" id="login-user-id" th:value="${ #authentication.principal.id }">
 						</form>
 					</section>
 					
@@ -126,7 +128,7 @@
 									<fieldset class="material">
 										<div>
 											<span th:text="${ targetUser.age } != null ? ${ targetUser.age }: '登録されていません。'"></span>
-											<label class="label-birthday">age</label>
+											<label class="label-age">age</label>
 											<hr>
 										</div>
 									</fieldset>
@@ -135,7 +137,7 @@
 									<fieldset class="material">
 										<div>
 											<span th:text="${ targetUser.birthday } != null ? ${ targetUser.birthday }: '登録されていません。'"></span>
-											<label class="label-birthday">Birthday</label>
+											<label class="label-user-birthday">Birthday</label>
 											<hr>
 										</div>
 									</fieldset>

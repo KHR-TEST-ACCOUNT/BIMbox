@@ -134,30 +134,46 @@ public class UserManagementService {
 		return true;
 	}
 	
+	/**
+	 * Admin権限のユーザーがDBに存在しなければAdminユーザーとして登録。
+	 * 
+	 * @return 
+	 */
 	public String isUserPermission() {
 		if(userRepository.findAdminUser() == 0) return "03";
 		return "01";
 	}
 	
-	// ユーザーリストをロードする。
+	/**
+	 * ユーザーリストをロード
+	 * 
+	 * @param form
+	 * @return
+	 */
 	public List<AuthenticatedUser> loadUserList(UserSearchForm form) {
 		form.setDeptOptions(codeRepository.getDepertmentCd());
 		form.setPosOptions(codeRepository.getPositionCd()); 
 		return userRepository.loadUserList(form);
 	}
 
+	/**
+	 * ユーザー情報を登録
+	 * 
+	 * @param registrationForm
+	 * @throws Exception
+	 */
 	@Transactional(rollbackFor = Throwable.class)
-	public void registerInitialUser(String email, String password, String userPermission) throws Exception {
+	public void registerInitialUser(UserRegistrationForm registrationForm) throws Exception {
 		AuthenticatedUser user = new AuthenticatedUser();
-		user.setEmail(email);
-		user.setPassword(passwordEncoder.encode(password));
-		user.setUsername("初期ユーザー");
+		user.setEmail(registrationForm.getEmail());
+		user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
+		user.setUsername(registrationForm.getUsername());
 		String availYear = new SimpleDateFormat("yyyy").format(new Date());
 		user.setEmpNo(availYear + numberingRepository.issueNumber(NumberingRepository.NUMBERING_CODE_EMPNO, availYear));
 		numberingRepository.next(NumberingRepository.NUMBERING_CODE_EMPNO, availYear, user);
 		int updCount = 0;
 		updCount += userRepository.registerInitialUser(user);
-		updCount += userRepository.grantAuthority(user, userPermission);
+		updCount += userRepository.grantAuthority(user, registrationForm.getLoginUserRoles());
 		if (updCount < 2)
 			throw new Exception();
 	}
@@ -184,5 +200,4 @@ public class UserManagementService {
 		model.addAttribute("searchResult", searchResult);
 		model.addAttribute("userSearchForm", form);
 	}
-
 }

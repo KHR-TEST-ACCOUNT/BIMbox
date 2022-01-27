@@ -1,7 +1,6 @@
 package com.rugbyaholic.communityPG.websocket;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -36,7 +35,7 @@ public class ChatController {
 	@GetMapping("/conversationTo/ChatRoom.html")
 	public String conversationDo(@RequestParam(value = "id", required = false) Long toUserId, 
 					Model model, @AuthenticationPrincipal AuthenticatedUser user) throws Exception {
-		if(Objects.isNull(toUserId)) toUserId = chatRoomService.findMostFirst(user);
+		toUserId = chatRoomService.findMostFirst(user);
 		List<ChatMessage> conversationalUsers = chatRoomService.getConversationalUsers(user, null);
 		convertModelInit(user, toUserId, model, new ChatMessage(), conversationalUsers);
 		return "websocket/UserSugest.html";
