@@ -341,9 +341,6 @@ section.upcoming h1 {
 	line-height: 1.5;
 }
 
-.material label:not(.label-birthday) {
-}
-
 .material .textarea-label, 
 .material .label-birthday {
     position: absolute;
@@ -400,7 +397,7 @@ section.upcoming h1 {
 }
 
 .material input:focus+label:not(.label-birthday), 
-.material input:valid+label,
+.material input:valid+label:not(.label-birthday), 
 .material select+label, 
 .material span+label, 
 .material textarea+label, 
