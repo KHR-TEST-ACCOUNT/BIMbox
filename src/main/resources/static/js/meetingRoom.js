@@ -49,7 +49,7 @@ $(function() {
 	
 	//　Postの高さを決定するメソッド
 	function decide_topics_height(){
-		var column_height = $(window).height() - 40;
+		var column_height = $(window).height() - 54;
 		var sc_height = $('.search-container').outerHeight(true);
 		var mc_height = $('.moodle-container').outerHeight(true);
 		var search_box = $('.search-content');
