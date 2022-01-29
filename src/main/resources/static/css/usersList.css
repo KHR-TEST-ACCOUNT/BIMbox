@@ -18,7 +18,7 @@ main {
 .topics  {
 	overflow: auto;
 	transition-duration: 1s;
-	margin-top: 1.5rem !important;
+    margin-top: 27px;
  	transition-duration: .5s;
 }
 
@@ -100,7 +100,8 @@ main {
 }
 
 .moodle-container {
-	margin: 0 1rem 1rem 1rem!important;
+    margin: 14px;
+    margin-top: 0;
 	position: absolute;
 	bottom: 0;
 }

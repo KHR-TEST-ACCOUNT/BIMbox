@@ -536,4 +536,34 @@
   	]]>
 	</insert>
 	
+	<insert id="deleterUsersInfo">
+	<![CDATA[
+		DELETE   POSTS
+		        ,TOPICS
+		        ,POST_RATINGS
+		        ,PERSONAL_INFO
+		        ,USER_ROLES
+		        ,USER_HOBBYS
+		        ,MSG_HIST
+		    FROM
+		        USERS
+		            LEFT JOIN POSTS
+		                ON USERS.EMP_NO		= 	POSTS.CREATEDBY
+		            LEFT JOIN TOPICS
+		                ON USERS.EMP_NO		= 	TOPICS.CREATEDBY
+		            LEFT JOIN POST_RATINGS
+		                ON USERS.EMP_NO		= 	POST_RATINGS.RATEDBY
+		            LEFT JOIN PERSONAL_INFO
+		                ON USERS.ID 		= 	PERSONAL_INFO.USER_ID
+		            LEFT JOIN USER_ROLES
+		                ON USERS.ID 		= 	USER_ROLES.USER_ID
+		            LEFT JOIN USER_HOBBYS
+		                ON USERS.ID 		= 	USER_HOBBYS.USER_ID
+		            LEFT JOIN MESSAGE_HIST MSG_HIST
+		                ON USERS.ID			in 	(MSG_HIST.FROM_USER_ID, MSG_HIST.TO_USER_ID)
+		    WHERE
+		        USERS.ID 	= 	#{id}
+  	]]>
+	</insert>
+	
 </mapper>

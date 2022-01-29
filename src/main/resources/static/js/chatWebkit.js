@@ -99,7 +99,7 @@ function onConnected() {
 	)
 	// Let's start... を非表示にする
 	if (connectingElement) {
-		connectingElement.addClass('hidden');
+		connectingElement.addClass('d-none');
 	}
 }
 
