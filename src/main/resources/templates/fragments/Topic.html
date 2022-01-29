@@ -12,8 +12,8 @@
 				  method="post" th:object="${ topicSearchForm }">
 				<input type="hidden" name="topicNo" th:value="${topic.topicNo}" />
 				<div th:if="${topic.isOwnedBy(user)}">
-					<button type="button"  title="トピック削除"
-							id="topoicDelete" class="btn btn-link p-0 text-dark fs-5">
+					<button type="button" id="topoicDelete" class="btn btn-link p-0 text-dark fs-5 me-1"
+							data-tooltip="全件削除" data-tooltip-location="down">
 						<i class="bi bi-trash"></i>
 					</button>
 				</div>
@@ -37,8 +37,9 @@
 						<p class="time-stamp">3h</p>
 					</div>
 					<!-- info -->
-					<button th:if="${post.isPostedBy(user)}" class="btn btn-link p-0 text-dark fs-5"
-							id="postEdit" type="button" title="投稿編集" th:data-ts-target="|#${topic.topicNo + post.postNo}|">
+					<button th:if="${post.isPostedBy(user)}" class="btn btn-link p-0 text-dark fs-5 me-1"
+							id="postEdit" type="button" th:data-ts-target="|#${topic.topicNo + post.postNo}|"
+							data-tooltip="投稿編集" data-tooltip-location="down">
 						<i class="bi bi-pencil-square"></i>
 					</button>
 				</div>

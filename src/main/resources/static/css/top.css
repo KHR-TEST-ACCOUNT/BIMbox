@@ -63,8 +63,16 @@ a:hover {
 }
 
 .page-header .navbar-toggler {
-  /* the variable is inherited from BS4 built-in variables */
   border-color: var(--white); 
+}
+
+.auther-link a  {
+	color: rgba(255, 255, 255);
+}
+
+.auther-link a:hover {
+	text-decoration: none;
+	color: rgba(255, 255, 255, .8);
 }
 
 /* BANNER SECTION
@@ -244,6 +252,9 @@ a:hover {
 @media screen and (max-width: 991px) {
   .page-header {
     background: var(--red);
+  }
+  .navbar-brand {
+  	margin-left: 25px;
   }
 }
 

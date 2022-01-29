@@ -11,6 +11,10 @@ html, body {
 [data-tooltip] {
     transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
     white-space: nowrap;
+	/*
+	position: relative;
+	z-index: 1020;
+	*/
 }
 
 .sharedHeader{
