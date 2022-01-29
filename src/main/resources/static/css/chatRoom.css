@@ -176,12 +176,13 @@ html {
 }
 
 @media ( max-width : 885px) , ( min-width : 886px) and (max-width: 1023px) , (
-		min-width : 1024px) and (max-width: 1439px) {
+		min-width : 1024px) and (max-width: 2040px) {
 	.main-grid>* {
 		max-height: 100vh;
 	}
 }
 
+/*
 @media ( min-width : 1440px) {
 	.main-grid>* {
 		max-height: calc(100vh - 40px);
@@ -195,6 +196,7 @@ html {
 		margin: 0 auto;
 	}
 }
+*/
 
 @media ( min-width : 886px) {
 	.main-grid {
@@ -424,6 +426,7 @@ html {
     transition: transform 0.4s;
   }
 }
+
 .messanger {
   overflow-y: auto;
   scrollbar-width: thin;

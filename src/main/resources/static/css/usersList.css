@@ -18,8 +18,10 @@ main {
 .topics  {
 	overflow: auto;
 	transition-duration: 1s;
-    margin-top: 27px;
  	transition-duration: .5s;
+    /*
+    margin-top: 27px;
+    */
 }
 
 .page-content .navbar{
@@ -101,7 +103,9 @@ main {
 
 .moodle-container {
     margin: 14px;
+    /*
     margin-top: 0;
+    */
 	position: absolute;
 	bottom: 0;
 }
