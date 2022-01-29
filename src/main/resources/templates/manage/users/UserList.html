@@ -4,7 +4,7 @@
 	<link rel="stylesheet" th:href="@{/css/usersList.css}">
 	<link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
-	<script type="text/javascript" th:src="@{/js/meetingRoom.js}"></script>
+	<script type="text/javascript" th:src="@{/}"></script>
 </head>
 <body>
 	<!-- サイドバー -->
@@ -66,7 +66,7 @@
 			<!-- data-panel -->
 			<div class="container topics shadow-sm">
 				<th:block th:if="${searchResult}">
-					<div class="row">
+					<div class="row card-container">
 						<div class="user-card"  th:each="user : ${searchResult.entities}">
 							<div class="card-content card-rounded-7 mb-3 p-1">
 								<div class="zooming" id="show-user-modal" data-id="601" data-toggle="modal"

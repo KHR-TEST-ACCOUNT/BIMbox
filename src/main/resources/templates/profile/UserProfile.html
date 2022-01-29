@@ -92,9 +92,9 @@
 									<fieldset class="material">
 										<div>
 											<label class="textarea-label">About me</label>
-											<textarea class="text-break" id="aboutMe" readonly
+											<span class="text-break" id="aboutMe" readonly
 													  th:text="${ pf.aboutMe } != null ? ${ pf.aboutMe }: '登録されていません。'">
-											</textarea>
+											</span>
 											<hr>
 										</div>
 									</fieldset>
@@ -184,7 +184,7 @@
 									<!-- title -->
 									<li class="large padding avatar">
 										<div class="w-100">
-											<span class="fw-bold">同じ趣味のユーザー</span>
+											<span class="fw-bold">このユーザーと同じ趣味のユーザー</span>
 										</div>
 									</li>
 									<!-- users card -->

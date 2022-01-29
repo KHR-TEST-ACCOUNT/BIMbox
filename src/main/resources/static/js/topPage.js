@@ -27,10 +27,8 @@ $(function() {
 
 
 $(function() {
-	
 	const $main = $(".page-content");
 	const scrollClass = "scroll";
-	
 	$('.page-content').on("scroll", function() {
 		const scrollY = $(this).scrollTop();
 	    scrollY > 7
@@ -53,26 +51,20 @@ $(function() {
 });
 
 
-
 $(function() {
 	$(".flip-container:not(.active)").on("click", function(e) {
-		
 		$(this).addClass("active"), setTimeout(function() {
 			$(".lightbox").addClass("active");
 		}, 500);
-		
 	}),
-	
-		$(".lightbox").on("click", function() {
-			
-			$(".flip-container.temp").after(
-				$(".flip-container.active")
-			),
-			setTimeout(function() {
-				$(".active").removeClass(
-					"active"
-				), $(".flip-container.temp").remove();
-			});
-			
+	$(".lightbox").on("click", function() {
+		$(".flip-container.temp").after(
+			$(".flip-container.active")
+		),
+		setTimeout(function() {
+			$(".active").removeClass(
+				"active"
+			), $(".flip-container.temp").remove();
 		});
+	});
 });

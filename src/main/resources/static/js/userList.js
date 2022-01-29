@@ -16,9 +16,21 @@ $(function() {
 	
 	// responsive card topics
 	function inLinefeed(element) {
+		
+		// cardの縦幅を決定
+		var windowHeight = $(window).height();
+		var pageHeader =  $('.page-header').outerHeight();
+		var moodleContainer = $('.moodle-container').innerHeight() + 28;
+		var topicArea = windowHeight - pageHeader - moodleContainer;
+		var cardsHeight = $('.card-container').height();
+		var card_merginTop = 28;
+		if(topicArea > cardsHeight + card_merginTop) card_merginTop = (topicArea - cardsHeight) / 2;
+		$('.topics').css('height', topicArea);
+		$('.card-container').css('margin-top', card_merginTop);
+		
+		// cardの横幅を決定
 		var element_width = element.innerWidth();
 		var user_card = element.find('.user-card');
-		
 		if (642 <= element_width && element_width < 956) {
 			user_card.each(function() {
 				$(this).css('width', '33.333%');
