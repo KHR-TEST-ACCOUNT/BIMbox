@@ -54,4 +54,6 @@ public interface UserRepository {
 	
 	public int deleterUser(Long id);
 
+	public int deleterUsersInfo(Long id);
+	
 }

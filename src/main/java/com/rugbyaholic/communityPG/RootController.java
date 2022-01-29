@@ -54,8 +54,7 @@ public class RootController {
 		return "errorPage.html";
 	}
 	
-	
-	// 初期登録時の処理
+	// 新規登録時の処理
 	@PostMapping("/userRegistrationDo")
 	public String onInitialUserRequested(@Valid @ModelAttribute UserRegistrationForm registrationForm,
 			BindingResult bindingResult, Model model) throws Exception {

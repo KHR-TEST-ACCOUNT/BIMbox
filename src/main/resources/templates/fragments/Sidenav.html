@@ -45,13 +45,13 @@
 						<li class="sidebar-dropdown">
 							<a th:href="@{/}">
 								<i class="fas fa-home"></i>
-								<span>Home</span>
+								<span data-tooltip="ホーム画面へ遷移します" data-tooltip-location="down">Home</span>
 							</a>
 						</li>
 						<li>
 							<a th:href="|@{/profile/Profile.html}?id=${user.id}|">
 								<i class="fas fa-address-card"></i>
-								<span>Profile</span>
+								<span data-tooltip="プロフィールを編集します" data-tooltip-location="down">Profile</span>
 							</a>
 						</li>
 						
@@ -61,18 +61,18 @@
 						<li class="sidebar-dropdown">
 							<a th:href="@{/manage/users/UserList.html}">
 								<i class="fas fa-list-ul"></i>
-								<span>User List</span>
+								<span data-tooltip="登録ユーザーの一覧機能" data-tooltip-location="down">User List</span>
 							</a>
 						<li class="sidebar-dropdown">
 							<a th:href="@{/comms/MeetingRoom.html}">
 								<i class="fas fa-users"></i>
-								<span>Community SNS</span>
+								<span data-tooltip="コミュニティー内の掲示板機能" data-tooltip-location="down">Community SNS</span>
 							</a>
 						</li>
 						<li class="sidebar-dropdown">
 							<a th:href="@{/conversationTo/ChatRoom.html}">
 								<i class="fas fa-comments"></i>
-								<span>Chat Room</span>
+								<span data-tooltip="1 on 1 Chat 機能" data-tooltip-location="down">Chat Room</span>
 							</a>
 						</li>
 						<!-- 
@@ -90,22 +90,22 @@
 			<!-- sidebar-content  -->
 			<div class="sidebar-footer">
 				<a th:href="|@{/onError}">
-					<i class="fas fa-exclamation-triangle"></i>
+					<i class="fas fa-exclamation-triangle" data-tooltip="調整中" data-tooltip-location="up"></i>
 					<span class="badge badge-pill badge-warning notification"></span>
 				</a>
 				<a th:href="|@{/onError}">
-					<i class="fa fa-envelope"></i>
+					<i class="fa fa-envelope" data-tooltip="エラー画面に遷移します" data-tooltip-location="up"></i>
 					<span class="badge badge-pill badge-success notification"></span>
 				</a>
 				<!-- 
 				<a th:href="|@{/manage/users/UserRegistration.html}?id=${ user.id }|">
 				 -->
 				<a th:href="|@{/profile/Profile.html}?id=${user.id}|">
-					<i class="fa fa-cog"></i>
+					<i class="fa fa-cog" data-tooltip="プロフィールを編集します" data-tooltip-location="up"></i>
 				</a>
 				<form th:action="@{/Logout.do}" method="post">
 					<button type="submit" class="btn btn-link">
-						<i class="fa fa-power-off"></i>
+						<i class="fa fa-power-off" data-tooltip="ログアウトします" data-tooltip-location="up"></i>
 					</button>
 					<span class="badge-sonar"></span>
 				</form>

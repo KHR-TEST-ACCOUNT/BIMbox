@@ -97,7 +97,6 @@ public class UserManagementService {
 		});
 	}
 
-	
 	/**
 	 * 各コード値を初期化する
 	 * @param form

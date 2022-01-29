@@ -298,6 +298,8 @@ body, .sidebar-brand a, .sidebar-menu li {
 	height: 30px;
 	line-height: 30px;
 	position: relative;
+    width: 61.5px;
+	font-size: 16px;
 }
 
 .sidebar-footer>a .notification {
@@ -313,7 +315,7 @@ body, .sidebar-brand a, .sidebar-menu li {
 	width: 8px;
 	position: absolute;
     top: 1px;
-    right: 27px;
+    right: 20px;
 }
 
 .badge-sonar:after {

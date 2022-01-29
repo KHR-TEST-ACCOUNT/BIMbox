@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-        //登録実装時に追加
+        //新規登録
         http.authorizeRequests()
             .antMatchers("/userRegistrationDo").permitAll()
             .antMatchers("/Login.html").permitAll();
@@ -51,17 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutSuccessUrl("/Login.html")
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID");
-		
-		/*
-		// 会員登録
-		http.authorizeRequests()
-		
-			.antMatchers("/css/**", "/js/**", "/img/**").permitAll() //, "/userRegistration.do"
-			.anyRequest().authenticated()
-			.antMatchers("/userRegistration.do").permitAll()
-			.antMatchers("/Login.html").permitAll()
-			.anyRequest().authenticated();
-		 */
 	}
 	
 	@Bean
