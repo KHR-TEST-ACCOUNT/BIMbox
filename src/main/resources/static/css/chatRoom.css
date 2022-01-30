@@ -16,7 +16,7 @@ html {
 }
 
 body, .sidebar-brand a, .sidebar-menu li {
-	font-size: 16rem;
+	font-size: 15.2px;
 }
 
 .swal2-popup {
@@ -108,7 +108,7 @@ html {
 }
 
 .u-header {
-	margin-left: 17px;
+	margin-left: 20px;
 }
 
 .u-margin-end {
@@ -592,7 +592,8 @@ html {
 
 .chats-item .profile-image, .user-profile {
 	height: 48px;
-	margin: 5px auto auto;
+    width: 48px;
+    margin: 3px auto auto;
 }
 
 .chats-item-header {

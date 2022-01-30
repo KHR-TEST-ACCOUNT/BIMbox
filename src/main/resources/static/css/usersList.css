@@ -19,9 +19,6 @@ main {
 	overflow: auto;
 	transition-duration: 1s;
  	transition-duration: .5s;
-    /*
-    margin-top: 27px;
-    */
 }
 
 .page-content .navbar{
@@ -51,7 +48,7 @@ main {
     margin: auto;
 }
 
-.card-image  {
+.card-image {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -61,8 +58,8 @@ main {
 	transition: all 0.5s ease;
 }
 
-.search-area{
-	width: 80%;	
+.search-area {
+	width: 80%;
 }
 
 .card-rounded-7 {
@@ -97,15 +94,12 @@ main {
 	overflow: scroll;
 }
 
-#show-user-image{
-    margin: auto;
+#show-user-image {
+	margin: auto;
 }
 
 .moodle-container {
-    margin: 14px;
-    /*
-    margin-top: 0;
-    */
+	margin: 14px;
 	position: absolute;
 	bottom: 0;
 }
@@ -113,7 +107,6 @@ main {
 .moodle-container ul {
 	margin: 0;
 }
-
 
 /* loading */
 #loading {
