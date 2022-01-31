@@ -8,16 +8,16 @@
 
 body {
 	background: linear-gradient(135deg, #3f4159 0%, #725767 50%, #cd908b 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="$mauve",
-		endColorstr="$blush", GradientType=1);
+	filter: progid:DXImageTransform.Microsoft.gradient( 
+				startColorstr="$mauve", endColorstr="$blush", GradientType=1);
+	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro",
+				 "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans",
+				 "Helvetica Neue", Arial, sans-serif;
 }
 
 input, textarea, button, span {
 	appearance: none;
 	border: 0;
-	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro",
-		"Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans",
-		"Helvetica Neue", Arial, sans-serif;
 	resize: none;
 }
 

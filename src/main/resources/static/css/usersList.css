@@ -1,4 +1,24 @@
 
+/* FONT */
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-role,
+	.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-status,
+	.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+	.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text,
+	.chiller-theme .sidebar-wrapper .sidebar-brand>a, .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
+	.chiller-theme .sidebar-wrapper .sidebar-menu ul li span,
+	.chiller-theme .sidebar-wrapper .sidebar-header .user-info span,
+	.chiller-theme .sidebar-footer>a, .chiller-theme .sidebar-footer>form {
+	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro",
+		"Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans",
+		"Helvetica Neue", Arial, sans-serif;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info strong span,
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info {
+	font-size: 15.2px;
+	height: 23.8px;
+}
+
 /* HEADER */
 .page-header {
 	position: fixed;
