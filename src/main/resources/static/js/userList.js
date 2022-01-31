@@ -33,19 +33,19 @@ $(function() {
 		var user_card = element.find('.user-card');
 		if (642 <= element_width && element_width < 956) {
 			user_card.each(function() {
-				$(this).css('width', '33.333%');
+				$(this).css('max-width', '33.333%');
 			});
 		} else if (397 <= element_width && element_width < 642) {
 			user_card.each(function() {
-				$(this).css('width', '50%');
+				$(this).css('max-width', '50%');
 			});
 		} else if (element_width < 397) {
 			user_card.each(function() {
-				$(this).css('width', '100%');
+				$(this).css('max-width', '100%');
 			});
 		} else {
 			user_card.each(function() {
-				$(this).css('width', '25%');
+				$(this).css('max-width', '25%');
 			});
 		}
 	}

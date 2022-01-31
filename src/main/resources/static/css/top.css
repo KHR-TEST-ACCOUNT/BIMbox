@@ -1,5 +1,26 @@
+
+/* FONT */
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-role,
+	.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-status,
+	.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+	.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text,
+	.chiller-theme .sidebar-wrapper .sidebar-brand>a, .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
+	.chiller-theme .sidebar-wrapper .sidebar-menu ul li span,
+	.chiller-theme .sidebar-wrapper .sidebar-header .user-info span,
+	.chiller-theme .sidebar-footer>a, .chiller-theme .sidebar-footer>form {
+	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro",
+		"Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans",
+		"Helvetica Neue", Arial, sans-serif;
+}
+
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info strong span,
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info {
+	font-size: 15.2px;
+	height: 23.8px;
+}
+
 /* RESET RULES & HELPER CLASSES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+ */
 :root {
   --lightblue: #f6f9fc;
   --red: #d64041;
@@ -30,12 +51,15 @@ a:hover {
   background: no-repeat center/cover;
 }
 
+.main-content #home {
+	background-image: url(/img/home-1680800_1920.jpg);
+}
+
 .p-15 {
   padding: 15px;
 }
 
-/* SCROLL ANIMATIONS
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* SCROLL ANIMATIONS */
 .scroll .page-header {
   background: var(--red);
 }
@@ -44,8 +68,7 @@ a:hover {
   transform: scale(0.98);
 }
 
-/* HEADER
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* HEADER */
 .page-header {
 	position: fixed;
 	top: 0;
@@ -75,8 +98,7 @@ a:hover {
 	color: rgba(255, 255, 255, .8);
 }
 
-/* BANNER SECTION
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* BANNER SECTION */
 .hero {
   background-attachment: fixed;
   transition: transform 0.5s ease-in-out;
@@ -100,8 +122,40 @@ a:hover {
   z-index: 10;
 }
 
-/* POPULAR DESTINATIONS SECTION
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.main-content section:not(#home) {
+    margin-top: 200px;
+}
+
+.main-content section .section-title {
+	margin-bottom: 30px;
+}
+
+.main-content section .section-title h2 {
+	margin-bottom: 8px;
+}
+
+.main-content section .learn-more {
+	background: red;
+	color: var(--white);
+}
+
+.main-content section#home .container-fluid p {
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+.orderImgContent {
+    width: 100%;
+    height: calc(100% - 58px);
+    min-width: 350px;
+}
+
+
+
+
+
+
+/* POPULAR DESTINATIONS SECTION */
 .popular-destinations figure {
 	margin-bottom: 30px;
 	cursor: pointer;
@@ -126,8 +180,7 @@ a:hover {
 	transform: scale(1.25);
 }
 
-/* Card Animation
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Card Animation */
 .flip-container, .flipper  {
 	box-sizing: border-box;
 	transition: all 0.7s
@@ -156,19 +209,21 @@ a:hover {
 }
 
 #page-bussiness .flip-container .flipper:after {
-	z-index: -1;
-	position: absolute;
-	content: "";
-	bottom: 15px;
-	right: 10px;
-	left: auto;
-	width: 50%;
-	top: 80%;
-	max-width: 300px;
-	background: #777;
-	box-shadow: 0 15px 10px #777;
-	-webkit-transform: rotate(3deg);
-	transform: rotate(3deg)
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 9px;
+    right: 10px;
+    left: auto;
+    width: 50%;
+    top: auto;
+    width: 91%;
+    height: 93%;
+    background: #777777d6;
+    box-shadow: 0 15px 10px #777777d6;
+    border-radius: 5px;
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
 }
 
 #page-bussiness .flip-container .flipper .front, #page-bussiness .flip-container .flipper .back
@@ -179,9 +234,10 @@ a:hover {
 	right: 0;
 	top: 0;
 	bottom: 0;
-    margin: 8px;
+    margin: 15px;
   	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
+    border-radius: 5px;
 	text-align: center;
 	height: max-content;
 	line-height: 2
@@ -235,9 +291,6 @@ a:hover {
 }
 
 .popular-destinations .lightbox.active {
-	/*
-	background: rgba(0, 0, 0, 0.6);
-	*/
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
@@ -246,8 +299,6 @@ a:hover {
 	display: block
 }
 
-/* MEDIA QUERIES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* MEDIUM SCREENS */
 @media screen and (max-width: 991px) {
   .page-header {
