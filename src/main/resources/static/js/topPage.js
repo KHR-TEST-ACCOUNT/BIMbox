@@ -54,7 +54,7 @@ $(function() {
 			// 画面縮小時
 			functionImgs.each(function() {
 				$(this).css('max-width', '100%');
-				$(this).find('.orderImgContent').css('max-width', '70%');
+				$(this).find('.orderImgContent').css('max-width', '60%');
 				// 文章を先に表示
 				if($(this).hasClass('order-content')) {
 					$(this).css('order', orderCount - 3);
