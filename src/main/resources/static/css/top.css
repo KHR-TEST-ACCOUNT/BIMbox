@@ -126,17 +126,28 @@ a:hover {
     margin-top: 200px;
 }
 
-.main-content section .section-title {
-	margin-bottom: 30px;
-}
-
 .main-content section .section-title h2 {
-	margin-bottom: 8px;
+	margin: 10px 0;
 }
 
 .main-content section .learn-more {
 	background: red;
 	color: var(--white);
+}
+
+.main-content section .span {
+    padding-right: 5px;
+}
+
+.main-content section .section-title {
+	margin-bottom: 20px;
+}
+
+.main-content section#pickUp .learn-more {
+    font-size: 12px;
+    width: 100px;
+    display: block;
+    margin: 0 5px 16px auto;
 }
 
 .main-content section#home .container-fluid p {
@@ -145,10 +156,25 @@ a:hover {
 }
 
 .main-content #pickUp .orderImgContent {
-    height: calc(100% - 58px);
-    min-width: 350px;
+    height: auto;
+    max-height: 80vh;
+    min-width: 340px;
     border-radius: 5px;
+    margin: auto;
 }
+
+.main-content #pickUp .order-img {
+    text-align: center;
+    align-items: center!important;
+    display: flex!important;
+    margin-bottom: 50px;
+}
+
+.main-content #pickUp .pickUpFunction {
+    padding: 0 15px;
+}
+
+
 
 
 
@@ -180,8 +206,28 @@ a:hover {
 	transform: scale(1.25);
 }
 
+
+
+
+.back .card-content {
+	margin-top: 40px;	
+	min-height: 300px; 
+}
+
+.card-content h3 {
+    margin-bottom: 1rem!important;
+}
+
+.back .more-info{
+	margin: 1.5rem!important;
+}
+
+
+
+
+
 /* Card Animation */
-.flip-container, .flipper  {
+.flip-container, .flipper {
 	box-sizing: border-box;
 	transition: all 0.7s
 }
@@ -209,51 +255,38 @@ a:hover {
 }
 
 #page-bussiness .flip-container .flipper:after {
-    z-index: -1;
-    position: absolute;
-    content: "";
-    bottom: 9px;
-    right: 10px;
-    left: auto;
-    width: 50%;
-    top: auto;
-    width: 91%;
-    height: 93%;
-    background: #777777d6;
-    box-shadow: 0 15px 10px #777777d6;
-    border-radius: 5px;
-    -webkit-transform: rotate(2deg);
-    transform: rotate(2deg);
+	z-index: -1;
+	position: absolute;
+	content: "";
+	bottom: 9px;
+	right: 10px;
+	left: auto;
+	width: 50%;
+	top: auto;
+	width: 91%;
+	height: 93%;
+	background: #777777d6;
+	box-shadow: 0 15px 10px #777777d6;
+	border-radius: 5px;
+	-webkit-transform: rotate(2deg);
+	transform: rotate(2deg);
 }
 
 #page-bussiness .flip-container .flipper .front, #page-bussiness .flip-container .flipper .back
 	{
 	position: absolute;
-	z-index: 2060;
+/* 	z-index: 2060; */
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-    margin: 15px;
-  	-webkit-backface-visibility: hidden;
+	margin: 15px;
+	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-    border-radius: 5px;
+	border-radius: 5px;
 	text-align: center;
 	height: max-content;
 	line-height: 2
-}
-
-.back .card-content {
-	margin-top: 40px;	
-	min-height: 300px; 
-}
-
-.card-content h3 {
-    margin-bottom: 1rem!important;
-}
-
-.back .more-info{
-	margin: 1.5rem!important;
 }
 
 #page-bussiness .flip-container .flipper .front {
@@ -286,18 +319,22 @@ a:hover {
 	display: none
 }
 
-.popular-destinations .lightbox {
+#page-bussiness .lightbox {
 	display: none
 }
 
-.popular-destinations .lightbox.active {
+#page-bussiness .lightbox.active {
+	background: rgba(0, 0, 0, 0.6);
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
 	top: 0;
 	left: 0;
-	display: block
+	display: block;
+    border-radius: 10px;
 }
+
+
 
 /* MEDIUM SCREENS */
 @media screen and (max-width: 991px) {

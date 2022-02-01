@@ -13,8 +13,14 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
 			integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" 
 			crossorigin="anonymous"></script>
+			
 	<!-- Smooth scroll JS -->
 	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js}"></script>
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+	<script src="https://cdn.statically.io/gh/kswedberg/jquery-smooth-scroll/3948290d/jquery.smooth-scroll.min.js"></script>
+	 -->
+	 
 	<!-- verge JS -->
 	<script src="https://cdn.jsdelivr.net/npm/vergejs@latest/index.min.js"></script>
 	<script src="https://unpkg.com/vergejs@1.0.0/index.js"></script>
@@ -23,10 +29,7 @@
 	<!-- topPage.js -->
 	<script type="text/javascript" th:src="@{/js/topPage.js}"></script>
 </head>
-
-
 <body>
-
 	<!-- サイドバー -->
 	<div class="page-wrapper chiller-theme toggled">
 		<div th:replace="fragments/Sidenav :: sidenav"></div>
@@ -35,7 +38,7 @@
 			<div class="page-scroll">
 
 			<!-- Header -->
-			<header class="page-header">
+			<header class="page-header" id="page-header">
 				<div class="container-fluid container-fluid-max">
 					<nav id="navbar" class="navbar navbar-expand-lg navbar-dark">
 						<a class="navbar-brand text-decoration-none" href="#home">BIMbox</a>
@@ -229,14 +232,13 @@
 									</div>
 								</div>
 							</div>
-							
+						    <div class="lightbox"></div>
 						</div>
 						<div class="row">
 							<div class="col text-center">
 								<a class="btn bg-red text-white" href="" role="button">More Destinations ↓</a>
 							</div>
 						</div>
-					    <div class="lightbox"></div>
 					</div>
 				</section>
 				
@@ -255,23 +257,34 @@
 							<img class="orderImgContent" src="/img/pickUp/5_Profile.html_id=119.png">
 						</div>
 						<div class="function-content order-content minus d-flex align-items-center">
-							<div class="p-15">
-								<h3>Explore Norway</h3>
+							<div class="pickUpFunction">
+								<h3>ユーザーサジェスト機能</h3>
 								<p>
-									<strong>Ålesund</strong>is a town and municipality in Møre og Romsdal County, Norway. It is part of the traditional district of Sunnmøre and the centre of the Ålesund Region. It is a sea port and is noted for its concentration of Art Nouveau architecture. The town of Ålesund is the administrative centre of Ålesund Municipality, as well as the principal shipping town of the Sunnmøre district.</p>
+									<strong>プロフィール画面</strong>で趣味を登録しておくと、
+									BIMboxに登録しているユーザーで同じ趣味を持っているユーザーをシステムが斡旋し、
+									おすすめのユーザーとして一覧にサジェストします。
+									現在は趣味のみが対象ですが、今後は興味のFavoriteしたトピックや閲覧したユーザーによっても
+									システム側から提案できるユーザーを増やしていく予定です。
+								 </p>
 								<p>The 99-square-kilometre (38 sq mi) municipality is the 382nd largest by area out of the 422 municipalities in Norway. Ålesund is the 17th most populous municipality in Norway with a population of 47,199. The municipality's population density is 506.6 inhabitants per square kilometre (1,312/sq mi) and its population has increased by 14% over the last decade.</p>
-								<a class="btn bg-red text-white" target="_blank" href="https://en.wikipedia.org/wiki/%C3%85lesund" role="button">Read More →</a>
+								<a class="btn learn-more" target="_blank" href="" >
+									<span>Read More</span>
+									<i class="fas fa-caret-right"></i>
+								</a>
 							</div>
 						</div>
 						
 						
 						<div class="function-content order-content d-flex align-items-center">
-							<div class="p-15">
+							<div class="pickUpFunction">
 								<h3>Explore Germany</h3>
 								<p>
 									<strong>Neuschwanstein Castle</strong>is a 19th-century Romanesque Revival palace on a rugged hill above the village of Hohenschwangau near Füssen in southwest Bavaria, Germany. The palace was commissioned by Ludwig II of Bavaria as a retreat and in honour of Richard Wagner. Ludwig paid for the palace out of his personal fortune and by means of extensive borrowing, rather than Bavarian public funds.</p>
 								<p>The castle was intended as a home for the king, until he died in 1886. It was open to the public shortly after his death. Since then more than 61 million people have visited Neuschwanstein Castle. More than 1.3 million people visit annually, with as many as 6,000 per day in the summer.</p>
-								<a class="btn bg-red text-white" target="_blank" href="https://en.wikipedia.org/wiki/Neuschwanstein_Castle" role="button">Read More →</a>
+								<a class="btn learn-more" target="_blank" href="" >
+									<span>Read More</span>
+									<i class="fas fa-caret-right"></i>
+								</a>
 							</div>
 						</div>
 						<div class="function-content order-img p-0">
@@ -283,23 +296,29 @@
 							<img class="orderImgContent" src="/img/pickUp/7_MeetingRoom.html.png">
 						</div>
 						<div class="function-content order-content d-flex align-items-center">
-							<div class="p-15">
+							<div class="pickUpFunction">
 								<h3>Explore Norway</h3>
 								<p>
 									<strong>Ålesund</strong>is a town and municipality in Møre og Romsdal County, Norway. It is part of the traditional district of Sunnmøre and the centre of the Ålesund Region. It is a sea port and is noted for its concentration of Art Nouveau architecture. The town of Ålesund is the administrative centre of Ålesund Municipality, as well as the principal shipping town of the Sunnmøre district.</p>
 								<p>The 99-square-kilometre (38 sq mi) municipality is the 382nd largest by area out of the 422 municipalities in Norway. Ålesund is the 17th most populous municipality in Norway with a population of 47,199. The municipality's population density is 506.6 inhabitants per square kilometre (1,312/sq mi) and its population has increased by 14% over the last decade.</p>
-								<a class="btn bg-red text-white" target="_blank" href="https://en.wikipedia.org/wiki/%C3%85lesund" role="button">Read More →</a>
+								<a class="btn learn-more" target="_blank" href="" >
+									<span>Read More</span>
+									<i class="fas fa-caret-right"></i>
+								</a>
 							</div>
 						</div>
 						
 						
 						<div class="function-content order-content d-flex align-items-center">
-							<div class="p-15">
+							<div class="pickUpFunction">
 								<h3>Explore Germany</h3>
 								<p>
 									<strong>Neuschwanstein Castle</strong>is a 19th-century Romanesque Revival palace on a rugged hill above the village of Hohenschwangau near Füssen in southwest Bavaria, Germany. The palace was commissioned by Ludwig II of Bavaria as a retreat and in honour of Richard Wagner. Ludwig paid for the palace out of his personal fortune and by means of extensive borrowing, rather than Bavarian public funds.</p>
 								<p>The castle was intended as a home for the king, until he died in 1886. It was open to the public shortly after his death. Since then more than 61 million people have visited Neuschwanstein Castle. More than 1.3 million people visit annually, with as many as 6,000 per day in the summer.</p>
-								<a class="btn bg-red text-white" target="_blank" href="https://en.wikipedia.org/wiki/Neuschwanstein_Castle" role="button">Read More →</a>
+								<a class="btn learn-more" target="_blank" href="" >
+									<span>Read More</span>
+									<i class="fas fa-caret-right"></i>
+								</a>
 							</div>
 						</div>
 						<div class="function-content order-img p-0">
