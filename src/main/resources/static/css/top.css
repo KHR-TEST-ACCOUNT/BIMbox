@@ -126,10 +126,6 @@ a:hover {
     margin-top: 200px;
 }
 
-.main-content section .section-title {
-	margin-bottom: 30px;
-}
-
 .main-content section .section-title h2 {
 	margin-bottom: 8px;
 }
@@ -139,16 +135,46 @@ a:hover {
 	color: var(--white);
 }
 
+.main-content section .span {
+    padding-right: 5px;
+}
+
+.main-content section .section-title {
+	margin-bottom: 20px;
+}
+
+.main-content section#pickUp .learn-more {
+    font-size: 12px;
+    width: 100px;
+    display: block;
+    margin: 0 5px 16px auto;
+}
+
 .main-content section#home .container-fluid p {
 	font-size: 18px;
 	margin-top: 20px;
 }
 
 .main-content #pickUp .orderImgContent {
-    height: calc(100% - 58px);
-    min-width: 350px;
+    height: auto;
+    max-height: 80vh;
+    min-width: 340px;
     border-radius: 5px;
+    margin: auto;
 }
+
+.main-content #pickUp .order-img {
+    text-align: center;
+    align-items: center!important;
+    display: flex!important;
+    margin-bottom: 50px;
+}
+
+.main-content #pickUp .pickUpFunction {
+    padding: 0 15px;
+}
+
+
 
 
 
