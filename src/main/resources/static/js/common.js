@@ -82,6 +82,9 @@ $(function() {
 		$("[data-tooltip]").Tooltip();
 	})();
 	
+	
+	
+	
 	/* Side Nav */
 	$(".sidebar-dropdown > a").click(function() {
 		$(".sidebar-submenu").slideUp(200);
@@ -145,21 +148,6 @@ $(document).on("change", "textarea", function(event) {
 	$(evt.target).height(min_height); //一旦最小サイズにする
 	$(evt.target).height(event.target.scrollHeight - 10); //スクロールなしでテキストが収まる最小の高さに上書き
 });
-
-/**
-$(document).ready(function() {
-	var $table = $('table');
-	if ($table) {
-		$table.floatThead({
-			top: 50,
-			position: 'fixed',
-			responsiveContainer: function($table) {
-				return $table.closest('.table-responsive');
-			}
-		});
-	}
-});
- */
 
 
 function isSureMsg() {

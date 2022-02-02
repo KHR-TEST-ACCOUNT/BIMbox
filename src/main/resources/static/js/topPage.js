@@ -1,6 +1,27 @@
 
 
+
 $(function() {
+	
+	
+/**
+	$('a[href^="#"]').on('click', function() {
+		$('.page-content').smoothScroll({
+			delegateSelector: 'ul.navbar-nav a',
+			offset: -58
+		});
+	});
+
+ */
+	$('a[href^="#"]').on('click', function(e) {
+		e.preventDefault();
+		var href = $(this).attr('href');
+		var top = $(href).offset().top;
+		console.log(top);
+		$('.page-content').animate({
+			scrollTop: top - 58
+		}, 500, 'linear');
+	});
 	
 	// 読み込み時処理
 	$(document).ready(function() {
@@ -20,6 +41,7 @@ $(function() {
 		$('.page-header').innerWidth($(window).width());
 	});
 	
+
 	
 	function decide_topics_width() {
 		//　ヘッダーの横幅を決定する
@@ -90,6 +112,7 @@ $(function() {
 
 
 // Scroll　Function
+/**
 $(function() {
 	$(".page-header .nav-link, .navbar-brand").on("click", function(e) {
 		e.preventDefault();
@@ -99,6 +122,10 @@ $(function() {
 			scrollTop: $(href).offset().top - 58
 		}, 600);
 	});
+});
+ */
+
+$(function() {
 });
 
 
@@ -117,5 +144,6 @@ $(function() {
 				"active"
 			), $(".flip-container.temp").remove();
 		});
-	});
+	})
+
 });
