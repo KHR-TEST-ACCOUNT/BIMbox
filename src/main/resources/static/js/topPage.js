@@ -1,5 +1,4 @@
 
-
 $(function() {
 	
 	// 読み込み時処理
@@ -12,15 +11,28 @@ $(function() {
 		decide_topics_width();
 	});
 	
+	// メニューバーを開いたときの処理
 	$('.fa-bars').on("click", function() {
 		decide_topics_width();
 	});
 	
+	// メニューバーを閉じたときの処理
 	$('.fa-times').on("click", function() {
 		$('.page-header').innerWidth($(window).width());
 	});
 	
+	// ページ内リンクのスクロール処理
+	$('a[href^="#"]').on('click', function(e) {
+		e.preventDefault();
+		var href = $(this).attr('href');
+		var top = $(href).offset().top;
+		var topAdd = $('.page-content').scrollTop();
+		$('.page-content').animate({
+			scrollTop: top + topAdd - 58
+		}, 500, 'linear');
+	});
 	
+	// 各要素の横幅を動的に決定	
 	function decide_topics_width() {
 		//　ヘッダーの横幅を決定する
 		var $window = $(window).width();
@@ -42,7 +54,6 @@ $(function() {
 				$(this).css('max-width', '50%');
 			});
 		}
-		
 		
 		// pickUpのIMGの横幅を設定
 		element = $('#pickUp')
@@ -72,11 +83,11 @@ $(function() {
 				orderCount += 2;
 			});
 		}
-		
 	}
 })
 
 
+// ヘッダーの動的処理
 $(function() {
 	const $main = $(".page-content");
 	const scrollClass = "scroll";
@@ -89,19 +100,7 @@ $(function() {
 });
 
 
-// Scroll　Function
-$(function() {
-	$(".page-header .nav-link, .navbar-brand").on("click", function(e) {
-		e.preventDefault();
-		const href = $(this).attr("href");
-		console.log($('.page-content').scrollTop());
-		$(".page-content").animate({
-			scrollTop: $(href).offset().top - 58
-		}, 600);
-	});
-});
-
-
+// Detailsのカードフリップ処理
 $(function() {
 	$(".flip-container:not(.active)").on("click", function(e) {
 		$(this).addClass("active"), setTimeout(function() {
@@ -117,5 +116,5 @@ $(function() {
 				"active"
 			), $(".flip-container.temp").remove();
 		});
-	});
+	})
 });
