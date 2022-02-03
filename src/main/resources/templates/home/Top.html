@@ -16,11 +16,6 @@
 			
 	<!-- Smooth scroll JS -->
 	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.0/smooth-scroll.min.js}"></script>
-	<!-- 
-	<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
-	<script src="https://cdn.statically.io/gh/kswedberg/jquery-smooth-scroll/3948290d/jquery.smooth-scroll.min.js"></script>
-	 -->
-	 
 	<!-- verge JS -->
 	<script src="https://cdn.jsdelivr.net/npm/vergejs@latest/index.min.js"></script>
 	<script src="https://unpkg.com/vergejs@1.0.0/index.js"></script>
@@ -78,7 +73,7 @@
 			<div class="main-content">
 			
 				<!-- top -->
-				<section id="home" class="d-flex align-items-center position-relative vh-100 cover hero">
+				<section id="home" class="d-flex align-items-center position-relative cover hero">
 					<div class="container-fluid container-fluid-max">
 						<div class="row">
 							<div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -86,6 +81,12 @@
 								<p class="text-white text-left">
 									"BIMbox" はシェアハウスでのコミュニティの活性化を目的とした掲示板型チャットサービスです。
 								</p>
+								<div class="text-center">
+								<a class="btn learn-more mt-4" href="#about" role="button">
+									<span class="pe-1">Next</span>
+									<i class="fas fa-caret-down"></i>
+								</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -132,7 +133,7 @@
 							</div>
 							<div class="col-12">
 								<a class="btn learn-more" href="#details" role="button">
-									<span class="pe-1">Learn More</span>
+									<span class="pe-1">Next</span>
 									<i class="fas fa-caret-down"></i>
 								</a>
 							</div>
@@ -235,8 +236,11 @@
 						    <div class="lightbox"></div>
 						</div>
 						<div class="row">
-							<div class="col text-center">
-								<a class="btn bg-red text-white" href="" role="button">More Destinations ↓</a>
+							<div class="col-12 text-center">
+								<a class="btn learn-more mt-5" href="#pickUp" role="button">
+									<span class="pe-1">Next</span>
+									<i class="fas fa-caret-down"></i>
+								</a>
 							</div>
 						</div>
 					</div>

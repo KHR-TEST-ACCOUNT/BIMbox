@@ -122,17 +122,35 @@ a:hover {
   z-index: 10;
 }
 
+/*
 .main-content section:not(#home) {
+    margin: 200px 0;
+}
+*/
+
+.main-content section#pickUp {
     margin-top: 200px;
 }
 
+.main-content section#home,
+.main-content section#about {
+    height: 100vh;
+}
+
+.main-content section#about .container-fluid {
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
 .main-content section .section-title h2 {
-	margin: 10px 0;
+	margin-bottom: 10px;
 }
 
 .main-content section .learn-more {
-	background: red;
-	color: var(--white);
+    background: #ff0000e0;
+    color: var(--white);
+    border-radius: 50px;
 }
 
 .main-content section .span {
@@ -141,6 +159,11 @@ a:hover {
 
 .main-content section .section-title {
 	margin-bottom: 20px;
+}
+
+.main-content section#details .section-title,
+.main-content section#pickUp .section-title {
+	margin-top: 30px;
 }
 
 .main-content section#pickUp .learn-more {
@@ -338,17 +361,41 @@ a:hover {
 
 /* MEDIUM SCREENS */
 @media screen and (max-width: 991px) {
-  .page-header {
-    background: var(--red);
-  }
-  .navbar-brand {
-  	margin-left: 25px;
-  }
+	/*
+	.page-header {
+		background: var(--red);
+	}
+	*/
+	.page-header .navbar-nav {
+	    width: 60px;
+	}
+	.page-header .navbar-nav .nav-item a,
+	.page-header .auther-link a {
+	    color: rgb(255 105 105 / 70%);
+	}
+	.page-header .navbar-nav .nav-item a:hover,
+	.page-header .auther-link a:hover {
+	    color: red;
+	}
+	.navbar-brand {
+		margin-left: 25px;
+	}
+	.main-content section#about {
+		margin: 100px 0;
+	}
 }
 
 /* SMALL SCREENS */
 @media screen and (max-width: 767px) {
-  .page-footer .footer-child {
-    text-align: center;
-  }
+	.page-footer .footer-child {
+		text-align: center;
+	}
+}
+@media screen and (max-width: 575px) {
+	.main-content section#details {
+		margin-top: 150px;
+	}
+	.main-content section#about {
+		margin: 200px 0;
+	}
 }
