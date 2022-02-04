@@ -1,26 +1,26 @@
 
 $(function() {
-	
+
 	// 読み込み時処理
 	$(document).ready(function() {
 		decide_topics_width();
 	});
-	
+
 	// 画面リサイズ時処理
 	$(window).on('resize', function() {
 		decide_topics_width();
 	});
-	
+
 	// メニューバーを開いたときの処理
 	$('.fa-bars').on("click", function() {
 		decide_topics_width();
 	});
-	
+
 	// メニューバーを閉じたときの処理
 	$('.fa-times').on("click", function() {
 		$('.page-header').innerWidth($(window).width());
 	});
-	
+
 	// ページ内リンクのスクロール処理
 	$('a[href^="#"]').on('click', function(e) {
 		e.preventDefault();
@@ -31,7 +31,7 @@ $(function() {
 			scrollTop: top + topAdd - 58
 		}, 500, 'linear');
 	});
-	
+
 	// 各要素の横幅を動的に決定	
 	function decide_topics_width() {
 		//　ヘッダーの横幅を決定する
@@ -41,12 +41,12 @@ $(function() {
 			header_width = $window;
 		}
 		$('.page-header').innerWidth(header_width);
-		
+
 		// detailsのIMGの横幅を設定
 		var element = $('#details')
 		var element_width = element.innerWidth();
 		var functionImgs = element.find('.function-content');
-		
+
 		if (element_width < 840) {
 			functionImgs.each(function() {
 				$(this).css('max-width', '100%');
@@ -56,7 +56,7 @@ $(function() {
 				$(this).css('max-width', '50%');
 			});
 		}
-		
+
 		// pickUpのIMGの横幅を設定
 		element = $('#pickUp')
 		var element_width = element.innerWidth();
