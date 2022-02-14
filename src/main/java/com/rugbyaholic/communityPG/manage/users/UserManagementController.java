@@ -39,6 +39,21 @@ public class UserManagementController {
 		return "redirect:/manage/users/UserSearch.do";
 	}
 
+	// ユーザー情報を削除
+	@GetMapping("/profile/users/UserDelete.do")
+	public String onProfileDeleteRequested(@RequestParam(value = "id", required = true) Long id, Model model) {
+			
+		service.userDeleteForm(id);
+		// 処理完了メッセージの追加
+		model.addAttribute("notificationMessage",
+				notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_SUCCESS)
+						.messageCode("communityPG.web.message.proc.success").build());
+
+		model.addAttribute("userSearchForm", service.initializeSearchForm());
+		return "redirect:/manage/users/UserSearch.do";
+	}
+	
+	
 	// 検索時処理
 	@GetMapping("/manage/users/UserSearch.do")
 	public String onSearchRequested(@ModelAttribute UserSearchForm form, Model model) {
@@ -84,7 +99,7 @@ public class UserManagementController {
 						service.initializeRegistrationForm(userID, user));
 				model.addAttribute("notificationMessage",
 						notificationMessage.builder().messageLevel(NotificationMessage.MESSAGE_LEVEL_ERROR)
-								.messageCode("communityPG.web.message.proc.notDeletable").build());
+						.messageCode("communityPG.web.message.proc.notDeletable").build());
 				return "/manage/users/UserRegistration.html";
 			}
 			// ユーザーを削除し検索画面へ遷移

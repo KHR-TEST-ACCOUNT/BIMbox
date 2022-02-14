@@ -1,14 +1,23 @@
--- Email -> test@com
--- PassWord -> 00000000
+-- Email -> test@test
+-- PassWord -> test@test
 
 INSERT INTO USERS (
-	ID, EMAIL, AVF, NAME, PASSWORD, LOCKED, EXPIRED, EMP_NO, DEPT_CD, POS_CD, PROFILE_IMG 
+	EMAIL, AVF, NAME, PASSWORD, LOCKED, EXPIRED, EMP_NO, DEPT_CD, POS_CD, PROFILE_IMG
 ) VALUES (
-	1,'test@com','2021-10-10','初期ユーザー','$2a$10$dYk751tZmAl6uR4LRfcoguKMWncxf/9I.KOnAA4Zwv107yv2KVbHa',0,0,'11111111','0000000','0000',null
+	'test@test','2021-10-10','テストユーザー','$2a$10$a/Cobd29PmWJVO9xMh6Uue/He9Shk/G7A6ZcKAW14FOXQXo01rUsa',0,0,'11111111','0000000','0000',NULL
 );
+
+SELECT * FROM USERS;
+
+
+
+-- USER_ROLES
+-- USER_IDは上記で確認したIDに合わせる。
 
 INSERT INTO USER_ROLES ( 
 	USER_ID, ROLE, DELFLG 
 ) VALUES (
-	1,'03','0' 
+	120,'01','0' 
 );
+
+SELECT * FROM USER_ROLES;
