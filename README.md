@@ -1,7 +1,9 @@
-# [BIMbox](http://http://aws-and-communities.ap-northeast-1.elasticbeanstalk.com/Login.html) （現在サーバー停止中）
+# [BIMbox](http://bimbox-web.com/BIMbox/) 
    BIMboxはシェアハウス・共有施設などで使える小規模なコミュニティSNSです。<br>
    掲示板機能、ダイレクトメッセージ機能、ユーザー検索機能、ファイル共有機能などがあります。<br>
    また、自分のプロフィールに趣味を登録しておくと趣味に合致するユーザーをサジェストします。ユーザー間のリアルタイムなダイレクトメッセージなども可能です。\
+   <br>
+   [紹介動画はこちら（YouTube）](https://youtu.be/mAp2edULuEI) 
 　
 ## 制作背景
   ***「人間の幸福度は、友人関係の多さで決まります。」*** <br>
@@ -22,8 +24,11 @@
 <br><br>
 
 # URL
-【現在停止中】
-http://aws-and-communities.ap-northeast-1.elasticbeanstalk.com/Login.html
+【サイトURL】
+http://bimbox-web.com/BIMbox/
+<br>
+【紹介動画】
+https://youtu.be/mAp2edULuEI
 <br>
 【キャプチャ】
 https://www.dropbox.com/scl/fo/5kbkzmozf1a2z6l1ot2lm/h?dl=0&rlkey=4eairhsg8kuhl8pcflect0fse
